@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CQRS.Query
 {
-    class IQuery
+    public interface IQuery
     {
     }
 }
