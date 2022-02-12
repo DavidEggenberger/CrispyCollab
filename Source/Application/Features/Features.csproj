@@ -4,9 +4,4 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Aggregates\" />
-    <Folder Include="Shared\ValueObjects\" />
-  </ItemGroup>
-
 </Project>
