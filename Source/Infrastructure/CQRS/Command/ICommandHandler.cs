@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CQRS.Command
 {
-    interface ICommandHandler<in TCommand, TCommandResult> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand, TCommandResult> where TCommand : ICommand
     {
         Task<TCommandResult> Handle(TCommand query, CancellationToken cancellation);
     }

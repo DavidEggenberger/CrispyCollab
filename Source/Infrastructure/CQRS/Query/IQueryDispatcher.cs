@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CQRS.Query
 {
-    interface IQueryDispatcher
+    public interface IQueryDispatcher
     {
         Task<TQueryResult> Dispatch<TQuery, TQueryResult>(TQuery query, CancellationToken cancellation);
     }

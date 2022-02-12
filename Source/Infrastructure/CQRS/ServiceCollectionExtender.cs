@@ -1,4 +1,5 @@
 ﻿using Infrastructure.CQRS.Command;
+using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.CQRS.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -15,8 +16,9 @@ namespace Infrastructure.CQRS
     {
         public static IServiceCollection AddCQRS(this IServiceCollection services, Assembly assembly)
         {
-            services.TryAddSingleton<ICommandDispatcher, CommandDispatcher>();
-            services.TryAddSingleton<IQueryDispatcher, QueryDispatcher>();
+            services.TryAddScoped<ICommandDispatcher, CommandDispatcher>();
+            services.TryAddScoped<IQueryDispatcher, QueryDispatcher>();
+            services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
             // INFO: Using https://www.nuget.org/packages/Scrutor for registering all Query and Command handlers by convention
             services.Scan(selector =>
@@ -37,7 +39,17 @@ namespace Infrastructure.CQRS
                             filter.AssignableTo(typeof(ICommandHandler<,>));
                         })
                         .AsImplementedInterfaces()
-                        .WithSingletonLifetime();
+                        .WithScopedLifetime();
+            });
+            services.Scan(selector =>
+            {
+                selector.FromAssemblies(assembly)
+                        .AddClasses(filter =>
+                        {
+                            filter.AssignableTo(typeof(IDomainEventHandler<>));
+                        })
+                        .AsImplementedInterfaces()
+                        .WithScopedLifetime();
             });
             return services;
         }

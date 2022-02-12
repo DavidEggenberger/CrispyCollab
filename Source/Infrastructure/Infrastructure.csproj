@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\DomainEvent\" />
-    <Folder Include="Data\" />
+    <Folder Include="Data\Configuration\" />
     <Folder Include="Identity\" />
   </ItemGroup>
 
