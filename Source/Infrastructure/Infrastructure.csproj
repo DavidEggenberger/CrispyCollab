@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Identity\Persistance\Migrations\" />
+    <Folder Include="Identity\Persistance\Configuration\" />
     <Folder Include="Persistance\Configuration\ApplicationDbContext\" />
     <Folder Include="Persistance\Configuration\IdentificationDbContext\" />
     <Folder Include="Persistance\Migrations\ApplicationDbContext\" />

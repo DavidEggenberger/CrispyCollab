@@ -3,7 +3,7 @@ using Xunit;
 
 namespace IdentityTests
 {
-    public class UnitTest1
+    public class TenantTests
     {
         [Fact]
         public void Test1()

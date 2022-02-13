@@ -16,13 +16,13 @@ namespace Infrastructure.Identity
         public string Name { get; set; }
         public TenantPlan Plan { get; set; }
         public List<TenantApplicationUser> Members { get; set; }
-        public Tenant(string name, ApplicationUser creator)
-        {
-
-        }
         private Tenant()
         {
 
+        }
+        public Tenant(string name, ApplicationUser creator)
+        {
+            
         }
         /// <summary>
         /// Change the role of the Member to the specified one
@@ -66,6 +66,15 @@ namespace Infrastructure.Identity
                     ApplicationUser = applicationUser,
                     Role = TenantRoleType.User
                 });
+
+
+                applicationUser.Claims.Add(new IdentityUserClaim<Guid>
+                {
+                    ClaimType = "Membership",
+                    ClaimValue = $"{Name}/{TenantRoleType.User}"
+                });
+
+
                 return IdentityOperationResult.Success();
             }
             else
