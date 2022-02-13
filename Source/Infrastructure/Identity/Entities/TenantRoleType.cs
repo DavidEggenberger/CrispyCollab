@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Identification
+namespace Infrastructure.Identity
 {
-    public enum TenantPlan
+    public enum TenantRoleType
     {
-        Free,
-        Basic,
-        Premium
+        Admin,
+        User
     }
 }
