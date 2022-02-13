@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
+using Azure.Identity;
 
 namespace WebAPI
 {
@@ -23,13 +24,14 @@ namespace WebAPI
                 {
                     options.ClearProviders();
                 })
-                .UseSerilog((context, configuration) =>
+                .UseSerilog((hostBuilderContext, configuration) =>
                 {
                     configuration.WriteTo.Console();
                 })
-                .ConfigureAppConfiguration(configurationBuilder =>
+                .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    
+                    //configuration.AddAzureKeyVault(new Uri("https://hacksgkeyvault.vault.azure.net/"),
+                    //        new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = "b803e77c-0003-4a3a-8d33-861eb2e3ebbf" }));
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

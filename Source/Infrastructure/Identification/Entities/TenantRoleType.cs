@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Identification
 {
-    class ApplicationDbContext
+    public enum TenantRoleType
     {
+        Admin,
+        User
     }
 }
