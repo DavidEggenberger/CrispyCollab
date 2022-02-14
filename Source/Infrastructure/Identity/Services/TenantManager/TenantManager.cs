@@ -29,12 +29,12 @@ namespace Infrastructure.Services
             {
                 return IdentityOperationResult.Fail("Invalid Tenant");
             }
-            TenantUser _tenantUser = _tenant.Members.First(x => x.UserId == user.Id);
+            TenantApplicationUser _tenantUser = _tenant.Members.First(x => x.UserId == user.Id);
             if(_tenantUser != null)
             {
                 return IdentityOperationResult.Fail("User is already member of the tenant");
             }
-            _tenant.Members.Add(new TenantUser
+            _tenant.Members.Add(new TenantApplicationUser
             {
                 User = user
             });
@@ -49,7 +49,7 @@ namespace Infrastructure.Services
             {
                 return IdentityOperationResult.Fail("Invalid Tenant");
             }
-            TenantUser _tenantUser = _tenant.Members.First(x => x.UserId == user.Id);
+            TenantApplicationUser _tenantUser = _tenant.Members.First(x => x.UserId == user.Id);
             if (_tenantUser == null)
             {
                 return IdentityOperationResult.Fail("User doesnt exist in tenant");

@@ -4,6 +4,7 @@ using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Infrastructure.CQRS;
 using Infrastructure.Identity;
+using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -78,7 +79,7 @@ namespace WebAPI
                 options.Stores.MaxLengthForKeys = 128;
             })
                 .AddDefaultTokenProviders()
-                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser>>()
+                .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
                 .AddEntityFrameworkStores<IdentificationDbContext>();
             identityService.AddSignInManager();
         }
