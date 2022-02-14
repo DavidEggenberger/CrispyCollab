@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class IdentificationDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid, IdentityUserClaim<Guid>, IdentityUserRole<Guid>, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
+    public class IdentificationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public IdentificationDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
+        public IdentificationDbContext(DbContextOptions<IdentificationDbContext> options) : base(options)
         {
 
         }

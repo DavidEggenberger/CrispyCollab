@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Identity\Persistance\Migrations\" />
-    <Folder Include="Identity\Persistance\Configuration\" />
-    <Folder Include="Persistance\Configuration\ApplicationDbContext\" />
-    <Folder Include="Persistance\Configuration\IdentificationDbContext\" />
-    <Folder Include="Persistance\Migrations\ApplicationDbContext\" />
-    <Folder Include="Persistance\Migrations\IdentificationDbContext\" />
+    <Folder Include="Identity\EFCore\Migrations\" />
+    <Folder Include="Identity\EFCore\Configuration\" />
+    <Folder Include="EFCore\Configuration\ApplicationDbContext\" />
+    <Folder Include="EFCore\Configuration\IdentificationDbContext\" />
+    <Folder Include="EFCore\Migrations\ApplicationDbContext\" />
+    <Folder Include="EFCore\Migrations\IdentificationDbContext\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,16 +13,16 @@ namespace Infrastructure.Services
     public class TenantManager : ITenantManager
     {
         private IdentificationDbContext identificationDbContext;
-        private SignInManager<User> signInManager;
-        private UserManager<User> userManager;
-        public TenantManager(IdentificationDbContext identificationDbContext, SignInManager<User> signInManager, UserManager<User> userManager)
+        private SignInManager<ApplicationUser> signInManager;
+        private UserManager<ApplicationUser> userManager;
+        public TenantManager(IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
 
-        public async Task<IdentityOperationResult> AddNewUserToTenantAsync(User user, Tenant tenant)
+        public async Task<IdentityOperationResult> AddNewUserToTenantAsync(ApplicationUser user, Tenant tenant)
         {
             Tenant _tenant = await identificationDbContext.Tenants.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == tenant.Id);
             if (_tenant == null)
@@ -42,7 +42,7 @@ namespace Infrastructure.Services
             return IdentityOperationResult.Success();
         }
 
-        public async Task<IdentityOperationResult> ChangeRoleOfUserInTenantAsync(User user, Tenant tenant, TenantRoleType tenantRoleType)
+        public async Task<IdentityOperationResult> ChangeRoleOfUserInTenantAsync(ApplicationUser user, Tenant tenant, TenantRoleType tenantRoleType)
         {
             Tenant _tenant = await identificationDbContext.Tenants.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == tenant.Id);
             if (_tenant == null)
@@ -69,10 +69,10 @@ namespace Infrastructure.Services
             return IdentityOperationResult.Success();
         }
 
-        public async Task<IdentityOperationResult<List<User>>> GetAllMembersAsync(Tenant tenant)
+        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Tenant tenant)
         {
             Tenant _tenant = await identificationDbContext.Tenants.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == tenant.Id);
-            return new IdentityOperationResult<List<User>>
+            return new IdentityOperationResult<List<ApplicationUser>>
             {
                 Successful = true,
                 Response = _tenant.Members.Select(s => s.User).ToList()

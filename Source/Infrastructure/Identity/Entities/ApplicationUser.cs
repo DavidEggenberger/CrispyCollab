@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class User : IdentityUser<Guid>
+    public class ApplicationUser : IdentityUser<Guid>
     {
         public List<TenantUser> Memberships { get; set; }
         public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }

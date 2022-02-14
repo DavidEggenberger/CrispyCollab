@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Types.Overrides
 {
-    public class UserClaimsPrincipalFactory : IUserClaimsPrincipalFactory<User>
+    public class UserClaimsPrincipalFactory<User> : IUserClaimsPrincipalFactory<User> where User : IdentityUser
     {
         public async Task<ClaimsPrincipal> CreateAsync(User user)
         {

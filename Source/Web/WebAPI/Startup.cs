@@ -3,11 +3,16 @@ using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Infrastructure.CQRS;
+using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,10 +40,47 @@ namespace WebAPI
             services.AddScoped<ITenantManager, TenantManager>();
             services.AddCQRS(GetType().Assembly);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
+            //});
+
+            services.AddDbContext<IdentificationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["AzureSQLConnection"]);
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityDbLocalConnectionString"));
             });
+            
+            AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            });
+            authenticationBuilder.AddExternalCookie().Configure(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = "ExternalAuthCookie";
+            });
+            authenticationBuilder.AddApplicationCookie().Configure(options =>
+            {
+                options.ExpireTimeSpan = new TimeSpan(0, 60, 0);
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = "AuthenticationCookie";
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/User/Logout";
+                options.SlidingExpiration = false;
+            });
+            var identityService = services.AddIdentityCore<ApplicationUser>(options =>
+            {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
+                options.User.RequireUniqueEmail = true;
+                options.Stores.MaxLengthForKeys = 128;
+            })
+                .AddDefaultTokenProviders()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser>>()
+                .AddEntityFrameworkStores<IdentificationDbContext>();
+            identityService.AddSignInManager();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,9 +10,9 @@ namespace Infrastructure.Services
 {
     public interface ITenantManager
     {
-        Task<IdentityOperationResult<List<User>>> GetAllMembersAsync(Tenant tenant);
+        Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Tenant tenant);
         Task<IdentityOperationResult> CreateNewTenantAsync(string name);
-        Task<IdentityOperationResult> AddNewUserToTenantAsync(User user, Tenant tenant);
-        Task<IdentityOperationResult> ChangeRoleOfUserInTenantAsync(User user, Tenant tenant, TenantRoleType tenantRoleType);
+        Task<IdentityOperationResult> AddNewUserToTenantAsync(ApplicationUser user, Tenant tenant);
+        Task<IdentityOperationResult> ChangeRoleOfUserInTenantAsync(ApplicationUser user, Tenant tenant, TenantRoleType tenantRoleType);
     }
 }

@@ -10,11 +10,11 @@ namespace Infrastructure.Identity
 {
     public class TenantUser 
     {
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
         public TenantRoleType Role { get; set; }
         public Guid TenantId { get; set; }
         public Tenant Tenant { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
