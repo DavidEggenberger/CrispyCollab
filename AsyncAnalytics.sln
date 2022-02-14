@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "Integra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{02D93922-A869-4A49-A205-432C8A6F9BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityTests", "Tests\UnitTests\Infrastructure\IdentityTests\IdentityTests.csproj", "{B55A60F4-A955-4545-8AF3-4E20E749B0DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Tests\UnitTests\Infrastructure\IdentityTests\Identity.csproj", "{B55A60F4-A955-4545-8AF3-4E20E749B0DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

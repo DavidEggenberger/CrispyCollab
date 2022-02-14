@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class ApplicationUser 
+    public class TenantUser 
     {
         public Guid Guid { get; set; }
         public TenantRoleType Role { get; set; }
         public Guid TenantId { get; set; }
         public Tenant Tenant { get; set; }
-        public Guid ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
     }
 }

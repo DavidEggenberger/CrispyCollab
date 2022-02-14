@@ -3,7 +3,8 @@ using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Infrastructure.CQRS;
-using Infrastructure.Data;
+using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddScoped<ITenantManager, TenantManager>();
             services.AddCQRS(GetType().Assembly);
 
             services.AddDbContext<ApplicationDbContext>(options =>
