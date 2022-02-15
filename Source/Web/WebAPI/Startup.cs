@@ -2,13 +2,17 @@ using AuthPermissions;
 using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
+using Common.EnvironmentService;
 using Infrastructure.CQRS;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
+using Infrastructure.Services.TenantApplicationUserManager;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,8 +42,11 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<ITenantManager, TenantManager>();
+            services.AddScoped<TenantApplicationUserManager>();
             services.AddCQRS(GetType().Assembly);
+            services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
@@ -111,6 +118,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }

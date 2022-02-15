@@ -10,6 +10,9 @@ namespace Infrastructure.Identity
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
+        public string PictureURI { get; set; }
+        public bool IsOnline { get; set; }
+        public int TabsOpen { get; set; }
         public List<TenantApplicationUser> Memberships { get; set; }
         public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }
         public virtual ICollection<IdentityUserClaim<Guid>> Claims { get; set; }
