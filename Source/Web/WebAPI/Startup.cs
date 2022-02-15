@@ -43,10 +43,9 @@ namespace WebAPI
         {
             services.AddRazorPages();
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
-            services.AddScoped<ITenantManager, TenantManager>();
+            services.AddScoped<TenantManager>();
             services.AddScoped<TenantApplicationUserManager>();
             services.AddCQRS(GetType().Assembly);
-            services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
@@ -57,12 +56,32 @@ namespace WebAPI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityDbLocalConnectionString"));
             });
-            
+
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            });
+            })
+                .AddLinkedIn(options =>
+                {
+                    options.ClientId = "test";
+                    options.ClientSecret = "test";
+                })
+                .AddGitHub(options =>
+                {
+                    options.ClientId = "test";
+                    options.ClientSecret = "test";
+                })
+                .AddMicrosoftAccount(options =>
+                {
+                    options.ClientId = "test";
+                    options.ClientSecret = "test";
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "test";
+                    options.ClientSecret = "test";
+                });
             authenticationBuilder.AddExternalCookie().Configure(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.Strict;
@@ -109,6 +128,7 @@ namespace WebAPI
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
+            app.UseExceptionHandler("/exceptionHandler");
             app.UseRouting();
 
             app.UseAuthentication();

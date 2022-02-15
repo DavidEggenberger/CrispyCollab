@@ -1,4 +1,33 @@
 ﻿@page
 @model WebAPI.Pages.Identity.LoginModel
+@inject SignInManager<ApplicationUser> signInManager
+@attribute [AllowAnonymous]
 @{
 }
+
+<h1>Login</h1>
+
+<h3>Choose a social log-in:</h3>
+@{
+    var providers = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+    <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+            @foreach (var provider in providers)
+            {
+                <button type="submit" style="margin-right: 6px; font-size: 18px; font-weight: bolder;" value="@provider.Name" name="provider">@provider.Name</button>
+            }
+        </div>
+    </form>
+}
+
+<h3>Create an account</h3>
+
+<form method="post">
+    <label>E-Mail</label>
+    <input type="email"/>
+    <label>Password</label>
+    <input type="password"/>
+    <label>Confirm Password</label>
+    <input type="password"/>
+    <button>Create account</button>
+</form>

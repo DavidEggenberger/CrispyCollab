@@ -1,0 +1,11 @@
+﻿@inject AuthenticationStateProvider authProvider
+@inject HttpClient httpClient
+
+<AuthorizeView>
+    <Authorized>
+        <h3 @onclick="() => ((HostAuthenticationStateProvider)authProvider).SignOut()" style="cursor: pointer; margin-left: 15px;" class="underline">Logout</h3>
+    </Authorized>
+    <NotAuthorized>
+        <h3 class="underline" @onclick="() => ((HostAuthenticationStateProvider)authProvider).SignIn()" style="cursor: pointer;">SignUp</h3>
+    </NotAuthorized>
+</AuthorizeView>

@@ -1,4 +1,5 @@
 using Common.EnvironmentService;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WebClient.Authentication;
 
 namespace WebClient
 {
@@ -19,6 +21,8 @@ namespace WebClient
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IEnvironmentService, WebAssemblyEnvironmentService>();
+            builder.Services.AddScoped<AuthenticationStateProvider, HostAuthenticationStateProvider>();
+            builder.Services.AddAuthorizationCore();
 
             await builder.Build().RunAsync();
         }

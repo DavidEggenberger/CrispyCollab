@@ -2,27 +2,8 @@
 @inject IEnvironmentService envService
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            @if(envService.GetEnvironment() != HostingEnvironment.Server)
-            {
-                <AuthorizeView>
-                    <h3>@context.User.Identity.Name</h3>
-                </AuthorizeView>
-            }
-            else
-            {
-                
-            }
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
+    <nav>
+        <h1>Welcome</h1>
+        <LoginDisplay/>
+    </nav>
 </div>

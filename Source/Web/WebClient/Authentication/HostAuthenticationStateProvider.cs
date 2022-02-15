@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace WebClient.Identity
+namespace WebClient.Authentication
 {
     public class HostAuthenticationStateProvider : AuthenticationStateProvider
     {

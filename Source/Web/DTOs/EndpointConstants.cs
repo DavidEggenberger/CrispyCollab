@@ -8,7 +8,7 @@ namespace Shared
 {
     public class EndpointConstants
     {
-        public const string LoginPath = "/Login";
+        public const string LoginPath = "Identity/Login";
         public const string LogoutPath = "/User/Logout";
         public const string UserClaimsPath = "/User/BFFUser";
     }
