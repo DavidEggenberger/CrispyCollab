@@ -47,6 +47,14 @@ namespace WebAPI
             services.AddScoped<TenantManager>();
             services.AddCQRS(GetType().Assembly);
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-XSRF-TOKEN";
+                options.Cookie.Name = "__Host-X-XSRF-TOKEN";
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            });
+
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
@@ -87,6 +95,7 @@ namespace WebAPI
             authenticationBuilder.AddExternalCookie().Configure(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Name = "ExternalAuthenticationCookie";
             });
@@ -94,6 +103,7 @@ namespace WebAPI
             {
                 options.ExpireTimeSpan = new TimeSpan(0, 60, 0);
                 options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Name = "AuthenticationCookie";
                 options.LoginPath = "/Identity/Login";

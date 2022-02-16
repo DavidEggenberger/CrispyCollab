@@ -23,6 +23,7 @@ namespace WebAPI
             {
                 using IHost host = CreateHostBuilder(args).Build();
                 using IServiceScope serviceScope = host.Services.CreateScope();
+                IdentificationDbContext identificationDbContext = serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>();                
                 serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>().Users.Count();
                 host.Run();
             }

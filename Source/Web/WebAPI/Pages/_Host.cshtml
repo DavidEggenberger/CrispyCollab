@@ -19,5 +19,7 @@
     <component type="typeof(App)" render-mode="WebAssembly" />
 
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="~/js/antiForgeryToken.js"></script>
+    @Html.AntiForgeryToken()
 </body>
 </html>

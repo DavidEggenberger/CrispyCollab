@@ -1,7 +1,14 @@
-﻿body{
+﻿:root{
+
+}
+body{
     margin: 0;
     height: 100vh;
 }
+/*@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('~/fonts/Montserrat-Medium.ttf') format('truetype');
+}*/
 .page{
     height: 100vh;
     color: black;

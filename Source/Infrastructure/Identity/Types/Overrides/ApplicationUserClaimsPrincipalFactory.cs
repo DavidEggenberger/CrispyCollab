@@ -21,7 +21,9 @@ namespace Infrastructure.Identity.Types.Overrides
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id.ToString());
             List<Claim> claims = new List<Claim>
             {
-
+                new Claim(ClaimTypes.NameIdentifier, applicationUser.UserName),
+                new Claim(ClaimTypes.Email, applicationUser.Email),
+                new Claim("picture", applicationUser.PictureUri),
             };
             var result = await applicationUserManager.GetMembershipClaimsForUser(user);
             if (result.Successful)
@@ -30,7 +32,7 @@ namespace Infrastructure.Identity.Types.Overrides
             }
 
             //AuthenticationSheme (IdentityConstants.ApplicationSheme) gets set by ASP.NET Core Identity
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             
             return claimsPrincipal;

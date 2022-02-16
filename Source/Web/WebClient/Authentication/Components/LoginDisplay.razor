@@ -1,0 +1,14 @@
+﻿@inject HostAuthenticationStateProvider hostAuthenticationProvider
+@inject HttpClient httpClient
+
+<AuthorizeView>
+    <Authorized>
+        <h3>Welcome @context.User.Identity.Name</h3>
+        <img height=200 class="ProfileImage" src="@context.User.Claims.First(claim => claim.Type == "picture").Value" />
+        <h3 @onclick="() => hostAuthenticationProvider.SignOut()" style="cursor: pointer; margin-left: 15px;" class="underline">Logout</h3>
+    </Authorized>
+    <NotAuthorized>
+        <h3 class="underline" @onclick="() => hostAuthenticationProvider.SignUp()" style="cursor: pointer;">Register</h3>
+        <h3 class="underline" @onclick="() => hostAuthenticationProvider.SignIn()" style="cursor: pointer;">SignUp</h3>
+    </NotAuthorized>
+</AuthorizeView>
