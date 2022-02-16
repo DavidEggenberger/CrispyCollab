@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Shared.Exceptions
 {
-    public class InvalidEntityDeleteException : DomainException
+    public class DomainException : Exception
     {
-        public InvalidEntityDeleteException(string message) : base(message)
+        public DomainException(string message) : base(message)
         {
 
         }

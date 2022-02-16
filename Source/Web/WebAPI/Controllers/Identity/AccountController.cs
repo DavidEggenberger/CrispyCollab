@@ -1,59 +1,58 @@
 ﻿using Infrastructure.Identity;
-using Microsoft.AspNetCore.Authentication;
+using Infrastructure.Services.TenantApplicationUserManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DTOs.Identity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private SignInManager<ApplicationUser> signInManager;
-        private UserManager<ApplicationUser> userManager;
-        public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private ApplicationUserManager userManager;
+        public AccountController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
-        [HttpGet]
-        public async Task<IActionResult> ExternalLoginCallback(string ReturnUrl = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();
-            if (info.Principal == null)
-            {
-                return Redirect("/User/Login");
-            }
             var user = await userManager.FindByNameAsync(info.Principal.Identity.Name);
+
             if (info is not null && user is null)
             {
                 ApplicationUser _user = new ApplicationUser
                 {
                     UserName = info.Principal.Identity.Name,
-                    IsOnline = false,
-                    PictureURI = info.Principal.Claims.Where(claim => claim.Type == "picture").First().Value
+                    Email = info.Principal.FindFirst(claim => claim.Type == ClaimTypes.Email).Value,
+                    PictureUri = info.Principal.Claims.Where(c => c.Type == "picture").First().Value
                 };
-
                 var result = await userManager.CreateAsync(_user);
 
                 if (result.Succeeded)
                 {
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
-                    return LocalRedirect("/");
+
+                    return LocalRedirect(returnUrl);
+                }
+                if (result.Succeeded is false)
+                {
+                    return RedirectToPage("/Error", new { IdentityErrors = result.Errors });
                 }
             }
 
-            string pictureURI = info.Principal.Claims.Where(claim => claim.Type == "picture").First().Value;
-            if (user.PictureURI != pictureURI)
+            string pictureUri = info.Principal.Claims.Where(c => c.Type == "picture").First().Value;
+            if (user.PictureUri != pictureUri)
             {
-                user.PictureURI = pictureURI;
+                user.PictureUri = pictureUri;
                 await userManager.UpdateAsync(user);
             }
 
@@ -61,33 +60,17 @@ namespace WebAPI.Controllers
             return signInResult switch
             {
                 Microsoft.AspNetCore.Identity.SignInResult { Succeeded: true } => LocalRedirect("/"),
-                _ => Redirect("/Error")
+                Microsoft.AspNetCore.Identity.SignInResult { RequiresTwoFactor: true } => RedirectToPage("/TwoFactorLogin", new { ReturnUrl = returnUrl }),
+                _ => LocalRedirect("/")
             };
         }
+        
         [Authorize]
         [HttpGet("Logout")]
         public async Task<ActionResult> LogoutCurrentUser()
         {
-            ApplicationUser appUser = await userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            appUser.TabsOpen = 0;
-            appUser.IsOnline = false;
-            await userManager.UpdateAsync(appUser);
-            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            await signInManager.SignOutAsync();
             return Redirect("/");
-        }
-        [HttpGet("BFFUser")]
-        [AllowAnonymous]
-        public ActionResult<BFFUserInfoDTO> GetCurrentUser()
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return BFFUserInfoDTO.Anonymous;
-            }
-
-            return new BFFUserInfoDTO()
-            {
-                Claims = User.Claims.Select(claim => new ClaimValueDTO { Type = claim.Type, Value = claim.Value }).ToList()
-            };
         }
     }
 }

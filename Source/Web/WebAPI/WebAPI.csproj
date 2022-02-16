@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>f6c6fa58-c628-405d-ba03-853741db9b77</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,7 @@
     <Folder Include="Controllers\Aggregates\" />
     <Folder Include="Extensions\" />
     <Folder Include="Hubs\" />
+    <Folder Include="Pages\Identity\Account\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,5 @@
 ﻿@page
 @model WebAPI.Pages.Identity.LoginModel
-@inject SignInManager<ApplicationUser> signInManager
 @attribute [AllowAnonymous]
 @{
 }
@@ -9,8 +8,8 @@
 
 <h3>Choose a social log-in:</h3>
 @{
-    var providers = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-    <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal">
+    var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+    <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal" asp-page-handler="ExternalLogin">
         <div>
             @foreach (var provider in providers)
             {
@@ -20,14 +19,3 @@
     </form>
 }
 
-<h3>Create an account</h3>
-
-<form method="post">
-    <label>E-Mail</label>
-    <input type="email"/>
-    <label>Password</label>
-    <input type="password"/>
-    <label>Confirm Password</label>
-    <input type="password"/>
-    <button>Create account</button>
-</form>

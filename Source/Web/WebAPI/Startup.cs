@@ -25,6 +25,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace WebAPI
@@ -44,7 +45,6 @@ namespace WebAPI
             services.AddRazorPages();
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<TenantManager>();
-            services.AddScoped<TenantApplicationUserManager>();
             services.AddCQRS(GetType().Assembly);
 
             //services.AddDbContext<ApplicationDbContext>(options =>
@@ -67,11 +67,6 @@ namespace WebAPI
                     options.ClientId = "test";
                     options.ClientSecret = "test";
                 })
-                .AddGitHub(options =>
-                {
-                    options.ClientId = "test";
-                    options.ClientSecret = "test";
-                })
                 .AddMicrosoftAccount(options =>
                 {
                     options.ClientId = "test";
@@ -79,14 +74,21 @@ namespace WebAPI
                 })
                 .AddGoogle(options =>
                 {
-                    options.ClientId = "test";
-                    options.ClientSecret = "test";
+                    options.ClientId = Configuration["SocialLogins:Google:ClientId"];
+                    options.ClientSecret = Configuration["SocialLogins:Google:ClientSecret"];
+                    options.Scope.Add("profile");
+                    options.Events.OnCreatingTicket = (context) =>
+                    {
+                        var picture = context.User.GetProperty("picture").GetString();
+                        context.Identity.AddClaim(new Claim("picture", picture));
+                        return Task.CompletedTask;
+                    };
                 });
             authenticationBuilder.AddExternalCookie().Configure(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Name = "ExternalAuthCookie";
+                options.Cookie.Name = "ExternalAuthenticationCookie";
             });
             authenticationBuilder.AddApplicationCookie().Configure(options =>
             {
@@ -94,9 +96,17 @@ namespace WebAPI
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Name = "AuthenticationCookie";
-                options.LoginPath = "/Login";
-                options.LogoutPath = "/User/Logout";
-                options.SlidingExpiration = false;
+                options.LoginPath = "/Identity/Login";
+                options.LogoutPath = "/Identity/User/Logout";
+                options.SlidingExpiration = true;
+            });
+            authenticationBuilder.AddTwoFactorUserIdCookie().Configure(options =>
+            {
+
+            });
+            authenticationBuilder.AddTwoFactorRememberMeCookie().Configure(options =>
+            {
+
             });
             var identityService = services.AddIdentityCore<ApplicationUser>(options =>
             {
@@ -106,6 +116,7 @@ namespace WebAPI
             })
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
+                .AddUserManager<ApplicationUserManager>()
                 .AddEntityFrameworkStores<IdentificationDbContext>();
             identityService.AddSignInManager();
         }

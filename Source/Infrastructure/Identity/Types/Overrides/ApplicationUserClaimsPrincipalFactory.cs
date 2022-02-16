@@ -11,21 +11,26 @@ namespace Infrastructure.Identity.Types.Overrides
 {
     public class ApplicationUserClaimsPrincipalFactory<User> : IUserClaimsPrincipalFactory<User> where User : ApplicationUser
     {
-        private TenantApplicationUserManager tenantApplicationUserManager;
-        public ApplicationUserClaimsPrincipalFactory(TenantApplicationUserManager tenantApplicationUserManager)
+        private ApplicationUserManager applicationUserManager;
+        public ApplicationUserClaimsPrincipalFactory(ApplicationUserManager tenantApplicationUserManager)
         {
-            this.tenantApplicationUserManager = tenantApplicationUserManager;
+            this.applicationUserManager = tenantApplicationUserManager;
         }
         public async Task<ClaimsPrincipal> CreateAsync(User user)
         {
-            List<Claim> claims = user.GetClaims();
-            var result = await tenantApplicationUserManager.GetMembershipClaimsForUser(user);
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id.ToString());
+            List<Claim> claims = new List<Claim>
+            {
+
+            };
+            var result = await applicationUserManager.GetMembershipClaimsForUser(user);
             if (result.Successful)
             {
                 claims.AddRange(result.Response);
             }
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "application");
+            //AuthenticationSheme (IdentityConstants.ApplicationSheme) gets set by ASP.NET Core Identity
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             
             return claimsPrincipal;

@@ -3,9 +3,11 @@
 
 <AuthorizeView>
     <Authorized>
+        <h3>Welcome @context.User.Identity.Name</h3>
         <h3 @onclick="() => ((HostAuthenticationStateProvider)authProvider).SignOut()" style="cursor: pointer; margin-left: 15px;" class="underline">Logout</h3>
     </Authorized>
     <NotAuthorized>
+        <h3 class="underline" @onclick="() => ((HostAuthenticationStateProvider)authProvider).SignUp()" style="cursor: pointer;">Register</h3>
         <h3 class="underline" @onclick="() => ((HostAuthenticationStateProvider)authProvider).SignIn()" style="cursor: pointer;">SignUp</h3>
     </NotAuthorized>
 </AuthorizeView>
