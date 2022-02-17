@@ -1,4 +1,5 @@
-﻿using Infrastructure.Identity.Services;
+﻿using Common.DTOs.Identity.Tenant;
+using Infrastructure.Identity.Services;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,14 +21,16 @@ namespace WebAPI.Controllers.Identity
             this.applicationUserTenantManager = applicationUserTenantManager;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> GetCurrentTenant(Person person)
+        [HttpGet]
+        public async Task<ActionResult<TenantDTO>> GetCurrentTenantForUser()
         {
             return Ok();
         }
-    }
-    public class Person
-    {
-        public string Name { get; set; }
+
+        [HttpPost]
+        public async Task<ActionResult<TenantDTO>> SetCurrentTenantForUser(CreateTenantDTO createTenantDTO)
+        {
+            return Ok(new TenantDTO());
+        }
     }
 }

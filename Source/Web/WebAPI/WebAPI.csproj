@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Aggregates\" />
-    <Folder Include="Extensions\Middleware\" />
+    <Folder Include="Extensions\" />
     <Folder Include="Hubs\" />
     <Folder Include="Pages\Identity\Account\" />
   </ItemGroup>
