@@ -24,6 +24,7 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim(ClaimTypes.NameIdentifier, applicationUser.UserName),
                 new Claim(ClaimTypes.Email, applicationUser.Email),
                 new Claim("picture", applicationUser.PictureUri),
+                new Claim("Id", applicationUser.Id.ToString()),
             };
             var result = await applicationUserManager.GetMembershipClaimsForUser(user);
             if (result.Successful)
@@ -31,7 +32,6 @@ namespace Infrastructure.Identity.Types.Overrides
                 claims.AddRange(result.Response);
             }
 
-            //AuthenticationSheme (IdentityConstants.ApplicationSheme) gets set by ASP.NET Core Identity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             

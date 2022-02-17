@@ -10,6 +10,7 @@ using Infrastructure.Persistence;
 using Infrastructure.Services;
 using Infrastructure.Services.TenantApplicationUserManager;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
@@ -59,6 +60,23 @@ namespace WebAPI
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.AddPolicy("TenantUser", options =>
+                {
+                    
+                });
+                options.AddPolicy("TenantAdmin", options =>
+                {
+
+                });
+                options.AddPolicy("TenantGuest", options =>
+                {
+
+                });
+            });
 
             services.AddDbContext<IdentificationDbContext>(options =>
             {
