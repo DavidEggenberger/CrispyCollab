@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,21 +35,30 @@ namespace WebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IWebHostEnvironment webHostEnvironment { get; }
+        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            this.webHostEnvironment = webHostEnvironment;
         }
-
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Identity");
+                options.Conventions.AllowAnonymousToPage("/Login");
+                options.Conventions.AllowAnonymousToPage("/SignUp");
+                options.Conventions.AllowAnonymousToPage("/TwoFactorLogin");
+            });
+            services.AddSignalR();
             services.AddControllers(options =>
             {
-                   options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AuthorizeFilter());
             });
+
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<TenantManager>();
             services.AddCQRS(GetType().Assembly);
@@ -135,11 +145,17 @@ namespace WebAPI
             });
             authenticationBuilder.AddTwoFactorUserIdCookie().Configure(options =>
             {
-
+                options.Cookie.Name = "TwoFAUserIdCookie";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
             authenticationBuilder.AddTwoFactorRememberMeCookie().Configure(options =>
             {
-
+                options.Cookie.Name = "TwoFARememberMeCookie";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
             var identityService = services.AddIdentityCore<ApplicationUser>(options =>
             {
@@ -150,24 +166,14 @@ namespace WebAPI
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
                 .AddUserManager<ApplicationUserManager>()
-                .AddEntityFrameworkStores<IdentificationDbContext>();
-            identityService.AddSignInManager();
+                .AddEntityFrameworkStores<IdentificationDbContext>()
+                .AddSignInManager();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
+            app.UseHsts();
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
