@@ -7,5 +7,10 @@ namespace WebAPI.Controllers.Identity
     [ApiController]
     public class TenantController : ControllerBase
     {
+        [HttpPost]
+        public ActionResult T()
+        {
+            return Ok();
+        }
     }
 }

@@ -1,4 +1,11 @@
 ﻿@page "/"
+@inject HttpClient httpClient
 
+<button @onclick="async()=> await Post()">Post</button>
 
-
+@code{
+    public async Task Post()
+    {
+        await httpClient.PostAsJsonAsync("api/tenant", new { });
+    }
+}

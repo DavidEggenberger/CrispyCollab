@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,10 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllers(options =>
+            {
+                   options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<TenantManager>();
             services.AddCQRS(GetType().Assembly);
