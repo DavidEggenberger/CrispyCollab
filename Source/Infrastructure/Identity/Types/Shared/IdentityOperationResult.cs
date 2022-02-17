@@ -16,9 +16,9 @@ namespace Infrastructure.Identity.Types.Shared
     public class IdentityOperationResult<T>
     {
         public bool Successful { get; set; }
-        public T Response { get; set; }
+        public T Value { get; set; }
         public string Message { get; set; }
-        public static IdentityOperationResult Success() => new IdentityOperationResult { Successful = true };
-        public static IdentityOperationResult Fail(string message) => new IdentityOperationResult { Successful = false, Message = message };
+        public static IdentityOperationResult<T> Success(T t) => new IdentityOperationResult<T> { Successful = true, Value = t };
+        public static IdentityOperationResult<T> Fail(string message) => new IdentityOperationResult<T> { Successful = false, Message = message };
     }
 }

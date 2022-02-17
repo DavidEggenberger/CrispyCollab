@@ -26,10 +26,10 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim("picture", applicationUser.PictureUri),
                 new Claim("Id", applicationUser.Id.ToString()),
             };
-            var result = await applicationUserManager.GetMembershipClaimsForUser(user);
+            var result = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
             if (result.Successful)
             {
-                claims.AddRange(result.Response);
+                claims.AddRange(result.Value);
             }
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);

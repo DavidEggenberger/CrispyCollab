@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class TenantApplicationUser 
+    public class ApplicationUserTenant 
     {
         public Guid Id { get; set; }
         public TenantRoleType Role { get; set; }

@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WebClient.Authentication;
+using WebClient.Authentication.Antiforgery;
 
 namespace WebClient
 {
@@ -20,12 +21,13 @@ namespace WebClient
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-       
+
+            builder.Services.AddScoped<AntiforgeryTokenService>();
             builder.Services.AddScoped<AuthenticationStateProvider, HostAuthenticationStateProvider>();
             builder.Services.AddScoped(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());
             builder.Services.AddTransient<AuthorizedHandler>();
             builder.Services.AddHttpClient("default", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-            builder.Services.AddHttpClient("authorizedClient")
+            builder.Services.AddHttpClient("authorizedClient", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<AuthorizedHandler>();
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
 

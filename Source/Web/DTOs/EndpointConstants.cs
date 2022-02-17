@@ -12,6 +12,6 @@ namespace Shared
         public const string SignUp = "Identity/SignUp";
         public const string LoginPath = "Identity/Login";
         public const string LogoutPath = "api/account/Logout";
-        public const string UserClaimsPath = "api/User/BFFUser";
+        public const string UserClaimsPath = "api/BFF/User";
     }
 }

@@ -2,16 +2,18 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using WebClient.Authentication.Antiforgery;
 
 namespace WebClient.Authentication
 {
     public class AuthorizedHandler : DelegatingHandler
     {
         private readonly HostAuthenticationStateProvider authenticationStateProvider;
-
-        public AuthorizedHandler(HostAuthenticationStateProvider authenticationStateProvider)
+        private readonly AntiforgeryTokenService antiforgeryTokenService;
+        public AuthorizedHandler(HostAuthenticationStateProvider authenticationStateProvider, AntiforgeryTokenService antiforgeryTokenService)
         {
             this.authenticationStateProvider = authenticationStateProvider;
+            this.antiforgeryTokenService = antiforgeryTokenService;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -27,6 +29,7 @@ namespace WebClient.Authentication
             }
             else
             {
+                request.Headers.Add("X-XSRF-TOKEN", await antiforgeryTokenService.GetAntiforgeryTokenAsync());
                 responseMessage = await base.SendAsync(request, cancellationToken);
             }
 

@@ -22,14 +22,10 @@ namespace Infrastructure.Services.TenantApplicationUserManager
             this.identificationDbContext = identificationDbContext;
         }
 
-        public async Task<IdentityOperationResult<List<Claim>>> GetMembershipClaimsForUser(ApplicationUser applicationUser)
+        public async Task<IdentityOperationResult<List<Claim>>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);
-            return new IdentityOperationResult<List<Claim>>
-            {
-                Successful = true,
-                Response = _applicationUser.Memberships.Select(x => new Claim("Org1", "Admin")).ToList()
-            };
+            return IdentityOperationResult<List<Claim>>.Success(_applicationUser.Memberships.Select(x => new Claim("Org1", "Admin")).ToList());
         }
     }
 }

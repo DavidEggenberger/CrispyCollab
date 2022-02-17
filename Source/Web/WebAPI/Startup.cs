@@ -69,18 +69,18 @@ namespace WebAPI
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TenantUser", options =>
-                {
+                //options.AddPolicy("TenantUser", options =>
+                //{
                     
-                });
-                options.AddPolicy("TenantAdmin", options =>
-                {
+                //});
+                //options.AddPolicy("TenantAdmin", options =>
+                //{
 
-                });
-                options.AddPolicy("TenantGuest", options =>
-                {
+                //});
+                //options.AddPolicy("TenantGuest", options =>
+                //{
 
-                });
+                //});
             });
 
             services.AddDbContext<IdentificationDbContext>(options =>

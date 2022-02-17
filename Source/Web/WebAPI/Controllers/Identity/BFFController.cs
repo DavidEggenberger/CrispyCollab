@@ -8,9 +8,9 @@ namespace WebAPI.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class BFFController : ControllerBase
     {
-        [HttpGet("BFFUser")]
+        [HttpGet("User")]
         [AllowAnonymous]
         public ActionResult<BFFUserInfoDTO> GetCurrentUser()
         {
