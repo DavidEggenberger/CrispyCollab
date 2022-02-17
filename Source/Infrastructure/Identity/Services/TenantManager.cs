@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Services
 {
-    public class TenantManager : ITenantManager
+    public class TenantManager
     {
         private IdentificationDbContext identificationDbContext;
         private SignInManager<ApplicationUser> signInManager;
@@ -61,9 +61,11 @@ namespace Infrastructure.Services
 
         public async Task<IdentityOperationResult> CreateNewTenantAsync(string name)
         {
+
             identificationDbContext.Tenants.Add(new Tenant
             {
-                Name = name
+                Name = name,
+                Members = 
             });
             await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();

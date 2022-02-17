@@ -9,6 +9,7 @@ namespace Infrastructure.Identity
     public enum TenantRoleType
     {
         Admin,
-        User
+        User,
+        Guest
     }
 }
