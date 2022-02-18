@@ -21,11 +21,19 @@ namespace WebAPI.Controllers.Identity
             this.applicationUserTenantManager = applicationUserTenantManager;
         }
 
-        [HttpGet]
+
+
+        [HttpGet("current")]
         public async Task<ActionResult<TenantDTO>> GetCurrentTenantForUser()
         {
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<ActionResult<TenantDTO>> CreateTenant()
+        {
+            return Ok();
+        }    
 
         [HttpPost]
         public async Task<ActionResult<TenantDTO>> SetCurrentTenantForUser(CreateTenantDTO createTenantDTO)

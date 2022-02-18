@@ -5,6 +5,7 @@ using AuthPermissions.SetupCode;
 using Common.EnvironmentService;
 using Infrastructure.CQRS;
 using Infrastructure.Identity;
+using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
@@ -21,6 +22,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,15 +55,14 @@ namespace WebAPI
                 options.Conventions.AllowAnonymousToPage("/SignUp");
                 options.Conventions.AllowAnonymousToPage("/TwoFactorLogin");
             });
-            services.AddSignalR();
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                options.Filters.Add(new AuthorizeFilter());
             });
 
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<TenantManager>();
+            services.AddScoped<ApplicationUserTenantManager>();
             services.AddCQRS(GetType().Assembly);
 
             services.AddAntiforgery(options =>
@@ -79,18 +81,21 @@ namespace WebAPI
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                //options.AddPolicy("TenantUser", options =>
-                //{
-                    
-                //});
-                //options.AddPolicy("TenantAdmin", options =>
-                //{
-
-                //});
-                //options.AddPolicy("TenantGuest", options =>
-                //{
-
-                //});
+                options.AddPolicy("TenantGuest", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "Guest", "User", "Admin");
+                });
+                options.AddPolicy("TenantUser", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "User", "Admin");
+                });
+                options.AddPolicy("TenantAdmin", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "Admin");
+                });
             });
 
             services.AddDbContext<IdentificationDbContext>(options =>

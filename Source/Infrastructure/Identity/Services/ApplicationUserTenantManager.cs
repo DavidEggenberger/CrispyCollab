@@ -1,4 +1,5 @@
-﻿using Infrastructure.Identity.Types.Shared;
+﻿using Infrastructure.Identity.Types.Enums;
+using Infrastructure.Identity.Types.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -60,8 +61,10 @@ namespace Infrastructure.Identity.Services
         {
             if(CheckTenantMembershipOfApplicationUser(applicationUser, tenant))
             {
-                //applicationUser.CurrentlySelectedTenant = tenant;
+                applicationUser.Memberships.ForEach(x => x.Status = TenantStatus.NotSelected);
+                applicationUser.Memberships.Where(x => x.TenantId == tenant.Id).First().Status = TenantStatus.Selected;
                 await identificationDbContext.SaveChangesAsync();
+                await signInManager.RefreshSignInAsync(applicationUser);
                 return IdentityOperationResult.Success();
             }
             return IdentityOperationResult.Fail("User is not a member of the tenant");

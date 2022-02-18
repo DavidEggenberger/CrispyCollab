@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers.Identity
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class AccountController : ControllerBase
     {

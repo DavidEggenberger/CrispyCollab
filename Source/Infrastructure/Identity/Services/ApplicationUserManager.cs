@@ -1,5 +1,7 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Types;
+using Infrastructure.Identity.Types.Constants;
+using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Types.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +27,17 @@ namespace Infrastructure.Services.TenantApplicationUserManager
         public async Task<IdentityOperationResult<List<Claim>>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);
-            return IdentityOperationResult<List<Claim>>.Success(_applicationUser.Memberships.Select(x => new Claim("Org1", "Admin")).ToList());
+            ApplicationUserTenant applicationUserTenant = _applicationUser.Memberships.Where(x => x.Status == TenantStatus.Selected).FirstOrDefault();
+            if(applicationUserTenant == null)
+            {
+                return IdentityOperationResult<List<Claim>>.Fail("");
+            }
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(IdentityStringConstants.IdentityTenantIdClaimType, applicationUserTenant.TenantId.ToString()),
+                new Claim(IdentityStringConstants.IdentityTenantRoleClaimType, applicationUserTenant.Role.ToString())
+            };
+            return IdentityOperationResult<List<Claim>>.Success(claims);
         }
     }
 }
