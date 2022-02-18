@@ -1,15 +1,22 @@
-﻿:root{
-
+﻿:root {
+    --color1: #ffc3a0;
+    --color2: #ffafbd;
 }
 body{
     margin: 0;
     height: 100vh;
 }
-/*@font-face {
-    font-family: 'Montserrat-Medium';
-    src: url('~/fonts/Montserrat-Medium.ttf') format('truetype');
-}*/
-.page{
+.page {
     height: 100vh;
     color: black;
+    background-image: linear-gradient(to top, var(--color1) 0%, var(--color2) 100%);
+}
+nav{
+    padding: 15px;
+}
+main{
+    padding: 15px;
+}
+footer{
+    padding: 15px;
 }

@@ -15,6 +15,7 @@ namespace Infrastructure.Identity
         public string IconUri { get; set; }
         public string Name { get; set; }
         public TenantPlan Plan { get; set; }
+        public List<string> InvitedEmails { get; set; }
         public List<ApplicationUserTenant> Members { get; set; }   
     }
 }

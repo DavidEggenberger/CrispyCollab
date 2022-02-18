@@ -22,6 +22,11 @@ namespace Infrastructure.Services
             this.userManager = userManager;
         }
 
+        private async Task<IdentityOperationResult> InviteUserThroughEmailToTenant(Tenant tenant, string Email)
+        {
+            throw new Exception();
+        }
+
         public async Task<IdentityOperationResult> CreateNewTenantAsync(string name)
         {
 
@@ -37,6 +42,15 @@ namespace Infrastructure.Services
         {
             Tenant _tenant = await identificationDbContext.Tenants.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == tenant.Id);
             return IdentityOperationResult<List<ApplicationUser>>.Success(tenant.Members.Select(x => x.User).ToList());
+        }
+        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersByRoleAsync(Tenant tenant, TenantRoleType role)
+        {
+            Tenant _tenant = await identificationDbContext.Tenants.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == tenant.Id);
+            return IdentityOperationResult<List<ApplicationUser>>.Success(tenant.Members.Where(x => x.Role == role).Select(x => x.User).ToList());
+        }
+        public async Task<IdentityOperationResult> UpdateTenantName(Tenant tenant, string newName)
+        {
+            throw new Exception();
         }
         public async Task<bool> CheckIfNameIsValidForTenant(string name)
         {

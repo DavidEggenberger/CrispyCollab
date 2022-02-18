@@ -17,7 +17,7 @@
     public async Task Post()
     {
         await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
-        //await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
-        //await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
+        await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
+        await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
     }
 }

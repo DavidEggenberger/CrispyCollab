@@ -10,6 +10,7 @@ namespace Infrastructure.Identity
     {
         Admin,
         User,
-        Guest
+        Guest,
+        Invited
     }
 }
