@@ -69,6 +69,16 @@ namespace Infrastructure.Identity.Services
             }
             return IdentityOperationResult.Fail("User is not a member of the tenant");
         }
+        public async Task<IdentityOperationResult<Tenant>> GetCurrentSelectedTenantForApplicationUserAsync(ApplicationUser applicationUser)
+        {
+            ApplicationUser _applicationUser = identificationDbContext.Users.Include(x => x.Memberships).ThenInclude(x => x.Tenant).Where(x => x.Id == applicationUser.Id).FirstOrDefault();
+            Tenant tenant = _applicationUser.Memberships.Where(x => x.Status == TenantStatus.Selected).First().Tenant;
+            if(tenant != null)
+            {
+                return IdentityOperationResult<Tenant>.Success(tenant);
+            }
+            return IdentityOperationResult<Tenant>.Fail("User is not a member of the tenant");
+        }
         public bool CheckTenantMembershipOfApplicationUser(ApplicationUser applicationUser, Tenant tenant)
         {
             if(applicationUser.Memberships.Any(x => x.TenantId == tenant.Id))

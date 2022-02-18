@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services.TenantApplicationUserManager
+namespace Infrastructure.Services
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

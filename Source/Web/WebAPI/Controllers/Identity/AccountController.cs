@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Identity;
-using Infrastructure.Services.TenantApplicationUserManager;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

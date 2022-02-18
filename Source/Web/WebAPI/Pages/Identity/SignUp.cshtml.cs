@@ -1,5 +1,5 @@
 using Infrastructure.Identity;
-using Infrastructure.Services.TenantApplicationUserManager;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

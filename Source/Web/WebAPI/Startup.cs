@@ -9,7 +9,8 @@ using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
-using Infrastructure.Services.TenantApplicationUserManager;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +49,11 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #if DEBUG
+            TelemetryConfiguration.Active.DisableTelemetry = true;
+            TelemetryDebugWriter.IsTracingDisabled = true;
+            #endif
+
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Identity");

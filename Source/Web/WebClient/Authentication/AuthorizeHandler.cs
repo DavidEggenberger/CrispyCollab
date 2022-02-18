@@ -35,7 +35,6 @@ namespace WebClient.Authentication
 
             if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                // if server returned 401 Unauthorized, redirect to login page
                 authenticationStateProvider.SignIn();
             }
 

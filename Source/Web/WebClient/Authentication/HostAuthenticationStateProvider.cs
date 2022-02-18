@@ -13,10 +13,9 @@ namespace WebClient.Authentication
 {
     public class HostAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly TimeSpan UserCacheRefreshInterval = TimeSpan.FromSeconds(60);
         private readonly NavigationManager navigationManager;
         private readonly HttpClient httpClient;
-
+        private static readonly TimeSpan UserCacheRefreshInterval = TimeSpan.FromSeconds(60);
         private DateTimeOffset userLastCheck = DateTimeOffset.FromUnixTimeSeconds(0);
         private ClaimsPrincipal cachedUser = new ClaimsPrincipal(new ClaimsIdentity());
 
@@ -39,8 +38,9 @@ namespace WebClient.Authentication
             }
             else
             {
+                cachedUser = await FetchUser();
                 userLastCheck = DateTime.Now;
-                return await FetchUser();
+                return cachedUser;
             }
         }
 
