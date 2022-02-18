@@ -1,23 +1,8 @@
 ﻿@page "/"
 @inject IHttpClientFactory httpClient
 
-<AuthorizeView>
-    <Authorized>
-        @context.User.Identity.IsAuthenticated
-        @foreach(var claim in context.User.Claims)
-        {
-            <h3>@claim.Type  @claim.Value</h3>
-        }
-    </Authorized>
-</AuthorizeView>
 
-<button @onclick="async()=> await Post()">Post</button>
 
 @code{
-    public async Task Post()
-    {
-        await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
-        await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
-        await httpClient.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDTO { Id = Guid.NewGuid() });
-    }
+    
 }

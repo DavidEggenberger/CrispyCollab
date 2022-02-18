@@ -9,14 +9,38 @@ body{
 .page {
     height: 100vh;
     color: black;
-    background-image: linear-gradient(to top, var(--color1) 0%, var(--color2) 100%);
+    background-image: linear-gradient(180deg, #FFFFFF, var(--color1));
 }
-nav{
+nav {
     padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 main{
     padding: 15px;
 }
 footer{
     padding: 15px;
+}
+.LogoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.TitleAsideContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.TitleAsideContainer > h3{
+    margin-right: 14px;
+}
+.LoginDisplayContainer{
+    margin-left: 10px;
+}
+.LoginButton{
+    padding: 2px;
+    border: 2px solid black;
+    border-radius: 5px;
 }
