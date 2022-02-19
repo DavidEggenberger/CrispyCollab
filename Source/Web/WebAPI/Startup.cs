@@ -64,6 +64,7 @@ namespace WebAPI
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AuthorizeFilter());
             });
 
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
