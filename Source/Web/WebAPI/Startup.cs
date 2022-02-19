@@ -4,6 +4,7 @@ using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Common.EnvironmentService;
 using Infrastructure.CQRS;
+using Infrastructure.EmailSender;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
@@ -55,7 +56,8 @@ namespace WebAPI
             TelemetryConfiguration.Active.DisableTelemetry = true;
             TelemetryDebugWriter.IsTracingDisabled = true;
             #endif
-
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Identity");

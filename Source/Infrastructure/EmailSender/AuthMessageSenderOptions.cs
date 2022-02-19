@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EmailSender
 {
-    public interface IEmailSender
+    public class AuthMessageSenderOptions
     {
-        Task SendEmailAsync(string toEmail, string subject, string message);
+        public string? SendGridKey { get; set; }
     }
 }
