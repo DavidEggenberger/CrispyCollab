@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime jsRuntime
 
 <div class="page">
     <nav>
@@ -9,18 +10,25 @@
             </a>
         </div>
         <div class="TitleAsideContainer">
-            <NavLink href="Product">
-                <h3>Product</h3>
-            </NavLink>
-            <NavLink href="AboutUs">
-                <h3>AboutUs</h3>
-            </NavLink>
-            <NavLink href="Careers">
-                <h3>Careers</h3>
-            </NavLink>
-            <div class="LoginDisplayContainer">
-                <LoginDisplay/>
-            </div>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink href="Product">
+                        <h3>Product</h3>
+                    </NavLink>
+                    <NavLink href="AboutUs">
+                        <h3>AboutUs</h3>
+                    </NavLink>
+                    <NavLink href="Careers">
+                        <h3>Careers</h3>
+                    </NavLink>
+                    <div class="LoginDisplayContainer">
+                        <LoginDisplayComponent/>
+                    </div>
+                </NotAuthorized>
+                <Authorized>
+                    <ProfileComponent/>
+                </Authorized>
+            </AuthorizeView>           
         </div>
     </nav>
     <main>
@@ -30,3 +38,10 @@
         <AntiForgeryTokenInput/>
     </footer>
 </div>
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        await jsRuntime.InvokeVoidAsync("hideLoadingScreen");
+    }
+}

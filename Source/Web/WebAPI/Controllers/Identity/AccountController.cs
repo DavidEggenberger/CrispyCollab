@@ -23,6 +23,7 @@ namespace WebAPI.Controllers.Identity
             this.userManager = userManager;
         }
 
+        [HttpGet("ExternalLoginCallback")]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();
@@ -66,6 +67,8 @@ namespace WebAPI.Controllers.Identity
                 _ => LocalRedirect("/")
             };
         }
+
+        [HttpGet("ExternalSignUpCallback")]
         public async Task<IActionResult> ExternalSignUpCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();

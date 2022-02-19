@@ -1,0 +1,12 @@
+﻿@inject HostAuthenticationStateProvider hostAuthenticationProvider
+
+<AuthorizeView>
+    <Authorized>
+        <div class="ProfileSection">
+            <h3>@context.User.Identity.Name</h3>
+            <img @onclick="() => hostAuthenticationProvider.GoToManageAccount()" class="SettingSlider" src="/Icons/settings-sliders.svg"/>
+            <img src="@context.User.Claims.First(claim => claim.Type == "picture").Value" />
+            <h3 class="LogoutButton" @onclick="() => hostAuthenticationProvider.SignOut()">Logout</h3>            
+        </div> 
+    </Authorized>
+</AuthorizeView>

@@ -91,6 +91,10 @@ namespace WebClient.Authentication
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
+        public void GoToManageAccount()
+        {
+            navigationManager.NavigateTo("/Identity/Account", true);
+        }
         public void SignOut()
         {
             navigationManager.NavigateTo(EndpointConstants.LogoutPath, true);

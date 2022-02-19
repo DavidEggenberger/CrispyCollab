@@ -1,0 +1,22 @@
+﻿.ProfileSection {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+    .ProfileSection img {
+        display: block;
+        height: 30px;
+        width: 30px;
+        margin-bottom: 5px;
+    }
+
+.SettingSlider {
+    margin-left: 10px;
+    cursor: pointer;
+    margin-right: 7px;
+}
+.LogoutButton{
+    cursor: pointer;
+    margin-left: 15px;
+}
