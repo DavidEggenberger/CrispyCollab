@@ -2,3 +2,10 @@
 @model WebAPI.Pages.Identity.LoginWithRecoveryCodeModel
 @{
 }
+
+<form method="post">
+    <label>Login with recovery codes instead:</label>
+    <div asp-validation-summary="All"></div>
+    <input asp-for="@Model.RecoveryCode" />
+    <button>Login</button>
+</form>

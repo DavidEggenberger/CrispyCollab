@@ -24,6 +24,10 @@ namespace Infrastructure.Services
             this.identificationDbContext = identificationDbContext;
         }
 
+        public async Task<IdentityOperationResult<List<Tenant>>> GetTenantsWhereApplicationUserIsAdmin(ApplicationUser applicationUser)
+        {
+            throw new Exception();
+        }
         public async Task<IdentityOperationResult<List<Claim>>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);

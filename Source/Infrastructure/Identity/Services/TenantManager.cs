@@ -22,11 +22,14 @@ namespace Infrastructure.Services
             this.userManager = userManager;
         }
 
-        private async Task<IdentityOperationResult> InviteUserThroughEmailToTenant(Tenant tenant, string Email)
+        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmailToTenant(Tenant tenant, TenantRoleType role, string Email)
         {
             throw new Exception();
         }
-
+        public async Task<IdentityOperationResult> InviteUserThroughEmailToTenant(Tenant tenant, string Email)
+        {
+            throw new Exception();
+        }
         public async Task<IdentityOperationResult> CreateNewTenantAsync(string name)
         {
 

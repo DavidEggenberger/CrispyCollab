@@ -17,6 +17,11 @@ nav {
     justify-content: space-between;
     align-items: flex-end;
 }
+    nav a {
+        text-decoration: none;
+        color: black !important;
+        margin-right: 14px;
+    }
 main{
     padding: 15px;
 }
@@ -38,11 +43,6 @@ footer{
 }
 .TitleAsideContainer h3{
     font-size: 18px;
-}
-.TitleAsideContainer a{
-    text-decoration: none;
-    color: black !important;
-    margin-right: 14px;
 }
 .LoginDisplayContainer{
     margin-left: 10px;
