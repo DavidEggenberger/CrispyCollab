@@ -1,0 +1,9 @@
+﻿.ServerMainSection {
+    display: grid;
+    place-content: center;
+    height: 100%;
+    width: 100%;
+}
+.ServerMainSection .RenderBody{
+    
+}

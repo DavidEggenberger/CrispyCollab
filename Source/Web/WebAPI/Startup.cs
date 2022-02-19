@@ -29,6 +29,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            StripeConfiguration.ApiKey = Configuration["StripeKey"];
             #if DEBUG
             TelemetryConfiguration.Active.DisableTelemetry = true;
             TelemetryDebugWriter.IsTracingDisabled = true;
@@ -64,7 +66,6 @@ namespace WebAPI
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                options.Filters.Add(new AuthorizeFilter());
             });
 
             services.AddScoped<IEnvironmentService, ServerEnvironmentService>();

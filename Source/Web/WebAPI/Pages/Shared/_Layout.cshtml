@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - AsyncAnalytics</title>
     <link rel="stylesheet" href="~/css/defaults.css"/>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/WebAPI.styles.css" rel="stylesheet" />
 </head>
 <body>
     <div class="page">
@@ -21,8 +22,10 @@
             }
         </div>
     </nav>
-    <main>
-        @RenderBody()
+    <main class="ServerMainSection">
+        <div class="RenderBody">
+            @RenderBody()
+        </div>
     </main>
     <footer>
         

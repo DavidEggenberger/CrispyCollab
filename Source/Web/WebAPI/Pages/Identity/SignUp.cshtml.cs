@@ -23,14 +23,16 @@ namespace WebAPI.Pages.Identity
             this.applicationUserManager = applicationUserManager;
         }
 
-        public async Task<ActionResult> OnGetAsync(string returnUrl = null)
+        public async Task<ActionResult> OnGetAsync()
         {
-            if (signInManager.IsSignedIn(User))
+            if (User.Identity.IsAuthenticated)
             {
-                return Redirect(returnUrl);
+                return LocalRedirect("/");
             }
-            ReturnUrl = returnUrl;
-            return Page();
+            else
+            {
+                return Page();
+            }
         }
 
         public ActionResult OnPost([FromForm] string provider, string returnUrl)

@@ -32,7 +32,7 @@ namespace Infrastructure.Identity.Types.Overrides
                 claims.AddRange(result.Value);
             }
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.NameIdentifier, null);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.NameIdentifier, ClaimTypes.Role);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             
             return claimsPrincipal;

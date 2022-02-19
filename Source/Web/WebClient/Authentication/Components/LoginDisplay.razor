@@ -1,11 +1,15 @@
 ﻿@inject HostAuthenticationStateProvider hostAuthenticationProvider
-@inject HttpClient httpClient
 
 <AuthorizeView>
     <Authorized>
-        <h3>Welcome @context.User.Identity.Name</h3>
-        <img height=200 class="ProfileImage" src="@context.User.Claims.First(claim => claim.Type == "picture").Value" />
-        <h3 @onclick="() => hostAuthenticationProvider.SignOut()" style="cursor: pointer; margin-left: 15px;" class="underline">Logout</h3>
+        <div class="ProfileSection">
+            <h3>@context.User.Identity.Name</h3>
+            <a href="/Identity/Account">
+                <img class="SettingSlider" src="/Icons/settings-sliders.svg"/>
+            </a>
+            <img src="@context.User.Claims.First(claim => claim.Type == "picture").Value" />
+            <h3 @onclick="() => hostAuthenticationProvider.SignOut()" style="cursor: pointer; margin-left: 15px;" class="underline">Logout</h3>
+        </div>  
     </Authorized>
     <NotAuthorized>
         <h3 class="LoginButton" @onclick="() => hostAuthenticationProvider.SignIn()" style="cursor: pointer;">LogIn</h3>
