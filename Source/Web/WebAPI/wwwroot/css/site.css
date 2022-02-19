@@ -12,6 +12,7 @@ body{
     background-image: linear-gradient(180deg, #FFFFFF, var(--color1));
 }
 nav {
+    height: 80px;
     padding: 15px;
     padding-right: 25px;
     display: flex;
@@ -26,8 +27,10 @@ nav {
 main{
     padding: 15px;
     padding-right: 25px;
+    height: calc(100% - 130px);
 }
 footer {
+    height: 50px;
     padding: 15px;
     padding-right: 25px;
 }

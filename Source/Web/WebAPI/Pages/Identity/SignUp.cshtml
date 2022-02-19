@@ -3,17 +3,21 @@
 @{
 }
 
-<h3>Sign Up with a social log-in: </h3>
-@{
-    var providers = (await Model.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-    <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal" asp-page-handler="ExternalRegister">
-        <div>
-            @foreach (var provider in providers)
-            {
-                <button type="submit" style="margin-right: 6px; font-size: 18px; font-weight: bolder;" value="@provider.Name" name="provider">@provider.Name</button>
-            }
-        </div>
-    </form>
-}
+<div>
+    <partial name="_LogInSignUpSwitch" model=@(new LogInSignUpSwitchModel{ SignUpActive = true, ReturnUrl = Model.ReturnUrl })/>
+    @{
+        var providers = (await Model.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
+            <div>
+                <h3>Sign Up with a social log-in:</h3>
+                @foreach (var provider in providers)
+                {
+                    <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
+                }
+            </div>
+        </form>
+    }
+</div>
+
 
 

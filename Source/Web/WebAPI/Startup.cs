@@ -61,9 +61,9 @@ namespace WebAPI
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Identity");
-                options.Conventions.AllowAnonymousToPage("/Login");
-                options.Conventions.AllowAnonymousToPage("/SignUp");
-                options.Conventions.AllowAnonymousToPage("/TwoFactorLogin");
+                options.Conventions.AllowAnonymousToPage("/Identity/Login");
+                options.Conventions.AllowAnonymousToPage("/Identity/SignUp");
+                options.Conventions.AllowAnonymousToPage("/Identity/TwoFactorLogin");
             });
             services.AddControllers(options =>
             {

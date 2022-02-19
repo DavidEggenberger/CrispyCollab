@@ -1,20 +1,23 @@
 ﻿@page
 @model WebAPI.Pages.Identity.LoginModel
-@attribute [AllowAnonymous]
 @{
 }
 
-<h2>Login</h2>
+<div class="card">
+    <partial name="_LogInSignUpSwitch" model=@(new LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
+    @{
+        var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
+            <div>
+                @foreach (var provider in providers)
+                {
+                    <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
+                }
+            </div>
+        </form>
+    }
+</div>
 
-@{
-    var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-    <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal" asp-page-handler="ExternalLogin">
-        <div>
-            @foreach (var provider in providers)
-            {
-                <button type="submit" style="margin-right: 6px; font-size: 18px; font-weight: bolder;" value="@provider.Name" name="provider">@provider.Name</button>
-            }
-        </div>
-    </form>
-}
+
+
 

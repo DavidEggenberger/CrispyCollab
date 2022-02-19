@@ -37,7 +37,7 @@ namespace WebAPI.Pages.Identity
 
         public ActionResult OnPost([FromForm] string provider, string returnUrl)
         {
-            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { returnUrl });
+            var redirectUrl = Url.Action("ExternalSignUpCallback", "Account", new { returnUrl });
             var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
