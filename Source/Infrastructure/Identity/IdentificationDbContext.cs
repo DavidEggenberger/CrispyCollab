@@ -20,6 +20,7 @@ namespace Infrastructure.Identity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);   
             base.OnModelCreating(modelBuilder);
         }
     }

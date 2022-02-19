@@ -3,13 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebAPI</title>
+    <title>@ViewData["Title"] - AsyncAnalytics</title>
     <link rel="stylesheet" href="~/css/defaults.css"/>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <div class="page">
+    <nav>
+        <div class="LogoContainer">
+            <img class="logo"/>
+            <h1>AsyncAnalytics</h1>
+        </div>
+        <div class="TitleAsideContainer">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <h3>Welcome @User.Identity.Name</h3>          
+            }
+        </div>
+    </nav>
+    <main>
         @RenderBody()
-    </div>
+    </main>
+    <footer>
+        
+    </footer>
+</div>
 </body>
 </html>

@@ -4,9 +4,8 @@
 @{
 }
 
-<h1>Login</h1>
+<h2>Login</h2>
 
-<h3>Choose a social log-in:</h3>
 @{
     var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
     <form asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal" asp-page-handler="ExternalLogin">

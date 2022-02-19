@@ -173,6 +173,7 @@ namespace WebAPI
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
                 options.User.RequireUniqueEmail = true;
                 options.Stores.MaxLengthForKeys = 128;
+                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.NameIdentifier;
             })
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()

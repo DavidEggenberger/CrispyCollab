@@ -1,4 +1,5 @@
 ﻿using Domain.SharedKernel;
+using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types.Shared;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -15,7 +16,7 @@ namespace Infrastructure.Identity
         public string IconUri { get; set; }
         public string Name { get; set; }
         public TenantPlan Plan { get; set; }
-        public List<string> InvitedEmails { get; set; }
+        public List<TenantInvitedUser> InvitedUsers { get; set; }
         public List<ApplicationUserTenant> Members { get; set; }   
     }
 }

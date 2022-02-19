@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Identity\EFCore\Configuration\" />
     <Folder Include="EFCore\Configuration\ApplicationDbContext\" />
     <Folder Include="EFCore\Configuration\IdentificationDbContext\" />
     <Folder Include="EFCore\Migrations\ApplicationDbContext\" />
