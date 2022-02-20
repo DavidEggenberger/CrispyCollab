@@ -1,4 +1,5 @@
 using Common.EnvironmentService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,25 @@ namespace WebClient
                 .AddHttpMessageHandler<AuthorizedHandler>();
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
 
-            builder.Services.AddAuthorizationCore();
+            builder.Services.AddAuthorizationCore(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.AddPolicy("TenantGuest", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "Guest", "User", "Admin");
+                });
+                options.AddPolicy("TenantUser", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "User", "Admin");
+                });
+                options.AddPolicy("TenantAdmin", options =>
+                {
+                    options.RequireClaim("TenantId");
+                    options.RequireClaim("TenantRole", "Admin");
+                });
+            });
 
             await builder.Build().RunAsync();
         }

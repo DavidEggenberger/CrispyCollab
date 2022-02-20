@@ -64,6 +64,7 @@ namespace WebAPI
                 .UseSerilog((hostBuilderContext, configuration) =>
                 {
                     configuration.WriteTo.Console();
+                    configuration.MinimumLevel.Warning();
                 })
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {

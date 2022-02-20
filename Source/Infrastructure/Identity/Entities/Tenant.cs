@@ -14,7 +14,7 @@ namespace Infrastructure.Identity
     {
         public Guid Id { get; set; }
         public string IconUri { get; set; }
-        public string Name { get; set; }
+        public string NameIdentitifer { get; set; }
         public TenantPlan Plan { get; set; }
         public List<TenantInvitedUser> InvitedUsers { get; set; }
         public List<ApplicationUserTenant> Members { get; set; }   

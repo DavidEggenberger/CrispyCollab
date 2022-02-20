@@ -35,7 +35,7 @@ namespace Infrastructure.Services
 
             identificationDbContext.Tenants.Add(new Tenant
             {
-                Name = name,
+                NameIdentitifer = name,
                 
             });
             await identificationDbContext.SaveChangesAsync();
@@ -57,7 +57,7 @@ namespace Infrastructure.Services
         }
         public async Task<bool> CheckIfNameIsValidForTenant(string name)
         {
-            if(!identificationDbContext.Tenants.Any(x => x.Name == name))
+            if(!identificationDbContext.Tenants.Any(x => x.NameIdentitifer == name))
             {
                 return true;
             }
