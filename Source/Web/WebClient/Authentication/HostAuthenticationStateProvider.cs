@@ -77,16 +77,14 @@ namespace WebClient.Authentication
 
         public void SignIn(string customReturnUrl = null)
         {
-            var returnUrl = customReturnUrl != null ? navigationManager.ToAbsoluteUri(customReturnUrl).ToString() : null;
-            var encodedReturnUrl = Uri.EscapeDataString(returnUrl ?? navigationManager.Uri);
+            var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
             var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.LoginPath}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
         public void SignUp(string customReturnUrl = null)
         {
-            var returnUrl = customReturnUrl != null ? navigationManager.ToAbsoluteUri(customReturnUrl).ToString() : null;
-            var encodedReturnUrl = Uri.EscapeDataString(returnUrl ?? navigationManager.Uri);
+            var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
             var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.SignUp}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }

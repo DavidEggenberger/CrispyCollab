@@ -5,3 +5,11 @@
 function hideLoadingScreen() {
     document.getElementById('loadingBackground').remove();
 }
+
+function expandAside() {
+    document.getElementById('aside').style.width = "120px";
+}
+
+function shrinkAside() {
+    document.getElementById('aside').style.width = "80px";
+}
