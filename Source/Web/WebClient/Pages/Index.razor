@@ -1,1 +1,18 @@
 ﻿@page "/"
+@inject NavigationManager navigationManager
+
+<h3>Commercial Site</h3>
+
+@code{
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Claim claim;
+        if((claim = (await AuthState).User.FindFirst(c => c.Type == "TenantId")) != null)
+        {
+            navigationManager.NavigateTo($"/Tenant/{claim.Value}");
+        }
+    }
+}

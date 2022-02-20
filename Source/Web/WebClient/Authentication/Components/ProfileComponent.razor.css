@@ -20,3 +20,6 @@
     cursor: pointer;
     margin-left: 15px;
 }
+.ProfilePicture{
+    border-radius: 50%;
+}

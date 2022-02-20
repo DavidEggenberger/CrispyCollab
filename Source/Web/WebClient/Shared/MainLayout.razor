@@ -31,12 +31,26 @@
             </AuthorizeView>           
         </div>
     </nav>
-    <main>
-        @Body
-    </main>
-    <footer>
-        <AntiForgeryTokenInput/>
-    </footer>
+    <AuthorizeView>
+        <Authorized>
+            <main class="MainAuthenticated">
+                <aside>
+                    <img src="/Icons/angle-double-right.png"/>
+                </aside>
+                <div>
+                    @Body
+                </div>
+            </main>
+        </Authorized>
+        <NotAuthorized>
+            <main>
+                @Body
+            </main>
+            <footer>
+                <AntiForgeryTokenInput/>
+            </footer>
+        </NotAuthorized>      
+    </AuthorizeView>
 </div>
 
 @code{
