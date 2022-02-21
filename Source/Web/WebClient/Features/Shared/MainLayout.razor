@@ -72,9 +72,12 @@
 
 @code{
     private bool expandedAside;
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await jsRuntime.InvokeVoidAsync("hideLoadingScreen");
+        if (firstRender)
+        {
+            //await jsRuntime.InvokeVoidAsync("hideLoadingScreen");
+        }
     }
     private async Task ExpandAside()
     {

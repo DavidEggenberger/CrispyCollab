@@ -15,6 +15,7 @@ using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Hosting;
@@ -34,8 +35,10 @@ using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebClient.Authentication;
 
 namespace WebAPI
 {
@@ -87,6 +90,12 @@ namespace WebAPI
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
+
+            services.AddHttpClient("default", client => client.BaseAddress = new Uri("https://localhost:44333"));
+            services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
+            services.AddScoped(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());
+            //services.AddScoped<NavigationManager>();
+            services.AddScoped<AuthenticationStateProvider, HostAuthenticationStateProvider>();
 
             services.AddAuthorization(options =>
             {

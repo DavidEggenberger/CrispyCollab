@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using WebClient
+@using WebClient.Features
 @{
     Layout = null;
 }
@@ -21,7 +21,7 @@
         <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
     <div>
-        <component type="typeof(App)" render-mode="WebAssembly"/>
+        <component type="typeof(App)" render-mode="WebAssemblyPrerendered"/>
     </div>
     <script src="~/js/site.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>

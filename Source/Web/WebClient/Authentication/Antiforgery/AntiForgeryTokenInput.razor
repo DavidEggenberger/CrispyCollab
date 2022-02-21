@@ -1,4 +1,5 @@
-﻿@inject IJSRuntime JSRuntime
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 <input type="hidden" id="__RequestVerificationToken"
        name="__RequestVerificationToken" value="@GetToken()">
@@ -7,9 +8,12 @@
 
     private string token = "";
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        token = await JSRuntime.InvokeAsync<string>("getAntiForgeryToken");
+        if (firstRender)
+        {
+            token = await JSRuntime.InvokeAsync<string>("getAntiForgeryToken");
+        }
     }
 
     public string GetToken()
