@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
+@inject NavigationManager navigationManager
 
 <div class="page">
     <nav>
@@ -35,6 +36,7 @@
         <Authorized>
             <main class="MainAuthenticated">
                 <aside id="aside">
+                    <img class="HomeLogo" src="/Icons/home.svg" onclick="async() => navigationManager.NavigatTo('/')"/>
                     @if (expandedAside)
                     {
                         <TenantAsideOverviewComponent/>

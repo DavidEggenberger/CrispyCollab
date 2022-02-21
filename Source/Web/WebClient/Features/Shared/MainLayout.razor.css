@@ -1,11 +1,15 @@
 .MainAuthenticated{
     display: flex;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px);
 }
 aside {
     width: 80px;
     transition: 0.3s;
     height: 100%;
-    background-color: rgba(232, 232, 232, 0.6);
+    background-color: rgba(135, 206, 235, 0.4);
     border: 1px solid white;
+}
+.HomeLogo{
+    height: 40px;
+    cursor: pointer;
 }

@@ -17,7 +17,7 @@ body {
     z-index: 1;
 }
 nav {
-    height: 80px;
+    height: 70px;
     padding: 15px;
     padding-right: 25px;
     display: flex;
@@ -32,7 +32,7 @@ nav {
 main{
     padding: 15px;
     padding-right: 25px;
-    height: calc(100% - 130px);
+    height: calc(100% - 120px);
 }
 footer {
     height: 50px;

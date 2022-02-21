@@ -17,4 +17,10 @@
     <ProjectReference Include="..\DTOs\Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Application\Dashboard\" />
+    <Folder Include="Features\Application\Shared\" />
+    <Folder Include="Features\LandingPage\Pages\" />
+  </ItemGroup>
+
 </Project>
