@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
-namespace WebAPI.Pages.Identity
+namespace Server.Pages.Identity
 {
     [AllowAnonymous]
     public class LoginWith2FAModel : PageModel

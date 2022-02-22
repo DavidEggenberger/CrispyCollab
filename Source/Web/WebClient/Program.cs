@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WebClient.Authentication;
-using WebClient.Authentication.Antiforgery;
+using WasmClientApp.Authentication;
+using WasmClientApp.Authentication.Antiforgery;
 
-namespace WebClient
+namespace WasmClientApp
 {
     public class Program
     {
@@ -24,6 +24,7 @@ namespace WebClient
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+            builder.Services.AddScoped<IEnvironmentService, WebAssemblyEnvironmentService>();
             builder.Services.AddScoped<AntiforgeryTokenService>();
             builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();
             builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());

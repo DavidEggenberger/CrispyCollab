@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace WebClient.Authentication.Antiforgery
+namespace WasmClientApp.Authentication.Antiforgery
 {
     public class AntiforgeryTokenService
     {

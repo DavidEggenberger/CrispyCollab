@@ -1,12 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AsyncAnalytics</title>
+    <title>@ViewData["Title"]AsyncAnalytics</title>
     <link rel="stylesheet" href="~/css/defaults.css"/>
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/WebAPI.styles.css" rel="stylesheet" />
+    <link href="~/WasmClientApp.styles.css" rel="stylesheet" />
 </head>
 <body>
     <div class="page">
@@ -18,10 +19,10 @@
             </a>
         </div>
         <div class="TitleAsideContainer">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <h3>Welcome @User.Identity.Name</h3>          
-            }
+            <a asp-page="/landingpages/product"><h3>Product</h3></a>
+            <a asp-page="/landingpages/aboutUs"><h3>AboutUs</h3></a>
+            <a asp-page="/landingpages/carreers"><h3>Carreers</h3></a>
+            <a asp-page="/landingpages/login"><h3 class="LoginButton">LogIn</h3></a>
         </div>
     </nav>
     <main>
@@ -35,3 +36,5 @@
 </div>
 </body>
 </html>
+
+

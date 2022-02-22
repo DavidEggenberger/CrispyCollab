@@ -25,8 +25,8 @@
     <ProjectReference Include="..\..\Source\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Source\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\Source\Web\DTOs\Common.csproj" />
-    <ProjectReference Include="..\..\Source\Web\WebAPI\WebAPI.csproj" />
-    <ProjectReference Include="..\..\Source\Web\WebClient\WebClient.csproj" />
+    <ProjectReference Include="..\..\Source\Web\WebAPI\Server.csproj" />
+    <ProjectReference Include="..\..\Source\Web\WebClient\WasmClientApp.csproj" />
   </ItemGroup>
 
 </Project>

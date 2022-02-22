@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using System.Linq;
 
-namespace WebAPI.Controllers.Identity
+namespace Server.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]

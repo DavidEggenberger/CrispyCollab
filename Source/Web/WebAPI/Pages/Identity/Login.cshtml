@@ -1,11 +1,11 @@
 ﻿@page
-@model WebAPI.Pages.Identity.LoginModel
+@model Server.Pages.Identity.LoginModel
 @{
 }
 
 <div class="card">
-    <partial name="_LogInSignUpSwitch" model=@(new LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
-    @{
+@*    <partial name="_LogInSignUpSwitch" model=@(new LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
+*@    @{
         var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
             <div>

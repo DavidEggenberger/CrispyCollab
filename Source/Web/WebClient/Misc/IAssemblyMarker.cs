@@ -1,4 +1,4 @@
-﻿namespace WebClient.Misc
+﻿namespace WasmClientApp.Misc
 {
     public interface IAssemblyMarker
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers.Identity
+namespace Server.Controllers.Identity
 {
     [Route("api/[controller]")]
     [AllowAnonymous]

@@ -1,0 +1,10 @@
+﻿@page "/"
+@inject NavigationManager navigationManager
+
+@code{
+    int i = 9;
+}
+
+<h3>Commercial Site @i</h3>
+
+<button @onclick="() => { i += 90; StateHasChanged(); }">Add One</button>

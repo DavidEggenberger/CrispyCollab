@@ -38,9 +38,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WebClient.Authentication;
+using WasmClientApp.Authentication;
 
-namespace WebAPI
+namespace Server
 {
     public class Startup
     {
@@ -70,10 +70,10 @@ namespace WebAPI
             });
             services.AddControllers(options =>
             {
+                //AuthorizeFilterBehaviour
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
-            services.AddScoped<IEnvironmentService, ServerEnvironmentService>();
             services.AddScoped<TenantManager>();
             services.AddScoped<ApplicationUserTenantManager>();
             services.AddCQRS(GetType().Assembly);

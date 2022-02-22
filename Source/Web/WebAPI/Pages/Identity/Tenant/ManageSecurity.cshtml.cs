@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebAPI.Pages.Identity.Tenant
+namespace Server.Pages.Identity.Tenant
 {
     public class ManageSecurityModel : PageModel
     {

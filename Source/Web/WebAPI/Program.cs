@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Infrastructure.Identity;
 
-namespace WebAPI
+namespace Server
 {
     public class Program
     {
@@ -64,7 +64,7 @@ namespace WebAPI
                 .UseSerilog((hostBuilderContext, configuration) =>
                 {
                     configuration.WriteTo.Console();
-                    configuration.MinimumLevel.Warning();
+                    //configuration.MinimumLevel.Warning();
                 })
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {

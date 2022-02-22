@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using WebClient.Authentication.Antiforgery;
+using WasmClientApp.Authentication.Antiforgery;
 
-namespace WebClient.Authentication
+namespace WasmClientApp.Authentication
 {
     public class AuthorizedHandler : DelegatingHandler
     {

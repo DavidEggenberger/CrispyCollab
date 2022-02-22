@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers
+namespace Server.Controllers
 {
     [Route("[controller]")]
     [AllowAnonymous]

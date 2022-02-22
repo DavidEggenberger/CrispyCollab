@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAPI.Pages.Identity
+namespace Server.Pages.Identity
 {
     public class SignUpModel : PageModel
     {

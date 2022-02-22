@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace WebAPI.Pages.Identity
+namespace Server.Pages.Identity
 {
     public class LoginModel : PageModel
     {

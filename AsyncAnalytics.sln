@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Appli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Source\Web\DTOs\Common.csproj", "{601C36BA-7AAF-456C-9FC5-91A166D9BF5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "Source\Web\WebAPI\WebAPI.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Source\Web\WebAPI\Server.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "Source\Web\WebClient\WebClient.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WasmClientApp", "Source\Web\WebClient\WasmClientApp.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{AB2362CB-A28A-4489-A7A5-9F4D93D6E22B}"
 EndProject

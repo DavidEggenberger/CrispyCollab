@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebAPI.Pages.Identity.Account
+namespace Server.Pages.Identity.Account
 {
     public class TenantMembershipsModel : PageModel
     {
