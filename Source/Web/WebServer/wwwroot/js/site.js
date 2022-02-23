@@ -13,3 +13,18 @@ function expandAside() {
 function shrinkAside() {
     document.getElementById('aside').style.width = "80px";
 }
+
+window.onload = () => {
+    document.getElementById("ExpandableNavMenuIcon").addEventListener("click", ExpandNavMenu);
+};
+
+function ExpandNavMenu() {
+    let height = getComputedStyle(document.getElementById("ExpandableNavMenu")).height;
+    console.log(height);
+    if (height === "250px") {
+        document.getElementById("ExpandableNavMenu").style.height = "0px";
+    }
+    else {
+        document.getElementById("ExpandableNavMenu").style.height = "250px";
+    }
+}

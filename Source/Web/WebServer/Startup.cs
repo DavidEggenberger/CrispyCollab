@@ -54,10 +54,6 @@ namespace WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
-            #if DEBUG
-            TelemetryConfiguration.Active.DisableTelemetry = true;
-            TelemetryDebugWriter.IsTracingDisabled = true;
-            #endif
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddRazorPages(options =>

@@ -7,8 +7,7 @@
     <title>@ViewData["Title"]AsyncAnalytics</title>
     <link rel="stylesheet" href="~/css/defaults.css"/>
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/WasmClientApp.styles.css" rel="stylesheet" />
-    <link href="~/Server.styles.css" rel="stylesheet" />
+    <link href="~/WebServer.styles.css" rel="stylesheet" />
 </head>
 <body>
     <div class="page">
@@ -28,8 +27,8 @@
                     <a asp-page="/landingpages/carreers"><h3>Carreers</h3></a>
                     <a asp-page="/identity/login"><h3 class="LoginButton">LogIn</h3></a>
                 </div>
-                <div class="MenuIcon">
-
+                <div id="ExpandableNavMenuIcon" class="ExpandableMenuIcon">
+                    <img class="BurgerMenu" src="/Icons/menu-burger.png"/>
                 </div>
             </div>
         }
@@ -39,16 +38,16 @@
                 <div class="Links">
                     <h3>Welcome @User.Identity.Name</h3>
                 </div>
-                <div class="MenuIcon">
-
+                <div id="ExpandableNavMenuIcon" class="ExpandableMenuIcon">
+                    <img class="BurgerMenu" src="/Icons/menu-burger.png"/>
                 </div>
             </div>
         }
-        <div class="ExpandableNavMenu">
-            
-        </div>
     </nav>
-    <main>
+    <main style="padding: 0;">
+        <div id="ExpandableNavMenu" class="ExpandableNavMenu">
+
+        </div>
         <div class="RenderBody">
             @RenderBody()
         </div>
