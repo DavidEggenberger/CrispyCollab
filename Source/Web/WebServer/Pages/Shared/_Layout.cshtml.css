@@ -1,0 +1,28 @@
+﻿.RenderBody {
+    display: grid;
+    place-content: center;
+    height: 100%;
+    width: 100%;
+}
+nav{
+    position: relative;
+}
+.ExpandableNavMenu {
+    display: none;
+    position: absolute;
+    bottom: -250px;
+    left: 0;
+    right: 0;
+    top: 70px;
+    transition: 0.3s;
+    z-index: 2;
+    background-color: orange;
+}
+@media screen and (max-width: 700px){
+    .Links{
+        display: none;
+    }
+    .ExpandableNavMenu {
+        display: block;
+    }
+}

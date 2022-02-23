@@ -1,0 +1,63 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]AsyncAnalytics</title>
+    <link rel="stylesheet" href="~/css/defaults.css"/>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/WasmClientApp.styles.css" rel="stylesheet" />
+    <link href="~/Server.styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page">
+    <nav>
+        <div class="LogoContainer">
+            <img class="logo"/>
+            <a href="/">
+                <h1>AsyncAnalytics</h1>
+            </a>
+        </div>
+        @if(User.Identity.IsAuthenticated is false)
+        {
+            <div class="TitleAsideContainer">
+                <div class="Links">
+                    <a asp-page="/landingpages/product"><h3>Product</h3></a>
+                    <a asp-page="/landingpages/aboutUs"><h3>AboutUs</h3></a>
+                    <a asp-page="/landingpages/carreers"><h3>Carreers</h3></a>
+                    <a asp-page="/identity/login"><h3 class="LoginButton">LogIn</h3></a>
+                </div>
+                <div class="MenuIcon">
+
+                </div>
+            </div>
+        }
+        @if(User.Identity.IsAuthenticated is true)
+        {
+            <div class="TitleAsideContainer">
+                <div class="Links">
+                    <h3>Welcome @User.Identity.Name</h3>
+                </div>
+                <div class="MenuIcon">
+
+                </div>
+            </div>
+        }
+        <div class="ExpandableNavMenu">
+            
+        </div>
+    </nav>
+    <main>
+        <div class="RenderBody">
+            @RenderBody()
+        </div>
+    </main>
+    <footer>
+        
+    </footer>
+</div>
+</body>
+</html>
+
+

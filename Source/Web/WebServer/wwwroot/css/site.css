@@ -1,0 +1,74 @@
+﻿:root {
+    --color1: #ffc3a0;
+    --color2: #ffafbd;
+}
+body {
+    margin: 0;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #FFFFFF, var(--color1));
+}
+.page {
+    height: 100vh;
+    width: 100vw;
+    color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+nav {
+    height: 70px;
+    padding: 15px;
+    padding-right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+    nav a {
+        text-decoration: none;
+        color: black !important;
+        margin-right: 14px;
+    }
+main{
+    padding: 15px;
+    padding-right: 25px;
+    height: calc(100% - 120px);
+}
+footer {
+    height: 50px;
+    padding: 15px;
+    padding-right: 25px;
+}
+.LogoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.LogoContainer h1{
+    font-size: 24px;
+}
+.TitleAsideContainer{
+    height: 40px;
+}
+.Links {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.Links h3{
+    font-size: 18px;
+}
+.LoginDisplayContainer{
+    margin-left: 10px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+.LoginButton{
+    padding: 2px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: -5px;
+    cursor: pointer;
+}

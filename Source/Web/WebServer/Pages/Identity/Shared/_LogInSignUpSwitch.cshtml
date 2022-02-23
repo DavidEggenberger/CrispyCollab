@@ -1,0 +1,28 @@
+﻿@model WebServer.Pages.Identity.Shared.LogInSignUpSwitchModel
+
+<div class="LogInSignUpSwitchContainer">
+    <div class="Section">
+        @if(Model.SignUpActive)
+        {
+            <h3>SignUp</h3>
+        }
+        else
+        {
+           <a asp-page="/Identity/SignUp" asp-route-ReturnUrl=@Model.ReturnUrl>
+              <h3>SignUp</h3>
+           </a> 
+        }
+    </div>
+    <div class="Section">
+        @if(Model.SignUpActive)
+        {
+            <a asp-page="/Identity/LogIn" asp-route-ReturnUrl=@Model.ReturnUrl>
+                <h3>LogIn</h3>
+            </a>
+        }
+        else
+        {
+            <h3>LogIn</h3> 
+        }
+    </div>
+</div>
