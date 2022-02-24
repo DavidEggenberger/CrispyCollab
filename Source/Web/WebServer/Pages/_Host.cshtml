@@ -3,40 +3,41 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>AsyncAnalytics</title>
-    <base href="~/" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/defaults.css" />
-    <link rel="stylesheet" href="~/css/LoadingScreen.css"/>
-    <link href="WebWasmClient.styles.css" rel="stylesheet" />
-</head>
-<body>
-    <div id="loadingBackground">
-        <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
-    <div>
-        @if (HttpContext.User.Identity.IsAuthenticated)
-        {
-            <component render-mode="WebAssemblyPrerendered" type="typeof(WebWasmClient.App)"/>
-            <script src="_framework/blazor.webassembly.js"></script>
-        }
-        else
-        {
-            Layout = "_Layout";
-            <script>
-                document.getElementById('loadingBackground').style.display = "none";
-            </script>           
-            <h3>Commercial Site</h3>
-        }
-    </div>
+<!DOCTYPE html>
+@if(User.Identity.IsAuthenticated)
+{
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>LearnLive</title>
+        <base href="~/" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/defaults.css" />
+        <link rel="stylesheet" href="~/css/LoadingScreen.css"/>
+        <link href="WebWasmClient.styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="loadingBackground">
+            <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div>
+            <component type="typeof(WebWasmClient.App)" render-mode="WebAssembly"/>
+        </div>
+        <script src="_framework/blazor.webassembly.js"></script>
+        <script src="~/js/antiForgeryToken.js"></script>
+        @Html.AntiForgeryToken()
+    </body>
+}
+else
+{
+    Layout = "_Layout";
 
-    <script src="~/js/site.js"></script>
-    <script src="~/js/antiForgeryToken.js"></script>
-    @Html.AntiForgeryToken()
-</body>
+    <h3>Index of our site</h3>
+}
+
+<script src="~/js/site.js"></script>
+<script src="~/js/antiForgeryToken.js"></script>
+@Html.AntiForgeryToken()
 </html>
+
