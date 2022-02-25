@@ -1,15 +1,21 @@
 ﻿<div class="CreateNewTenantContainer">
     <h3>Create a new Group</h3>
-    <div>
-        <label>Name</label>
-        <input />
-    </div>
-    <div>
-
-    </div>
+    <FluentValidationValidator />
+    <ValidationSummary />
+    <EditForm Model=@td>
+        <div class="form-group">
+            <label>Name</label>
+            <input />
+        </div>
+        <div class="form-group">
+            <label>Icon</label>
+            <label for="InputFile">Select File</label>
+            <InputFile id="InputFile"/>
+        </div>
+    </EditForm>
 </div>
 
 
 @code{
-
+    TenantDTO td = new TenantDTO();
 }

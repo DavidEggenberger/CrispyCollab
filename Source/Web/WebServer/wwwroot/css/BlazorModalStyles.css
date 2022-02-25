@@ -5,3 +5,6 @@
     box-shadow: none !important;
     padding-top: 1rem !important;
 }
+.blazored-modal-header{
+    padding-bottom: 0px !important;
+}

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common.DTOs.Identity.Tenant
 {
-    public class TenantInformationDTO
+    public class TenantDTO
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string IconUrl { get; set; }
     }
 }
