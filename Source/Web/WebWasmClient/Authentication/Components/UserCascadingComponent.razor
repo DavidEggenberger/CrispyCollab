@@ -1,0 +1,16 @@
+﻿
+<CascadingValue Value="User">
+    @ChildContent
+</CascadingValue>
+
+@code{
+    private ClaimsPrincipal User;
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationState).User;
+    }
+}

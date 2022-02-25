@@ -29,6 +29,9 @@ nav {
         color: black !important;
         margin-right: 14px;
     }
+    nav a:last-of-type{
+        margin-right: 0;
+    }
 main{
     display: flex;
     flex-direction: column;

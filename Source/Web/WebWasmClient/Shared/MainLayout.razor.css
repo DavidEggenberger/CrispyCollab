@@ -13,3 +13,8 @@ aside {
     height: 40px;
     cursor: pointer;
 }
+main{
+    padding-top: 0;
+    display: flex;
+    flex-direction: row;
+}

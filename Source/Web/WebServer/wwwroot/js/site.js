@@ -15,7 +15,9 @@ function shrinkAside() {
 }
 
 window.onload = () => {
-    document.getElementById("ExpandableNavMenuIcon").addEventListener("click", ExpandNavMenu);
+    if (document.getElementById("ExpandableNavMenuIcon") !== null) {
+        document.getElementById("ExpandableNavMenuIcon").addEventListener("click", ExpandNavMenu);
+    }
 };
 
 function ExpandNavMenu() {

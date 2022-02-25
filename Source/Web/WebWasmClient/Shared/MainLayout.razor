@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@attribute [Authorize]
+@inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navigationManager
 
@@ -11,63 +12,36 @@
             </a>
         </div>
         <div class="TitleAsideContainer">
-            <AuthorizeView>
-                <NotAuthorized>
-                    <NavLink href="Product">
-                        <h3>Product</h3>
-                    </NavLink>
-                    <NavLink href="AboutUs">
-                        <h3>AboutUs</h3>
-                    </NavLink>
-                    <NavLink href="Careers">
-                        <h3>Careers</h3>
-                    </NavLink>
-                    <div class="LoginDisplayContainer">
-                        <LoginDisplayComponent/>
-                    </div>
-                </NotAuthorized>
-                <Authorized>
-                    <ProfileComponent/>
-                </Authorized>
-            </AuthorizeView>           
+            <ProfileComponent/>
         </div>
     </nav>
-    <AuthorizeView>
-        <Authorized>
-            <main class="MainAuthenticated">
-                <aside id="aside">
-                    <img class="HomeLogo" src="/Icons/home.svg" onclick="async() => navigationManager.NavigateTo('/')"/>
-                    @if (expandedAside)
-                    {
-                        <TenantAsideOverviewComponent/>
-                    }
-                    else
-                    {
-                        <TenantAsideComponent/>
-                    }
-                    @if (expandedAside)
-                    {
-                        <img @onclick="async() => await ShrinkAside()" style="transform: rotate(180deg);" src="/Icons/angle-double-right.png"/>
-                    }
-                    else
-                    {
-                        <img @onclick="async() => await ExpandAside()" src="/Icons/angle-double-right.png"/>
-                    }
-                </aside>
-                <div>
-                    @Body
-                </div>
-            </main>
-        </Authorized>
-        <NotAuthorized>
-            <main>
-                @Body
-            </main>
-            <footer>
-                <AntiForgeryTokenInput/>
-            </footer>
-        </NotAuthorized>      
-    </AuthorizeView>
+    <main>
+        <aside id="aside">
+            <img class="HomeLogo" src="/Icons/home.svg" @onclick='() => navigationManager.NavigateTo("/")'/>
+            @if (expandedAside)
+            {
+                <TenantAsideOverviewComponent/>
+            }
+            else
+            {
+                <TenantAsideComponent/>
+            }
+            @if (expandedAside)
+            {
+                <img @onclick="async() => await ShrinkAside()" style="transform: rotate(180deg);" src="/Icons/angle-double-right.png"/>
+            }
+            else
+            {
+                <img @onclick="async() => await ExpandAside()" src="/Icons/angle-double-right.png"/>
+            }
+        </aside>
+        <div>
+            @Body
+        </div>
+    </main>
+    <footer>
+        <AntiForgeryTokenInput/>
+    </footer>
 </div>
 
 @code{
