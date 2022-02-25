@@ -1,0 +1,22 @@
+﻿aside {
+    width: 80px;
+    transition: 0.3s;
+    height: 100%;
+    background-color: rgba(135, 206, 235, 0.4);
+    border: 1px solid white;
+}
+main {
+    display: flex;
+    height: calc(100vh - 70px);
+    padding-top: 0;
+    flex-direction: row;
+}
+.DasboardLayoutContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.Body {
+    height: 100%;
+}

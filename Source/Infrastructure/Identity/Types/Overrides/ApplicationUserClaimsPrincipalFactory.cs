@@ -24,7 +24,7 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim(ClaimTypes.NameIdentifier, applicationUser.UserName),
                 new Claim(ClaimTypes.Email, applicationUser.Email),
                 new Claim("picture", applicationUser.PictureUri),
-                new Claim("Id", applicationUser.Id.ToString())
+                new Claim(ClaimTypes.Sid, applicationUser.Id.ToString())
             };
             var result = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
             if (result.Successful)

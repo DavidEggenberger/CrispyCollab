@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.DTOs.Identity.Tenant
 {
-    public class TenantDTO
+    public class TenantInformationDTO
     {
     }
 }

@@ -36,7 +36,6 @@ main{
     display: flex;
     flex-direction: column;
     padding: 15px;
-    padding-right: 25px;
     height: calc(100% - 120px);
 }
 footer {

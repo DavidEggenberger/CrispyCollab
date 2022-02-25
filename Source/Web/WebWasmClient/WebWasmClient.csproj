@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Dashboard\Components\" />
-    <Folder Include="Features\TenantManagement\Components\" />
-    <Folder Include="Features\TenantManagement\Pages\" />
     <Folder Include="Shared\" />
   </ItemGroup>
 

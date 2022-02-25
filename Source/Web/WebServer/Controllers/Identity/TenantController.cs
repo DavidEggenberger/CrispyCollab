@@ -23,31 +23,31 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<TenantDTO>> GetCurrentTenantForUser()
+        public async Task<ActionResult<TenantInformationDTO>> GetCurrentTenantForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
 
             return Ok();
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<TenantDTO>> GetAllTenantsForUser()
+        public async Task<ActionResult<TenantInformationDTO>> GetAllTenantsForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var t = applicationUserManager.GetAllTenantMemberships(applicationUser);
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            var t = await applicationUserManager.GetAllTenantMemberships(applicationUser);
             return Ok();
         }
 
         [HttpPost]
-        public async Task<ActionResult<TenantDTO>> CreateTenant()
+        public async Task<ActionResult<TenantInformationDTO>> CreateTenant()
         {
             return Ok();
         }    
 
         [HttpPost("setCurrent")]
-        public async Task<ActionResult<TenantDTO>> SetCurrentTenantForUser(CreateTenantDTO createTenantDTO)
+        public async Task<ActionResult<TenantInformationDTO>> SetCurrentTenantForUser(CreateTenantDTO createTenantDTO)
         {
-            return Ok(new TenantDTO());
+            return Ok(new TenantInformationDTO());
         }
     }
 }

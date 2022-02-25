@@ -68,7 +68,7 @@ namespace WebServer
             }).AddFluentValidation(options =>
             {
                 options.DisableDataAnnotationsValidation = true;
-                options.RegisterValidatorsFromAssembly(null);
+                options.RegisterValidatorsFromAssembly(typeof(Common.Misc.IAssemblyMarker).GetType().Assembly);
             });
             services.AddAntiforgery(options =>
             {
@@ -185,6 +185,7 @@ namespace WebServer
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
                 options.User.RequireUniqueEmail = true;
                 options.Stores.MaxLengthForKeys = 128;
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Sid;
                 options.ClaimsIdentity.UserNameClaimType = ClaimTypes.NameIdentifier;
             })
                 .AddDefaultTokenProviders()

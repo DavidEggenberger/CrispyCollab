@@ -2,6 +2,10 @@ nav div {
     flex: 1 1 0px;
     height: 36px;
 }
+main {
+    padding-top: 0;
+    height: calc(100% - 70px);
+}
 .HomeSectionContainer{
     height: 100%;
     display: grid;
@@ -23,19 +27,6 @@ nav div {
     display: grid;
     align-content: end;
     justify-content: end;
-}
-main {
-    display: flex;
-    height: calc(100vh - 70px);
-    padding-top: 0;
-    flex-direction: row;
-}
-aside {
-    width: 80px;
-    transition: 0.3s;
-    height: 100%;
-    background-color: rgba(135, 206, 235, 0.4);
-    border: 1px solid white;
 }
 .HomeLogo{
     height: 30px;
