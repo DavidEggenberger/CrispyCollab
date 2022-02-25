@@ -15,7 +15,9 @@
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/defaults.css" />
         <link rel="stylesheet" href="~/css/LoadingScreen.css"/>
+        <link rel="stylesheet" href="~/css/BlazorModalStyles.css" />
         <link href="WebWasmClient.styles.css" rel="stylesheet" />
+        <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
     </head>
     <body>
         <div id="loadingBackground">
@@ -25,6 +27,7 @@
             <component type="typeof(WebWasmClient.App)" render-mode="WebAssembly"/>
         </div>
         <script src="_framework/blazor.webassembly.js"></script>
+        <script src="_content/Blazored.Modal/blazored.modal.js"></script>
         <script src="~/js/antiForgeryToken.js"></script>
         @Html.AntiForgeryToken()
     </body>

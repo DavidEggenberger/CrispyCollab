@@ -9,7 +9,7 @@ main {
     height: 100%;
 }
 nav{
-    z-index: -1;
+    z-index: 3;
     position: absolute;
     left: 0;
     right: 0;

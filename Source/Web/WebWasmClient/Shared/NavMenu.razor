@@ -1,4 +1,5 @@
 ﻿@using System.Text.Json
+@using System.Net
 @inject IHttpClientFactory httpClientFactory
 
 <div class="NavMenuContainer">
@@ -17,12 +18,20 @@
             
         }
     }
+    <div>
+        <h3 @onclick="() => Modal.Show<CreateNewTenantModalComponent>()">Create new Group</h3>
+    </div>
 </div>
 
 @code{
+    [CascadingParameter] public IModalService Modal { get; set; }
     private List<TenantInformationDTO> tenants;
     protected override async Task OnInitializedAsync()
     {
-        tenants = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<List<TenantInformationDTO>>("/api/tenant/all");
+        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/tenant/all");
+        if(hrm.StatusCode == HttpStatusCode.OK)
+        {
+            tenants = JsonSerializer.Deserialize<List<TenantInformationDTO>>(await hrm.Content.ReadAsStringAsync());
+        }
     }
 }
