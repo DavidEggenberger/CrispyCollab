@@ -13,7 +13,7 @@ namespace Infrastructure.Identity
     {
         public IdentificationDbContext(DbContextOptions<IdentificationDbContext> options) : base(options)
         {
-
+            
         }
 
         public DbSet<Tenant> Tenants { get; set; }

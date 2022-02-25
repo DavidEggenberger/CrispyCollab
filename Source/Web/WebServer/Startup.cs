@@ -9,7 +9,6 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
-using Infrastructure.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;
@@ -70,7 +69,6 @@ namespace WebServer
             });
 
             services.AddScoped<TenantManager>();
-            services.AddScoped<ApplicationUserTenantManager>();
             services.AddCQRS(GetType().Assembly);
 
             services.AddAntiforgery(options =>

@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Identity.Services
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -24,6 +24,14 @@ namespace Infrastructure.Services
             this.identificationDbContext = identificationDbContext;
         }
 
+        public async Task<IdentityOperationResult<List<ApplicationUserTenant>>> GetAllTenantMemberships(ApplicationUser applicationUser)
+        {
+            return IdentityOperationResult<List<ApplicationUserTenant>>.Success(applicationUser.Memberships);
+        }
+        public async Task<IdentityOperationResult<List<Tenant>>> GetTenantsWhereApplicationUserIsMember(ApplicationUser applicationUser)
+        {
+            throw new Exception();
+        }
         public async Task<IdentityOperationResult<List<Tenant>>> GetTenantsWhereApplicationUserIsAdmin(ApplicationUser applicationUser)
         {
             throw new Exception();

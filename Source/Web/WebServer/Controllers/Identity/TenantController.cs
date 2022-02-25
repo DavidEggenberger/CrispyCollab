@@ -1,7 +1,6 @@
 ﻿using Common.DTOs.Identity.Tenant;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,20 +15,17 @@ namespace WebServer.Controllers.Identity
     public class TenantController : ControllerBase
     {
         private readonly TenantManager tenantManager;
-        private readonly ApplicationUserTenantManager applicationUserTenantManager;
         private readonly ApplicationUserManager applicationUserManager;
-        public TenantController(TenantManager tenantManager, ApplicationUserManager applicationUserManager, ApplicationUserTenantManager applicationUserTenantManager)
+        public TenantController(TenantManager tenantManager, ApplicationUserManager applicationUserManager)
         {
             this.tenantManager = tenantManager;
             this.applicationUserManager = applicationUserManager;
-            this.applicationUserTenantManager = applicationUserTenantManager;
         }
 
         [HttpGet("current")]
         public async Task<ActionResult<TenantDTO>> GetCurrentTenantForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
 
             return Ok();
         }
@@ -38,7 +34,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TenantDTO>> GetAllTenantsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            
+            var t = applicationUserManager.GetAllTenantMemberships(applicationUser);
             return Ok();
         }
 
