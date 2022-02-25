@@ -1,6 +1,34 @@
-.MainAuthenticated{
+nav div {
+    flex: 1 1 0px;
+    height: 36px;
+}
+.HomeSectionContainer{
+    height: 100%;
+    display: grid;
+    justify-content: start;
+    align-content: end;
+}
+.HomeSection{
+    display: flex;
+    flex-direction: row;
+}
+.LogoContainer {
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-content: end;
+}
+.ProfileContainer {
+    height: 100%;
+    display: grid;
+    align-content: end;
+    justify-content: end;
+}
+main {
     display: flex;
     height: calc(100vh - 70px);
+    padding-top: 0;
+    flex-direction: row;
 }
 aside {
     width: 80px;
@@ -10,11 +38,11 @@ aside {
     border: 1px solid white;
 }
 .HomeLogo{
-    height: 40px;
+    height: 30px;
     cursor: pointer;
 }
-main{
-    padding-top: 0;
-    display: flex;
-    flex-direction: row;
+.HomeIconContainer{
+    height: 35px;
+    width: 100%;
+    padding-left: 5px;
 }

@@ -19,8 +19,8 @@ body {
 nav {
     height: 70px;
     padding: 15px;
-    padding-right: 25px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
 }

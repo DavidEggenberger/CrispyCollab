@@ -5,19 +5,27 @@
 
 <div class="page">
     <nav>
-        <div class="LogoContainer">
-            <img class="logo"/>
-            <a href="/">
-                <h1>AsyncAnalytics</h1>
-            </a>
+        <div class="HomeSectionContainer">
+            <div class="HomeSection">
+                <img class="HomeLogo" src="/Icons/home.svg" @onclick='() => navigationManager.NavigateTo("/")'/>
+                <input />
+            </div>
         </div>
-        <div class="TitleAsideContainer">
-            <ProfileComponent/>
+        <div class="LogoContainer">
+            <div>
+                <a href="/">
+                    <h1>AsyncAnalytics</h1>
+                </a>
+            </div>    
+        </div>
+        <div class="ProfileContainer">
+            <div>
+                <ProfileComponent/>
+            </div>
         </div>
     </nav>
     <main>
         <aside id="aside">
-            <img class="HomeLogo" src="/Icons/home.svg" @onclick='() => navigationManager.NavigateTo("/")'/>
             @if (expandedAside)
             {
                 <TenantAsideOverviewComponent/>
@@ -39,9 +47,6 @@
             @Body
         </div>
     </main>
-    <footer>
-        <AntiForgeryTokenInput/>
-    </footer>
 </div>
 
 @code{
@@ -51,6 +56,8 @@
         if (firstRender)
         {
             await jsRuntime.InvokeVoidAsync("hideLoadingScreen");
+            string token = await jsRuntime.InvokeAsync<string>("getAntiForgeryToken");
+            Console.WriteLine(token);
         }
     }
     private async Task ExpandAside()

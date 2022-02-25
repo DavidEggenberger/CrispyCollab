@@ -34,6 +34,14 @@ namespace WebServer.Controllers.Identity
             return Ok();
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<TenantDTO>> GetAllTenantsForUser()
+        {
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<ActionResult<TenantDTO>> CreateTenant()
         {

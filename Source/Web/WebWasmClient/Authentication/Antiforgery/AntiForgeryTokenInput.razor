@@ -14,6 +14,7 @@
         {
             token = await JSRuntime.InvokeAsync<string>("getAntiForgeryToken");
         }
+        Console.WriteLine(token == null ? "asfsdaf" : token);
     }
 
     public string GetToken()
