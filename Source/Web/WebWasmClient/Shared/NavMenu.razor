@@ -1,0 +1,28 @@
+﻿@using System.Text.Json
+@inject IHttpClientFactory httpClientFactory
+
+<div class="NavMenuContainer">
+    <NavLink href="">
+        <h3>
+            Dashboard
+        </h3>
+    </NavLink>
+    <div>
+        <h3>Groups</h3>
+    </div>
+    @if(tenants != null)
+    {
+        foreach(var tenant in tenants)
+        {
+            
+        }
+    }
+</div>
+
+@code{
+    private List<TenantInformationDTO> tenants;
+    protected override async Task OnInitializedAsync()
+    {
+        tenants = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<List<TenantInformationDTO>>("/api/tenant/all");
+    }
+}

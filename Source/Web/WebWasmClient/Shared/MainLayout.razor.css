@@ -1,10 +1,41 @@
+.page{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+main {
+    padding: 0 15 15 0;
+    height: 100%;
+}
+nav{
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+}
 nav div {
     flex: 1 1 0px;
     height: 36px;
 }
-main {
-    padding-top: 0;
-    height: calc(100% - 70px);
+.Body{
+    position: absolute;
+    left: 200;
+    right: 15;
+    top: 70;
+    bottom: 15;
+}
+aside {
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    margin: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    background: rgba(152, 203, 255, 0.4);
+    height: calc(100% - 30px);
 }
 .HomeSectionContainer{
     height: 100%;
@@ -36,4 +67,7 @@ main {
     height: 35px;
     width: 100%;
     padding-left: 5px;
+}
+.SelectedTenantIconContainer{
+    height: 55px;
 }

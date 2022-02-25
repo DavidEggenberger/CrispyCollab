@@ -35,7 +35,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             var t = await applicationUserManager.GetAllTenantMemberships(applicationUser);
-            return Ok();
+            return Ok(t.Value);
         }
 
         [HttpPost]

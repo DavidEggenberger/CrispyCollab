@@ -4,28 +4,31 @@
 @inject NavigationManager navigationManager
 
 <div class="page">
-    <nav>
-        <div class="HomeSectionContainer">
-            <div class="HomeSection">
-                <img class="HomeLogo" src="/Icons/home.svg" @onclick='() => navigationManager.NavigateTo("/")'/>
-                <input />
-            </div>
+    <aside>
+        <div class="SelectedTenantIconContainer">
+
         </div>
-        <div class="LogoContainer">
-            <div>
-                <a href="/">
-                    <h1>AsyncAnalytics</h1>
-                </a>
-            </div>    
-        </div>
-        <div class="ProfileContainer">
-            <div>
-                <ProfileComponent/>
-            </div>
-        </div>
-    </nav>
+        <NavMenu/>
+    </aside>
     <main>
-        @Body
+        <nav>
+            <div class="Filler"></div>
+            <div class="LogoContainer">
+                <div>
+                    <a href="/">
+                        <h1>AsyncAnalytics</h1>
+                    </a>
+                </div>    
+            </div>
+            <div class="ProfileContainer">
+                <div>
+                    <ProfileComponent/>
+                </div>
+            </div>
+        </nav>
+        <div class="Body">
+            @Body
+        </div>
     </main>
 </div>
 

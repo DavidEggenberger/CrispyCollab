@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Dashboard\Components\" />
-    <Folder Include="Shared\" />
+    <Folder Include="Features\Dashboard\" />
   </ItemGroup>
 
   <ItemGroup>
