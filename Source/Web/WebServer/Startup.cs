@@ -3,6 +3,7 @@ using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Common.EnvironmentService;
+using FluentValidation.AspNetCore;
 using Infrastructure.CQRS;
 using Infrastructure.EmailSender;
 using Infrastructure.Identity;
@@ -52,9 +53,7 @@ namespace WebServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            StripeConfiguration.ApiKey = Configuration["StripeKey"];
-            services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            #region Framework
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Identity");
@@ -66,11 +65,11 @@ namespace WebServer
             {
                 //AuthorizeFilterBehaviour
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).AddFluentValidation(options =>
+            {
+                options.DisableDataAnnotationsValidation = true;
+                options.RegisterValidatorsFromAssembly(null);
             });
-
-            services.AddScoped<TenantManager>();
-            services.AddCQRS(GetType().Assembly);
-
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -78,12 +77,25 @@ namespace WebServer
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
-
+            #endregion
+            #region CQRS
+            services.AddCQRS(GetType().Assembly);
+            #endregion
+            #region Stripe
+            StripeConfiguration.ApiKey = Configuration["StripeKey"];
+            #endregion
+            #region EMail
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            #endregion
+            #region EFCore 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
-
+            #endregion
+            #region Identity
+            services.AddScoped<TenantManager>();
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -180,6 +192,7 @@ namespace WebServer
                 .AddUserManager<ApplicationUserManager>()
                 .AddEntityFrameworkStores<IdentificationDbContext>()
                 .AddSignInManager();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
