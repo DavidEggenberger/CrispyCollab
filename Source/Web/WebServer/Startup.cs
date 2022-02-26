@@ -69,6 +69,9 @@ namespace WebServer
             {
                 options.DisableDataAnnotationsValidation = true;
                 options.RegisterValidatorsFromAssembly(typeof(Common.Misc.IAssemblyMarker).GetType().Assembly);
+            }).AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
             services.AddAntiforgery(options =>
             {

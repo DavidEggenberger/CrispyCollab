@@ -1,21 +1,52 @@
-﻿<div class="CreateNewTenantContainer">
+﻿@inject IHttpClientFactory httpClientFactory
+
+<div class="CreateNewTenantContainer">
     <h3>Create a new Group</h3>
-    <FluentValidationValidator />
-    <ValidationSummary />
-    <EditForm Model=@td>
+    <EditForm Model=@td Context="editContext">
+        <FluentValidationValidator />
         <div class="form-group">
-            <label>Name</label>
-            <input />
+            <label>Set the groups Name:</label>
+            <input @bind="td.Name"/>
+            <ValidationMessage For="() => td.Name" />
         </div>
         <div class="form-group">
-            <label>Icon</label>
-            <label for="InputFile">Select File</label>
-            <InputFile id="InputFile"/>
+            <div class="CenterContainer">
+                @if(picturePreview != null)
+                {
+                    <img src="@picturePreview"/>
+                }
+                <label id="SelectFileLabel" for="InputFile">Upload the groups Icon</label>
+                <InputFile id="InputFile" OnChange="@LoadFiles"/>
+                <button @onclick="async() => await CreateGroupAsync()">Create Group</button>
+            </div>         
         </div>
     </EditForm>
 </div>
 
 
 @code{
+    [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+    private EditContext editContext;
     TenantDTO td = new TenantDTO();
+    private IBrowserFile browserFile;
+    private string picturePreview;
+    private string base64;
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        IBrowserFile imgFile = e.File;
+        var buffers = new byte[imgFile.Size];
+        await imgFile.OpenReadStream().ReadAsync(buffers);
+        string imageType = imgFile.ContentType;
+        base64 = Convert.ToBase64String(buffers);
+        picturePreview =$"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
+    }
+    public async Task CreateGroupAsync()
+    {
+        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDto { Name = td.Name, Base64Data = base64});
+        await ModalInstance.CloseAsync();
+    }
 }

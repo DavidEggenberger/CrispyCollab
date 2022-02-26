@@ -13,7 +13,7 @@ namespace Infrastructure.Identity
     public class Tenant
     {
         public Guid Id { get; set; }
-        public string IconUri { get; set; }
+        public byte[] IconData { get; set; }
         public string NameIdentitifer { get; set; }
         public TenantPlan Plan { get; set; }
         public List<TenantInvitedUser> InvitedUsers { get; set; }

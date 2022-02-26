@@ -26,8 +26,7 @@ namespace Infrastructure.Identity.Services
 
         public async Task<IdentityOperationResult<List<ApplicationUserTenant>>> GetAllTenantMemberships(ApplicationUser applicationUser)
         {
-
-            return IdentityOperationResult<List<ApplicationUserTenant>>.Success(applicationUser.Memberships);
+            return IdentityOperationResult<List<ApplicationUserTenant>>.Success(identificationDbContext.ApplicationUserTenants.Where(x => x.UserId == applicationUser.Id).ToList());
         }
         public async Task<IdentityOperationResult<List<Tenant>>> GetTenantsWhereApplicationUserIsMember(ApplicationUser applicationUser)
         {
