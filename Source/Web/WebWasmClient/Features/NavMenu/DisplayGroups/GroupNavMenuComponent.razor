@@ -1,7 +1,7 @@
 ﻿@inject IHttpClientFactory httpClientFactory
 @inject NavigationManager navigationManager
 
-<div class="GroupExpander">
+<div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
     <div class="ExpanderTitle">
         <h3>Select Group</h3>
         @if (expanded)
@@ -20,7 +20,7 @@
             {
                 <h5>Loading...</h5>
             }
-            if(tenants.Count > 0)
+            else if(tenants.Count > 0)
             {
                 foreach(var tenant in tenants)
                 {

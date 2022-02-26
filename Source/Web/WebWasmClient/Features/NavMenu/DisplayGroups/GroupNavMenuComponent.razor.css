@@ -1,4 +1,7 @@
-﻿.ExpanderTitle {
+﻿.GroupExpander {
+    transition: 0.3s;
+}
+.ExpanderTitle {
     cursor: auto;
     display: flex;
     justify-content: space-between;
@@ -18,15 +21,23 @@
 .Group {
     color: black !important;
     margin-bottom: 7px;
+    margin-right: 4px;
     display: block;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.8);
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.5);
     padding-left: 3px;
     font-size: 1.1rem;
     cursor: pointer;
     position: relative;
     text-decoration: none !important;
 }
+    .Group:hover {
+        background: rgba(255, 255, 255, 0.95);
+    }
 div h5{
     cursor: pointer;
+}
+.NavElement::hover {
+    background: rgba(255, 255, 255, 0.4) !important;
 }

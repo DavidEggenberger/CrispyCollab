@@ -68,6 +68,7 @@ aside {
     width: 100%;
     padding-left: 5px;
 }
-.SelectedTenantIconContainer{
+.CurrentTenantDisplayComponentContainer {
     height: 55px;
+    width: 100%;
 }

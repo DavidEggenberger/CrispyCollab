@@ -8,30 +8,21 @@
     margin-bottom: 7px;
     display: block;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.4);
     padding-left: 3px;
     font-size: 1.1rem;
     cursor: pointer;
     position: relative;
+    transition: 0.3s;
     text-decoration: none !important;
 }
-::deep .NavElement.NoUnderline::before{
-    display: none !important;
-}
-::deep .NavElement:hover::before{
-    width: 100%;
-}
-::deep .NavElement::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background-color: orange;
-    transition: 1s;
-}
-    ::deep .NavElement.active::before {
-        width: 100%;
+    ::deep .NavElement.active {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid white;
+    }
+    ::deep .NavElement:hover {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    ::deep .NavElement.NoUnderline:hover {
+        background: rgba(255, 255, 255, 0.4);
     }

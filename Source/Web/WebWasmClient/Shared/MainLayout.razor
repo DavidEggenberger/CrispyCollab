@@ -6,11 +6,8 @@
 
 <div class="page">
     <aside>
-        <div class="SelectedTenantIconContainer">
-            @if(currentTenant != null)
-            {
-                <h2>@currentTenant.Name</h2>
-            }
+        <div class="CurrentTenantDisplayComponentContainer">
+            <CurrentTenantDisplayComponent Tenant="currentTenant"/>
         </div>
         <NavMenu/>
     </aside>

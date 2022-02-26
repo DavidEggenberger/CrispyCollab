@@ -1,0 +1,11 @@
+﻿<div class="CurrentTenantDisplacComponent">
+    @if(Tenant != null)
+    {
+        <h2>@Tenant.Name</h2>
+    }
+</div>
+
+@code{
+    [Parameter]
+    public TenantDTO Tenant { get; set; }
+}
