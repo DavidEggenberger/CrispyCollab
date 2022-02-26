@@ -5,7 +5,7 @@
     <EditForm Model=@td Context="editContext">
         <FluentValidationValidator />
         <div class="form-group">
-            <label>Set the groups Name:</label>
+            <label>Name</label>
             <input @bind="td.Name"/>
             <ValidationMessage For="() => td.Name" />
         </div>
@@ -15,9 +15,9 @@
                 {
                     <img src="@picturePreview"/>
                 }
-                <label id="SelectFileLabel" for="InputFile">Upload the groups Icon</label>
+                <label id="SelectFileLabel" for="InputFile">Upload Icon</label>
                 <InputFile id="InputFile" OnChange="@LoadFiles"/>
-                <button @onclick="async() => await CreateGroupAsync()">Create Group</button>
+                <button @onclick="async() => await CreateGroupAsync()">Create</button>
             </div>         
         </div>
     </EditForm>
@@ -33,7 +33,10 @@
     private string base64;
     protected override async Task OnInitializedAsync()
     {
-
+        editContext.OnValidationStateChanged += (obj, args) =>
+        {
+            
+        };
     }
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {

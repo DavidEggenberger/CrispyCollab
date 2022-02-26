@@ -1,4 +1,5 @@
 ﻿@inject IHttpClientFactory httpClientFactory
+@inject NavigationManager navigationManager
 
 <div class="GroupExpander">
     <div class="ExpanderTitle">
@@ -15,12 +16,16 @@
     <div class="GroupOverview">
         @if (expanded)
         {
-            if(tenants != null && tenants.Count > 0)
+            if(tenants == null)
+            {
+                <h5>Loading...</h5>
+            }
+            if(tenants.Count > 0)
             {
                 foreach(var tenant in tenants)
                 {
                     <div class="Group">
-                        <h5>@tenant.Id  @tenant.Name</h5>
+                        <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
                     </div>
                 }
             }
@@ -44,7 +49,7 @@
             tenants = JsonSerializer.Deserialize<List<TenantDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
     }
-    private bool expanded;
+    private bool expanded = true;
     public void Click()
     {
         expanded = !expanded;

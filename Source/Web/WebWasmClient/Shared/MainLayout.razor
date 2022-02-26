@@ -2,11 +2,15 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navigationManager
+@inject IHttpClientFactory httpClientFactory
 
 <div class="page">
     <aside>
         <div class="SelectedTenantIconContainer">
-
+            @if(currentTenant != null)
+            {
+                <h2>@currentTenant.Name</h2>
+            }
         </div>
         <NavMenu/>
     </aside>
@@ -45,6 +49,11 @@
 
 @code{
     private CustomErrorBoundary errorBoundary;
+    private TenantDTO currentTenant;
+    protected override async Task OnInitializedAsync()
+    {
+        currentTenant = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<TenantDTO>("/api/tenant/current", new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
