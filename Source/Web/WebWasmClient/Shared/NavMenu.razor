@@ -1,37 +1,22 @@
-﻿@using System.Text.Json
-@using System.Net
-@inject IHttpClientFactory httpClientFactory
-
-<div class="NavMenuContainer">
-    <NavLink href="">
-        <h3>
-            Dashboard
-        </h3>
+﻿<div class="NavMenuContainer">
+    <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
+        <h3>Dashboard</h3>
     </NavLink>
-    <div>
-        <h3>Groups</h3>
+     <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
+        <h3>Notifications</h3>
+    </NavLink>
+     <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
+        <h3>Integrations</h3>
+    </NavLink>
+    <div class="NavElement NoUnderline">
+        <GroupNavMenuComponent/>
     </div>
-    @if(tenants != null)
-    {
-        foreach(var tenant in tenants)
-        {
-            
-        }
-    }
-    <div>
-        <h3 @onclick="() => Modal.Show<CreateNewTenantModalComponent>()">Create new Group</h3>
+    <div class="NavElement">
+        <h3 @onclick="() => Modal.Show<CreateNewTenantModalComponent>()">Create Group</h3>
     </div>
-</div>
+</div>   
+    
 
 @code{
     [CascadingParameter] public IModalService Modal { get; set; }
-    private List<TenantDTO> tenants;
-    protected override async Task OnInitializedAsync()
-    {
-        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/tenant/all");
-        if(hrm.StatusCode == HttpStatusCode.OK)
-        {
-            tenants = JsonSerializer.Deserialize<List<TenantDTO>>(await hrm.Content.ReadAsStringAsync());
-        }
-    }
 }

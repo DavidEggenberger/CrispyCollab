@@ -1,0 +1,52 @@
+﻿@inject IHttpClientFactory httpClientFactory
+
+<div class="GroupExpander">
+    <div class="ExpanderTitle">
+        <h3>Select Group</h3>
+        @if (expanded)
+        {
+            <img class="ExpanderIcon Up" @onclick="() => Click()" src="/icons/angle-down.png"/>
+        }
+        else
+        {
+            <img class="ExpanderIcon" @onclick="() => Click()" src="/icons/angle-down.png"/>
+        }
+    </div>
+    <div class="GroupOverview">
+        @if (expanded)
+        {
+            if(tenants != null && tenants.Count > 0)
+            {
+                foreach(var tenant in tenants)
+                {
+                    <div class="Group">
+                        <h5>@tenant.Name</h5>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="Group">
+                    <h5>You are in no groups</h5>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code{
+    private List<TenantDTO> tenants;
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/tenant/all");
+        if(hrm.StatusCode == HttpStatusCode.OK)
+        {
+            tenants = JsonSerializer.Deserialize<List<TenantDTO>>(await hrm.Content.ReadAsStringAsync());
+        }
+    }
+    private bool expanded;
+    public void Click()
+    {
+        expanded = !expanded;
+    }
+}

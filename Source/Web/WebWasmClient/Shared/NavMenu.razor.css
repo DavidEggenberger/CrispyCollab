@@ -3,3 +3,35 @@
     flex-direction: column;
     padding: 0 5px 5px 5px;
 }
+::deep .NavElement {
+    color: black !important;
+    margin-bottom: 7px;
+    display: block;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    padding-left: 3px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none !important;
+}
+::deep .NavElement.NoUnderline::before{
+    display: none !important;
+}
+::deep .NavElement:hover::before{
+    width: 100%;
+}
+::deep .NavElement::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: orange;
+    transition: 1s;
+}
+    ::deep .NavElement.active::before {
+        width: 100%;
+    }

@@ -1,0 +1,29 @@
+﻿.ExpanderTitle {
+    cursor: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ExpanderIcon {
+    height: 0.9rem;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.ExpanderIcon.Up{
+    transform: rotate(180deg);
+}
+.GroupOverview{
+    margin-left: 14px;
+}
+.Group {
+    color: black !important;
+    margin-bottom: 7px;
+    display: block;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    padding-left: 3px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none !important;
+}
