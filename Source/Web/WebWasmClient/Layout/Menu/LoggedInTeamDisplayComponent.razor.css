@@ -1,0 +1,16 @@
+﻿.CurrentTenantDisplayComponent{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+img{
+    display: block;
+}
+.LogoNameSection{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 1.25rem;
+}

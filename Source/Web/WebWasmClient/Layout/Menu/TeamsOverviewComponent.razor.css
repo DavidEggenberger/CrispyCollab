@@ -32,6 +32,9 @@
     position: relative;
     text-decoration: none !important;
 }
+    .Group.Selected {
+        background: rgba(255, 255, 255, 0.95);
+    }
     .Group:hover {
         background: rgba(255, 255, 255, 0.95);
     }

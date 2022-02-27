@@ -51,6 +51,13 @@ input{
 img {
     width: 80px;
 }
-button{
-    margin-top
+button {
+    margin-top: 8px;
+    border-radius: 4px;
+    background-color: rgba(255, 195, 160, 0.3);
+    outline: none;
+    font-size: 1rem;
+    height: 25px;
+    color: black;
+    padding: 3px;
 }

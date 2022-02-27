@@ -7,9 +7,11 @@
 <div class="page">
     <aside>
         <div class="CurrentTenantDisplayComponentContainer">
-            <CurrentTenantDisplayComponent Tenant="currentTenant"/>
+            <LoggedInTeamDisplayComponent Tenant="currentTenant"/>
         </div>
-        <NavMenu/>
+        <CascadingValue Value="currentTenant">
+            <NavMenu/>
+        </CascadingValue>
     </aside>
     <main>
         <nav>

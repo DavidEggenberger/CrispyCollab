@@ -160,7 +160,7 @@ namespace WebServer
             });
             authenticationBuilder.AddApplicationCookie().Configure(options =>
             {
-                options.ExpireTimeSpan = new TimeSpan(0, 60, 0);
+                options.ExpireTimeSpan = new TimeSpan(6, 0, 0);
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.HttpOnly = true;

@@ -3,7 +3,7 @@
         <CascadingBlazoredModal>
             <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
                 <Found Context="routeData">
-                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.MainLayout)">
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Features.Layout.MainLayout)">
                         <NotAuthorized>
                             @if (!context.User.Identity.IsAuthenticated)
                             {
@@ -17,7 +17,7 @@
                     </AuthorizeRouteView>
                 </Found>
                 <NotFound>
-                    <LayoutView Layout="@typeof(Shared.MainLayout)">
+                    <LayoutView Layout="@typeof(Features.Layout.MainLayout)">
                         <p>Sorry, there's nothing at this address.</p>
                     </LayoutView>
                 </NotFound>

@@ -3,7 +3,7 @@
 
 <div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
     <div class="ExpanderTitle">
-        <h3>Select Group</h3>
+        <h3>Select Team</h3>
         @if (expanded)
         {
             <img class="ExpanderIcon Up" @onclick="() => Click()" src="/icons/angle-down.png"/>
@@ -24,15 +24,24 @@
             {
                 foreach(var tenant in tenants)
                 {
-                    <div class="Group">
-                        <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
-                    </div>
+                    if(CurrentTenant != null && tenant.Id == CurrentTenant.Id)
+                    {
+                        <div class="Group Selected">
+                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="Group">
+                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                        </div>
+                    }       
                 }
             }
             else
             {
                 <div class="Group">
-                    <h5>You are in no groups</h5>
+                    <h5>You are in no teams</h5>
                 </div>
             }
         }
@@ -40,6 +49,7 @@
 </div>
 
 @code{
+    [CascadingParameter] public TenantDTO CurrentTenant { get; set; }
     private List<TenantDTO> tenants;
     protected override async Task OnInitializedAsync()
     {
