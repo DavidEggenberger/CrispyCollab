@@ -1,0 +1,13 @@
+﻿@page
+@model WebServer.Pages.Identity.TeamManagement.ManagePlanModel
+@{
+}
+
+<h3>Your Current Plan: @Model.Team.Plan</h3>
+
+<h4>Change Plan</h4>
+
+<form asp-controller="Stripe" asp-action="RedirectToSubscription" method="POST">
+    <input name="quantity" type="number" />
+    <button type="submit" id="checkout-button">Checkout</button>
+</form>

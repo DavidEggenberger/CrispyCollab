@@ -13,14 +13,21 @@
     <div class="NavElement NoUnderline">
         <TeamsOverviewComponent/>
     </div>
+    @if(User.IsInRole("Admin"))
+    {
+        <div class="NavElement">
+            <h3 @onclick='() => navigationManager.NavigateTo("/Identity/TeamManagement/Plan", true)'>Manage @currentTenant.Name</h3>
+        </div>
+    }
     <div class="NavElement">
-        <h3 @onclick="() => Modal.Show<CreateTeamModalComponent>()">Create Team</h3>
+        <h3 @onclick="() => Modal.Show<CreateTeamModalComponent>()">Create New Team</h3>
     </div>
 </div>
 
 @code{
     [CascadingParameter] public IModalService Modal { get; set; }
     [CascadingParameter] public TeamDTO SelectedTeam { get; set; }
+    [CascadingParameter] public ClaimsPrincipal User { get; set; }
     [Parameter] public EventCallback<TeamDTO> SelectedTeamLoaded { get; set; }
 
     private TeamDTO currentTenant;

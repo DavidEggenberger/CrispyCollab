@@ -31,6 +31,10 @@ namespace Infrastructure.Identity.Services
         {
             throw new Exception();
         }
+        public async Task<Team> FindByIdAsync(string Id)
+        {
+            return identificationDbContext.Teams.Single(x => x.Id == new Guid(Id));
+        }
         public async Task<IdentityOperationResult> CreateNewTeamAsync(string name)
         {
 
