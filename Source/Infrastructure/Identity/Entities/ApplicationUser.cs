@@ -13,6 +13,7 @@ namespace Infrastructure.Identity
         public string PictureUri { get; set; }
         public bool IsOnline { get; set; }
         public int TabsOpen { get; set; }
+        public string StripeCustomerId { get; set; }
         public List<ApplicationUserTeam> Memberships { get; set; }
         public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }
         public virtual ICollection<IdentityUserClaim<Guid>> Claims { get; set; }
