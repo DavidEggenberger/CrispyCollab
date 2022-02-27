@@ -44,3 +44,6 @@ div h5{
 .NavElement::hover {
     background: rgba(255, 255, 255, 0.4) !important;
 }
+h6{
+    font-size: 0.9rem;
+}

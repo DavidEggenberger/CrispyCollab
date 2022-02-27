@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Dashboard\" />
+    <Folder Include="Features\Team\" />
     <Folder Include="Shared\" />
   </ItemGroup>
 

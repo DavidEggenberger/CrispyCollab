@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navigationManager
-@inject IHttpClientFactory httpClientFactory
+@inject HttpClientService httpClientService
 
 <div class="page">
     <aside>
@@ -51,7 +51,7 @@
     private TeamDTO currentTenant;
     protected override async Task OnInitializedAsync()
     {
-        currentTenant = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<TeamDTO>("/api/team/current", new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        currentTenant = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

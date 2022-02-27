@@ -34,8 +34,13 @@ namespace WebServer.Controllers.Identity
         [HttpGet("current")]
         public async Task<ActionResult<TeamDTO>> GetCurrentTeamForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            return Ok(applicationUser.Memberships.Where(m => m.Status == TeamStatus.Selected).Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).First());
+            ApplicationUser user = await applicationUserManager.GetUserAsync(HttpContext.User);
+            Team team;
+            if((team = user.Memberships.SingleOrDefault(x => x.UserId == user.Id && x.Status == TeamStatus.Selected)?.Team) != null)
+            {
+                return Ok(new TeamDTO { Id = team.Id, Name = team.NameIdentitifer, IconUrl = "adf" });
+            }
+            return NoContent();
         }
 
         [HttpGet("all")]

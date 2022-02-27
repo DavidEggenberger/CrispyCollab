@@ -3,6 +3,7 @@ using Infrastructure.Identity.Types;
 using Infrastructure.Identity.Types.Constants;
 using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Types.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

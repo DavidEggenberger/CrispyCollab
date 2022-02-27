@@ -10,7 +10,6 @@
     <Folder Include="EFCore\Migrations\ApplicationDbContext\" />
     <Folder Include="EFCore\Migrations\IdentificationDbContext\" />
     <Folder Include="Caching\" />
-    <Folder Include="Identity\EFCore\Migrations\" />
     <Folder Include="Stripe\" />
   </ItemGroup>
 

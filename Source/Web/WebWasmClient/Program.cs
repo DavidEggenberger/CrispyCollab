@@ -15,6 +15,7 @@ using WebWasmClient.Authentication;
 using WebWasmClient.Authentication.Antiforgery;
 using WebWasmClient;
 using Blazored.Modal;
+using WebWasmClient.Services;
 
 namespace WebWasmClient
 {
@@ -26,6 +27,7 @@ namespace WebWasmClient
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+            builder.Services.AddScoped<HttpClientService>();
             builder.Services.AddBlazoredModal();
             builder.Services.AddScoped<AntiforgeryTokenService>();
             builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();

@@ -41,7 +41,7 @@
             else
             {
                 <div class="Group">
-                    <h5>You are in no teams</h5>
+                    <h6>You are in no teams</h6>
                 </div>
             }
         }
@@ -53,11 +53,11 @@
     private List<TeamDTO> tenants;
     protected override async Task OnInitializedAsync()
     {
-        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/team/all");
-        if(hrm.StatusCode == HttpStatusCode.OK)
-        {
-            tenants = JsonSerializer.Deserialize<List<TeamDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        }
+        //HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/team/all");
+        //if(hrm.StatusCode == HttpStatusCode.OK)
+        //{
+        //    tenants = JsonSerializer.Deserialize<List<TeamDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        //}
     }
     private bool expanded = true;
     public void Click()
