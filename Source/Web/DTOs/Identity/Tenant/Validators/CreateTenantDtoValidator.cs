@@ -1,4 +1,4 @@
-﻿using Common.DTOs.Identity.Tenant;
+﻿using Common.DTOs.Identity.Team;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.Tenant.Validators
+namespace Common.Identity.Team.Validators
 {
-    public class CreateTenantDtoValidator : AbstractValidator<CreateTenantDto>
+    public class CreateTeamDtoValidator : AbstractValidator<CreateTeamDto>
     {
-        public CreateTenantDtoValidator()
+        public CreateTeamDtoValidator()
         {
             
         }

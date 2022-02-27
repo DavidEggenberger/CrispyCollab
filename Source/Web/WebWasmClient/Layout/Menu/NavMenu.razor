@@ -2,10 +2,10 @@
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h3>Dashboard</h3>
     </NavLink>
-     <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
+    <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
         <h3>Notifications</h3>
     </NavLink>
-     <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
+    <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
         <h3>Integrations</h3>
     </NavLink>
     <div class="NavElement NoUnderline">
@@ -14,6 +14,7 @@
     <div class="NavElement">
         <h3 @onclick="() => Modal.Show<CreateTeamModalComponent>()">Create Team</h3>
     </div>
+
 </div>
 
 @code{

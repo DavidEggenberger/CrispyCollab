@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class Tenant
+    public class Team
     {
         public Guid Id { get; set; }
         public byte[] IconData { get; set; }
         public string NameIdentitifer { get; set; }
-        public TenantPlan Plan { get; set; }
-        public List<TenantInvitedUser> InvitedUsers { get; set; }
-        public List<ApplicationUserTenant> Members { get; set; }   
+        public TeamPlan Plan { get; set; }
+        public List<TeamInvitedUser> InvitedUsers { get; set; }
+        public List<ApplicationUserTeam> Members { get; set; }   
     }
 }

@@ -12,9 +12,9 @@ namespace Infrastructure.Identity.Types.Overrides
     public class ApplicationUserClaimsPrincipalFactory<User> : IUserClaimsPrincipalFactory<User> where User : ApplicationUser
     {
         private ApplicationUserManager applicationUserManager;
-        public ApplicationUserClaimsPrincipalFactory(ApplicationUserManager tenantApplicationUserManager)
+        public ApplicationUserClaimsPrincipalFactory(ApplicationUserManager TeamApplicationUserManager)
         {
-            this.applicationUserManager = tenantApplicationUserManager;
+            this.applicationUserManager = TeamApplicationUserManager;
         }
         public async Task<ClaimsPrincipal> CreateAsync(User user)
         {

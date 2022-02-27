@@ -48,10 +48,10 @@
 
 @code{
     private CustomErrorBoundary errorBoundary;
-    private TenantDTO currentTenant;
+    private TeamDTO currentTenant;
     protected override async Task OnInitializedAsync()
     {
-        currentTenant = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<TenantDTO>("/api/tenant/current", new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        currentTenant = await httpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<TeamDTO>("/api/team/current", new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

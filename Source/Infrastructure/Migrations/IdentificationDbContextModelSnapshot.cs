@@ -97,7 +97,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.ApplicationUserTenant", b =>
+            modelBuilder.Entity("Infrastructure.Identity.ApplicationUserTeam", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("TenantId")
+                    b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -117,11 +117,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId");
+                    b.HasIndex("TeamId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ApplicationUserTenants");
+                    b.ToTable("ApplicationUserTeams");
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.Entities.InvitedUser", b =>
@@ -138,25 +138,25 @@ namespace Infrastructure.Migrations
                     b.ToTable("InvitedUser");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.Entities.TenantInvitedUser", b =>
+            modelBuilder.Entity("Infrastructure.Identity.Entities.TeamInvitedUser", b =>
                 {
                     b.Property<Guid>("InvitedUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TenantId")
+                    b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.HasKey("InvitedUserId", "TenantId");
+                    b.HasKey("InvitedUserId", "TeamId");
 
-                    b.HasIndex("TenantId");
+                    b.HasIndex("TeamId");
 
-                    b.ToTable("TenantInvitedUser");
+                    b.ToTable("TeamInvitedUser");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.Tenant", b =>
+            modelBuilder.Entity("Infrastructure.Identity.Team", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -173,7 +173,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tenants");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -326,11 +326,11 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.ApplicationUserTenant", b =>
+            modelBuilder.Entity("Infrastructure.Identity.ApplicationUserTeam", b =>
                 {
-                    b.HasOne("Infrastructure.Identity.Tenant", "Tenant")
+                    b.HasOne("Infrastructure.Identity.Team", "Team")
                         .WithMany("Members")
-                        .HasForeignKey("TenantId")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -340,26 +340,26 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Tenant");
+                    b.Navigation("Team");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.Entities.TenantInvitedUser", b =>
+            modelBuilder.Entity("Infrastructure.Identity.Entities.TeamInvitedUser", b =>
                 {
                     b.HasOne("Infrastructure.Identity.Entities.InvitedUser", "User")
-                        .WithMany("InvitedTenants")
+                        .WithMany("InvitedTeams")
                         .HasForeignKey("InvitedUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Identity.Tenant", "Tenant")
+                    b.HasOne("Infrastructure.Identity.Team", "Team")
                         .WithMany("InvitedUsers")
-                        .HasForeignKey("TenantId")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Tenant");
+                    b.Navigation("Team");
 
                     b.Navigation("User");
                 });
@@ -440,10 +440,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Identity.Entities.InvitedUser", b =>
                 {
-                    b.Navigation("InvitedTenants");
+                    b.Navigation("InvitedTeams");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.Tenant", b =>
+            modelBuilder.Entity("Infrastructure.Identity.Team", b =>
                 {
                     b.Navigation("InvitedUsers");
 

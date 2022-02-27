@@ -27,13 +27,13 @@
                     if(CurrentTenant != null && tenant.Id == CurrentTenant.Id)
                     {
                         <div class="Group Selected">
-                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
                         </div>
                     }
                     else
                     {
                         <div class="Group">
-                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/tenant/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
                         </div>
                     }       
                 }
@@ -49,14 +49,14 @@
 </div>
 
 @code{
-    [CascadingParameter] public TenantDTO CurrentTenant { get; set; }
-    private List<TenantDTO> tenants;
+    [CascadingParameter] public TeamDTO CurrentTenant { get; set; }
+    private List<TeamDTO> tenants;
     protected override async Task OnInitializedAsync()
     {
-        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/tenant/all");
+        HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/team/all");
         if(hrm.StatusCode == HttpStatusCode.OK)
         {
-            tenants = JsonSerializer.Deserialize<List<TenantDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            tenants = JsonSerializer.Deserialize<List<TeamDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
     }
     private bool expanded = true;

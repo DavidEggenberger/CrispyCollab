@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.DTOs.Identity.Tenant
+namespace Common.DTOs.Identity.Team
 {
-    public class TenantDTO
+    public class TeamDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

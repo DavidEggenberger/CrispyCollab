@@ -8,7 +8,7 @@ namespace Infrastructure.Identity.Types.Constants
 {
     public class IdentityStringConstants
     {
-        public const string IdentityTenantIdClaimType = "TenantId";
-        public const string IdentityTenantRoleClaimType = "TenantRole";
+        public const string IdentityTeamIdClaimType = "TeamId";
+        public const string IdentityTeamRoleClaimType = "TeamRole";
     }
 }

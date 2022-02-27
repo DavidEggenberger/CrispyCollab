@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public enum TenantPlan
+    public enum TeamPlan
     {
         Free,
         Basic,

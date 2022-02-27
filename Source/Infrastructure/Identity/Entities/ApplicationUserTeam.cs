@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class ApplicationUserTenant 
+    public class ApplicationUserTeam 
     {
         public Guid Id { get; set; }
-        public Guid TenantId { get; set; }
-        public Tenant Tenant { get; set; }
+        public Guid TeamId { get; set; }
+        public Team Team { get; set; }
         public Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
-        public TenantRoleType Role { get; set; }
-        public TenantStatus Status { get; set; }
+        public TeamRoleType Role { get; set; }
+        public TeamStatus Status { get; set; }
     }
 }

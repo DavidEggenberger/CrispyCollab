@@ -16,8 +16,8 @@ namespace Infrastructure.Identity
             
         }
 
-        public DbSet<ApplicationUserTenant> ApplicationUserTenants { get; set; }
-        public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

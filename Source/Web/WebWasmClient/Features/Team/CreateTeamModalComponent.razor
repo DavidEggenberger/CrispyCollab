@@ -1,6 +1,6 @@
 ﻿@inject IHttpClientFactory httpClientFactory
 
-<div class="CreateNewTenantContainer">
+<div class="CreateNewTeamContainer">
     <h3>Create a new Group</h3>
     <EditForm Model=@td Context="editContext">
         <FluentValidationValidator />
@@ -27,7 +27,7 @@
 @code{
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
     private EditContext editContext;
-    TenantDTO td = new TenantDTO();
+    TeamDTO td = new TeamDTO();
     private IBrowserFile browserFile;
     private string picturePreview;
     private string base64;
@@ -46,7 +46,7 @@
     }
     public async Task CreateGroupAsync()
     {
-        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/tenant", new CreateTenantDto { Name = td.Name, Base64Data = base64});
+        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/Team", new CreateTeamDto { Name = td.Name, Base64Data = base64});
         await ModalInstance.CloseAsync();
     }
 }

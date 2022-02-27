@@ -44,7 +44,7 @@ namespace WebServer.Controllers.Identity
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect(returnUrl == null ? "/" : returnUrl);
                 }
                 if (result.Succeeded is false)
                 {
@@ -89,7 +89,7 @@ namespace WebServer.Controllers.Identity
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect(returnUrl == null ? "/" : returnUrl);
                 }
                 if (result.Succeeded is false)
                 {

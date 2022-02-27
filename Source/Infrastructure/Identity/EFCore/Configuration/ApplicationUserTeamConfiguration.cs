@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class ApplicationUserTenantConfiguration : IEntityTypeConfiguration<ApplicationUserTenant>
+    public class ApplicationUserTeamConfiguration : IEntityTypeConfiguration<ApplicationUserTeam>
     {
-        public void Configure(EntityTypeBuilder<ApplicationUserTenant> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUserTeam> builder)
         {
-            builder.Navigation(x => x.Tenant).AutoInclude();
+            builder.Navigation(x => x.Team).AutoInclude();
         }
     }
 }

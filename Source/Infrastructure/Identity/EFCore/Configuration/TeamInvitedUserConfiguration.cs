@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class TenantInvitedUserConfiguration : IEntityTypeConfiguration<TenantInvitedUser>
+    public class TeamInvitedUserConfiguration : IEntityTypeConfiguration<TeamInvitedUser>
     {
-        public void Configure(EntityTypeBuilder<TenantInvitedUser> builder)
+        public void Configure(EntityTypeBuilder<TeamInvitedUser> builder)
         {
-            builder.HasKey(x => new { x.InvitedUserId, x.TenantId });
+            builder.HasKey(x => new { x.InvitedUserId, x.TeamId });
         }
     }
 }

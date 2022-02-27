@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Identity.Types.Enums
+namespace Infrastructure.Identity
 {
-    public enum TenantStatus
+    public enum TeamRoleType
     {
-        Selected,
-        NotSelected
+        Admin,
+        User,
+        Guest,
+        Invited
     }
 }

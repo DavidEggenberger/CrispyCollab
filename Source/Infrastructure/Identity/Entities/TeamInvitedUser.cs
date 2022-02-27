@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Entities
 {
-    public class TenantInvitedUser
+    public class TeamInvitedUser
     {
-        public Guid TenantId { get; set; }
-        public Tenant Tenant { get; set; }
+        public Guid TeamId { get; set; }
+        public Team Team { get; set; }
         public Guid InvitedUserId { get; set; }
         public InvitedUser User { get; set; }
-        public TenantRoleType Role { get; set; }
+        public TeamRoleType Role { get; set; }
     }
 }

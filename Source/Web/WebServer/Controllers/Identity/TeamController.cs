@@ -1,4 +1,4 @@
-﻿using Common.DTOs.Identity.Tenant;
+﻿using Common.DTOs.Identity.Team;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -17,47 +17,47 @@ namespace WebServer.Controllers.Identity
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class TenantController : ControllerBase
+    public class TeamController : ControllerBase
     {
-        private readonly TenantManager tenantManager;
+        private readonly TeamManager TeamManager;
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private SignInManager<ApplicationUser> signInManager;
-        public TenantController(TenantManager tenantManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
+        public TeamController(TeamManager TeamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
         {
-            this.tenantManager = tenantManager;
+            this.TeamManager = TeamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<TenantDTO>> GetCurrentTenantForUser()
+        public async Task<ActionResult<TeamDTO>> GetCurrentTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            return Ok(applicationUser.Memberships.Where(m => m.Status == TenantStatus.Selected).Select(x => new TenantDTO { Name = x.Tenant.NameIdentitifer, Id = x.TenantId, IconUrl = "https://icon" }).First());
+            return Ok(applicationUser.Memberships.Where(m => m.Status == TeamStatus.Selected).Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).First());
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<List<TenantDTO>>> GetAllTenantsForUser()
+        public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            var t = await applicationUserManager.GetAllTenantMemberships(applicationUser);
-            return Ok(t.Value.Select(x => new TenantDTO { Name = x.Tenant.NameIdentitifer, Id = x.TenantId, IconUrl = "https://icon" }).ToList());
+            var t = await applicationUserManager.GetAllTeamMemberships(applicationUser);
+            return Ok(t.Value.Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList());
         }
 
         [HttpPost]
-        public async Task<ActionResult<TenantDTO>> CreateTenant(CreateTenantDto createTenantDto)
+        public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            applicationUser.Memberships.Add(new ApplicationUserTenant
+            applicationUser.Memberships.Add(new ApplicationUserTeam
             {
-                Tenant = new Tenant
+                Team = new Team
                 {
-                    NameIdentitifer = createTenantDto.Name,
-                    IconData = Convert.FromBase64String(createTenantDto.Base64Data)
+                    NameIdentitifer = createTeamDto.Name,
+                    IconData = Convert.FromBase64String(createTeamDto.Base64Data)
                 },
-                Status = TenantStatus.Selected
+                Status = TeamStatus.Selected
             });
             try
             {
@@ -70,12 +70,12 @@ namespace WebServer.Controllers.Identity
             return Ok();
         }    
 
-        [HttpGet("setCurrent/{tenantId}")]
-        public async Task<ActionResult> SetCurrentTenantForUser(Guid tenantId)
+        [HttpGet("setCurrent/{TeamId}")]
+        public async Task<ActionResult> SetCurrentTeamForUser(Guid TeamId)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            applicationUser.Memberships.ToList().ForEach(x => x.Status = TenantStatus.NotSelected);
-            applicationUser.Memberships.Where(x => x.TenantId == tenantId).First().Status = TenantStatus.Selected;
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            applicationUser.Memberships.Where(x => x.TeamId == TeamId).First().Status = TeamStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
             await signInManager.SignOutAsync();
             await signInManager.SignInAsync(applicationUser, true);

@@ -98,24 +98,24 @@ namespace WebServer
             //});
             #endregion
             #region Identity
-            services.AddScoped<TenantManager>();
+            services.AddScoped<TeamManager>();
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TenantGuest", options =>
+                options.AddPolicy("TeamGuest", options =>
                 {
-                    options.RequireClaim("TenantId");
-                    options.RequireClaim("TenantRole", "Guest", "User", "Admin");
+                    options.RequireClaim("TeamId");
+                    options.RequireClaim("TeamRole", "Guest", "User", "Admin");
                 });
-                options.AddPolicy("TenantUser", options =>
+                options.AddPolicy("TeamUser", options =>
                 {
-                    options.RequireClaim("TenantId");
-                    options.RequireClaim("TenantRole", "User", "Admin");
+                    options.RequireClaim("TeamId");
+                    options.RequireClaim("TeamRole", "User", "Admin");
                 });
-                options.AddPolicy("TenantAdmin", options =>
+                options.AddPolicy("TeamAdmin", options =>
                 {
-                    options.RequireClaim("TenantId");
-                    options.RequireClaim("TenantRole", "Admin");
+                    options.RequireClaim("TeamId");
+                    options.RequireClaim("TeamRole", "Admin");
                 });
             });
 
