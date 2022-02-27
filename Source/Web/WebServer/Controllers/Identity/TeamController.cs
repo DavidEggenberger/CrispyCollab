@@ -55,6 +55,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
             applicationUser.Memberships.Add(new ApplicationUserTeam
             {
                 Team = new Team

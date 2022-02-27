@@ -12,7 +12,8 @@ namespace Common.Identity.Team.Validators
     {
         public CreateTeamDtoValidator()
         {
-            
+            RuleFor(t => t.Name).Must(t => t.Length > 1).WithMessage("The name must be longer than 1 character");
+            RuleFor(t => t.Name).NotNull().WithMessage("A name must be set");
         }
     }
 }

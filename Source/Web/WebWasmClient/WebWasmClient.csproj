@@ -21,12 +21,10 @@
 
   <ItemGroup>
     <Folder Include="Features\Dashboard\" />
-    <Folder Include="Features\Team\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Layout\MainLayout.razor">
+    <Content Update="Shared\Layout\MainLayout.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

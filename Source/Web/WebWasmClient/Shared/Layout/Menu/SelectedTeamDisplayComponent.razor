@@ -1,0 +1,22 @@
+﻿<div class="CurrentTenantDisplayComponent">
+    @if(Tenant != null)
+    {
+        <div class="LogoNameSection">
+            <img src="@Tenant.IconUrl"/>
+            <h2>@Tenant.Name</h2>
+            @if(User.IsInRole("Admin"))
+            {
+                <div class="RoleDisplay"> 
+                    <h5>Admin</h5>
+                </div>
+            }
+        </div>  
+    }
+</div>
+
+@code{
+    [Parameter]
+    public TeamDTO Tenant { get; set; }
+    [CascadingParameter]
+    public ClaimsPrincipal User { get; set; }
+}

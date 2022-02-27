@@ -1,12 +1,6 @@
-﻿<div class="NavMenuContainer">
-    @if(SelectedTeam == null)
-    {
-        <h3>dsafasdf</h3>
-    }
-    else
-    {
-        
-    }
+﻿@inject HttpClientService httpClientService
+
+<div class="NavMenuContainer">
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h3>Dashboard</h3>
     </NavLink>
@@ -27,4 +21,15 @@
 @code{
     [CascadingParameter] public IModalService Modal { get; set; }
     [CascadingParameter] public TeamDTO SelectedTeam { get; set; }
+    [Parameter] public EventCallback<TeamDTO> SelectedTeamLoaded { get; set; }
+
+    private TeamDTO currentTenant;
+    protected override async Task OnInitializedAsync()
+    {
+        currentTenant = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
+        if (SelectedTeamLoaded.HasDelegate)
+        {
+            await SelectedTeamLoaded.InvokeAsync(currentTenant);
+        }
+    }
 }

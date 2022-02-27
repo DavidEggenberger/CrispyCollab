@@ -1,4 +1,4 @@
-﻿@inject IHttpClientFactory httpClientFactory
+﻿@inject HttpClientService httpClientService
 @inject NavigationManager navigationManager
 
 <div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
@@ -16,13 +16,13 @@
     <div class="GroupOverview">
         @if (expanded)
         {
-            if(tenants == null)
+            if(teams == null)
             {
                 <h5>Loading...</h5>
             }
-            else if(tenants.Count > 0)
+            else if(teams.Count > 0)
             {
-                foreach(var tenant in tenants)
+                foreach(var tenant in teams)
                 {
                     if(CurrentTenant != null && tenant.Id == CurrentTenant.Id)
                     {
@@ -33,7 +33,8 @@
                     else
                     {
                         <div class="Group">
-                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                            <h5>@tenant.Name</h5>
+                            <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>Select</button>
                         </div>
                     }       
                 }
@@ -50,14 +51,10 @@
 
 @code{
     [CascadingParameter] public TeamDTO CurrentTenant { get; set; }
-    private List<TeamDTO> tenants;
+    private List<TeamDTO> teams;
     protected override async Task OnInitializedAsync()
     {
-        //HttpResponseMessage hrm = await httpClientFactory.CreateClient("authorizedClient").GetAsync("/api/team/all");
-        //if(hrm.StatusCode == HttpStatusCode.OK)
-        //{
-        //    tenants = JsonSerializer.Deserialize<List<TeamDTO>>(await hrm.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        //}
+        teams = await httpClientService.GetFromAPI<List<TeamDTO>>("/team/all");
     }
     private bool expanded = true;
     public void Click()

@@ -1,13 +1,14 @@
 ﻿@inject IHttpClientFactory httpClientFactory
+@inject NavigationManager navigationManager
 
 <div class="CreateNewTeamContainer">
     <h3>Create a new Group</h3>
-    <EditForm Model=@td Context="editContext">
+    <EditForm Model=@team Context="editContext">
         <FluentValidationValidator />
         <div class="form-group">
             <label>Name</label>
-            <input @bind="td.Name"/>
-            <ValidationMessage For="() => td.Name" />
+            <OnInputBindInputText @bind-Value="team.Name"/>
+            <ValidationMessage For="() => team.Name" />
         </div>
         <div class="form-group">
             <div class="CenterContainer">
@@ -27,13 +28,13 @@
 @code{
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
     private EditContext editContext;
-    TeamDTO td = new TeamDTO();
+    TeamDTO team = new TeamDTO();
     private IBrowserFile browserFile;
     private string picturePreview;
     private string base64;
     protected override async Task OnInitializedAsync()
     {
-        
+        editContext = new EditContext(team);
     }
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
@@ -46,7 +47,8 @@
     }
     public async Task CreateGroupAsync()
     {
-        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/Team", new CreateTeamDto { Name = td.Name, Base64Data = base64});
+        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/Team", new CreateTeamDto { Name = team.Name, Base64Data = base64});
         await ModalInstance.CloseAsync();
+        navigationManager.NavigateTo("/", true);
     }
 }

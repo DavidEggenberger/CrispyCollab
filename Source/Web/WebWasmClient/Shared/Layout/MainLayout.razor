@@ -2,15 +2,14 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navigationManager
-@inject HttpClientService httpClientService
 
 <div class="page">
     <aside>
         <div class="CurrentTenantDisplayComponentContainer">
-            <LoggedInTeamDisplayComponent Tenant="currentTenant"/>
+            <SelectedTeamDisplayComponent Tenant="selectedTeam"/>
         </div>
-        <CascadingValue Value="currentTenant">
-            <NavMenu/>
+        <CascadingValue Value="selectedTeam">
+            <NavMenu SelectedTeamLoaded="team => selectedTeam = team"/>
         </CascadingValue>
     </aside>
     <main>
@@ -48,11 +47,7 @@
 
 @code{
     private CustomErrorBoundary errorBoundary;
-    private TeamDTO currentTenant;
-    protected override async Task OnInitializedAsync()
-    {
-        currentTenant = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
-    }
+    private TeamDTO selectedTeam;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
