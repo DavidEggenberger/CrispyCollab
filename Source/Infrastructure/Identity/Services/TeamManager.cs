@@ -31,17 +31,23 @@ namespace Infrastructure.Identity.Services
         {
             throw new Exception();
         }
-        public async Task<Team> FindByIdAsync(string Id)
+        public Task<Team> FindByIdAsync(string Id)
         {
-            return identificationDbContext.Teams.Single(x => x.Id == new Guid(Id));
+            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+        }
+        public Task<Team> FindUsersSelectedTeam(string Id)
+        {
+            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
         public async Task<IdentityOperationResult> CreateNewTeamAsync(string name)
         {
-
+            if(identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
+            {
+                return IdentityOperationResult.Fail("The Team name is taken");
+            }
             identificationDbContext.Teams.Add(new Team
             {
-                NameIdentitifer = name,
-                
+                NameIdentitifer = name
             });
             await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();

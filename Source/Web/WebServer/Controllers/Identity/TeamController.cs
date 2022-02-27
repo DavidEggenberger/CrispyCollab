@@ -11,6 +11,7 @@ using Infrastructure.Identity.Types.Enums;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using Infrastructure.Identity.Types.Shared;
 
 namespace WebServer.Controllers.Identity
 {
@@ -19,59 +20,52 @@ namespace WebServer.Controllers.Identity
     [ApiController]
     public class TeamController : ControllerBase
     {
-        private readonly TeamManager TeamManager;
+        private readonly TeamManager teamManager;
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private SignInManager<ApplicationUser> signInManager;
         public TeamController(TeamManager TeamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
         {
-            this.TeamManager = TeamManager;
+            this.teamManager = TeamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<TeamDTO>> GetCurrentTeamForUser()
+        public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
-            ApplicationUser user = await applicationUserManager.GetUserAsync(HttpContext.User);
-            Team team;
-            if((team = user.Memberships.SingleOrDefault(x => x.UserId == user.Id && x.Status == TeamStatus.Selected)?.Team) != null)
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            IdentityOperationResult<Team> result = await applicationUserManager.GetSelectedTeam(applicationUser);
+            if (result.Successful is false)
             {
-                return Ok(new TeamDTO { Id = team.Id, Name = team.NameIdentitifer, IconUrl = "adf" });
+                return NoContent();
             }
-            return NoContent();
+            return Ok(result.Value);
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            var t = await applicationUserManager.GetAllTeamMemberships(applicationUser);
-            return Ok(t.Value.Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList());
+            IdentityOperationResult<List<ApplicationUserTeam>> result = await applicationUserManager.GetAllTeamMemberships(applicationUser);
+            if (result.Successful is false)
+            {
+                return NoContent();
+            }
+            List<TeamDTO> teams = result.Value.Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList();
+            return Ok(teams);
         }
 
         [HttpPost]
         public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
-            applicationUser.Memberships.Add(new ApplicationUserTeam
+            await applicationUserManager.UnSelectAllTeams(applicationUser);
+            IdentityOperationResult result = await teamManager.CreateNewTeamAsync(createTeamDto.Name);
+            if(result.Successful is false)
             {
-                Team = new Team
-                {
-                    NameIdentitifer = createTeamDto.Name,
-                    IconData = Convert.FromBase64String(createTeamDto.Base64Data)
-                },
-                Status = TeamStatus.Selected
-            });
-            try
-            {
-                int i = await identificationDbContext.SaveChangesAsync();
-            }
-            catch(Exception ex)
-            {
-
+                return Ok();
             }
             return Ok();
         }    
@@ -80,7 +74,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> SetCurrentTeamForUser(Guid TeamId)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            
             applicationUser.Memberships.Where(x => x.TeamId == TeamId).First().Status = TeamStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
             await signInManager.SignOutAsync();

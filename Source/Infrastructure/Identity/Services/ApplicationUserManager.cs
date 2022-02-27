@@ -25,6 +25,25 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
         }
 
+        public async Task<IdentityOperationResult<Team>> GetSelectedTeam(ApplicationUser applicationUser)
+        {
+            Team team;
+            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.UserId == applicationUser.Id && x.Status == TeamStatus.Selected)?.Team) != null)
+            {
+                return IdentityOperationResult<Team>.Success(team);
+            }
+            return IdentityOperationResult<Team>.Fail("The User has no Team selected");
+        }
+        public async Task<IdentityOperationResult> UnSelectAllTeams(ApplicationUser applicationUser)
+        {
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            return IdentityOperationResult.Success();
+        }
+        public async Task<IdentityOperationResult> SelectTeamForUser(ApplicationUser applicationUser, Team team)
+        {
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            return IdentityOperationResult.Success();
+        }
         public async Task<IdentityOperationResult<List<ApplicationUserTeam>>> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
             return IdentityOperationResult<List<ApplicationUserTeam>>.Success(identificationDbContext.ApplicationUserTeams.Where(x => x.UserId == applicationUser.Id).ToList());

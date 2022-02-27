@@ -38,6 +38,7 @@ namespace WebServer.Controllers.Identity
                   {
                         Price = "price_1JvrJXEhLcfJYVVFHgWGpFlD",
                         Quantity = 1,
+                        
                   },
                 },
                 Mode = "subscription",
@@ -54,6 +55,8 @@ namespace WebServer.Controllers.Identity
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
+
+        [IgnoreAntiforgeryToken]
         [HttpPost("webhooks")]
         public async Task<IActionResult> Index()
         {
@@ -62,7 +65,7 @@ namespace WebServer.Controllers.Identity
             // If you are testing with the CLI, find the secret by running 'stripe listen'
             // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
             // at https://dashboard.stripe.com/webhooks
-            const string endpointSecret = "whsec_0LJrek0NHVICP2d5fm0BtsZmTzMtVacJ";
+            const string endpointSecret = "whsec_1e2d0609f798c0d2b32de188b680fa5edafbd3212dead57d24b0e408085f8bd4";
             try
             {
                 var stripeEvent = EventUtility.ParseEvent(json);
@@ -78,8 +81,7 @@ namespace WebServer.Controllers.Identity
                 else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
-                    // Then define and call a method to handle the successful payment intent.
-                    // handleSubscriptionUpdated(subscription);
+                    
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
