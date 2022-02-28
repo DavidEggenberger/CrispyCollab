@@ -37,6 +37,7 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult> UnSelectAllTeams(ApplicationUser applicationUser)
         {
             applicationUser.Memberships.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
+            await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult> SelectTeamForUser(ApplicationUser applicationUser, Team team)

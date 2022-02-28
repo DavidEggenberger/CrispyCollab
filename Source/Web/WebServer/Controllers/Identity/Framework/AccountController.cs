@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Stripe;
+using Infrastructure.Stripe;
 
 namespace WebServer.Controllers.Identity
 {
@@ -17,10 +19,12 @@ namespace WebServer.Controllers.Identity
     {
         private SignInManager<ApplicationUser> signInManager;
         private ApplicationUserManager userManager;
-        public AccountController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager)
+        private StripeCustomerService stripeCustomerService;
+        public AccountController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager, StripeCustomerService stripeCustomerService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.stripeCustomerService = stripeCustomerService;
         }
 
         [HttpGet("ExternalLoginCallback")]
@@ -43,6 +47,10 @@ namespace WebServer.Controllers.Identity
                 {
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
+
+                    var stripeCustomerId = await stripeCustomerService.CreateStripeCustomer(_user.Email);
+                    _user.StripeCustomerId = stripeCustomerId;
+                    await userManager.UpdateAsync(_user);
 
                     return LocalRedirect(returnUrl == null ? "/" : returnUrl);
                 }

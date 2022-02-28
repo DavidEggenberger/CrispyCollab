@@ -39,15 +39,19 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
-        public async Task<IdentityOperationResult> CreateNewTeamAsync(string name)
+        public async Task<IdentityOperationResult> CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
             if(identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
             {
                 return IdentityOperationResult.Fail("The Team name is taken");
             }
-            identificationDbContext.Teams.Add(new Team
+            applicationUser.Memberships.Add(new ApplicationUserTeam
             {
-                NameIdentitifer = name
+                Team = new Team
+                {
+                    NameIdentitifer = name
+                },
+                Status = UserSelectionStatus.Selected
             });
             await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();

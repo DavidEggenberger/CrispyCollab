@@ -10,7 +10,7 @@
     <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
         <h3>Integrations</h3>
     </NavLink>
-    @if(User.IsInRole("Admin"))
+    @if(User != null && User.IsInRole("Admin") && currentTenant != null)
     {
         <div class="NavElement">
             <h3 @onclick='() => navigationManager.NavigateTo("/Identity/TeamManagement/Plan", true)'>Manage @currentTenant.Name</h3>

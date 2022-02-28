@@ -41,7 +41,7 @@ namespace WebServer.Controllers.Identity
             {
                 return NoContent();
             }
-            return Ok(result.Value);
+            return Ok(new TeamDTO { Name = result.Value.NameIdentitifer, Id = result.Value.Id, IconUrl = "https://icon" });
         }
 
         [HttpGet("all")]
@@ -62,7 +62,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             await applicationUserManager.UnSelectAllTeams(applicationUser);
-            IdentityOperationResult result = await teamManager.CreateNewTeamAsync(createTeamDto.Name);
+            IdentityOperationResult result = await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
             if(result.Successful is false)
             {
                 return Ok();
