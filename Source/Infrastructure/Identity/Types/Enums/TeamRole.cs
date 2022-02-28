@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public enum TeamRoleType
+    public enum TeamRole
     {
         Admin,
         User,
-        Guest,
         Invited
     }
 }

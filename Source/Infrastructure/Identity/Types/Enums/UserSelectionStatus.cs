@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Types.Enums
 {
-    public enum TeamStatus
+    public enum UserSelectionStatus
     {
         Selected,
         NotSelected

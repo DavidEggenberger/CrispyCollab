@@ -76,3 +76,18 @@ footer {
     margin-bottom: -5px;
     cursor: pointer;
 }
+.Main{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+.RenderBody {
+    min-height: 500px;
+    width: 700px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid white;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+}

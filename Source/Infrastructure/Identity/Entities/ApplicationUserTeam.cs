@@ -11,12 +11,11 @@ namespace Infrastructure.Identity
 {
     public class ApplicationUserTeam 
     {
-        public Guid Id { get; set; }
         public Guid TeamId { get; set; }
         public Team Team { get; set; }
         public Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
-        public TeamRoleType Role { get; set; }
-        public TeamStatus Status { get; set; }
+        public TeamRole Role { get; set; }
+        public UserSelectionStatus Status { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult<Team>> GetSelectedTeam(ApplicationUser applicationUser)
         {
             Team team;
-            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.UserId == applicationUser.Id && x.Status == TeamStatus.Selected)?.Team) != null)
+            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.UserId == applicationUser.Id && x.Status == UserSelectionStatus.Selected)?.Team) != null)
             {
                 return IdentityOperationResult<Team>.Success(team);
             }
@@ -36,12 +36,12 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<IdentityOperationResult> UnSelectAllTeams(ApplicationUser applicationUser)
         {
-            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult> SelectTeamForUser(ApplicationUser applicationUser, Team team)
         {
-            applicationUser.Memberships.ToList().ForEach(x => x.Status = TeamStatus.NotSelected);
+            applicationUser.Memberships.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult<List<ApplicationUserTeam>>> GetAllTeamMemberships(ApplicationUser applicationUser)
@@ -59,7 +59,7 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult<List<Claim>>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);
-            ApplicationUserTeam applicationUserTeam = _applicationUser.Memberships.Where(x => x.Status == TeamStatus.Selected).FirstOrDefault();
+            ApplicationUserTeam applicationUserTeam = _applicationUser.Memberships.Where(x => x.Status == UserSelectionStatus.Selected).FirstOrDefault();
             if(applicationUserTeam == null)
             {
                 return IdentityOperationResult<List<Claim>>.Fail("");

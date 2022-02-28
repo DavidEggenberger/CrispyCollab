@@ -75,7 +75,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             
-            applicationUser.Memberships.Where(x => x.TeamId == TeamId).First().Status = TeamStatus.Selected;
+            applicationUser.Memberships.Where(x => x.TeamId == TeamId).First().Status = UserSelectionStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
             await signInManager.SignOutAsync();
             await signInManager.SignInAsync(applicationUser, true);

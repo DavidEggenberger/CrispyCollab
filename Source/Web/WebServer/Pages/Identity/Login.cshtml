@@ -3,9 +3,9 @@
 @{
 }
 
-<div class="card">
-@*    <partial name="_LogInSignUpSwitch" model=@(new LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
-*@    @{
+<div>
+     <partial name="Shared/_LogInSignUpSwitch" model=@(new _LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
+      @{
         var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
             <div>
@@ -15,7 +15,7 @@
                 }
             </div>
         </form>
-    }
+      }
 </div>
 
 

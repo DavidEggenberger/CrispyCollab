@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Entities
 {
-    public class InvitedUser
+    public class Subscription
     {
-        public Guid Id { get; set; }
-        public string Email { get; set; }
-        public List<TeamInvitedUser> InvitedTeams { get; set; }
+
+        public string StripeSubscriptionId { get; set; }
+        public SubscriptionType PlanType { get; set; }
     }
 }

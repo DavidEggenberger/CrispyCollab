@@ -23,7 +23,7 @@ namespace Infrastructure.Identity.Services
             this.userManager = userManager;
         }
 
-        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team Team, TeamRoleType role, string Email)
+        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team Team, TeamRole role, string Email)
         {
             throw new Exception();
         }
@@ -57,7 +57,7 @@ namespace Infrastructure.Identity.Services
             Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
             return IdentityOperationResult<List<ApplicationUser>>.Success(Team.Members.Select(x => x.User).ToList());
         }
-        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersByRoleAsync(Team Team, TeamRoleType role)
+        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersByRoleAsync(Team Team, TeamRole role)
         {
             Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
             return IdentityOperationResult<List<ApplicationUser>>.Success(Team.Members.Where(x => x.Role == role).Select(x => x.User).ToList());
@@ -93,7 +93,7 @@ namespace Infrastructure.Identity.Services
             await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();
         }
-        public async Task<IdentityOperationResult> ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team Team, TeamRoleType TeamRoleType)
+        public async Task<IdentityOperationResult> ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team Team, TeamRole TeamRoleType)
         {
             Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
             if (_Team == null)
@@ -113,8 +113,8 @@ namespace Infrastructure.Identity.Services
         {
             if (CheckTeamMembershipOfApplicationUser(applicationUser, Team))
             {
-                applicationUser.Memberships.ForEach(x => x.Status = TeamStatus.NotSelected);
-                applicationUser.Memberships.Where(x => x.TeamId == Team.Id).First().Status = TeamStatus.Selected;
+                applicationUser.Memberships.ForEach(x => x.Status = UserSelectionStatus.NotSelected);
+                applicationUser.Memberships.Where(x => x.TeamId == Team.Id).First().Status = UserSelectionStatus.Selected;
                 await identificationDbContext.SaveChangesAsync();
                 await signInManager.RefreshSignInAsync(applicationUser);
                 return IdentityOperationResult.Success();
@@ -124,7 +124,7 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult<Team>> GetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = identificationDbContext.Users.Include(x => x.Memberships).ThenInclude(x => x.Team).Where(x => x.Id == applicationUser.Id).FirstOrDefault();
-            Team Team = _applicationUser.Memberships.Where(x => x.Status == TeamStatus.Selected).First().Team;
+            Team Team = _applicationUser.Memberships.Where(x => x.Status == UserSelectionStatus.Selected).First().Team;
             if (Team != null)
             {
                 return IdentityOperationResult<Team>.Success(Team);
@@ -139,13 +139,13 @@ namespace Infrastructure.Identity.Services
             }
             return false;
         }
-        public IdentityOperationResult<TeamRoleType> GetTeamRoleOfApplicationUser(ApplicationUser applicationUser, Team Team)
+        public IdentityOperationResult<TeamRole> GetTeamRoleOfApplicationUser(ApplicationUser applicationUser, Team Team)
         {
             if (CheckTeamMembershipOfApplicationUser(applicationUser, Team))
             {
-                return IdentityOperationResult<TeamRoleType>.Success(applicationUser.Memberships.Single(x => x.TeamId == Team.Id).Role);
+                return IdentityOperationResult<TeamRole>.Success(applicationUser.Memberships.Single(x => x.TeamId == Team.Id).Role);
             }
-            return IdentityOperationResult<TeamRoleType>.Fail("User is not a member of the Team");
+            return IdentityOperationResult<TeamRole>.Fail("User is not a member of the Team");
         }
     }
 }
