@@ -49,11 +49,24 @@ namespace Infrastructure.Identity.Services
             {
                 Team = new Team
                 {
-                    NameIdentitifer = name
+                    NameIdentitifer = name,
+                    SubscriptionPlan = new Entities.SubscriptionPlan
+                    {
+                        Id = Guid.NewGuid()
+                    }
                 },
+                UserId = applicationUser.Id,
+                Role = TeamRole.Admin,
                 Status = UserSelectionStatus.Selected
             });
-            await identificationDbContext.SaveChangesAsync();
+            try
+            {
+                await identificationDbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Team Team)

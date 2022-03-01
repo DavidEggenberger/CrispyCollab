@@ -1,4 +1,6 @@
-﻿using Stripe;
+﻿using Microsoft.Extensions.Configuration;
+using Stripe;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,12 @@ namespace Infrastructure.StripePayment
 {
     public class StripeSubscriptionService
     {
-        private SubscriptionService subscriptionService;
-        public StripeSubscriptionService(SubscriptionService subscriptionService)
+        private readonly SubscriptionService subscriptionService;
+        private readonly IConfiguration configuration;
+        public StripeSubscriptionService(IConfiguration configuration)
         {
-            this.subscriptionService = subscriptionService;
+            this.subscriptionService = new SubscriptionService();
+            this.configuration = configuration;
         }
 
         public async Task<string> CreateSubscriptionAsync(string name)
@@ -23,6 +27,14 @@ namespace Infrastructure.StripePayment
         public async Task<string> GetSubscriptionType(string id)
         {
             return (await subscriptionService.GetAsync(id)).Id;
+        }
+
+        public List<SessionLineItemOptions> LoadSubscriptionsFromConfiguration()
+        {
+            return configuration.GetSection("SubscriptionPlans")
+                .GetChildren()
+                .Select(x => new SessionLineItemOptions { Amount = 1, Price = x.Value })
+                .ToList();
         }
     }
 }

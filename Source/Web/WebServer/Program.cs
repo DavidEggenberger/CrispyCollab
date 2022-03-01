@@ -12,19 +12,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Infrastructure.Identity;
+using Infrastructure.StripePayment;
 
 namespace WebServer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             try
             {
                 using IHost host = CreateHostBuilder(args).Build();
                 using IServiceScope serviceScope = host.Services.CreateScope();
-                //IdentificationDbContext identificationDbContext = serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>();                
-                //serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>().Users.Count();
                 host.Run();
             }
             catch (Exception ex)
@@ -47,6 +46,7 @@ namespace WebServer
                         .WriteTo.Console()
                         .CreateLogger();
                 }
+                
                 Log.Fatal(ex, "Host terminated unexpectedly");
             }
             finally

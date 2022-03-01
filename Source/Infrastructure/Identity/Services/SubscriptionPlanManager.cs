@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Identity.Entities;
+using Microsoft.Extensions.Configuration;
 using Stripe;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace Infrastructure.Identity.Services
     {
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SubscriptionService subscriptionService;
-        public SubscriptionPlanManager(IdentificationDbContext identificationDbContext, SubscriptionService subscriptionService)
+        public SubscriptionPlanManager(IdentificationDbContext identificationDbContext)
         {
             this.identificationDbContext = identificationDbContext;
-            this.subscriptionService = subscriptionService;
+            this.subscriptionService = new SubscriptionService();
         }
         public async Task CreateSubscription(SubscriptionPlan subscriptionPlan)
         {

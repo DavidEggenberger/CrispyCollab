@@ -10,7 +10,7 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
-using Infrastructure.Stripe;
+using Infrastructure.StripePayment;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;
@@ -88,7 +88,7 @@ namespace WebServer
             #region Stripe
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
             services.AddScoped<StripeCustomerService>();
-            //services.AddScoped<StripeSubscriptionService>();
+            services.AddScoped<StripeSubscriptionService>();
             #endregion
             #region EMail
             services.Configure<AuthMessageSenderOptions>(Configuration);

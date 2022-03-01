@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Shared;
+using Infrastructure.StripePayment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -19,25 +20,18 @@ namespace WebServer.Controllers.Identity
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
+        private StripeSubscriptionService stripeSubscriptionService;
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, StripeSubscriptionService stripeSubscriptionService)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
+            this.stripeSubscriptionService = stripeSubscriptionService;
         }
         [HttpPost("Subscribe")]
         public async Task<ActionResult> RedirectToSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             var domain = "https://localhost:44333";
-
-            //var priceOptions = new PriceListOptions
-            //{
-            //    LookupKeys = new List<string> {
-            //        Request.Form["lookup_key"]
-            //    }
-            //};
-            //var priceService = new PriceService();
-            //StripeList<Price> prices = priceService.List(priceOptions);
 
             var options = new SessionCreateOptions
             {
@@ -46,14 +40,7 @@ namespace WebServer.Controllers.Identity
                   "card",
                 },
                 Customer = applicationUser.StripeCustomerId,
-                LineItems = new List<SessionLineItemOptions>
-                {
-                  new SessionLineItemOptions
-                  {
-                        Price = "price_1JvrJXEhLcfJYVVFHgWGpFlD",
-                        Quantity = 1,
-                  },
-                },
+                LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
                 Mode = "subscription",
                 SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = domain + "/cancel",
