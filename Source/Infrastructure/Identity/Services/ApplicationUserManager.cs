@@ -25,6 +25,16 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
         }
 
+
+        public async Task<IdentityOperationResult<ApplicationUser>> FindByStripeCustomerId(string stripeCustomerId)
+        {
+            ApplicationUser user;
+            if((user = identificationDbContext.Users.SingleOrDefault(u => u.StripeCustomerId == stripeCustomerId)) != null)
+            {
+                return IdentityOperationResult<ApplicationUser>.Success(user);
+            }
+            return IdentityOperationResult<ApplicationUser>.Fail("No user is found for the provided cutomerId");
+        }
         public async Task<IdentityOperationResult<Team>> GetSelectedTeam(ApplicationUser applicationUser)
         {
             Team team;

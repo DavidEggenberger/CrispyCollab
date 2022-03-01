@@ -20,11 +20,11 @@ namespace Infrastructure.Stripe
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<string> CreateStripeCustomer(string email)
+        public async Task<string> CreateStripeCustomerAsync(string email)
         {
             return (await customerService.CreateAsync(new CustomerCreateOptions { Email = email })).Id;
         }
 
-
+        
     }
 }

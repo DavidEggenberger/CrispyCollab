@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Infrastructure.Identity;
+using Infrastructure.Identity.Services;
+using Infrastructure.Identity.Types.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using Stripe.Checkout;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace WebServer.Controllers.Identity
@@ -12,9 +17,17 @@ namespace WebServer.Controllers.Identity
     [ApiController]
     public class StripeController : ControllerBase
     {
-        [HttpPost("Subscribe")]
-        public ActionResult RedirectToSubscription()
+        private ApplicationUserManager applicationUserManager;
+        private IdentificationDbContext identificationDbContext;
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
         {
+            this.applicationUserManager = applicationUserManager;
+            this.identificationDbContext = identificationDbContext;
+        }
+        [HttpPost("Subscribe")]
+        public async Task<ActionResult> RedirectToSubscription()
+        {
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             var domain = "https://localhost:44333";
 
             //var priceOptions = new PriceListOptions
@@ -32,7 +45,7 @@ namespace WebServer.Controllers.Identity
                 {
                   "card",
                 },
-                CustomerEmail = "david.eggenberger@student.unisg.ch",
+                Customer = applicationUser.StripeCustomerId,
                 LineItems = new List<SessionLineItemOptions>
                 {
                   new SessionLineItemOptions
@@ -51,7 +64,15 @@ namespace WebServer.Controllers.Identity
                 }
             };
             var service = new SessionService();
-            Session session = service.Create(options);
+            Session session = null;
+            try
+            {
+                session = service.Create(options);
+            }
+            catch(Exception ex)
+            {
+
+            }
 
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
@@ -77,21 +98,43 @@ namespace WebServer.Controllers.Identity
                 if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
+                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
+                    if(result.Successful is false)
+                    {
+                        throw new Exception();
+                    }
+                    ApplicationUser applicationUser = result.Value;
+
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
-                    var service = new CustomerService();
-                    service.CreateAsync(new CustomerCreateOptions { Email = "" });
-                    service.Get(subscription.CustomerId);
+                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
+                    if (result.Successful is false)
+                    {
+                        throw new Exception();
+                    }
+                    ApplicationUser applicationUser = result.Value;
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
+                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
+                    if (result.Successful is false)
+                    {
+                        throw new Exception();
+                    }
+                    ApplicationUser applicationUser = result.Value;
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
+                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
+                    if (result.Successful is false)
+                    {
+                        throw new Exception();
+                    }
+                    ApplicationUser applicationUser = result.Value;
                 }
                 else
                 {

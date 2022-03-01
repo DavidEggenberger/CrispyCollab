@@ -26,27 +26,24 @@ namespace WebWasmClient
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+            #region HttpClient
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
             builder.Services.AddScoped<HttpClientService>();
-            builder.Services.AddBlazoredModal();
-            builder.Services.AddScoped<AntiforgeryTokenService>();
-            builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();
-            builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());
-            builder.Services.AddTransient<AuthorizedHandler>();
             builder.Services.AddHttpClient("default", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+            builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
+            #endregion
+            #region HttpClientAuthorized
+            builder.Services.AddTransient<AuthorizedHandler>();
             builder.Services.AddHttpClient("authorizedClient", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<AuthorizedHandler>();
-            builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
-
+            #endregion
+            #region Authentication
+            builder.Services.AddScoped<AntiforgeryTokenService>();
+            builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();
+            builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());         
             builder.Services.AddAuthorizationCore(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TeamGuest", options =>
-                {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "Guest", "User", "Admin");
-                });
                 options.AddPolicy("TeamUser", options =>
                 {
                     options.RequireClaim("TeamId");
@@ -58,7 +55,9 @@ namespace WebWasmClient
                     options.RequireClaim("TeamRole", "Admin");
                 });
             });
-
+            #endregion
+            builder.Services.AddBlazoredModal();
+            
             await builder.Build().RunAsync();
         }
     }

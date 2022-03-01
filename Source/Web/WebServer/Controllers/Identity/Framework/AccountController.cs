@@ -48,7 +48,7 @@ namespace WebServer.Controllers.Identity
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                    var stripeCustomerId = await stripeCustomerService.CreateStripeCustomer(_user.Email);
+                    var stripeCustomerId = await stripeCustomerService.CreateStripeCustomerAsync(_user.Email);
                     _user.StripeCustomerId = stripeCustomerId;
                     await userManager.UpdateAsync(_user);
 

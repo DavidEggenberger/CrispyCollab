@@ -8,7 +8,6 @@ namespace Infrastructure.Identity.Entities
 {
     public class Subscription
     {
-
         public string StripeSubscriptionId { get; set; }
         public SubscriptionType PlanType { get; set; }
     }

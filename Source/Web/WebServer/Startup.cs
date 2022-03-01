@@ -88,6 +88,7 @@ namespace WebServer
             #region Stripe
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
             services.AddScoped<StripeCustomerService>();
+            //services.AddScoped<StripeSubscriptionService>();
             #endregion
             #region EMail
             services.Configure<AuthMessageSenderOptions>(Configuration);
@@ -104,11 +105,6 @@ namespace WebServer
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TeamGuest", options =>
-                {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "Guest", "User", "Admin");
-                });
                 options.AddPolicy("TeamUser", options =>
                 {
                     options.RequireClaim("TeamId");
