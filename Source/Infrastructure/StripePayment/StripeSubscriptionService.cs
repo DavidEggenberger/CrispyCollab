@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Stripe
+namespace Infrastructure.StripePayment
 {
     public class StripeSubscriptionService
     {

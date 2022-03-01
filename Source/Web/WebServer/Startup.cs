@@ -101,6 +101,7 @@ namespace WebServer
             //});
             #endregion
             #region Identity
+            services.AddScoped<SubscriptionPlanManager>();
             services.AddScoped<TeamManager>();
             services.AddAuthorization(options =>
             {

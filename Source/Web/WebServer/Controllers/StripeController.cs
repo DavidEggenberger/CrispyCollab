@@ -52,7 +52,6 @@ namespace WebServer.Controllers.Identity
                   {
                         Price = "price_1JvrJXEhLcfJYVVFHgWGpFlD",
                         Quantity = 1,
-                        
                   },
                 },
                 Mode = "subscription",

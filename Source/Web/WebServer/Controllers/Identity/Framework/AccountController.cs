@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Stripe;
-using Infrastructure.Stripe;
+using Infrastructure.StripePayment;
 
 namespace WebServer.Controllers.Identity
 {
