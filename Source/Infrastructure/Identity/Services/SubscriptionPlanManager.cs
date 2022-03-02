@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Identity.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 using System;
@@ -26,6 +27,14 @@ namespace Infrastructure.Identity.Services
         public Task<SubscriptionPlan> FindById(Guid id)
         {
             return identificationDbContext.SubscriptionPlans.FindAsync(id).AsTask();
+        }
+        public Task<SubscriptionPlan> FindByPlanType(PlanType planType)
+        {
+            return identificationDbContext.SubscriptionPlans.SingleAsync(sp => sp.PlanType == planType);
+        }
+        public Task<List<SubscriptionPlan>> LoadAllSubscriptionPlans()
+        {
+            return identificationDbContext.SubscriptionPlans.ToListAsync();
         }
     }
 }

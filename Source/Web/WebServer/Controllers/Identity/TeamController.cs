@@ -67,6 +67,8 @@ namespace WebServer.Controllers.Identity
             {
                 return Ok();
             }
+            await signInManager.SignOutAsync();
+            await signInManager.SignInAsync(applicationUser, true);
             return Ok();
         }    
 

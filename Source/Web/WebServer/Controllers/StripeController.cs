@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Shared;
-using Infrastructure.StripePayment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -20,15 +19,13 @@ namespace WebServer.Controllers.Identity
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        private StripeSubscriptionService stripeSubscriptionService;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, StripeSubscriptionService stripeSubscriptionService)
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
-            this.stripeSubscriptionService = stripeSubscriptionService;
         }
-        [HttpPost("Subscribe")]
-        public async Task<ActionResult> RedirectToSubscription()
+        [HttpPost("Subscribe/Premium")]
+        public async Task<ActionResult> RedirectToStripeBasicSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             var domain = "https://localhost:44333";
@@ -40,7 +37,7 @@ namespace WebServer.Controllers.Identity
                   "card",
                 },
                 Customer = applicationUser.StripeCustomerId,
-                LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
+                //LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
                 Mode = "subscription",
                 SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = domain + "/cancel",
@@ -50,16 +47,36 @@ namespace WebServer.Controllers.Identity
                 //}
             };
             var service = new SessionService();
-            Session session = null;
-            try
-            {
-                session = service.Create(options);
-            }
-            catch(Exception ex)
-            {
+            Session session = service.Create(options);
 
-            }
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+        }
+        [HttpPost("Subscribe/Enterprise")]
+        public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
+        {
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            var domain = "https://localhost:44333";
 
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string>
+                {
+                  "card",
+                },
+                Customer = applicationUser.StripeCustomerId,
+                //LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
+                Mode = "subscription",
+                SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain + "/cancel",
+                //SubscriptionData = new SessionSubscriptionDataOptions
+                //{
+                //    TrialPeriodDays = 31
+                //}
+            };
+            var service = new SessionService();
+            Session session = service.Create(options);
+            
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }

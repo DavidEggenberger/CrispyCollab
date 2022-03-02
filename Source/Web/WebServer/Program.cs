@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Infrastructure.Identity;
-using Infrastructure.StripePayment;
 
 namespace WebServer
 {
@@ -24,10 +23,13 @@ namespace WebServer
             {
                 using IHost host = CreateHostBuilder(args).Build();
                 using IServiceScope serviceScope = host.Services.CreateScope();
+                IdentificationDbContext context = serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>();
+                await IdentityDbSeeder.SeedAsync(context, serviceScope.ServiceProvider.GetRequiredService<IConfiguration>());
                 host.Run();
             }
             catch (Exception ex)
             {
+                #region Logging
                 // Log.Logger will likely be internal type "Serilog.Core.Pipeline.SilentLogger".
                 // Loading configuration or Serilog failed.
                 // This will create a logger that can be captured by Azure logger.
@@ -46,8 +48,9 @@ namespace WebServer
                         .WriteTo.Console()
                         .CreateLogger();
                 }
-                
+
                 Log.Fatal(ex, "Host terminated unexpectedly");
+                #endregion
             }
             finally
             {

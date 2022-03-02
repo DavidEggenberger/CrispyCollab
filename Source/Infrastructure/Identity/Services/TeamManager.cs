@@ -17,11 +17,13 @@ namespace Infrastructure.Identity.Services
         private IdentificationDbContext identificationDbContext;
         private SignInManager<ApplicationUser> signInManager;
         private ApplicationUserManager applicationUserManager;
-        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, UserManager<ApplicationUser> userManager)
+        private SubscriptionPlanManager subscriptionPlanManager;
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SignInManager<ApplicationUser> signInManager, SubscriptionPlanManager subscriptionPlanManager)
         {
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
             this.applicationUserManager = applicationUserManager;
+            this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
         public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team Team, TeamRole role, string Email)
@@ -34,7 +36,7 @@ namespace Infrastructure.Identity.Services
         }
         public Task<Team> FindByIdAsync(string Id)
         {
-            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            return identificationDbContext.Teams.Include(x => x.SubscriptionPlan).SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
         public Task<Team> FindUsersSelectedTeam(string Id)
         {
@@ -52,22 +54,13 @@ namespace Infrastructure.Identity.Services
                 Team = new Team
                 {
                     NameIdentitifer = name,
-                    SubscriptionPlan = new SubscriptionPlan
-                    {
-                        
-                    }
+                    SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free)
                 },
                 Role = TeamRole.Admin,
                 Status = UserSelectionStatus.Selected
             });
-            try
-            {
-                await identificationDbContext.SaveChangesAsync();
-            }
-            catch(Exception ex)
-            {
+            await identificationDbContext.SaveChangesAsync();
 
-            }
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Team Team)

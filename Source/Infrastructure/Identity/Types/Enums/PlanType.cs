@@ -9,7 +9,7 @@ namespace Infrastructure.Identity
     public enum PlanType
     {
         Free,
-        Basic,
-        Premium
+        Premium,
+        Enterprise
     }
 }
