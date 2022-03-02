@@ -13,7 +13,7 @@
     @if(User != null && User.IsInRole("Admin") && currentTenant != null)
     {
         <div class="NavElement">
-            <h3 @onclick='() => navigationManager.NavigateTo("/Identity/TeamManagement/Plan", true)'>Manage @currentTenant.Name</h3>
+            <h3 @onclick='() => navigationManager.NavigateTo("/Identity/TeamManagement/SubscriptionPlan", true)'>Manage @currentTenant.Name</h3>
         </div>
     }
     <div class="NavElement NoUnderline">

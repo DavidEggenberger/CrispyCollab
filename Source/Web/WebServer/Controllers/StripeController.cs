@@ -44,10 +44,10 @@ namespace WebServer.Controllers.Identity
                 Mode = "subscription",
                 SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = domain + "/cancel",
-                SubscriptionData = new SessionSubscriptionDataOptions
-                {
-                    TrialPeriodDays = 31
-                }
+                //SubscriptionData = new SessionSubscriptionDataOptions
+                //{
+                //    TrialPeriodDays = 31
+                //}
             };
             var service = new SessionService();
             Session session = null;

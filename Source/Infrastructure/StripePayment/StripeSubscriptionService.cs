@@ -33,6 +33,10 @@ namespace Infrastructure.StripePayment
         {
             return configuration.GetSection("SubscriptionPlans")
                 .GetChildren()
+                .Select(x => new SessionLineItemOptions { Quantity = 1, Price = x.GetSection("StripeSubscriptionId").Value })
+                .ToList();
+            return configuration.GetSection("SubscriptionPlans")
+                .GetChildren()
                 .Select(x => new SessionLineItemOptions { Amount = 1, Price = x.Value })
                 .ToList();
         }

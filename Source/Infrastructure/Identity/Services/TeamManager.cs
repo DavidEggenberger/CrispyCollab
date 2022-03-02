@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Enums;
+using Infrastructure.Identity.Entities;
 
 namespace Infrastructure.Identity.Services
 {
@@ -15,12 +16,12 @@ namespace Infrastructure.Identity.Services
     {
         private IdentificationDbContext identificationDbContext;
         private SignInManager<ApplicationUser> signInManager;
-        private UserManager<ApplicationUser> userManager;
-        public TeamManager(IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private ApplicationUserManager applicationUserManager;
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, UserManager<ApplicationUser> userManager)
         {
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
-            this.userManager = userManager;
+            this.applicationUserManager = applicationUserManager;
         }
 
         public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team Team, TeamRole role, string Email)
@@ -41,21 +42,21 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<IdentityOperationResult> CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
+            var sapplicationUser = await identificationDbContext.Users.Include(x => x.Memberships).SingleOrDefaultAsync(x => x.Id == applicationUser.Id);
             if(identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
             {
                 return IdentityOperationResult.Fail("The Team name is taken");
             }
-            applicationUser.Memberships.Add(new ApplicationUserTeam
+            sapplicationUser.Memberships.Add(new ApplicationUserTeam
             {
                 Team = new Team
                 {
                     NameIdentitifer = name,
-                    SubscriptionPlan = new Entities.SubscriptionPlan
+                    SubscriptionPlan = new SubscriptionPlan
                     {
-                        Id = Guid.NewGuid()
+                        
                     }
                 },
-                UserId = applicationUser.Id,
                 Role = TeamRole.Admin,
                 Status = UserSelectionStatus.Selected
             });
