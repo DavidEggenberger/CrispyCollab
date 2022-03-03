@@ -28,6 +28,10 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.SubscriptionPlans.FindAsync(id).AsTask();
         }
+        public Task<SubscriptionPlan> FindByStripeSubscriptionId(string id)
+        {
+            return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripeSubscriptionId == id);
+        }
         public Task<SubscriptionPlan> FindByPlanType(PlanType planType)
         {
             return identificationDbContext.SubscriptionPlans.SingleAsync(sp => sp.PlanType == planType);

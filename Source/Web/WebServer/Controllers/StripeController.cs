@@ -1,5 +1,7 @@
 ﻿using Infrastructure.Identity;
+using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;
+using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Types.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +10,7 @@ using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -19,15 +22,18 @@ namespace WebServer.Controllers.Identity
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
+        private SubscriptionPlanManager subscriptionPlanManager;
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
+            this.subscriptionPlanManager = subscriptionPlanManager;
         }
         [HttpPost("Subscribe/Premium")]
         public async Task<ActionResult> RedirectToStripeBasicSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
             var domain = "https://localhost:44333";
 
             var options = new SessionCreateOptions
@@ -37,7 +43,14 @@ namespace WebServer.Controllers.Identity
                   "card",
                 },
                 Customer = applicationUser.StripeCustomerId,
-                //LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
+                LineItems = new List<SessionLineItemOptions>
+                {
+                    new SessionLineItemOptions
+                    {
+                        Price = subscriptionPlan.StripeSubscriptionId,
+                        Quantity = 1
+                    }
+                },
                 Mode = "subscription",
                 SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = domain + "/cancel",
@@ -56,6 +69,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
             var domain = "https://localhost:44333";
 
             var options = new SessionCreateOptions
@@ -65,7 +79,14 @@ namespace WebServer.Controllers.Identity
                   "card",
                 },
                 Customer = applicationUser.StripeCustomerId,
-                //LineItems = stripeSubscriptionService.LoadSubscriptionsFromConfiguration(),
+                LineItems = new List<SessionLineItemOptions>
+                {
+                    new SessionLineItemOptions
+                    {
+                        Price = subscriptionPlan.StripeSubscriptionId,
+                        Quantity = 1
+                    }
+                },
                 Mode = "subscription",
                 SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = domain + "/cancel",
@@ -97,7 +118,7 @@ namespace WebServer.Controllers.Identity
                 var signatureHeader = Request.Headers["Stripe-Signature"];
                 stripeEvent = EventUtility.ConstructEvent(json,
                         signatureHeader, endpointSecret);
-
+                
                 if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
@@ -107,7 +128,8 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
-
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
+                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
@@ -118,6 +140,8 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
+                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
@@ -128,6 +152,8 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
+                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
@@ -138,6 +164,8 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
+                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
                 }
                 else
                 {
@@ -149,33 +177,28 @@ namespace WebServer.Controllers.Identity
                 return BadRequest();
             }
         }
+
+        [IgnoreAntiforgeryToken]
         [Route("create-portal-session")]
-        [ApiController]
-        public class PortalApiController : Controller
+        [HttpPost]
+        public async Task<ActionResult> Create()
         {
-            [HttpPost]
-            public ActionResult Create()
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+
+            // This is the URL to which your customer will return after
+            // they are done managing billing in the Customer Portal.
+            var returnUrl = "https://localhost:44333";
+
+            var options = new Stripe.BillingPortal.SessionCreateOptions
             {
-                // For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
-                // Typically this is stored alongside the authenticated user in your database.
-                var checkoutService = new SessionService();
-                var checkoutSession = checkoutService.Get(Request.Form["session_id"]);
+                Customer = applicationUser.StripeCustomerId,
+                ReturnUrl = returnUrl,
+            };
+            var service = new Stripe.BillingPortal.SessionService();
+            var session = service.Create(options);
 
-                // This is the URL to which your customer will return after
-                // they are done managing billing in the Customer Portal.
-                var returnUrl = "https://localhost:44333";
-
-                var options = new Stripe.BillingPortal.SessionCreateOptions
-                {
-                    Customer = checkoutSession.CustomerId,
-                    ReturnUrl = returnUrl,
-                };
-                var service = new Stripe.BillingPortal.SessionService();
-                var session = service.Create(options);
-
-                Response.Headers.Add("Location", session.Url);
-                return new StatusCodeResult(303);
-            }
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
         }
     }
 }

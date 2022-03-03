@@ -56,6 +56,7 @@ namespace WebServer
             #region Framework
             services.AddRazorPages(options =>
             {
+                options.Conventions.AuthorizeFolder("/Identity/TeamManagement", "TeamAdmin");
                 options.Conventions.AuthorizeFolder("/Identity");
                 options.Conventions.AllowAnonymousToPage("/Identity/Login");
                 options.Conventions.AllowAnonymousToPage("/Identity/SignUp");

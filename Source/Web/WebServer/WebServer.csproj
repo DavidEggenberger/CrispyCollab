@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Aggregates\" />
     <Folder Include="Extensions\Identity\" />
-    <Folder Include="Hubs\" />
   </ItemGroup>
 
   <ItemGroup>
