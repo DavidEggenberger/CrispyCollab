@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class SubscriptionPlanConfiguration : IEntityTypeConfiguration<SubscriptionPlan>
+    internal class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
     {
-        public void Configure(EntityTypeBuilder<SubscriptionPlan> builder)
+        public void Configure(EntityTypeBuilder<Subscription> builder)
         {
-            builder.HasMany(x => x.Subscriptions)
-                .WithOne(x => x.SubscriptionPlan)
-                .HasForeignKey(x => x.SubscriptionPlanId);
+            
         }
     }
 }

@@ -23,13 +23,15 @@ namespace WebServer.Controllers.Identity
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
         private SubscriptionPlanManager subscriptionPlanManager;
+        private SubscriptionManager subscriptionManager;
         private TeamManager teamManager;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager)
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.subscriptionPlanManager = subscriptionPlanManager;
             this.teamManager = teamManager;
+            this.subscriptionManager = subscriptionManager;
         }
 
         [HttpPost("Subscribe/Premium")]
@@ -51,7 +53,7 @@ namespace WebServer.Controllers.Identity
                 {
                     new SessionLineItemOptions
                     {
-                        Price = subscriptionPlan.StripeSubscriptionId,
+                        Price = subscriptionPlan.StripePriceId,
                         Quantity = 1
                     }
                 },
@@ -93,7 +95,7 @@ namespace WebServer.Controllers.Identity
                 {
                     new SessionLineItemOptions
                     {
-                        Price = subscriptionPlan.StripeSubscriptionId,
+                        Price = subscriptionPlan.StripePriceId,
                         Quantity = 1
                     }
                 },
@@ -131,7 +133,7 @@ namespace WebServer.Controllers.Identity
                 
                 if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
-                    var subscription = stripeEvent.Data.Object as Subscription;
+                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     if (result.Successful is false)
                     {
@@ -140,8 +142,9 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
-                    team.SubscriptionPlan = subscriptionPlan;
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
+                    Infrastructure.Identity.Entities.Subscription _subscription = await subscriptionManager.FindSubscriptionByStripeSubscriptionId(subscription.Id);
+                    _subscription.Status = (SubscriptionStatus)subscription.Status;
                     await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
@@ -156,13 +159,13 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
-                    team.SubscriptionPlan = subscriptionPlan;
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
+                    team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
-                    var subscription = stripeEvent.Data.Object as Subscription;
+                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     if (result.Successful is false)
                     {
@@ -171,10 +174,7 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
-                }
-                else
-                {
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                 }
                 return Ok();
             }

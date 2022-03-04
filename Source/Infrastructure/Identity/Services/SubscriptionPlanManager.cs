@@ -19,24 +19,13 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
             this.subscriptionService = new SubscriptionService();
         }
-        public async Task CreateSubscription(SubscriptionPlan subscriptionPlan)
-        {
-            identificationDbContext.SubscriptionPlans.Add(subscriptionPlan);
-            await identificationDbContext.SaveChangesAsync();
-        }
-        public async Task SetSubscriptionPlanForTeam(SubscriptionPlan subscriptionPlan, Team team)
-        {
-            Team _team = await identificationDbContext.Teams.Include(t => t.SubscriptionPlan).SingleOrDefaultAsync(t => t.Id == team.Id);
-            _team.SubscriptionPlan = subscriptionPlan;
-            await identificationDbContext.SaveChangesAsync();   
-        }
         public Task<SubscriptionPlan> FindById(Guid id)
         {
             return identificationDbContext.SubscriptionPlans.FindAsync(id).AsTask();
         }
-        public Task<SubscriptionPlan> FindByStripeSubscriptionId(string id)
+        public Task<SubscriptionPlan> FindByStripePriceId(string id)
         {
-            return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripeSubscriptionId == id);
+            return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripePriceId == id);
         }
         public Task<SubscriptionPlan> FindByPlanType(PlanType planType)
         {
@@ -46,7 +35,7 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.SubscriptionPlans.OrderBy(x => x.PlanType).ToListAsync();
         }
-        public Task<List<SubscriptionPlan>> LoadAllSubscriptionExceptPlans(SubscriptionPlan subscriptionPlan)
+        public Task<List<SubscriptionPlan>> LoadAllSubscriptionOlansExcept(SubscriptionPlan subscriptionPlan)
         {
             return identificationDbContext.SubscriptionPlans.Where(x => x.Name != subscriptionPlan.Name).OrderBy(x => x.PlanType).ToListAsync();
         }

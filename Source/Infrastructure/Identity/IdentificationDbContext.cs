@@ -17,6 +17,7 @@ namespace Infrastructure.Identity
             
         }
 
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
         public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
         public DbSet<Team> Teams { get; set; }
