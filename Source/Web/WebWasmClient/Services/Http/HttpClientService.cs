@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Text.Json;
 using System;
+using WebWasmClient.Services.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebWasmClient.Services
 {
@@ -17,9 +19,14 @@ namespace WebWasmClient.Services
         public async Task<T> GetFromAPI<T>(string route)
         {
             HttpResponseMessage httpResponseMessage = await httpClient.GetAsync("/api" + route);
-            if(httpResponseMessage.StatusCode == HttpStatusCode.OK)
+            if(httpResponseMessage.IsSuccessStatusCode)
             {
                 return JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            if(httpResponseMessage.IsSuccessStatusCode is false)
+            {
+                ProblemDetails problemDetails = JsonSerializer.Deserialize<ProblemDetails>(await httpResponseMessage.Content.ReadAsStringAsync());
+                throw new HttpClientServiceException(problemDetails.Detail);
             }
             return default;
         }
