@@ -53,14 +53,16 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("Subscribe/Premium")]
-        public async Task<ActionResult> RedirectToStripeBasicSubscription()
+        public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
+            identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
+            identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
             if(selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Premium)
             {
-                return NotFound();
+                return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
             }
             var domain = "https://localhost:44333";
 
@@ -104,9 +106,11 @@ namespace WebServer.Controllers.Identity
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Enterprise);
+            identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
+            identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
             if (selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Enterprise)
             {
-                return NotFound();
+                return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
             }
             var domain = "https://localhost:44333";
 
@@ -200,7 +204,7 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free);
                     team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     await identificationDbContext.SaveChangesAsync();
                 }

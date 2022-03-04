@@ -90,4 +90,5 @@ footer {
     border-radius: 10px;
     display: grid;
     place-content: center;
+    padding: 15px;
 }

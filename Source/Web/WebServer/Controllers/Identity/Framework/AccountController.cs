@@ -67,7 +67,7 @@ namespace WebServer.Controllers.Identity
             var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
             return signInResult switch
             {
-                Microsoft.AspNetCore.Identity.SignInResult { Succeeded: true } => LocalRedirect(returnUrl ?? "/"),
+                Microsoft.AspNetCore.Identity.SignInResult { Succeeded: true } => LocalRedirect("/"),
                 Microsoft.AspNetCore.Identity.SignInResult { RequiresTwoFactor: true } => RedirectToPage("/TwoFactorLogin", new { ReturnUrl = returnUrl }),
                 _ => LocalRedirect("/")
             };

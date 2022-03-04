@@ -3,8 +3,8 @@
 @{
 }
 
-<h3>Your Current Plan: @Model.Team.Subscription.SubscriptionPlan.Name</h3>
-<h3>Your Current Plan: @Model.Team.Subscription.SubscriptionPlan.Description</h3>
+<h2>Your Current Plan: @Model.Team.Subscription.SubscriptionPlan.Name</h2>
+<h5>@Model.Team.Subscription.SubscriptionPlan.Description</h5>
 
 <h4>Change Plan</h4>
 
@@ -16,7 +16,7 @@
 {
     <form asp-controller="Stripe" asp-action=@($"RedirectToStripe{item.Name}Subscription") method="post">
         <input name="quantity" type="number" />
-        <button type="submit" id="checkout-button">Portal Session</button>
+        <button type="submit" id="checkout-button">@($"RedirectToStripe{item.Name}Subscription")</button>
     </form>   
 }
 
