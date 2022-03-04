@@ -1,0 +1,28 @@
+﻿@inject IHttpClientFactory httpClientFactory
+@inject NavigationManager navigationManager
+
+
+<EditForm Model="email">
+    <DataAnnotationsValidator/>
+    <OnInputBindInputText @bind="email.EmailAddress"/>
+    <ValidationMessage For="s => s.EmailAddress"/>
+</EditForm>
+
+
+@code {
+    [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+    private List<Email> emails;
+    private Email email;
+
+    protected override async Task OnInitializedAsync()
+    {
+        emails = new List<Email>();
+        email = new Email();
+    }
+    
+    private class Email
+    {
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+    }
+}
