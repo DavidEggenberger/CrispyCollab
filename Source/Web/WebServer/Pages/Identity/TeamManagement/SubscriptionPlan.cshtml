@@ -8,6 +8,10 @@
 
 <h4>Change Plan</h4>
 
+<form asp-controller="Stripe" asp-action="CancelSubscription" method="post">
+    <button type="submit">Cancel your Plan</button>
+</form>
+
 @foreach(var item in Model.SubscriptionPlans)
 {
     <form asp-controller="Stripe" asp-action=@($"RedirectToStripe{item.Name}Subscription") method="post">

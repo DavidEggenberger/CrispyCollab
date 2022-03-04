@@ -122,6 +122,7 @@ namespace WebServer
             //});
             #endregion
             #region Identity
+            services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();
             services.AddScoped<TeamManager>();
             services.AddAuthorization(options =>
@@ -227,7 +228,14 @@ namespace WebServer
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseExceptionHandler("/exceptionHandler");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            if (env.IsProduction())
+            {
+                app.UseExceptionHandler("/exceptionHandler");
+            }
             app.UseRouting();
 
             app.UseAuthentication();

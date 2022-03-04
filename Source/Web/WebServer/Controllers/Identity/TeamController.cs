@@ -36,6 +36,10 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            if(applicationUser == null)
+            {
+                return Unauthorized();
+            }
             IdentityOperationResult<Team> result = await applicationUserManager.GetSelectedTeam(applicationUser);
             if (result.Successful is false)
             {
@@ -48,6 +52,10 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            if (applicationUser == null)
+            {
+                return Unauthorized();
+            }
             IdentityOperationResult<List<ApplicationUserTeam>> result = await applicationUserManager.GetAllTeamMemberships(applicationUser);
             if (result.Successful is false)
             {

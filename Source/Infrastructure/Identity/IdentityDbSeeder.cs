@@ -13,7 +13,7 @@ namespace Infrastructure.Identity
     {
         public static async Task SeedAsync(IdentificationDbContext context, IConfiguration _configuration)
         {
-            if (context.SubscriptionPlans.Count() < 31434)
+            if (context.SubscriptionPlans.Count() != 3)
             {
                 context.SubscriptionPlans.RemoveRange(context.SubscriptionPlans);
                 context.SubscriptionPlans.AddRange(new List<SubscriptionPlan>
@@ -31,7 +31,7 @@ namespace Infrastructure.Identity
                         Name = "Premium",
                         PlanType = PlanType.Premium,
                         Price = 10,
-                        StripeSubscriptionId = _configuration.GetSection("SubscriptionPlans")["PremiumStripeSubscriptionId"]
+                        StripePriceId = _configuration.GetSection("SubscriptionPlans")["PremiumStripeSubscriptionId"]
                     },
                     new SubscriptionPlan()
                     {
@@ -39,7 +39,7 @@ namespace Infrastructure.Identity
                         Name = "Enterprise",
                         PlanType = PlanType.Enterprise,
                         Price = 20,
-                        StripeSubscriptionId = _configuration.GetSection("SubscriptionPlans")["EnterpriseStripeSubscriptionId"]
+                        StripePriceId = _configuration.GetSection("SubscriptionPlans")["EnterpriseStripeSubscriptionId"]
                     }
                 });
             }

@@ -39,17 +39,17 @@ namespace WebServer.Controllers.Identity
                     PictureUri = info.Principal.Claims.Where(c => c.Type == "picture").First().Value
                 };
                 var result = await userManager.CreateAsync(_user);
-
+                
                 if (result.Succeeded)
                 {
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                    //var stripeCustomerId = await stripeCustomerService.CreateStripeCustomerAsync(_user.Email);
-                    //_user.StripeCustomerId = stripeCustomerId;
-                    //await userManager.UpdateAsync(_user);
+                    var stripeCustomer = await new CustomerService().CreateAsync(new CustomerCreateOptions { Email = _user.Email });
+                    _user.StripeCustomerId = stripeCustomer.Id;
+                    await userManager.UpdateAsync(_user);
 
-                    return LocalRedirect(returnUrl == null ? "/" : returnUrl);
+                    return LocalRedirect("/");
                 }
                 if (result.Succeeded is false)
                 {
@@ -94,7 +94,11 @@ namespace WebServer.Controllers.Identity
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                    return LocalRedirect(returnUrl == null ? "/" : returnUrl);
+                    var stripeCustomer = await new CustomerService().CreateAsync(new CustomerCreateOptions { Email = _user.Email });
+                    _user.StripeCustomerId = stripeCustomer.Id;
+                    await userManager.UpdateAsync(_user);
+
+                    return LocalRedirect("/");
                 }
                 if (result.Succeeded is false)
                 {

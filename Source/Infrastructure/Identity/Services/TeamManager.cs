@@ -60,7 +60,7 @@ namespace Infrastructure.Identity.Services
         }
         public Task<Team> FindByIdAsync(string Id)
         {
-            return identificationDbContext.Teams.Include(x => x.SubscriptionPlan).SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            return identificationDbContext.Teams.Include(x => x.Subscription).ThenInclude(x => x.SubscriptionPlan).SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
         public Task<Team> FindUsersSelectedTeam(string Id)
         {
@@ -78,7 +78,11 @@ namespace Infrastructure.Identity.Services
                 Team = new Team
                 {
                     NameIdentitifer = name,
-                    SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free)
+                    Subscription = new Subscription
+                    {
+                        SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free),
+                        Status = SubscriptionStatus.Active
+                    }
                 },
                 Role = TeamRole.Admin,
                 Status = UserSelectionStatus.Selected

@@ -35,11 +35,13 @@ namespace WebServer.Controllers.Identity
             this.subscriptionManager = subscriptionManager;
         }
 
-        [Authorize("Admin")]
+        [Authorize("TeamAdmin")]
         public async Task<IActionResult> CancelSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            identificationDbContext.Entry(selectedTeam).Reference(s => s.Subscription).Load();
+            identificationDbContext.Entry(selectedTeam.Subscription).Reference(s => s.SubscriptionPlan).Load();
             var service = new SubscriptionService();
             var cancelOptions = new SubscriptionCancelOptions
             {
@@ -56,6 +58,10 @@ namespace WebServer.Controllers.Identity
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
+            if(selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Premium)
+            {
+                return NotFound();
+            }
             var domain = "https://localhost:44333";
 
             var options = new SessionCreateOptions
@@ -97,7 +103,11 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
-            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
+            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Enterprise);
+            if (selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Enterprise)
+            {
+                return NotFound();
+            }
             var domain = "https://localhost:44333";
 
             var options = new SessionCreateOptions
@@ -147,11 +157,9 @@ namespace WebServer.Controllers.Identity
                 stripeEvent = EventUtility.ConstructEvent(json,
                         signatureHeader, endpointSecret);
 
-
                 if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-
                     var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     if (result.Successful is false)
                     {
@@ -159,9 +167,9 @@ namespace WebServer.Controllers.Identity
                     }
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-                    SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
+                    team.Subscription.StripeSubscriptionId = subscription.Id;
                     await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
