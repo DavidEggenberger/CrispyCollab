@@ -58,9 +58,11 @@ namespace WebServer
             {
                 options.Conventions.AuthorizeFolder("/Identity/TeamManagement", "TeamAdmin");
                 options.Conventions.AuthorizeFolder("/Identity");
+                options.Conventions.AllowAnonymousToFolder("/Identity/Stripe");
                 options.Conventions.AllowAnonymousToPage("/Identity/Login");
                 options.Conventions.AllowAnonymousToPage("/Identity/SignUp");
                 options.Conventions.AllowAnonymousToPage("/Identity/TwoFactorLogin");
+                options.Conventions.AllowAnonymousToPage("/Identity/LoginWithRecoveryCode");
             });
             services.AddControllers(options =>
             {

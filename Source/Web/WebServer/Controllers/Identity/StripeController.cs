@@ -56,8 +56,8 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
-                CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                SuccessUrl = domain + "/Identity/Stripe/Success",
+                CancelUrl = domain + "/Identity/Stripe/Cancel",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
                     Metadata = new Dictionary<string, string>
@@ -98,8 +98,8 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
-                CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                SuccessUrl = domain + "/Identity/Stripe/Success",
+                CancelUrl = domain + "/Identity/Stripe/Cancel",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
                     Metadata = new Dictionary<string, string>
@@ -146,7 +146,8 @@ namespace WebServer.Controllers.Identity
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
-                    var subscription = stripeEvent.Data.Object as Subscription;
+                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
+                    
                     var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     if (result.Successful is false)
                     {

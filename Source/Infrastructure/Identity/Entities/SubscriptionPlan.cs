@@ -12,8 +12,8 @@ namespace Infrastructure.Identity.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public List<Team> SubscribedTeams { get; set; }
-        public string StripeSubscriptionId { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public string StripePriceId { get; set; }
         public int TrialPeriodDays { get; set; }
         public PlanType PlanType { get; set; }
     }
