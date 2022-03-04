@@ -38,7 +38,7 @@ namespace Infrastructure.Identity.Services
         }
         public Task<List<SubscriptionPlan>> LoadAllSubscriptionPlans()
         {
-            return identificationDbContext.SubscriptionPlans.ToListAsync();
+            return identificationDbContext.SubscriptionPlans.OrderBy(x => x.PlanType).ToListAsync();
         }
     }
 }

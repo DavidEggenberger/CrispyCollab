@@ -26,13 +26,37 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team Team, TeamRole role, string Email)
+        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team team, TeamRole role, string email)
         {
-            throw new Exception();
+            ApplicationUser applicationUser;
+            if((applicationUser = await applicationUserManager.FindByEmailAsync(email)) != null)
+            {
+                if(!team.Members.Any(x => x.UserId == applicationUser.Id))
+                {
+                    team.Members.Add(new ApplicationUserTeam
+                    {
+                        Role = TeamRole.Invited,
+                        User = applicationUser
+                    });
+                }
+            }
+            else
+            {
+                team.Members.Add(new ApplicationUserTeam
+                {
+                    Role = TeamRole.Invited,
+                    User = new ApplicationUser
+                    {
+                        Email = email
+                    }
+                });
+            }
+            await identificationDbContext.SaveChangesAsync();
+            return null;
         }
-        public async Task<IdentityOperationResult> InviteUserThroughEmail(Team Team, string Email)
+        public Task<IdentityOperationResult> InviteUserThroughEmail(Team team, string email)
         {
-            throw new Exception();
+            return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
         public Task<Team> FindByIdAsync(string Id)
         {

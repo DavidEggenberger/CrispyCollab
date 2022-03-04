@@ -13,9 +13,9 @@ namespace Infrastructure.Persistence
     public class ApplicationDbContext : DbContext
     {
         private IDomainEventDispatcher domainEventDispatcher;
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher) : base(dbContextOptions)
         {
-            
+            this.domainEventDispatcher = domainEventDispatcher;
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

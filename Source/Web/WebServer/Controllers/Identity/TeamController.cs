@@ -67,20 +67,18 @@ namespace WebServer.Controllers.Identity
             {
                 return Ok();
             }
-            await signInManager.SignOutAsync();
-            await signInManager.SignInAsync(applicationUser, true);
+            await signInManager.RefreshSignInAsync(applicationUser);
             return Ok();
         }    
 
-        [HttpGet("setCurrent/{TeamId}")]
-        public async Task<ActionResult> SetCurrentTeamForUser(Guid TeamId)
+        [HttpGet("select/{TeamId}")]
+        public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
-            
-            applicationUser.Memberships.Where(x => x.TeamId == TeamId).First().Status = UserSelectionStatus.Selected;
-            await identificationDbContext.SaveChangesAsync();
-            await signInManager.SignOutAsync();
-            await signInManager.SignInAsync(applicationUser, true);
+            await applicationUserManager.UnSelectAllTeams(applicationUser);
+            Team team = await teamManager.FindByIdAsync(teamId.ToString());
+            await applicationUserManager.SelectTeamForUser(applicationUser, team);
+            await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");
         }
     }

@@ -25,7 +25,6 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
         }
 
-
         public async Task<IdentityOperationResult<ApplicationUser>> FindByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser user;
@@ -53,6 +52,8 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult> SelectTeamForUser(ApplicationUser applicationUser, Team team)
         {
             applicationUser.Memberships.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
+            applicationUser.Memberships.Where(x => x.TeamId == team.Id).First().Status = UserSelectionStatus.Selected;
+            await identificationDbContext.SaveChangesAsync();
             return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult<List<ApplicationUserTeam>>> GetAllTeamMemberships(ApplicationUser applicationUser)

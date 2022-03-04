@@ -17,10 +17,6 @@ namespace WebWasmClient.Services
         public async Task<T> GetFromAPI<T>(string route)
         {
             HttpResponseMessage httpResponseMessage = await httpClient.GetAsync("/api" + route);
-            if(httpResponseMessage.StatusCode == HttpStatusCode.NoContent)
-            {
-                return default;
-            }
             if(httpResponseMessage.StatusCode == HttpStatusCode.OK)
             {
                 return JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
