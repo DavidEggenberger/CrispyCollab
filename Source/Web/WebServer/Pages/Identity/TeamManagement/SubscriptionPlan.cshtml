@@ -8,8 +8,13 @@
 
 <h4>Change Plan</h4>
 
-<form asp-controller="Stripe" asp-action="RedirectToSubscription" method="post">
-    <input name="quantity" type="number" />
-    <button type="submit" id="checkout-button">Checkout</button>
-</form>
+@foreach(var item in Model.SubscriptionPlans)
+{
+    <form asp-controller="Stripe" asp-action=@($"RedirectToStripe{item.Name}Subscription") method="post">
+        <input name="quantity" type="number" />
+        <button type="submit" id="checkout-button">Portal Session</button>
+    </form>   
+}
+
+
 

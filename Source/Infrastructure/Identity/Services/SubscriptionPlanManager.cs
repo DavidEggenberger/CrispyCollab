@@ -40,5 +40,9 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.SubscriptionPlans.OrderBy(x => x.PlanType).ToListAsync();
         }
+        public Task<List<SubscriptionPlan>> LoadAllSubscriptionExceptPlans(SubscriptionPlan subscriptionPlan)
+        {
+            return identificationDbContext.SubscriptionPlans.Where(x => x.Name != subscriptionPlan.Name).OrderBy(x => x.PlanType).ToListAsync();
+        }
     }
 }

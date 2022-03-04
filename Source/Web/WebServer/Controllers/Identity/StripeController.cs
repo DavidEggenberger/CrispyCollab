@@ -56,7 +56,7 @@ namespace WebServer.Controllers.Identity
                 CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
-                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays
+                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays == 0 ? 7 : subscriptionPlan.TrialPeriodDays
                 }
             };
             var service = new SessionService();
@@ -92,7 +92,7 @@ namespace WebServer.Controllers.Identity
                 CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
-                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays
+                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays == 0 ? 7 : subscriptionPlan.TrialPeriodDays
                 }
             };
             var service = new SessionService();
