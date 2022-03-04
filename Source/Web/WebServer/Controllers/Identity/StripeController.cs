@@ -23,16 +23,20 @@ namespace WebServer.Controllers.Identity
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
         private SubscriptionPlanManager subscriptionPlanManager;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager)
+        private TeamManager teamManager;
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.subscriptionPlanManager = subscriptionPlanManager;
+            this.teamManager = teamManager;
         }
+
         [HttpPost("Subscribe/Premium")]
         public async Task<ActionResult> RedirectToStripeBasicSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
             var domain = "https://localhost:44333";
 
@@ -56,6 +60,10 @@ namespace WebServer.Controllers.Identity
                 CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
+                    Metadata = new Dictionary<string, string>
+                    {
+                        ["TeamId"] = selectedTeam.Id.ToString()
+                    },
                     TrialPeriodDays = subscriptionPlan.TrialPeriodDays == 0 ? 7 : subscriptionPlan.TrialPeriodDays
                 }
             };
@@ -65,10 +73,12 @@ namespace WebServer.Controllers.Identity
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
+
         [HttpPost("Subscribe/Enterprise")]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
             var domain = "https://localhost:44333";
 
@@ -76,7 +86,7 @@ namespace WebServer.Controllers.Identity
             {
                 PaymentMethodTypes = new List<string>
                 {
-                  "card",
+                    "card",
                 },
                 Customer = applicationUser.StripeCustomerId,
                 LineItems = new List<SessionLineItemOptions>
@@ -92,6 +102,10 @@ namespace WebServer.Controllers.Identity
                 CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
+                    Metadata = new Dictionary<string, string>
+                    {
+                        ["TeamId"] = selectedTeam.Id.ToString()
+                    },
                     TrialPeriodDays = subscriptionPlan.TrialPeriodDays == 0 ? 7 : subscriptionPlan.TrialPeriodDays
                 }
             };
@@ -115,19 +129,7 @@ namespace WebServer.Controllers.Identity
                 stripeEvent = EventUtility.ConstructEvent(json,
                         signatureHeader, endpointSecret);
                 
-                if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
-                {
-                    var subscription = stripeEvent.Data.Object as Subscription;
-                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
-                    if(result.Successful is false)
-                    {
-                        throw new Exception();
-                    }
-                    ApplicationUser applicationUser = result.Value;
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
-                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
-                }
-                else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
+                if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
                     var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
@@ -136,8 +138,11 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
-                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    SubscriptionService subscriptionService = new SubscriptionService();
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
+                    team.SubscriptionPlan = subscriptionPlan;
+                    await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
@@ -148,8 +153,11 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
-                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    SubscriptionService subscriptionService = new SubscriptionService();
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
+                    team.SubscriptionPlan = subscriptionPlan;
+                    await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
@@ -160,8 +168,9 @@ namespace WebServer.Controllers.Identity
                         throw new Exception();
                     }
                     ApplicationUser applicationUser = result.Value;
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Id);
-                    applicationUser.Memberships.First(x => x.Status == UserSelectionStatus.Selected).Team.SubscriptionPlan = subscriptionPlan;
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    SubscriptionService subscriptionService = new SubscriptionService();
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripeSubscriptionId(subscription.Items.First().Price.Id);
                 }
                 else
                 {

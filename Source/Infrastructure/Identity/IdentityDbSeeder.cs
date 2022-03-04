@@ -13,8 +13,9 @@ namespace Infrastructure.Identity
     {
         public static async Task SeedAsync(IdentificationDbContext context, IConfiguration _configuration)
         {
-            if (context.SubscriptionPlans.Count() == 0)
+            if (context.SubscriptionPlans.Count() < 31434)
             {
+                context.SubscriptionPlans.RemoveRange(context.SubscriptionPlans);
                 context.SubscriptionPlans.AddRange(new List<SubscriptionPlan>
                 {
                     new SubscriptionPlan()

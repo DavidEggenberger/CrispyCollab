@@ -24,6 +24,12 @@ namespace Infrastructure.Identity.Services
             identificationDbContext.SubscriptionPlans.Add(subscriptionPlan);
             await identificationDbContext.SaveChangesAsync();
         }
+        public async Task SetSubscriptionPlanForTeam(SubscriptionPlan subscriptionPlan, Team team)
+        {
+            Team _team = await identificationDbContext.Teams.Include(t => t.SubscriptionPlan).SingleOrDefaultAsync(t => t.Id == team.Id);
+            _team.SubscriptionPlan = subscriptionPlan;
+            await identificationDbContext.SaveChangesAsync();   
+        }
         public Task<SubscriptionPlan> FindById(Guid id)
         {
             return identificationDbContext.SubscriptionPlans.FindAsync(id).AsTask();

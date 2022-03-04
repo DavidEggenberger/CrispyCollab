@@ -21,7 +21,14 @@ namespace WebWasmClient.Services
             HttpResponseMessage httpResponseMessage = await httpClient.GetAsync("/api" + route);
             if(httpResponseMessage.IsSuccessStatusCode)
             {
-                return JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                try
+                {
+                    return JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
             if(httpResponseMessage.IsSuccessStatusCode is false)
             {
