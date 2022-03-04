@@ -52,12 +52,12 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = domain + "/cancel",
-                //SubscriptionData = new SessionSubscriptionDataOptions
-                //{
-                //    TrialPeriodDays = 31
-                //}
+                SuccessUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                SubscriptionData = new SessionSubscriptionDataOptions
+                {
+                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays
+                }
             };
             var service = new SessionService();
             Session session = service.Create(options);
@@ -88,12 +88,12 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = domain + "/cancel",
-                //SubscriptionData = new SessionSubscriptionDataOptions
-                //{
-                //    TrialPeriodDays = 31
-                //}
+                SuccessUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                CancelUrl = domain + "/Identity/TeamManagement/SubscriptionPlan",
+                SubscriptionData = new SessionSubscriptionDataOptions
+                {
+                    TrialPeriodDays = subscriptionPlan.TrialPeriodDays
+                }
             };
             var service = new SessionService();
             Session session = service.Create(options);
@@ -107,10 +107,6 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> Index()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            // Replace this endpoint secret with your endpoint's unique secret
-            // If you are testing with the CLI, find the secret by running 'stripe listen'
-            // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
-            // at https://dashboard.stripe.com/webhooks
             const string endpointSecret = "whsec_1e2d0609f798c0d2b32de188b680fa5edafbd3212dead57d24b0e408085f8bd4";
             try
             {
@@ -185,8 +181,6 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
 
-            // This is the URL to which your customer will return after
-            // they are done managing billing in the Customer Portal.
             var returnUrl = "https://localhost:44333";
 
             var options = new Stripe.BillingPortal.SessionCreateOptions

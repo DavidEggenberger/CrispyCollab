@@ -74,6 +74,27 @@ namespace WebServer
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var problemDetails = new ValidationProblemDetails(context.ModelState)
+                    {
+                        Instance = context.HttpContext.Request.Path,
+                        Status = StatusCodes.Status400BadRequest,
+                        Type = $"https://httpstatuses.com/400",
+                        Detail = "ApiConstants.Messages.ModelStateValidation"
+                    };
+                    return new BadRequestObjectResult(problemDetails)
+                    {
+                        ContentTypes =
+                        {
+                            "ApiConstants.ContentTypes.ProblemJson",
+                            "ApiConstants.ContentTypes.ProblemXml"
+                        }
+                    };
+                };
+            });
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
