@@ -5,8 +5,15 @@ namespace WebServer.Pages.Identity.Account
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        private readonly ApplicationUserManager applicationUserManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+
+        public IndexModel(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
+            _userManager = userManager;
+            signInManager = signInManager;
         }
     }
 }

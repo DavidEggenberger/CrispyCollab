@@ -1,0 +1,11 @@
+﻿@page "/Manage"
+@attribute [Authorize("TeamAdmin")]
+
+<h3>Manage</h3>
+
+<button @onclick="() => Modal.Show<InviteUserToTeamModalComponent>()">Invite Users to Team</button>
+
+@code{
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+}

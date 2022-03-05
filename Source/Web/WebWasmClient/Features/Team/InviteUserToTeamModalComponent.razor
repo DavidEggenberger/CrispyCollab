@@ -1,12 +1,21 @@
 ﻿@inject IHttpClientFactory httpClientFactory
 @inject NavigationManager navigationManager
 
-
-<EditForm Model="email">
-    <DataAnnotationsValidator/>
-    <OnInputBindInputText @bind="email.EmailAddress"/>
-    <ValidationMessage For="s => s.EmailAddress"/>
-</EditForm>
+<div class="InviteUserToTeamContainer">
+    <h3>Invite User through their E-Mail addresses to Team</h3>
+    @foreach(var email in emails)
+    {
+        <h5>@email</h5>
+    }
+    <EditForm Model=@email>
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>E-Mail</label>
+            <OnInputBindInputText @bind-Value="email.EmailAddress"/>
+            <ValidationMessage For="() => email.EmailAddress" />
+        </div>
+    </EditForm>
+</div>
 
 
 @code {

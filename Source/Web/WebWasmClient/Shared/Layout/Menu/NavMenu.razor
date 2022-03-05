@@ -12,9 +12,9 @@
     </NavLink>
     @if(User != null && User.IsInRole("Admin") && currentTenant != null)
     {
-        <div class="NavElement">
-            <h3 @onclick='() => navigationManager.NavigateTo("/Identity/TeamManagement/SubscriptionPlan", true)'>Manage @currentTenant.Name</h3>
-        </div>
+        <NavLink href="/Manage" Match="NavLinkMatch.Prefix" class="NavElement">
+            <h3>Manage @currentTenant.Name</h3>
+        </NavLink>
     }
     <div class="NavElement NoUnderline">
         <TeamsOverviewComponent/>
