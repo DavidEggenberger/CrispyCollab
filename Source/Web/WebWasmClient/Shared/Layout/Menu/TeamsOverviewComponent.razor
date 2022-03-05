@@ -3,7 +3,7 @@
 
 <div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
     <div class="ExpanderTitle">
-        <h3>Select Team</h3>
+        <h5>Select Team</h5>
         @if (expanded)
         {
             <img class="ExpanderIcon Up" @onclick="() => Click()" src="/icons/angle-down.png"/>
@@ -27,13 +27,13 @@
                     if(tenant.Id == Team.Id)
                     {
                         <div class="Group Selected">
-                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h5>
+                            <h6 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
                         </div>
                     }
                     else
                     {
                         <div class="Group">
-                            <h5>@tenant.Name</h5>
+                            <h6>@tenant.Name</h6>
                             <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
                         </div>
                     }       
@@ -50,10 +50,10 @@
 </div>
 
 @code{
-    private List<TeamDTO> teams;
+    private List<TeamAuthentiicationDTO> teams;
     protected override async Task OnInitializedAsync()
     {
-        teams = await httpClientService.GetFromAPI<List<TeamDTO>>("/team/all");
+        teams = await httpClientService.GetFromAPI<List<TeamAuthentiicationDTO>>("/team/all");
     }
     private bool expanded = true;
     public void Click()

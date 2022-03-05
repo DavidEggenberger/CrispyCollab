@@ -14,8 +14,6 @@
     public Task<AuthenticationState> AuthenticationState { get; set; }
     [Inject]
     public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
-    public ClaimsPrincipal User;
-    public Team Team;
     protected override async Task OnParametersSetAsync()
     {
         await Task.Delay(200);
@@ -24,6 +22,6 @@
         {
             authenticationStateProvider.SignIn();
         }
-        Team = await httpClientService.GetFromAPI<Team>("/team/current");
+        Team = await httpClientService.GetFromAPI<TeamAuthentiicationDTO>("/team/current");
     }
 }

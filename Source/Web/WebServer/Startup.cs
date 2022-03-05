@@ -210,7 +210,7 @@ namespace WebServer
                 options.User.RequireUniqueEmail = true;
                 options.Stores.MaxLengthForKeys = 128;
                 options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Sid;
-                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.NameIdentifier;
+                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Name;
             })
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()

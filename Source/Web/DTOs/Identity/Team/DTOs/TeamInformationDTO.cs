@@ -8,5 +8,6 @@ namespace Common.Identity.Team.DTOs
 {
     public class TeamInformationDTO
     {
+
     }
 }

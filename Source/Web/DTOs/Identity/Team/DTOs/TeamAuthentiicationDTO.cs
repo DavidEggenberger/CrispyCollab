@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.DTOs.Identity.Team
 {
-    public class Team
+    public class TeamAuthentiicationDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

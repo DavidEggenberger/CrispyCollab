@@ -12,11 +12,11 @@ namespace WebWasmClient.Features.Dashboard.Pages
     {
         [Inject]
         public IHttpClientFactory HttpClientFactory { get; set; }
-        public List<TeamDTO> Teams { get; set; }
+        public List<TeamAuthentiicationDTO> Teams { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Teams = await HttpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<List<TeamDTO>>("api/Team/all");
+            Teams = await HttpClientFactory.CreateClient("authorizedClient").GetFromJsonAsync<List<TeamAuthentiicationDTO>>("api/Team/all");
         }
         
     }

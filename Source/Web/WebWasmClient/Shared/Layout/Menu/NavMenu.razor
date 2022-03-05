@@ -2,24 +2,24 @@
 
 <div class="NavMenuContainer">
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
-        <h3>Dashboard</h3>
+        <h5>Dashboard</h5>
     </NavLink>
     <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
-        <h3>Notifications</h3>
+        <h5>Notifications</h5>
     </NavLink>
     <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
-        <h3>Integrations</h3>
+        <h5>Integrations</h5>
     </NavLink>
     @if(User.IsInRole("Admin"))
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
-            <h3>Manage @Team.Name</h3>
+            <h5>Manage @Team.Name</h5>
         </NavLink>
     }
     <div class="NavElement NoUnderline">
         <TeamsOverviewComponent/>
     </div>
     <div class="NavElement">
-        <h3 @onclick="() => Modal.Show<CreateTeamModalComponent>()">Create New Team</h3>
+        <h5 @onclick="() => Modal.Show<CreateTeamModalComponent>()">Create New Team</h5>
     </div>
 </div>
