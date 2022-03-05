@@ -3,35 +3,56 @@
 
 <div class="InviteUserToTeamContainer">
     <h3>Invite User through their E-Mail addresses to Team</h3>
-    @foreach(var email in emails)
+    @foreach(var email in emailAddresses)
     {
-        <h5>@email</h5>
+        <div class="EmailSection">
+            <h5>@email</h5>
+            <button class="EmailRemoveButton" @onclick="() => emailAddresses.Remove(email)">Remove</button>
+        </div>       
     }
-    <EditForm Model=@email>
-        <DataAnnotationsValidator />
-        <div class="form-group">
-            <label>E-Mail</label>
-            <OnInputBindInputText @bind-Value="email.EmailAddress"/>
-            <ValidationMessage For="() => email.EmailAddress" />
-        </div>
-    </EditForm>
+    <div class="form-group">
+        <label>E-Mail @valid</label>
+        <input @bind="currentMail" @bind:event="oninput" type="text" @onkeydown="OnKeyDown"/>
+    </div>
 </div>
 
 
 @code {
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
-    private List<Email> emails;
-    private Email email;
-
+    private List<string> emailAddresses;
+    EmailValidator emailValidator;
+    private bool valid;
+    private string _currentMail = string.Empty;
+    public string currentMail
+    {
+        get => _currentMail;
+        set
+        {
+            _currentMail = value;
+            valid = emailValidator.Validate(currentMail).IsValid;
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
-        emails = new List<Email>();
-        email = new Email();
+        emailAddresses = new List<string>();
+        emailValidator = new EmailValidator();
     }
-    
-    private class Email
+
+    public async Task OnKeyDown(KeyboardEventArgs args)
     {
-        [EmailAddress]
-        public string EmailAddress { get; set; }
+        if(args.Key == "Enter" && valid)
+        {
+            emailAddresses.Add(currentMail);
+            currentMail = string.Empty;
+            StateHasChanged();
+        }
+    }
+
+    private class EmailValidator : AbstractValidator<string>
+    {
+        public EmailValidator()
+        {
+            RuleFor(x => x).EmailAddress().WithMessage("Must be a valid E-Mail Address");
+        }
     }
 }

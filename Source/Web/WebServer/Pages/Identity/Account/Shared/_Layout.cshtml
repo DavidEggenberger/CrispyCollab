@@ -1,13 +1,22 @@
 ﻿@{
-    Layout = "~/Pages/Identity/Shared/Layout.cshtml";
+    Layout = "~/Pages/Identity/Shared/_Layout.cshtml";
 }
 
 
 <div class="AccountManageContainer">
-    <div>
-
+    <div class="AccountManageHeader">
+        <h2>Manage your account</h2>
     </div>
-    <div>
-        @RenderBody()
+    <div class="AccountManageMain">
+        <div class="AccountManageAside">
+            <a class=@(ManageNavPages.IndexNavClass(ViewContext)) asp-page="./Index">Profile</a>
+            <a class=@(ManageNavPages.EmailNavClass(ViewContext)) asp-page="./Email">Email</a>
+            <a class=@(ManageNavPages.ExternalLoginsNavClass(ViewContext)) asp-page="./ExternalLogins">External logins</a>
+            <a class=@(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)) asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+            <a class=@(ManageNavPages.PersonalDataNavClass(ViewContext)) asp-page="./PersonalData">Personal data</a>
+        </div>
+        <div>
+            @RenderBody()
+        </div>
     </div>
 </div>

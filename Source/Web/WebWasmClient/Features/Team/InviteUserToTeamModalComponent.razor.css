@@ -48,6 +48,9 @@ label {
     color: black;
     padding: 3px;
 }
+::deep input::after{
+    
+}
 button {
     margin-top: 8px;
     border-radius: 4px;
@@ -56,5 +59,13 @@ button {
     font-size: 1rem;
     height: 25px;
     color: black;
+    padding: 3px;
+}
+.EmailSection{
+    display: flex;
+    justify-content: space-between;
+}
+.EmailRemoveButton{
+    height: 7px;
     padding: 3px;
 }
