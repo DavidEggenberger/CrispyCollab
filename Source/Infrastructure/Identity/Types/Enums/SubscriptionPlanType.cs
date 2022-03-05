@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public enum PlanType
+    public enum SubscriptionPlanType
     {
         Free,
         Premium,

@@ -22,6 +22,6 @@
         {
             authenticationStateProvider.SignIn();
         }
-        Team = await httpClientService.GetFromAPI<TeamAuthentiicationDTO>("/team/current");
+        Team = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
     }
 }

@@ -27,7 +27,7 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripePriceId == id);
         }
-        public Task<SubscriptionPlan> FindByPlanType(PlanType planType)
+        public Task<SubscriptionPlan> FindByPlanType(SubscriptionPlanType planType)
         {
             return identificationDbContext.SubscriptionPlans.SingleAsync(sp => sp.PlanType == planType);
         }

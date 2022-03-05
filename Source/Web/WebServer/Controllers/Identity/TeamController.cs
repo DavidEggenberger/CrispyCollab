@@ -38,7 +38,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<TeamAuthentiicationDTO>> GetSelectedTeamForUser()
+        public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             if(applicationUser == null)
@@ -50,12 +50,12 @@ namespace WebServer.Controllers.Identity
             {
                 return NoContent();
             }
-            return Ok(new TeamAuthentiicationDTO { Name = result.Value.NameIdentitifer, Id = result.Value.Id, IconUrl = "https://icon" });
+            return Ok(new TeamDTO { Name = result.Value.NameIdentitifer, Id = result.Value.Id, IconUrl = "https://icon" });
         }
 
         [HttpGet("information")]
         [AuthorizeTeamAdmin]
-        public async Task<ActionResult<TeamInformationDTO>> GetInformationForSelectedTeam()
+        public async Task<ActionResult<TeamExtendedDTO>> GetInformationForSelectedTeam()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             if (applicationUser == null)
@@ -67,11 +67,11 @@ namespace WebServer.Controllers.Identity
             {
                 return NoContent();
             }
-            return Ok(new TeamAuthentiicationDTO { Name = result.Value.NameIdentitifer, Id = result.Value.Id, IconUrl = "https://icon" });
+            return Ok(new TeamExtendedDTO {  });
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<List<TeamAuthentiicationDTO>>> GetAllTeamsForUser()
+        public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             if (applicationUser == null)
@@ -83,12 +83,12 @@ namespace WebServer.Controllers.Identity
             {
                 return NoContent();
             }
-            List<TeamAuthentiicationDTO> teams = result.Value.Select(x => new TeamAuthentiicationDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList();
+            List<TeamDTO> teams = result.Value.Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList();
             return Ok(teams);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TeamAuthentiicationDTO>> CreateTeam(CreateTeamDto createTeamDto)
+        public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             await applicationUserManager.UnSelectAllTeams(applicationUser);

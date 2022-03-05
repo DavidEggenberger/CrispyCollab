@@ -22,14 +22,14 @@ namespace Infrastructure.Identity
                     {
                         Description = "The free subscription plan",
                         Name = "Free",
-                        PlanType = PlanType.Free,
+                        PlanType = SubscriptionPlanType.Free,
                         Price = 0
                     },
                     new SubscriptionPlan()
                     {
                         Description = "The premium subscription plan",
                         Name = "Premium",
-                        PlanType = PlanType.Premium,
+                        PlanType = SubscriptionPlanType.Premium,
                         Price = 10,
                         StripePriceId = _configuration.GetSection("SubscriptionPlans")["PremiumStripeSubscriptionId"]
                     },
@@ -37,7 +37,7 @@ namespace Infrastructure.Identity
                     {
                         Description = "The enterprise subscription plan",
                         Name = "Enterprise",
-                        PlanType = PlanType.Enterprise,
+                        PlanType = SubscriptionPlanType.Enterprise,
                         Price = 20,
                         StripePriceId = _configuration.GetSection("SubscriptionPlans")["EnterpriseStripeSubscriptionId"]
                     }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.Team.DTOs
+namespace Common.Identity.ApplicationUser
 {
-    public class TeamInformationDTO
+    public class ApplicationUserDTO
     {
-
     }
 }

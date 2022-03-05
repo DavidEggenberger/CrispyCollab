@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Aggregates\" />
+    <Folder Include="Aggregates\" />
   </ItemGroup>
 
   <ItemGroup>

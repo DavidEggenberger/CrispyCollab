@@ -59,10 +59,10 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
-            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Premium);
+            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
-            if(selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Premium)
+            if(selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Premium)
             {
                 return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
             }
@@ -108,10 +108,10 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
-            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Enterprise);
+            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
-            if (selectedTeam.Subscription.SubscriptionPlan.PlanType == PlanType.Enterprise)
+            if (selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Enterprise)
             {
                 return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
             }
@@ -207,7 +207,7 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = result.Value;
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free);
+                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free);
                     team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     await identificationDbContext.SaveChangesAsync();
                 }

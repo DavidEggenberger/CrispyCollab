@@ -80,7 +80,7 @@ namespace Infrastructure.Identity.Services
                     NameIdentitifer = name,
                     Subscription = new Subscription
                     {
-                        SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(PlanType.Free),
+                        SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
                         Status = SubscriptionStatus.Active
                     }
                 },
