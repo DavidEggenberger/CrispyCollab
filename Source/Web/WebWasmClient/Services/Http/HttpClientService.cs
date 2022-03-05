@@ -5,6 +5,7 @@ using System.Text.Json;
 using System;
 using WebWasmClient.Services.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Json;
 
 namespace WebWasmClient.Services
 {
@@ -31,6 +32,28 @@ namespace WebWasmClient.Services
                 }
             }
             if(httpResponseMessage.IsSuccessStatusCode is false)
+            {
+                ProblemDetails problemDetails = JsonSerializer.Deserialize<ProblemDetails>(await httpResponseMessage.Content.ReadAsStringAsync());
+                throw new HttpClientServiceException(problemDetails.Detail);
+            }
+            return default;
+        }
+
+        public async Task<T> PostToAPI<T>(string route, T t)
+        {
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsJsonAsync("/api" + route, t, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                try
+                {
+                    return JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            if (httpResponseMessage.IsSuccessStatusCode is false)
             {
                 ProblemDetails problemDetails = JsonSerializer.Deserialize<ProblemDetails>(await httpResponseMessage.Content.ReadAsStringAsync());
                 throw new HttpClientServiceException(problemDetails.Detail);

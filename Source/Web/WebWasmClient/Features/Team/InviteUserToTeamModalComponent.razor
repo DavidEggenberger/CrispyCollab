@@ -1,4 +1,4 @@
-﻿@inject IHttpClientFactory httpClientFactory
+﻿@inject HttpClientService httpClientService
 @inject NavigationManager navigationManager
 
 <div class="InviteUserToTeamContainer">
@@ -63,6 +63,6 @@
         {
             Emails = emailAddresses
         };
-
+        await httpClientService.PostToAPI("/team/invite", inviteUserToTeamDTO);
     }
 }

@@ -91,7 +91,8 @@ namespace WebServer.Controllers.Identity
             return Redirect("/");
         }
 
-        [HttpPost]
+        [HttpPost("invite")]
+        [Authorize(Policy = "TeamAdmin")]
         public async Task<ActionResult> InviteUsersToTeam(InviteUserToTeamDTO inviteUserToGroupDTO)
         {
 

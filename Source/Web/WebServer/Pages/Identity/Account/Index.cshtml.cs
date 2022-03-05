@@ -26,7 +26,22 @@ namespace WebServer.Pages.Identity.Account
         public async Task OnGetAsync()
         {
             CurrentUser = await applicationUserManager.FindByIdAsync(User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value);
-            
+        }
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
+        [BindProperty]
+        public string NewUserName { get; set; }
+
+        public async Task<ActionResult> OnPostChangeUserName()
+        {
+            var user = await applicationUserManager.FindByIdAsync(User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value);
+            user.UserName = NewUserName;
+            await applicationUserManager.UpdateAsync(user);
+            await signInManager.RefreshSignInAsync(user);
+            StatusMessage = "Your profile has been updated";
+            return RedirectToPage();
         }
     }
 }
