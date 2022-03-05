@@ -1,19 +1,32 @@
+using Infrastructure.Identity;
+using Infrastructure.Identity.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WebServer.Pages.Identity.Account
 {
     public class IndexModel : PageModel
     {
         private readonly ApplicationUserManager applicationUserManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            ApplicationUserManager applicationUserManager,
+            SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
-            signInManager = signInManager;
+            this.applicationUserManager = applicationUserManager;
+            this.signInManager = signInManager;
+        }
+
+        public ApplicationUser CurrentUser { get; set; }
+        public async Task OnGetAsync()
+        {
+            CurrentUser = await applicationUserManager.FindByIdAsync(User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value);
+            
         }
     }
 }
