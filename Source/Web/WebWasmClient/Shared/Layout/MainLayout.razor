@@ -8,11 +8,9 @@
         <ChildContent>
             <aside>
                 <div class="CurrentTenantDisplayComponentContainer">
-                    <SelectedTeamDisplayComponent Tenant="selectedTeam"/>
+                    <SelectedTeamDisplayComponent/>
                 </div>
-                <CascadingValue Value="selectedTeam">
-                    <NavMenu SelectedTeamLoaded="team => selectedTeam = team"/>
-                </CascadingValue>
+                <NavMenu/>
             </aside>
             <main>
                 <nav>
@@ -47,7 +45,6 @@
 
 @code{
     private CustomErrorBoundary errorBoundary;
-    private TeamDTO selectedTeam;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

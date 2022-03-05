@@ -28,7 +28,7 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();
-            var user = await userManager.FindByNameAsync(info.Principal.Identity.Name);
+            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
             if (info is not null && user is null)
             {
@@ -77,7 +77,7 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> ExternalSignUpCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();
-            var user = await userManager.FindByNameAsync(info.Principal.Identity.Name);
+            var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
             if (info is not null && user is null)
             {

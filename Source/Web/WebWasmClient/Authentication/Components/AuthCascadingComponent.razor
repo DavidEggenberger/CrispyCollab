@@ -1,0 +1,25 @@
+﻿<CascadingValue Value="User">
+    <CascadingValue Value="Team">
+        @ChildContent
+    </CascadingValue>
+</CascadingValue>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+    [Inject]
+    public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
+    public ClaimsPrincipal User;
+    public TeamDTO Team;
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationState).User;
+        if (!User.Identity.IsAuthenticated)
+        {
+            authenticationStateProvider.SignIn();
+        }
+        Team = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
+    }
+}

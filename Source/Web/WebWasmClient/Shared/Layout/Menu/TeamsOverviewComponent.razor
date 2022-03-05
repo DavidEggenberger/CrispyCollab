@@ -24,17 +24,17 @@
             {
                 foreach(var tenant in teams)
                 {
-                    if(CurrentTenant != null && tenant.Id == CurrentTenant.Id)
+                    if(tenant.Id == Team.Id)
                     {
                         <div class="Group Selected">
-                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>@tenant.Name</h5>
+                            <h5 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h5>
                         </div>
                     }
                     else
                     {
                         <div class="Group">
                             <h5>@tenant.Name</h5>
-                            <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/setCurrent/{tenant.Id}", true)'>Select</button>
+                            <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
                         </div>
                     }       
                 }
@@ -50,7 +50,6 @@
 </div>
 
 @code{
-    [CascadingParameter] public TeamDTO CurrentTenant { get; set; }
     private List<TeamDTO> teams;
     protected override async Task OnInitializedAsync()
     {
