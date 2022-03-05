@@ -1,4 +1,7 @@
-﻿.AccountManageMain {
+﻿.AccountManageContainer{
+    align-self: start;
+}
+.AccountManageMain {
     height: 100%;
     width: 100%;
     display: grid;
@@ -8,10 +11,12 @@
     display: flex;
     flex-direction: column;
 }
-a{
-    display: block;
-    height: 25px;
+.LinkBody{
+    height: 35px;
 }
-a.active{
+a.active .LinkBody{
     background-color: aqua;
+}
+h2{
+    font-size: 1.4rem;
 }

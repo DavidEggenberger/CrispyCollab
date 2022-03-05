@@ -14,6 +14,7 @@
         <label>E-Mail @valid</label>
         <input @bind="currentMail" @bind:event="oninput" type="text" @onkeydown="OnKeyDown"/>
     </div>
+    <button @onclick="async() => await InviteUsersAsync()">Invite Users</button>
 </div>
 
 
@@ -54,5 +55,14 @@
         {
             RuleFor(x => x).EmailAddress().WithMessage("Must be a valid E-Mail Address");
         }
+    }
+
+    public async Task InviteUsersAsync()
+    {
+        InviteUserToTeamDTO inviteUserToTeamDTO = new InviteUserToTeamDTO()
+        {
+            Emails = emailAddresses
+        };
+
     }
 }

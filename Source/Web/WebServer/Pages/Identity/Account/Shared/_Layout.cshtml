@@ -5,15 +5,35 @@
 
 <div class="AccountManageContainer">
     <div class="AccountManageHeader">
-        <h2>Manage your account</h2>
+        <h2>@User.Identity.Name manage your account</h2>
     </div>
     <div class="AccountManageMain">
         <div class="AccountManageAside">
-            <a class=@(ManageNavPages.IndexNavClass(ViewContext)) asp-page="./Index">Profile</a>
-            <a class=@(ManageNavPages.EmailNavClass(ViewContext)) asp-page="./Email">Email</a>
-            <a class=@(ManageNavPages.ExternalLoginsNavClass(ViewContext)) asp-page="./ExternalLogins">External logins</a>
-            <a class=@(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)) asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
-            <a class=@(ManageNavPages.PersonalDataNavClass(ViewContext)) asp-page="./PersonalData">Personal data</a>
+            <a class=@(ManageNavPages.IndexNavClass(ViewContext)) asp-page="./Index">
+                <div class="LinkBody">
+                    Profile
+                </div>
+            </a>
+            <a class=@(ManageNavPages.EmailNavClass(ViewContext)) asp-page="./Email">
+                <div class="LinkBody">
+                    Email
+                </div>
+            </a>
+            <a class=@(ManageNavPages.ExternalLoginsNavClass(ViewContext)) asp-page="./ExternalLogins">
+                <div class="LinkBody">
+                    External logins
+                </div>
+            </a>
+            <a class=@(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)) asp-page="./TwoFactorAuthentication">
+                <div class="LinkBody">
+                    Two-factor authentication
+                </div>
+            </a>
+            <a class=@(ManageNavPages.PersonalDataNavClass(ViewContext)) asp-page="./PersonalData">
+                <div class="LinkBody">
+                    Personal data
+                </div>
+            </a>
         </div>
         <div>
             @RenderBody()

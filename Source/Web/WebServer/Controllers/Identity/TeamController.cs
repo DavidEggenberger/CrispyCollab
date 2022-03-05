@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Shared;
+using Common.Identity.Team.DTOs;
 
 namespace WebServer.Controllers.Identity
 {
@@ -88,6 +89,13 @@ namespace WebServer.Controllers.Identity
             await applicationUserManager.SelectTeamForUser(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> InviteUsersToTeam(InviteUserToTeamDTO inviteUserToGroupDTO)
+        {
+
+            return Ok();
         }
     }
 }
