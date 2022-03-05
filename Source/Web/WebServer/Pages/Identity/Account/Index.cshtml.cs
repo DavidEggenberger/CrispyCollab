@@ -25,7 +25,7 @@ namespace WebServer.Pages.Identity.Account
         public ApplicationUser CurrentUser { get; set; }
         public async Task OnGetAsync()
         {
-            CurrentUser = await applicationUserManager.FindByIdAsync(User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value);
+            CurrentUser = await applicationUserManager.GetUserAsync(HttpContext.User);
         }
 
         [TempData]
@@ -36,7 +36,7 @@ namespace WebServer.Pages.Identity.Account
 
         public async Task<ActionResult> OnPostChangeUserName()
         {
-            var user = await applicationUserManager.FindByIdAsync(User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value);
+            var user = await applicationUserManager.GetUserAsync(HttpContext.User);
             user.UserName = NewUserName;
             await applicationUserManager.UpdateAsync(user);
             await signInManager.RefreshSignInAsync(user);

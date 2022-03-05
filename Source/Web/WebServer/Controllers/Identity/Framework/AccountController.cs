@@ -16,8 +16,8 @@ namespace WebServer.Controllers.Identity
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private SignInManager<ApplicationUser> signInManager;
-        private ApplicationUserManager userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ApplicationUserManager userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager)
         {
             this.signInManager = signInManager;

@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebServer.Framwork.Attributes;
 
 namespace WebServer.Controllers.Identity
 {
@@ -21,11 +22,11 @@ namespace WebServer.Controllers.Identity
     [ApiController]
     public class StripeController : ControllerBase
     {
-        private ApplicationUserManager applicationUserManager;
-        private IdentificationDbContext identificationDbContext;
-        private SubscriptionPlanManager subscriptionPlanManager;
-        private SubscriptionManager subscriptionManager;
-        private TeamManager teamManager;
+        private readonly ApplicationUserManager applicationUserManager;
+        private readonly IdentificationDbContext identificationDbContext;
+        private readonly SubscriptionPlanManager subscriptionPlanManager;
+        private readonly SubscriptionManager subscriptionManager;
+        private readonly TeamManager teamManager;
         public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager)
         {
             this.applicationUserManager = applicationUserManager;
@@ -35,7 +36,7 @@ namespace WebServer.Controllers.Identity
             this.subscriptionManager = subscriptionManager;
         }
 
-        [Authorize("TeamAdmin")]
+        [AuthorizeTeamAdmin]
         public async Task<IActionResult> CancelSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
@@ -53,6 +54,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("Subscribe/Premium")]
+        [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
@@ -101,6 +103,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("Subscribe/Enterprise")]
+        [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);

@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Shared;
 using Common.Identity.Team.DTOs;
+using WebServer.Framwork.Attributes;
+using Infrastructure.EmailSender;
 
 namespace WebServer.Controllers.Identity
 {
@@ -24,13 +26,15 @@ namespace WebServer.Controllers.Identity
         private readonly TeamManager teamManager;
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
-        private SignInManager<ApplicationUser> signInManager;
-        public TeamController(TeamManager TeamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IEmailSender emailSender;
+        public TeamController(TeamManager TeamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             this.teamManager = TeamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
+            this.emailSender = emailSender;
         }
 
         [HttpGet("current")]
@@ -92,7 +96,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("invite")]
-        [Authorize(Policy = "TeamAdmin")]
+        [AuthorizeTeamAdmin]
         public async Task<ActionResult> InviteUsersToTeam(InviteUserToTeamDTO inviteUserToGroupDTO)
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
@@ -100,13 +104,14 @@ namespace WebServer.Controllers.Identity
             foreach (var email in inviteUserToGroupDTO.Emails)
             {
                 ApplicationUser invitedUser;
-                if((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && selectedTeam.Members.Any(m => m.UserId == invitedUser.Id))
+                if((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !selectedTeam.Members.Any(m => m.UserId == invitedUser.Id))
                 {
                     invitedUser.Memberships.Add(new ApplicationUserTeam
                     {
-                        Role = TeamRole.Invited,
+                        Role = TeamRole.Admin,
                         Team = selectedTeam
                     });
+                    await emailSender.SendEmailAsync(email, "Invitation", "");
                 }
             }
             await identificationDbContext.SaveChangesAsync();

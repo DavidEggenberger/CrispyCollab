@@ -15,7 +15,7 @@
     [Inject]
     public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
     public ClaimsPrincipal User;
-    public TeamDTO Team;
+    public Team Team;
     protected override async Task OnParametersSetAsync()
     {
         await Task.Delay(200);
@@ -24,6 +24,6 @@
         {
             authenticationStateProvider.SignIn();
         }
-        Team = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
+        Team = await httpClientService.GetFromAPI<Team>("/team/current");
     }
 }
