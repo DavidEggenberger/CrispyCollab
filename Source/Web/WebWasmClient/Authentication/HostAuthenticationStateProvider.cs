@@ -48,7 +48,7 @@ namespace WebWasmClient.Authentication
         {
             try
             {
-                var response = await httpClient.GetAsync(EndpointConstants.UserClaimsPath);
+                var response = await httpClient.GetAsync(IdentityEndpointConstants.UserClaimsPath);
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -78,14 +78,14 @@ namespace WebWasmClient.Authentication
         public void SignIn(string customReturnUrl = null)
         {
             var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
-            var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.LoginPath}?returnUrl={encodedReturnUrl}");
+            var logInUrl = navigationManager.ToAbsoluteUri($"{IdentityEndpointConstants.LoginPath}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
         public void SignUp(string customReturnUrl = null)
         {
             var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
-            var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.SignUp}?returnUrl={encodedReturnUrl}");
+            var logInUrl = navigationManager.ToAbsoluteUri($"{IdentityEndpointConstants.SignUp}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
@@ -95,7 +95,7 @@ namespace WebWasmClient.Authentication
         }
         public void SignOut()
         {
-            navigationManager.NavigateTo(EndpointConstants.LogoutPath, true);
+            navigationManager.NavigateTo(IdentityEndpointConstants.LogoutPath, true);
         }
     }
 }

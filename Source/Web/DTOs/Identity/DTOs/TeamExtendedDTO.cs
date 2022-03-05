@@ -10,7 +10,7 @@ namespace Common.Identity.Team.DTOs
 {
     public class TeamExtendedDTO
     {
-        public List<ApplicationUserDTO> Members { get; set; }
+        public List<TeamUserDTO> Members { get; set; }
         public SubscriptionStatusDTO SubscriptionStatus { get; set; }
         public SubscriptionPlanTypeDTO SubscriptionPlanType { get; set; }
     }

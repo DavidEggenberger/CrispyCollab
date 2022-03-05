@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class EndpointConstants
+    public class IdentityEndpointConstants
     {
         public const string SignUp = "Identity/SignUp";
         public const string LoginPath = "Identity/Login";
