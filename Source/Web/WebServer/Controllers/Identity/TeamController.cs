@@ -36,7 +36,7 @@ namespace WebServer.Controllers.Identity
         [HttpGet("current")]
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             if(applicationUser == null)
             {
                 return Unauthorized();
@@ -52,7 +52,7 @@ namespace WebServer.Controllers.Identity
         [HttpGet("all")]
         public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             if (applicationUser == null)
             {
                 return Unauthorized();
@@ -69,7 +69,7 @@ namespace WebServer.Controllers.Identity
         [HttpPost]
         public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             await applicationUserManager.UnSelectAllTeams(applicationUser);
             IdentityOperationResult result = await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
             if(result.Successful is false)
@@ -83,7 +83,7 @@ namespace WebServer.Controllers.Identity
         [HttpGet("select/{TeamId}")]
         public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             await applicationUserManager.UnSelectAllTeams(applicationUser);
             Team team = await teamManager.FindByIdAsync(teamId.ToString());
             await applicationUserManager.SelectTeamForUser(applicationUser, team);
@@ -95,7 +95,21 @@ namespace WebServer.Controllers.Identity
         [Authorize(Policy = "TeamAdmin")]
         public async Task<ActionResult> InviteUsersToTeam(InviteUserToTeamDTO inviteUserToGroupDTO)
         {
-
+            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
+            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            foreach (var email in inviteUserToGroupDTO.Emails)
+            {
+                ApplicationUser invitedUser;
+                if((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && selectedTeam.Members.Any(m => m.UserId == invitedUser.Id))
+                {
+                    invitedUser.Memberships.Add(new ApplicationUserTeam
+                    {
+                        Role = TeamRole.Invited,
+                        Team = selectedTeam
+                    });
+                }
+            }
+            await identificationDbContext.SaveChangesAsync();
             return Ok();
         }
     }

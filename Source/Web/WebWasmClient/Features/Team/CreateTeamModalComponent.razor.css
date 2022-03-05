@@ -9,7 +9,6 @@
 h3{
     width: auto;
     font-weight: 700;
-    font-size: 1.2rem;
     position: relative;
 }
 h3::before{

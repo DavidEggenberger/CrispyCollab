@@ -10,7 +10,7 @@ namespace Shared.DTOs.Identity
     public class BFFUserInfoDTO
     {
         public static readonly BFFUserInfoDTO Anonymous = new BFFUserInfoDTO();
-        public string NameClaimType { get; set; } = ClaimTypes.NameIdentifier;
+        public string NameClaimType { get; set; } = ClaimTypes.Name;
         public List<ClaimValueDTO> Claims { get; set; }
     }
 }

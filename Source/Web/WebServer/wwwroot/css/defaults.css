@@ -22,6 +22,31 @@ h7 {
     font-weight: inherit;
 }
 
+h1{
+    font-size: 1.5rem;
+}
+h2{
+    font-size: 1.4rem;
+}
+h3{
+    font-size: 1.3rem;
+}
+h4{
+    font-size: 1.2rem;
+}
+h5 {
+    font-size: 1.2rem;
+}
+h6 {
+    font-size: 1rem;
+}
+h7{
+    font-size: 0.9rem;
+}
+h8{
+    font-size: 0.8rem;
+}
+
 ol,
 ul {
     list-style: none;

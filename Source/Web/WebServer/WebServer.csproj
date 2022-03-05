@@ -16,6 +16,7 @@
   <ItemGroup>
     <Folder Include="Controllers\Aggregates\" />
     <Folder Include="Extensions\Identity\" />
+    <Folder Include="Framwork\Attributes\" />
   </ItemGroup>
 
   <ItemGroup>

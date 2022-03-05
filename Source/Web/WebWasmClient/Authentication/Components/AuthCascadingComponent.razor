@@ -1,6 +1,9 @@
 ﻿<CascadingValue Value="User">
     <CascadingValue Value="Team">
-        @ChildContent
+        @if(User != null)
+        {
+            @ChildContent
+        }
     </CascadingValue>
 </CascadingValue>
 
@@ -13,8 +16,9 @@
     public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
     public ClaimsPrincipal User;
     public TeamDTO Team;
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
+        await Task.Delay(200);
         User = (await AuthenticationState).User;
         if (!User.Identity.IsAuthenticated)
         {

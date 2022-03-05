@@ -21,7 +21,7 @@ namespace Infrastructure.Identity.Types.Overrides
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id.ToString());
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, applicationUser.UserName),
+                new Claim(ClaimTypes.Name, applicationUser.UserName),
                 new Claim(ClaimTypes.Email, applicationUser.Email),
                 new Claim("picture", applicationUser.PictureUri),
                 new Claim(ClaimTypes.Sid, applicationUser.Id.ToString())

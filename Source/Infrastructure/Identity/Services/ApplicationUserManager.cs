@@ -25,6 +25,15 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
         }
 
+        public async Task<ApplicationUser> FindAsync(HttpContext httpContext)
+        {
+            ApplicationUser user;
+            if ((user = identificationDbContext.Users.SingleOrDefault(u => u.Id.ToString() == httpContext.User.FindFirst(ClaimTypes.Sid).Value)) != null)
+            {
+                return user;
+            }
+            throw new IdentityOperationException("No user is found for the provided HttpContext");
+        }
         public async Task<IdentityOperationResult<ApplicationUser>> FindByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser user;
