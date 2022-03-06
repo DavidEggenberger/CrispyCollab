@@ -1,5 +1,5 @@
-﻿<CascadingValue Value="hubConnection">
-    @if(hubConnection != null)
+﻿<CascadingValue Value="HubConnection">
+    @if(HubConnection != null)
     {
         @ChildContent
     }
@@ -9,13 +9,11 @@
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
-    private HubConnection hubConnection;
     protected override async Task OnInitializedAsync()
     {
-        hubConnection = new HubConnectionBuilder()
+        HubConnection = new HubConnectionBuilder()
             .WithUrl(navigationManager.ToAbsoluteUri("/Hubs/WebWasmClientNotification"))
             .Build();
-        await hubConnection.StartAsync();
-        hubConnection.SendAsync("sadf");
+        await HubConnection.StartAsync();
     }
 }

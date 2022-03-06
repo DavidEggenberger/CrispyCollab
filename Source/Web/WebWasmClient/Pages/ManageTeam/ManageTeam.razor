@@ -2,7 +2,7 @@
 @attribute [AuthorizeTeamAdmin]
 
 <div class="ManageTeamPageContainer">
-    <h3>Manage your Team @Team.Name</h3>
+    <h3>Manage your Team @Team.Name @s</h3>
     <div class="ManageTeamGrid">
         <div>
             <ManageMembersComponent/>
@@ -14,5 +14,13 @@
 </div>
 
 @code{
-    
+    string s = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        HubConnection.On("UpdateUI", () =>
+        {
+            s = "David";
+            StateHasChanged();
+        });
+    }
 }

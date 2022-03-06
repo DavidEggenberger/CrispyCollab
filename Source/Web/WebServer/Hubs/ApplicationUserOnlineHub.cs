@@ -1,7 +1,9 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
+using Infrastructure.Identity.Types.Enums;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -23,13 +25,8 @@ namespace WebServer.Hubs
                 return;
             }
             ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
-            foreach (var item in appUser.Memberships)
-            {
-                if(item.Role == TeamRole.Admin)
-                {
-                    
-                }
-            }
+            ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
             if (appUser.IsOnline is false)
             {
                 appUser.IsOnline = true;
@@ -60,6 +57,17 @@ namespace WebServer.Hubs
             {
                 appUser.IsOnline = false;
                 await applicationUserManager.UpdateAsync(appUser);
+                foreach (var item in appUser.Memberships)
+                {
+                    if (item.Role == TeamRole.Admin)
+                    {
+                        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{item.TeamId}{item.Role}");
+                    }
+                    else
+                    {
+                        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{item.TeamId}{item.Role}");
+                    }
+                }
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }
         }

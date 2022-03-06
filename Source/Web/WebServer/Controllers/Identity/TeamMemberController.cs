@@ -5,10 +5,12 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebServer.Hubs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,7 +34,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("invite")]
-        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO)
+        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO, [FromServices] IHubContext<ApplicationUserOnlineHub> hubContext)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
@@ -72,6 +74,7 @@ namespace WebServer.Controllers.Identity
             {
 
             }
+            await hubContext.Clients.Group($"{team.Id}{TeamRole.Admin}").SendAsync("UpdateTeam");
             return Ok();
         }
 

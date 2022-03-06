@@ -1,6 +1,7 @@
 ﻿using Blazored.Modal.Services;
 using Common.DTOs.Identity.Team;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Security.Claims;
 
 namespace WebWasmClient.Shared.Components
@@ -10,5 +11,6 @@ namespace WebWasmClient.Shared.Components
         [CascadingParameter] public IModalService Modal { get; set; }
         [CascadingParameter] public ClaimsPrincipal User { get; set; }
         [CascadingParameter] public TeamDTO Team { get; set; }
+        [CascadingParameter] public HubConnection HubConnection { get; set; }
     }
 }

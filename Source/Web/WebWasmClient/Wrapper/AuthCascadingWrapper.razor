@@ -16,7 +16,6 @@
     public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
     protected override async Task OnParametersSetAsync()
     {
-        await Task.Delay(200);
         User = (await AuthenticationState).User;
         if (!User.Identity.IsAuthenticated)
         {
@@ -24,14 +23,13 @@
         }
         if(User.HasClaim(c => c.Type == "TeamId"))
         {
-            try
-            {
-                Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
-            }
-            catch(Exception ex)
-            {
-            
-            }
-        }   
+            Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
+        }
+
+        HubConnection.On("UpdateTeam", async () =>
+        {
+            Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
+            StateHasChanged();
+        });
     }
 }
