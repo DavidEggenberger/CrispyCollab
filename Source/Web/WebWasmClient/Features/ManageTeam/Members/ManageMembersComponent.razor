@@ -1,0 +1,24 @@
+﻿<h4>Manage the Users of the Team</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Team.Members)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>Do sth</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

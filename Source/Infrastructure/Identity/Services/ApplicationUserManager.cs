@@ -55,6 +55,7 @@ namespace Infrastructure.Identity.Services
         }
         public async Task UnSelectAllTeams(ApplicationUser applicationUser)
         {
+            await identificationDbContext.Entry(applicationUser).Collection(x => x.Memberships).LoadAsync();
             applicationUser.Memberships?.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             await identificationDbContext.SaveChangesAsync();
         }
@@ -66,7 +67,7 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<List<ApplicationUserTeam>> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
-            return identificationDbContext.ApplicationUserTeams.Where(x => x.UserId == applicationUser.Id).ToList();
+            return identificationDbContext.ApplicationUserTeams.Include(x => x.Team).Where(x => x.UserId == applicationUser.Id).ToList();
         }
         public async Task<List<Team>> GetTeamsWhereApplicationUserIsMember(ApplicationUser applicationUser)
         {

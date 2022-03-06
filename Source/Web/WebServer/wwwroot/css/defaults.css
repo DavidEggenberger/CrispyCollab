@@ -92,6 +92,16 @@ a {
     color: black !important;
 }
 
+th{
+    font-weight: 600;
+}
+td{
+    padding: 0 15px;
+}
+tr{
+    height: 25px;
+}
+
 .card{
     
 }
@@ -103,3 +113,7 @@ a {
     border: 1px solid white;
 }
 
+.PageContainer{
+    height: 100%;
+    width: 100%;
+}

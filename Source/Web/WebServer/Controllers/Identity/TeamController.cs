@@ -46,17 +46,7 @@ namespace WebServer.Controllers.Identity
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             Guid teamId = await applicationUserManager.GetSelectedTeamId(applicationUser);
             Team team = await teamManager.FindByIdAsync(teamId);
-            return Ok(await team.MapToTeamDTO());
-        }
-
-        [HttpGet("currentExtended")]
-        [AuthorizeTeamAdmin]
-        public async Task<ActionResult<TeamExtendedDTO>> GetExtendedSelectedTeamForUser()
-        {
-            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            Guid teamId = await applicationUserManager.GetSelectedTeamId(applicationUser);
-            Team team = await teamManager.FindByIdAsync(teamId);
-            return Ok(await team.MapToTeamExtendedDTO(identificationDbContext));
+            return Ok(await team.MapToTeamExtendedDTO());
         }
 
         [HttpGet("all")]
@@ -64,7 +54,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             List<ApplicationUserTeam> teamMemberships = await applicationUserManager.GetAllTeamMemberships(applicationUser);
-            return Ok(await teamMemberships.MapToListTeamDTO(identificationDbContext));
+            return Ok(await teamMemberships.MapToListTeamDTO());
         }
 
         [HttpPost]
@@ -112,6 +102,13 @@ namespace WebServer.Controllers.Identity
                 }
             }
             await identificationDbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("changerole")]
+        [AuthorizeTeamAdmin]
+        public async Task<ActionResult> ChangeRoleOfTeamMember()
+        {
             return Ok();
         }
     }

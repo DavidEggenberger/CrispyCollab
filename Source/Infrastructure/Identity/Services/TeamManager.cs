@@ -69,19 +69,19 @@ namespace Infrastructure.Identity.Services
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
-        public Task<Team> FindByIdAsync(Guid Id)
+        public async Task<Team> FindByIdAsync(Guid Id)
         {
-            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
+            Team team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
+            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
+            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
+            return team;
         }
-        public Task<Team> FindByIdAsync(string Id)
+        public async Task<Team> FindByIdAsync(string Id)
         {
-            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
-        }
-        public async Task LoadExtendedTeamInformationAsync(Team team)
-        {
-            await identificationDbContext.Entry(team).Collection(x => x.Members).LoadAsync();
-            await identificationDbContext.Entry(team).Reference(x => x.Subscription).LoadAsync();
-            await identificationDbContext.Entry(team.Subscription).Reference(x => x.SubscriptionPlan).LoadAsync();
+            Team team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
+            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
+            return team;
         }
         public Task<Team> FindUsersSelectedTeam(string Id)
         {

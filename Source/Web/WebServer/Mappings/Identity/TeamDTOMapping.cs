@@ -17,12 +17,8 @@ namespace WebServer.Mappings.Identity
             };
         }
 
-        public static async Task<List<TeamDTO>> MapToListTeamDTO(this List<ApplicationUserTeam> applicationUserTeams, IdentificationDbContext identificationDbContext)
+        public static async Task<List<TeamDTO>> MapToListTeamDTO(this List<ApplicationUserTeam> applicationUserTeams)
         {
-            foreach (var item in applicationUserTeams)
-            {
-                identificationDbContext.Entry(item).Reference(x => x.Team).Load();
-            }
             return applicationUserTeams.Select(x =>
             new TeamDTO
             {

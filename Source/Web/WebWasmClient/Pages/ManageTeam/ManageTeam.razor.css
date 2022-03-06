@@ -1,0 +1,8 @@
+﻿.ManageTeamPageContainer {
+    height: 100%;
+    width: 100%;
+}
+.ManageTeamGrid{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}

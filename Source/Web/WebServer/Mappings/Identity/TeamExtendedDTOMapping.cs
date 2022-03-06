@@ -1,4 +1,5 @@
-﻿using Common.Identity.ApplicationUser;
+﻿using Common.DTOs.Identity.Team;
+using Common.Identity.ApplicationUser;
 using Common.Identity.Team.DTOs;
 using Common.Identity.Team.DTOs.Enums;
 using Infrastructure.Identity;
@@ -10,12 +11,13 @@ namespace WebServer.Mappings.Identity
 {
     public static class TeamExtendedDTOMapping
     {
-        public static async Task<TeamExtendedDTO> MapToTeamExtendedDTO(this Team team, IdentificationDbContext identificationDbContext)
+        public static async Task<TeamDTO> MapToTeamExtendedDTO(this Team team)
         {
-            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
-            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
-            return new TeamExtendedDTO
+            return new TeamDTO
             {
+                Name = team.NameIdentitifer,
+                IconUrl = "adsf",
+                Id = team.Id,
                 SubscriptionPlanType = (SubscriptionPlanTypeDTO)team.Subscription.SubscriptionPlan.PlanType,
                 Members = team.Members.Select(x => new TeamUserDTO 
                 { 

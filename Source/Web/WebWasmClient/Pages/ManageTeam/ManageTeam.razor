@@ -1,16 +1,20 @@
 ﻿@page "/ManageTeam"
 @attribute [AuthorizeTeamAdmin]
 
-<h3>Manage @Team.Name</h3>
+<div class="ManageTeamPageContainer">
+    <h3>Manage your Team @Team.Name</h3>
+    <div class="ManageTeamGrid">
+        <div>
+            <ManageMembersComponent/>
+        </div>
+        <div>
+            <ManageSubscriptionCompoment/>
+        </div>
+    </div>
+</div>
 
-
-
-<button @onclick="() => Modal.Show<InviteUserToTeamModalComponent>()">Invite Users to Team</button>
+<button @onclick="() => Modal.Show<InviteMemberComponent>()">Invite Users to Team</button>
 
 @code{
-    private TeamExtendedDTO teamInformation;
-    protected override async Task OnInitializedAsync()
-    {
-        teamInformation = await httpClientService.GetFromAPI<TeamExtendedDTO>("/team/currentExtended");
-    }
+    
 }
