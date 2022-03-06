@@ -22,13 +22,16 @@
         {
             authenticationStateProvider.SignIn();
         }
-        try
+        if(User.HasClaim(c => c.Type == "TeamId"))
         {
-            Team = await httpClientService.GetFromAPI<TeamDTO>("/team/current");
-        }
-        catch(Exception ex)
-        {
+            try
+            {
+                Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
+            }
+            catch(Exception ex)
+            {
             
-        }
+            }
+        }   
     }
 }

@@ -6,6 +6,7 @@ using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -33,18 +34,17 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
             foreach (var email in inviteUserToGroupDTO.Emails)
             {
                 ApplicationUser invitedUser;
-                if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !selectedTeam.Members.Any(m => m.UserId == invitedUser.Id))
+                if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
                 {
                     invitedUser.Memberships.Add(new ApplicationUserTeam
                     {
-                        Role = TeamRole.Admin,
-                        Team = selectedTeam
+                        Role = TeamRole.Invited,
+                        Team = team
                     });
-                    await emailSender.SendEmailAsync(email, "Invitation", "");
                 }
             }
             await identificationDbContext.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpDelete]
-        public async Task<ActionResult> ChangeRoleOfTeamMember()
+        public async Task<ActionResult> DeleteTeamMember()
         {
             return Ok();
         }

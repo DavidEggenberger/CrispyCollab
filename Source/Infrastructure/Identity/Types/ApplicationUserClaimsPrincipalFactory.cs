@@ -26,11 +26,8 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim("picture", applicationUser.PictureUri),
                 new Claim(ClaimTypes.Sid, applicationUser.Id.ToString())
             };
-            var result = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
-            if (result.Successful)
-            {
-                claims.AddRange(result.Value);
-            }
+            var membershipClaims = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
+            claims.AddRange(membershipClaims);
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.Name, ClaimTypes.Role);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

@@ -10,7 +10,7 @@
     <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
         <h5>Integrations</h5>
     </NavLink>
-    @if(User.IsInRole("Admin"))
+    @if(Team != null && User.IsInRole("Admin"))
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Manage @Team.Name</h5>

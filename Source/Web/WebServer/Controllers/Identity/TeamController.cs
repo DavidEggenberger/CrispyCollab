@@ -57,12 +57,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            await applicationUserManager.UnSelectAllTeams(applicationUser);
-            IdentityOperationResult result = await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
-            if(result.Successful is false)
-            {
-                return Ok();
-            }
+            await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Ok();
         }
@@ -81,8 +76,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            await applicationUserManager.UnSelectAllTeams(applicationUser);
-            Team team = await teamManager.FindByIdAsync(teamId);
+            Team team = await teamManager.FindTeamByIdAsync(teamId);
             await applicationUserManager.SelectTeamForUser(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");

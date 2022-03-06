@@ -1,7 +1,4 @@
-﻿@inject IHttpClientFactory httpClientFactory
-@inject NavigationManager navigationManager
-
-<div class="CreateNewTeamContainer">
+﻿<div class="CreateNewTeamContainer">
     <h3>Create a new Group</h3>
     <EditForm Model=@team Context="editContext">
         <FluentValidationValidator />
@@ -47,7 +44,7 @@
     }
     public async Task CreateGroupAsync()
     {
-        await httpClientFactory.CreateClient("authorizedClient").PostAsJsonAsync("api/Team", new CreateTeamDto { Name = team.Name, Base64Data = base64});
+        await httpClientService.PostToAPI("/team", new CreateTeamDto { Name = team.Name, Base64Data = base64});
         await ModalInstance.CloseAsync();
         navigationManager.NavigateTo("/", true);
     }

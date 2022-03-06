@@ -34,7 +34,10 @@ namespace Infrastructure.Identity.Services
             Team team;
             try
             {
-                team = await identificationDbContext.Teams.SingleAsync(t => t.Id == new Guid(claimsPrincipal.Claims.First(x => x.Type == "TeamId").Value));
+                Guid id = new Guid(claimsPrincipal.Claims.First(x => x.Type == "TeamId").Value);
+                team = await identificationDbContext.Teams.SingleAsync(t => t.Id == id);
+                await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(y => y.User).LoadAsync();
+                await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(t => t.SubscriptionPlan).LoadAsync();
                 return team;
             }
             catch (Exception ex)
@@ -119,13 +122,14 @@ namespace Infrastructure.Identity.Services
         {
             return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
-        public async Task<IdentityOperationResult> CreateNewTeamAsync(ApplicationUser applicationUser, string name)
+        public async Task CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
             var sapplicationUser = await identificationDbContext.Users.Include(x => x.Memberships).SingleOrDefaultAsync(x => x.Id == applicationUser.Id);
             if(identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
             {
-                return IdentityOperationResult.Fail("The Team name is taken");
+                throw new IdentityOperationException("The Team name is taken");
             }
+            applicationUser.Memberships.ForEach(x => x.SelectionStatus = UserSelectionStatus.NotSelected);
             sapplicationUser.Memberships.Add(new ApplicationUserTeam
             {
                 Team = new Team
@@ -138,11 +142,9 @@ namespace Infrastructure.Identity.Services
                     }
                 },
                 Role = TeamRole.Admin,
-                Status = UserSelectionStatus.Selected
+                SelectionStatus = UserSelectionStatus.Selected
             });
             await identificationDbContext.SaveChangesAsync();
-
-            return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Team Team)
         {
@@ -154,9 +156,14 @@ namespace Infrastructure.Identity.Services
             Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
             return IdentityOperationResult<List<ApplicationUser>>.Success(Team.Members.Where(x => x.Role == role).Select(x => x.User).ToList());
         }
-        public async Task<IdentityOperationResult> UpdateTeamNameAsync(Team Team, string newName)
+        public async Task UpdateTeamNameAsync(Team team, string name)
         {
-            throw new Exception();
+            if (identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
+            {
+                throw new IdentityOperationException("The Team name is taken");
+            }
+            team.NameIdentitifer = name;
+            await identificationDbContext.SaveChangesAsync();
         }
         public async Task<bool> CheckIfNameIsValidForTeamAsync(string name)
         {
@@ -205,8 +212,8 @@ namespace Infrastructure.Identity.Services
         {
             if (CheckTeamMembershipOfApplicationUser(applicationUser, Team))
             {
-                applicationUser.Memberships.ForEach(x => x.Status = UserSelectionStatus.NotSelected);
-                applicationUser.Memberships.Where(x => x.TeamId == Team.Id).First().Status = UserSelectionStatus.Selected;
+                applicationUser.Memberships.ForEach(x => x.SelectionStatus = UserSelectionStatus.NotSelected);
+                applicationUser.Memberships.Where(x => x.TeamId == Team.Id).First().SelectionStatus = UserSelectionStatus.Selected;
                 await identificationDbContext.SaveChangesAsync();
                 await signInManager.RefreshSignInAsync(applicationUser);
                 return IdentityOperationResult.Success();
@@ -216,7 +223,7 @@ namespace Infrastructure.Identity.Services
         public async Task<IdentityOperationResult<Team>> GetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = identificationDbContext.Users.Include(x => x.Memberships).ThenInclude(x => x.Team).Where(x => x.Id == applicationUser.Id).FirstOrDefault();
-            Team Team = _applicationUser.Memberships.Where(x => x.Status == UserSelectionStatus.Selected).First().Team;
+            Team Team = _applicationUser.Memberships.Where(x => x.SelectionStatus == UserSelectionStatus.Selected).First().Team;
             if (Team != null)
             {
                 return IdentityOperationResult<Team>.Success(Team);
