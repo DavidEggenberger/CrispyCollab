@@ -69,9 +69,19 @@ namespace Infrastructure.Identity.Services
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
+        public Task<Team> FindByIdAsync(Guid Id)
+        {
+            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
+        }
         public Task<Team> FindByIdAsync(string Id)
         {
-            return identificationDbContext.Teams.Include(x => x.Subscription).ThenInclude(x => x.SubscriptionPlan).SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+        }
+        public async Task LoadExtendedTeamInformationAsync(Team team)
+        {
+            await identificationDbContext.Entry(team).Collection(x => x.Members).LoadAsync();
+            await identificationDbContext.Entry(team).Reference(x => x.Subscription).LoadAsync();
+            await identificationDbContext.Entry(team.Subscription).Reference(x => x.SubscriptionPlan).LoadAsync();
         }
         public Task<Team> FindUsersSelectedTeam(string Id)
         {

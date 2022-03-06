@@ -17,7 +17,7 @@ using Infrastructure.EmailSender;
 using Common.Misc.Attributes;
 using Common.Identity.Team.DTOs.Enums;
 using Common.Identity.ApplicationUser;
-using WebServer.DTOMappings.Identity;
+using WebServer.Mappings.Identity;
 
 namespace WebServer.Controllers.Identity
 {
@@ -31,9 +31,9 @@ namespace WebServer.Controllers.Identity
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IEmailSender emailSender;
-        public TeamController(TeamManager TeamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
+        public TeamController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
-            this.teamManager = TeamManager;
+            this.teamManager = teamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
@@ -44,17 +44,19 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            Team team = await applicationUserManager.GetSelectedTeam(applicationUser);
-            return Ok(team.MapToTeamDTO());
+            Guid teamId = await applicationUserManager.GetSelectedTeamId(applicationUser);
+            Team team = await teamManager.FindByIdAsync(teamId);
+            return Ok(await team.MapToTeamDTO());
         }
 
-        [HttpGet("information")]
+        [HttpGet("currentExtended")]
         [AuthorizeTeamAdmin]
-        public async Task<ActionResult<TeamExtendedDTO>> GetInformationForSelectedTeam()
+        public async Task<ActionResult<TeamExtendedDTO>> GetExtendedSelectedTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            Team team = await applicationUserManager.GetSelectedTeam(applicationUser);
-            return Ok(team.MapToTeamExtendedDTO());
+            Guid teamId = await applicationUserManager.GetSelectedTeamId(applicationUser);
+            Team team = await teamManager.FindByIdAsync(teamId);
+            return Ok(await team.MapToTeamExtendedDTO(identificationDbContext));
         }
 
         [HttpGet("all")]
@@ -62,7 +64,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             List<ApplicationUserTeam> teamMemberships = await applicationUserManager.GetAllTeamMemberships(applicationUser);
-            return Ok(teamMemberships.MapToListTeamDTO());
+            return Ok(await teamMemberships.MapToListTeamDTO(identificationDbContext));
         }
 
         [HttpPost]
@@ -84,7 +86,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
             await applicationUserManager.UnSelectAllTeams(applicationUser);
-            Team team = await teamManager.FindByIdAsync(teamId.ToString());
+            Team team = await teamManager.FindByIdAsync(teamId);
             await applicationUserManager.SelectTeamForUser(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");

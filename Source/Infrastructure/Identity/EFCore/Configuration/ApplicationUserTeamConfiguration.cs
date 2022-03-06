@@ -12,7 +12,6 @@ namespace Infrastructure.Identity.EFCore.Configuration
     {
         public void Configure(EntityTypeBuilder<ApplicationUserTeam> builder)
         {
-            builder.Navigation(x => x.Team).AutoInclude();
             builder.HasKey(x => new { x.UserId, x.TeamId });
         }
     }

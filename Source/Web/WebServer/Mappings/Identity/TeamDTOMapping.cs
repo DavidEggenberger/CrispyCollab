@@ -2,12 +2,13 @@
 using Infrastructure.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebServer.DTOMappings.Identity
+namespace WebServer.Mappings.Identity
 {
     public static class TeamDTOMapping
     {
-        public static TeamDTO MapToTeamDTO(this Team team)
+        public static async Task<TeamDTO> MapToTeamDTO(this Team team)
         {
             return new TeamDTO
             {
@@ -16,8 +17,12 @@ namespace WebServer.DTOMappings.Identity
             };
         }
 
-        public static List<TeamDTO> MapToListTeamDTO(this List<ApplicationUserTeam> applicationUserTeams)
+        public static async Task<List<TeamDTO>> MapToListTeamDTO(this List<ApplicationUserTeam> applicationUserTeams, IdentificationDbContext identificationDbContext)
         {
+            foreach (var item in applicationUserTeams)
+            {
+                identificationDbContext.Entry(item).Reference(x => x.Team).Load();
+            }
             return applicationUserTeams.Select(x =>
             new TeamDTO
             {

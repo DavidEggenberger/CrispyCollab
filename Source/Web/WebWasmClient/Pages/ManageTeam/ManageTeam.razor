@@ -3,12 +3,14 @@
 
 <h3>Manage @Team.Name</h3>
 
+
+
 <button @onclick="() => Modal.Show<InviteUserToTeamModalComponent>()">Invite Users to Team</button>
 
 @code{
     private TeamExtendedDTO teamInformation;
     protected override async Task OnInitializedAsync()
     {
-        teamInformation = await httpClientService.GetFromAPI<TeamExtendedDTO>("/team/information");
+        teamInformation = await httpClientService.GetFromAPI<TeamExtendedDTO>("/team/currentExtended");
     }
 }

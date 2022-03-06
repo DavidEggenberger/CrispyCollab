@@ -43,12 +43,13 @@ namespace Infrastructure.Identity.Services
             }
             throw new IdentityOperationException("No user is found for the provided HttpContext");
         }
-        public async Task<Team> GetSelectedTeam(ApplicationUser applicationUser)
+        public async Task<Guid> GetSelectedTeamId(ApplicationUser applicationUser)
         {
+            await identificationDbContext.Entry(applicationUser).Collection(x => x.Memberships).Query().Include(x => x.Team).LoadAsync();
             Team team;
-            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.UserId == applicationUser.Id && x.Status == UserSelectionStatus.Selected)?.Team) != null)
+            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.Status == UserSelectionStatus.Selected)?.Team) != null)
             {
-                return team;
+                return team.Id;
             }
             throw new IdentityOperationException("No user is found for the provided HttpContext");
         }

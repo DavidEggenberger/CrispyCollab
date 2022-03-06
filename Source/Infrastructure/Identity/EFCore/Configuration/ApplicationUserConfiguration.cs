@@ -12,7 +12,7 @@ namespace Infrastructure.Identity.EFCore.Configuration
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.Navigation(x => x.Memberships).AutoInclude();
+            
         }
     }
 }
