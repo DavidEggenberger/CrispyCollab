@@ -1,7 +1,10 @@
 ﻿.blazored-modal-overlay {
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 195, 160, 0.4)) !important;
 }
-.blazored-modal{
+.blazored-modal-content{
+    padding-top: 15px;
+}
+.blazored-modal {
     box-shadow: none !important;
     padding-top: 1rem !important;
 }

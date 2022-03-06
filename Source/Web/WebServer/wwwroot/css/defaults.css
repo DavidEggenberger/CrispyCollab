@@ -142,3 +142,7 @@ tr{
     display: grid;
     place-content: center;
 }
+
+.mt15{
+    margin-top: 15px;
+}

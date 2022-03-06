@@ -63,6 +63,7 @@
         {
             Emails = emailAddresses
         };
-        await httpClientService.PostToAPI("/team/invite", inviteUserToTeamDTO);
+        await httpClientService.PostToAPI("/teammember/invite", inviteUserToTeamDTO);
+        await ModalInstance.CloseAsync();
     }
 }

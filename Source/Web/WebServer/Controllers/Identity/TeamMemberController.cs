@@ -5,6 +5,7 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +38,23 @@ namespace WebServer.Controllers.Identity
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
             foreach (var email in inviteUserToGroupDTO.Emails)
             {
-                ApplicationUser invitedUser;
+                ApplicationUser invitedUser = await applicationUserManager.FindByEmailAsync(email);
+                if(invitedUser == null)
+                {
+                    await applicationUserManager.CreateAsync(new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        Memberships = new List<ApplicationUserTeam>
+                        {
+                            new ApplicationUserTeam
+                            {
+                                Role = TeamRole.Invited,
+                                Team = team
+                            }
+                        }
+                    });
+                }
                 if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
                 {
                     invitedUser.Memberships.Add(new ApplicationUserTeam
@@ -47,7 +64,14 @@ namespace WebServer.Controllers.Identity
                     });
                 }
             }
-            await identificationDbContext.SaveChangesAsync();
+            try
+            {
+                await identificationDbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
             return Ok();
         }
 

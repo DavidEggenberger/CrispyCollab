@@ -22,7 +22,14 @@ namespace WebServer.Hubs
             {
                 return;
             }
-            ApplicationUser appUser = await applicationUserManager.FindByIdAsync(Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
+            foreach (var item in appUser.Memberships)
+            {
+                if(item.Role == TeamRole.Admin)
+                {
+                    
+                }
+            }
             if (appUser.IsOnline is false)
             {
                 appUser.IsOnline = true;
@@ -43,7 +50,7 @@ namespace WebServer.Hubs
             {
                 return;
             }
-            ApplicationUser appUser = await applicationUserManager.FindByIdAsync(Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
             if (appUser.TabsOpen > 0)
             {
                 appUser.TabsOpen--;

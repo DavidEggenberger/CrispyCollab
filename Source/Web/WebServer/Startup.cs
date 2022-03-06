@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebServer.Hubs;
 
 namespace WebServer
 {
@@ -97,6 +99,8 @@ namespace WebServer
                     };
                 };
             });
+            services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, UserIdProvider>();
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -237,6 +241,7 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<WebWasmClientNotificationHub>("/Hubs/WebWasmClientNotification");
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");
