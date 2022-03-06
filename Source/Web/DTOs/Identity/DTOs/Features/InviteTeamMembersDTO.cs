@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.Team.DTOs
 {
-    public class InviteUserToTeamDTO
+    public class InviteTeamMembersDTO
     {
         public List<string> Emails { get; set; }
     }

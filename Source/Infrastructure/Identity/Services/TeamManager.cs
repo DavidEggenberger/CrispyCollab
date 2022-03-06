@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Infrastructure.Identity.Services
 {
@@ -27,6 +29,19 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
+        public async Task<Team> FindTeamAsync(ClaimsPrincipal claimsPrincipal)
+        {
+            Team team;
+            try
+            {
+                team = await identificationDbContext.Teams.SingleAsync(t => t.Id == new Guid(claimsPrincipal.Claims.First(x => x.Type == "TeamId").Value));
+                return team;
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException("No team is found");
+            }
+        }
         public async Task<SubscriptionPlanType> GetSubscriptionPlanTypeAsync(Team team)
         {
             await identificationDbContext.Entry(team).Reference(x => x.Subscription).LoadAsync();
@@ -70,7 +85,7 @@ namespace Infrastructure.Identity.Services
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
-        public async Task<Team> FindByIdAsync(Guid Id)
+        public async Task<Team> FindTeamByIdAsync(Guid Id)
         {
             Team team;
             try
@@ -85,7 +100,7 @@ namespace Infrastructure.Identity.Services
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
             return team;
         }
-        public async Task<Team> FindByIdAsync(string Id)
+        public async Task<Team> FindTeamByIdAsync(string Id)
         {
             Team team;
             try
@@ -223,6 +238,11 @@ namespace Infrastructure.Identity.Services
                 return IdentityOperationResult<TeamRole>.Success(applicationUser.Memberships.Single(x => x.TeamId == Team.Id).Role);
             }
             return IdentityOperationResult<TeamRole>.Fail("User is not a member of the Team");
+        }
+        public async Task DeleteTeam(Team team)
+        {
+            identificationDbContext.Teams.Remove(identificationDbContext.Teams.Single(x => x.Id == team.Id));
+            await identificationDbContext.SaveChangesAsync();
         }
     }
 }

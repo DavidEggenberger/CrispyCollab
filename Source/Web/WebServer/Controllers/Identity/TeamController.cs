@@ -30,22 +30,18 @@ namespace WebServer.Controllers.Identity
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IEmailSender emailSender;
-        public TeamController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
+        public TeamController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
         {
             this.teamManager = teamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
-            this.emailSender = emailSender;
         }
 
-        [HttpGet("current")]
+        [HttpGet]
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Guid teamId = await applicationUserManager.GetSelectedTeamId(applicationUser);
-            Team team = await teamManager.FindByIdAsync(teamId);
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
             return Ok(await team.MapToTeamExtendedDTO());
         }
 
@@ -69,7 +65,17 @@ namespace WebServer.Controllers.Identity
             }
             await signInManager.RefreshSignInAsync(applicationUser);
             return Ok();
-        }    
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TeamDTO>> DeleteTeam(Guid id)
+        {
+            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            await teamManager.DeleteTeam(team);
+            await signInManager.RefreshSignInAsync(applicationUser);
+            return Ok();
+        }
 
         [HttpGet("select/{TeamId}")]
         public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId)
@@ -80,36 +86,6 @@ namespace WebServer.Controllers.Identity
             await applicationUserManager.SelectTeamForUser(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");
-        }
-
-        [HttpPost("invite")]
-        [AuthorizeTeamAdmin]
-        public async Task<ActionResult> InviteUsersToTeam(InviteUserToTeamDTO inviteUserToGroupDTO)
-        {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
-            foreach (var email in inviteUserToGroupDTO.Emails)
-            {
-                ApplicationUser invitedUser;
-                if((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !selectedTeam.Members.Any(m => m.UserId == invitedUser.Id))
-                {
-                    invitedUser.Memberships.Add(new ApplicationUserTeam
-                    {
-                        Role = TeamRole.Admin,
-                        Team = selectedTeam
-                    });
-                    await emailSender.SendEmailAsync(email, "Invitation", "");
-                }
-            }
-            await identificationDbContext.SaveChangesAsync();
-            return Ok();
-        }
-
-        [HttpPost("changerole")]
-        [AuthorizeTeamAdmin]
-        public async Task<ActionResult> ChangeRoleOfTeamMember()
-        {
-            return Ok();
         }
     }
 }

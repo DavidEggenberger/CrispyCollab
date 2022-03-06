@@ -35,21 +35,22 @@ namespace Infrastructure.Identity.Services
             {
                 throw new IdentityOperationException("No user is found for the provided HttpContext");
             }
-            await identificationDbContext.Entry(user).Collection(u => u.Memberships).LoadAsync();
+            await identificationDbContext.Entry(user).Collection(u => u.Memberships).Query().Include(x => x.Team).LoadAsync();
             return user;
         }
-        public async Task<ApplicationUser> FindByStripeCustomerId(string stripeCustomerId)
+        public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
-            ApplicationUser user;
-            if((user = identificationDbContext.Users.SingleOrDefault(u => u.StripeCustomerId == stripeCustomerId)) != null)
+            try
             {
-                return user;
+                return await identificationDbContext.Users.SingleAsync(u => u.StripeCustomerId == stripeCustomerId);
             }
-            throw new IdentityOperationException("No user is found for the provided HttpContext");
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("No user is found for the provided HttpContext");
+            }
         }
         public async Task<Guid> GetSelectedTeamId(ApplicationUser applicationUser)
         {
-            await identificationDbContext.Entry(applicationUser).Collection(x => x.Memberships).Query().Include(x => x.Team).LoadAsync();
             try
             {
                 return applicationUser.Memberships.Single(x => x.Status == UserSelectionStatus.Selected).Team.Id;
@@ -77,7 +78,6 @@ namespace Infrastructure.Identity.Services
         }
         public async Task UnSelectAllTeams(ApplicationUser applicationUser)
         {
-            await identificationDbContext.Entry(applicationUser).Collection(x => x.Memberships).LoadAsync();
             applicationUser.Memberships?.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             await identificationDbContext.SaveChangesAsync();
         }
