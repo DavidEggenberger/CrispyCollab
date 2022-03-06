@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Identity.Entities;
+using Infrastructure.Identity.Types;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
 using System;
@@ -18,7 +19,7 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
             this.subscriptionService = new SubscriptionService();
         }
-        public async Task<Entities.Subscription> CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)
+        public Entities.Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)
         {
             return new Entities.Subscription
             {
@@ -28,7 +29,14 @@ namespace Infrastructure.Identity.Services
         }
         public Task<Entities.Subscription> FindSubscriptionByStripeSubscriptionId(string id)
         {
-            return identificationDbContext.Subscriptions.SingleOrDefaultAsync(x => x.StripeSubscriptionId == id);
+            try
+            {
+                return identificationDbContext.Subscriptions.SingleAsync(x => x.StripeSubscriptionId == id);
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException();
+            }
         }
         public async Task SetSubscriptionForTeam(Entities.Subscription subscriptionPlan, Team team)
         {

@@ -13,7 +13,7 @@ namespace WebServer.Mappings.Identity
             return new TeamDTO
             {
                 Id = team.Id,
-                Name = team.NameIdentitifer
+                Name = team.Name
             };
         }
 
@@ -22,7 +22,7 @@ namespace WebServer.Mappings.Identity
             return applicationUserTeams.Select(x =>
             new TeamDTO
             {
-                Name = x.Team.NameIdentitifer,
+                Name = x.Team.Name,
                 Id = x.TeamId,
                 IconUrl = "https://icon"
             }).ToList();

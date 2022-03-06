@@ -21,6 +21,7 @@ namespace Infrastructure.Identity.Services
         private SignInManager<ApplicationUser> signInManager;
         private ApplicationUserManager applicationUserManager;
         private SubscriptionPlanManager subscriptionPlanManager;
+
         public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SignInManager<ApplicationUser> signInManager, SubscriptionPlanManager subscriptionPlanManager)
         {
             this.identificationDbContext = identificationDbContext;
@@ -125,7 +126,7 @@ namespace Infrastructure.Identity.Services
         public async Task CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
             var sapplicationUser = await identificationDbContext.Users.Include(x => x.Memberships).SingleOrDefaultAsync(x => x.Id == applicationUser.Id);
-            if(identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
+            if(identificationDbContext.Teams.Any(t => t.Name == name))
             {
                 throw new IdentityOperationException("The Team name is taken");
             }
@@ -134,7 +135,7 @@ namespace Infrastructure.Identity.Services
             {
                 Team = new Team
                 {
-                    NameIdentitifer = name,
+                    Name = name,
                     Subscription = new Subscription
                     {
                         SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
@@ -158,16 +159,16 @@ namespace Infrastructure.Identity.Services
         }
         public async Task UpdateTeamNameAsync(Team team, string name)
         {
-            if (identificationDbContext.Teams.Any(t => t.NameIdentitifer == name))
+            if (identificationDbContext.Teams.Any(t => t.Name == name))
             {
                 throw new IdentityOperationException("The Team name is taken");
             }
-            team.NameIdentitifer = name;
+            team.Name = name;
             await identificationDbContext.SaveChangesAsync();
         }
         public async Task<bool> CheckIfNameIsValidForTeamAsync(string name)
         {
-            if(!identificationDbContext.Teams.Any(x => x.NameIdentitifer == name))
+            if(!identificationDbContext.Teams.Any(x => x.Name == name))
             {
                 return true;
             }

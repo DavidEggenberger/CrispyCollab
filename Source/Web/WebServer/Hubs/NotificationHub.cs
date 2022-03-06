@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
@@ -9,21 +10,18 @@ using System.Threading.Tasks;
 
 namespace WebServer.Hubs
 {
-    public class ApplicationUserOnlineHub : Hub
+    [Authorize]
+    public class NotificationHub : Hub
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        public ApplicationUserOnlineHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
+        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
         }
         public override async Task OnConnectedAsync()
         {
-            if (!Context.User.Identity.IsAuthenticated)
-            {
-                return;
-            }
             ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
             ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
             await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
@@ -43,10 +41,6 @@ namespace WebServer.Hubs
         }
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            if (!Context.User.Identity.IsAuthenticated)
-            {
-                return;
-            }
             ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
             if (appUser.TabsOpen > 0)
             {
@@ -57,17 +51,8 @@ namespace WebServer.Hubs
             {
                 appUser.IsOnline = false;
                 await applicationUserManager.UpdateAsync(appUser);
-                foreach (var item in appUser.Memberships)
-                {
-                    if (item.Role == TeamRole.Admin)
-                    {
-                        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{item.TeamId}{item.Role}");
-                    }
-                    else
-                    {
-                        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{item.TeamId}{item.Role}");
-                    }
-                }
+                ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }
         }

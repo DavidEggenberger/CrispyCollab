@@ -8,7 +8,7 @@ namespace Infrastructure.Identity.Types
 {
     public class IdentityOperationException : Exception
     {
-        public IdentityOperationException(string message) : base(message)
+        public IdentityOperationException(string message = "") : base(message)
         {
 
         }

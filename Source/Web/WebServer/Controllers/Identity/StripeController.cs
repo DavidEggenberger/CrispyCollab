@@ -170,7 +170,7 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
-                    team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
+                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     team.Subscription.StripeSubscriptionId = subscription.Id;
                     await identificationDbContext.SaveChangesAsync();
                 }
@@ -193,7 +193,7 @@ namespace WebServer.Controllers.Identity
                     Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free);
-                    team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
+                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)

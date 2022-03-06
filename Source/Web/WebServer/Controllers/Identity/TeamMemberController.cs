@@ -34,7 +34,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("invite")]
-        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO, [FromServices] IHubContext<ApplicationUserOnlineHub> hubContext)
+        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO, [FromServices] IHubContext<NotificationHub> hubContext)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamAsync(HttpContext.User);

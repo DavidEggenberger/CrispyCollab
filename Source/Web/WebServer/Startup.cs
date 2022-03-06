@@ -241,7 +241,7 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ApplicationUserOnlineHub>("/Hubs/WebWasmClientNotification");
+                endpoints.MapHub<NotificationHub>("/Hubs/WebWasmClientNotification");
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");

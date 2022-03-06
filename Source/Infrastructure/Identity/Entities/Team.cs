@@ -13,8 +13,7 @@ namespace Infrastructure.Identity
     public class Team
     {
         public Guid Id { get; set; }
-        public byte[] IconData { get; set; }
-        public string NameIdentitifer { get; set; }
+        public string Name { get; set; }
         public Guid SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
         public List<ApplicationUserTeam> Members { get; set; }   

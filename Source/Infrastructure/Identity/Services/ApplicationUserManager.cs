@@ -33,7 +33,7 @@ namespace Infrastructure.Identity.Services
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
             if(user == null)
             {
-                throw new IdentityOperationException("No user is found for the provided HttpContext");
+                throw new IdentityOperationException();
             }
             await identificationDbContext.Entry(user).Collection(u => u.Memberships).Query().Include(x => x.Team).LoadAsync();
             return user;
@@ -46,7 +46,7 @@ namespace Infrastructure.Identity.Services
             }
             catch(Exception ex)
             {
-                throw new IdentityOperationException("No user is found for the provided HttpContext");
+                throw new IdentityOperationException();
             }
         }
         public async Task<Guid> GetSelectedTeamId(ApplicationUser applicationUser)
@@ -63,7 +63,7 @@ namespace Infrastructure.Identity.Services
                     SelectionStatus = UserSelectionStatus.Selected,
                     Team = new Team
                     {
-                        NameIdentitifer = "Your Team",
+                        Name = "Your Team",
                         Subscription = new Subscription
                         {
                             SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
@@ -74,7 +74,7 @@ namespace Infrastructure.Identity.Services
                 await identificationDbContext.SaveChangesAsync();
                 return await GetSelectedTeamId(applicationUser);
             }
-            throw new IdentityOperationException("");
+            throw new IdentityOperationException();
         }
         public async Task SelectTeamForUser(ApplicationUser applicationUser, Team team)
         {
@@ -82,22 +82,22 @@ namespace Infrastructure.Identity.Services
             applicationUser.Memberships.Single(m => m.TeamId == team.Id).SelectionStatus = UserSelectionStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task<List<ApplicationUserTeam>> GetAllTeamMemberships(ApplicationUser applicationUser)
+        public Task<List<ApplicationUserTeam>> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
-            return identificationDbContext.ApplicationUserTeams.Include(x => x.Team).Where(x => x.UserId == applicationUser.Id).ToList();
-        }
-        public async Task<List<Team>> GetTeamsWhereApplicationUserIsMember(ApplicationUser applicationUser)
-        {
-            throw new Exception();
-        }
-        public async Task<List<Team>> GetTeamsWhereApplicationUserIsAdmin(ApplicationUser applicationUser)
-        {
-            throw new Exception();
+            return identificationDbContext.ApplicationUserTeams.Include(x => x.Team).Where(x => x.UserId == applicationUser.Id).ToListAsync();
         }
         public async Task<List<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);
-            ApplicationUserTeam applicationUserTeam = _applicationUser.Memberships.Where(x => x.SelectionStatus == UserSelectionStatus.Selected).FirstOrDefault();
+            ApplicationUserTeam applicationUserTeam;
+            try
+            {
+                applicationUserTeam = _applicationUser.Memberships.Where(x => x.SelectionStatus == UserSelectionStatus.Selected).Single();
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException();
+            }
             List<Claim> claims = new List<Claim>
             {
                 new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),

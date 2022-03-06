@@ -15,7 +15,7 @@ namespace WebServer.Mappings.Identity
         {
             return new TeamDTO
             {
-                Name = team.NameIdentitifer,
+                Name = team.Name,
                 IconUrl = "adsf",
                 Id = team.Id,
                 SubscriptionPlanType = (SubscriptionPlanTypeDTO)team.Subscription.SubscriptionPlan.PlanType,
