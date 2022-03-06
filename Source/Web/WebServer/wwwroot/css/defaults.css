@@ -70,6 +70,10 @@ button {
     background-color: transparent;
     background-image: none;
     cursor: pointer;
+    padding: 3px;
+    border: 2px solid black;
+    border-radius: 3px;
+    font-size: 16px;
 }
 
 img,
@@ -116,4 +120,15 @@ tr{
 .PageContainer{
     height: 100%;
     width: 100%;
+}
+
+.underline{
+    border-bottom: 3px solid black;
+}
+
+.centerChildren{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
 }

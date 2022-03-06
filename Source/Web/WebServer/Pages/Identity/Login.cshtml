@@ -4,15 +4,18 @@
 }
 
 <div>
+    <h4>Log-In with a social Account</h4>
      <partial name="Shared/_LogInSignUpSwitch" model=@(new _LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
      @{
         var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
-            <div>
-                @foreach (var provider in providers)
-                {
-                    <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
-                }
+            <div class="centerChildren">
+                <div>     
+                    @foreach (var provider in providers)
+                    {
+                        <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
+                    }
+                </div>
             </div>
         </form>
      }

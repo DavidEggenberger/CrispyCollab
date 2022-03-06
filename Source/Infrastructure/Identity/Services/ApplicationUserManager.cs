@@ -27,7 +27,8 @@ namespace Infrastructure.Identity.Services
 
         public async Task<ApplicationUser> FindAsync(HttpContext httpContext)
         {
-            ApplicationUser user;
+            ApplicationUser user = await base.GetUserAsync(httpContext.User);
+            
             if ((user = identificationDbContext.Users.SingleOrDefault(u => u.Id.ToString() == httpContext.User.FindFirst(ClaimTypes.Sid).Value)) != null)
             {
                 return user;
