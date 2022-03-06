@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System;
 
-namespace WebServer.Framwork.Attributes
+namespace Common.Misc.Attributes
 {
     [Authorize(Policy = "TeamAdmin")]
     public class AuthorizeTeamAdminAttribute : Attribute

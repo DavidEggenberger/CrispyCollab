@@ -26,6 +26,17 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
+        public async Task<SubscriptionPlanType> GetSubscriptionPlanTypeAsync(Team team)
+        {
+            await identificationDbContext.Entry(team).Reference(x => x.Subscription).LoadAsync();
+            await identificationDbContext.Entry(team.Subscription).Reference(x => x.SubscriptionPlan).LoadAsync();
+            return team.Subscription.SubscriptionPlan.PlanType;
+        }
+        public async Task<List<ApplicationUserTeam>> GetMembersAsync(Team team)
+        {
+            Team _team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).SingleOrDefaultAsync(t => t.Id == team.Id);
+            return _team.Members.ToList();
+        }
         public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team team, TeamRole role, string email)
         {
             ApplicationUser applicationUser;

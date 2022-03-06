@@ -1,4 +1,5 @@
-﻿using Infrastructure.Identity;
+﻿using Common.Misc.Attributes;
+using Infrastructure.Identity;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Enums;
@@ -14,7 +15,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WebServer.Framwork.Attributes;
 
 namespace WebServer.Controllers.Identity
 {
@@ -167,12 +167,7 @@ namespace WebServer.Controllers.Identity
                 if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
-                    if (result.Successful is false)
-                    {
-                        throw new Exception();
-                    }
-                    ApplicationUser applicationUser = result.Value;
+                    ApplicationUser applicationUser = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     team.Subscription = await subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
@@ -182,12 +177,7 @@ namespace WebServer.Controllers.Identity
                 else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
-                    if (result.Successful is false)
-                    {
-                        throw new Exception();
-                    }
-                    ApplicationUser applicationUser = result.Value;
+                    ApplicationUser applicationUser = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
@@ -198,13 +188,8 @@ namespace WebServer.Controllers.Identity
                 else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    
-                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
-                    if (result.Successful is false)
-                    {
-                        throw new Exception();
-                    }
-                    ApplicationUser applicationUser = result.Value;
+
+                    ApplicationUser applicationUser = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free);
@@ -214,12 +199,7 @@ namespace WebServer.Controllers.Identity
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    var result = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
-                    if (result.Successful is false)
-                    {
-                        throw new Exception();
-                    }
-                    ApplicationUser applicationUser = result.Value;
+                    ApplicationUser applicationUser = await applicationUserManager.FindByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);

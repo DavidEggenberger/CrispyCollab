@@ -13,8 +13,11 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Shared;
 using Common.Identity.Team.DTOs;
-using WebServer.Framwork.Attributes;
 using Infrastructure.EmailSender;
+using Common.Misc.Attributes;
+using Common.Identity.Team.DTOs.Enums;
+using Common.Identity.ApplicationUser;
+using WebServer.DTOMappings.Identity;
 
 namespace WebServer.Controllers.Identity
 {
@@ -41,16 +44,8 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            if(applicationUser == null)
-            {
-                return Unauthorized();
-            }
-            IdentityOperationResult<Team> result = await applicationUserManager.GetSelectedTeam(applicationUser);
-            if (result.Successful is false)
-            {
-                return NoContent();
-            }
-            return Ok(new TeamDTO { Name = result.Value.NameIdentitifer, Id = result.Value.Id, IconUrl = "https://icon" });
+            Team team = await applicationUserManager.GetSelectedTeam(applicationUser);
+            return Ok(team.MapToTeamDTO());
         }
 
         [HttpGet("information")]
@@ -58,33 +53,16 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamExtendedDTO>> GetInformationForSelectedTeam()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            if (applicationUser == null)
-            {
-                return Unauthorized();
-            }
-            IdentityOperationResult<Team> result = await applicationUserManager.GetSelectedTeam(applicationUser);
-            if (result.Successful is false)
-            {
-                return NoContent();
-            }
-            return Ok(new TeamExtendedDTO {  });
+            Team team = await applicationUserManager.GetSelectedTeam(applicationUser);
+            return Ok(team.MapToTeamExtendedDTO());
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<List<TeamDTO>>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
-            if (applicationUser == null)
-            {
-                return Unauthorized();
-            }
-            IdentityOperationResult<List<ApplicationUserTeam>> result = await applicationUserManager.GetAllTeamMemberships(applicationUser);
-            if (result.Successful is false)
-            {
-                return NoContent();
-            }
-            List<TeamDTO> teams = result.Value.Select(x => new TeamDTO { Name = x.Team.NameIdentitifer, Id = x.TeamId, IconUrl = "https://icon" }).ToList();
-            return Ok(teams);
+            List<ApplicationUserTeam> teamMemberships = await applicationUserManager.GetAllTeamMemberships(applicationUser);
+            return Ok(teamMemberships.MapToListTeamDTO());
         }
 
         [HttpPost]

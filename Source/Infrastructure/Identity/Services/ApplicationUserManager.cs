@@ -34,46 +34,44 @@ namespace Infrastructure.Identity.Services
             }
             throw new IdentityOperationException("No user is found for the provided HttpContext");
         }
-        public async Task<IdentityOperationResult<ApplicationUser>> FindByStripeCustomerId(string stripeCustomerId)
+        public async Task<ApplicationUser> FindByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser user;
             if((user = identificationDbContext.Users.SingleOrDefault(u => u.StripeCustomerId == stripeCustomerId)) != null)
             {
-                return IdentityOperationResult<ApplicationUser>.Success(user);
+                return user;
             }
-            return IdentityOperationResult<ApplicationUser>.Fail("No user is found for the provided cutomerId");
+            throw new IdentityOperationException("No user is found for the provided HttpContext");
         }
-        public async Task<IdentityOperationResult<Team>> GetSelectedTeam(ApplicationUser applicationUser)
+        public async Task<Team> GetSelectedTeam(ApplicationUser applicationUser)
         {
             Team team;
             if ((team = applicationUser.Memberships.SingleOrDefault(x => x.UserId == applicationUser.Id && x.Status == UserSelectionStatus.Selected)?.Team) != null)
             {
-                return IdentityOperationResult<Team>.Success(team);
+                return team;
             }
-            return IdentityOperationResult<Team>.Fail("The User has no Team selected");
+            throw new IdentityOperationException("No user is found for the provided HttpContext");
         }
-        public async Task<IdentityOperationResult> UnSelectAllTeams(ApplicationUser applicationUser)
+        public async Task UnSelectAllTeams(ApplicationUser applicationUser)
         {
             applicationUser.Memberships?.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             await identificationDbContext.SaveChangesAsync();
-            return IdentityOperationResult.Success();
         }
-        public async Task<IdentityOperationResult> SelectTeamForUser(ApplicationUser applicationUser, Team team)
+        public async Task SelectTeamForUser(ApplicationUser applicationUser, Team team)
         {
             applicationUser.Memberships.ToList().ForEach(x => x.Status = UserSelectionStatus.NotSelected);
             applicationUser.Memberships.Where(x => x.TeamId == team.Id).First().Status = UserSelectionStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
-            return IdentityOperationResult.Success();
         }
-        public async Task<IdentityOperationResult<List<ApplicationUserTeam>>> GetAllTeamMemberships(ApplicationUser applicationUser)
+        public async Task<List<ApplicationUserTeam>> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
-            return IdentityOperationResult<List<ApplicationUserTeam>>.Success(identificationDbContext.ApplicationUserTeams.Where(x => x.UserId == applicationUser.Id).ToList());
+            return identificationDbContext.ApplicationUserTeams.Where(x => x.UserId == applicationUser.Id).ToList();
         }
-        public async Task<IdentityOperationResult<List<Team>>> GetTeamsWhereApplicationUserIsMember(ApplicationUser applicationUser)
+        public async Task<List<Team>> GetTeamsWhereApplicationUserIsMember(ApplicationUser applicationUser)
         {
             throw new Exception();
         }
-        public async Task<IdentityOperationResult<List<Team>>> GetTeamsWhereApplicationUserIsAdmin(ApplicationUser applicationUser)
+        public async Task<List<Team>> GetTeamsWhereApplicationUserIsAdmin(ApplicationUser applicationUser)
         {
             throw new Exception();
         }
