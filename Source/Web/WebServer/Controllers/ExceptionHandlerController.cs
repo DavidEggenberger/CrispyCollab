@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Infrastructure.Identity.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,10 @@ namespace WebServer.Controllers
         public ExceptionHandlerController(ILogger<ExceptionHandlerController> logger)
         {
             this.logger = logger;
-            //exceptionHandlers = new Dictionary<Type, Func<Exception, Task<ActionResult>>>
-            //{
-            //    [typeof(DomainException)] = HandleDomainExceptionAsync,
-            //};
+            exceptionHandlers = new Dictionary<Type, Func<Exception, Task<ActionResult>>>
+            {
+                [typeof(IdentityOperationException)] = HandleIdentityOperationExceptionAsync,
+            };
         }
 
         [HttpGet]
@@ -42,7 +43,7 @@ namespace WebServer.Controllers
             }
         }
 
-        private async Task<ActionResult> HandleDomainExceptionAsync(Exception exception)
+        private async Task<ActionResult> HandleIdentityOperationExceptionAsync(Exception exception)
         {
             ProblemDetails problemDetails = new ProblemDetails
             {

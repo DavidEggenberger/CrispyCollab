@@ -228,14 +228,8 @@ namespace WebServer
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            if (env.IsProduction())
-            {
-                app.UseExceptionHandler("/exceptionHandler");
-            }
+            app.UseExceptionHandler("/exceptionHandler");
+
             app.UseRouting();
 
             app.UseAuthentication();

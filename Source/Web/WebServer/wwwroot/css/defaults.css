@@ -34,7 +34,7 @@ h3{
 h4{
     font-size: 1.2rem;
 }
-h5 {
+h5, label {
     font-size: 1.1rem;
 }
 h6 {
@@ -74,6 +74,7 @@ button {
     border: 2px solid black;
     border-radius: 3px;
     font-size: 16px;
+    height: 25px;
 }
 
 img,
@@ -89,6 +90,15 @@ textarea {
     font-size: 100%;
     line-height: 1.15;
     margin: 0;
+}
+
+input {
+    border-radius: 4px;
+    outline: none;
+    font-size: 1rem;
+    height: 25px;
+    color: black;
+    padding: 3px;
 }
 
 a {

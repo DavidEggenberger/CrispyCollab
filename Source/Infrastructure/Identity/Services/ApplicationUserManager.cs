@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Identity;
+using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types;
 using Infrastructure.Identity.Types.Constants;
 using Infrastructure.Identity.Types.Enums;
@@ -20,20 +21,22 @@ namespace Infrastructure.Identity.Services
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         private IdentificationDbContext identificationDbContext;
-        public ApplicationUserManager(IdentificationDbContext identificationDbContext, IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<ApplicationUser> passwordHasher, IEnumerable<IUserValidator<ApplicationUser>> userValidators, IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<ApplicationUserManager> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+        private SubscriptionPlanManager subscriptionPlanManager;
+        public ApplicationUserManager(SubscriptionPlanManager subscriptionPlanManager, IdentificationDbContext identificationDbContext, IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<ApplicationUser> passwordHasher, IEnumerable<IUserValidator<ApplicationUser>> userValidators, IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<ApplicationUserManager> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
             this.identificationDbContext = identificationDbContext;
+            this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public async Task<ApplicationUser> FindAsync(HttpContext httpContext)
+        public async Task<ApplicationUser> FindUserAsync(ClaimsPrincipal claimsPrincipal)
         {
-            ApplicationUser user = await base.GetUserAsync(httpContext.User);
-            
-            if ((user = identificationDbContext.Users.SingleOrDefault(u => u.Id.ToString() == httpContext.User.FindFirst(ClaimTypes.Sid).Value)) != null)
+            ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
+            if(user == null)
             {
-                return user;
+                throw new IdentityOperationException("No user is found for the provided HttpContext");
             }
-            throw new IdentityOperationException("No user is found for the provided HttpContext");
+            await identificationDbContext.Entry(user).Collection(u => u.Memberships).LoadAsync();
+            return user;
         }
         public async Task<ApplicationUser> FindByStripeCustomerId(string stripeCustomerId)
         {
@@ -47,12 +50,30 @@ namespace Infrastructure.Identity.Services
         public async Task<Guid> GetSelectedTeamId(ApplicationUser applicationUser)
         {
             await identificationDbContext.Entry(applicationUser).Collection(x => x.Memberships).Query().Include(x => x.Team).LoadAsync();
-            Team team;
-            if ((team = applicationUser.Memberships.SingleOrDefault(x => x.Status == UserSelectionStatus.Selected)?.Team) != null)
+            try
             {
-                return team.Id;
+                return applicationUser.Memberships.Single(x => x.Status == UserSelectionStatus.Selected).Team.Id;
             }
-            throw new IdentityOperationException("No user is found for the provided HttpContext");
+            catch (Exception ex)
+            {
+                applicationUser.Memberships.Add(new ApplicationUserTeam
+                {
+                    Role = TeamRole.Admin,
+                    Status = UserSelectionStatus.Selected,
+                    Team = new Team
+                    {
+                        NameIdentitifer = "Your Team",
+                        Subscription = new Subscription
+                        {
+                            SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
+                            Status = SubscriptionStatus.Active
+                        }
+                    }
+                });
+                await identificationDbContext.SaveChangesAsync();
+                return await GetSelectedTeamId(applicationUser);
+            }
+            throw new IdentityOperationException("");
         }
         public async Task UnSelectAllTeams(ApplicationUser applicationUser)
         {

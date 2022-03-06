@@ -8,6 +8,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Stripe;
+using System.Collections.Generic;
+using Infrastructure.Identity.Types.Enums;
 
 namespace WebServer.Controllers.Identity
 {

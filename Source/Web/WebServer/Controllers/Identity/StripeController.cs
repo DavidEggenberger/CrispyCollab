@@ -39,7 +39,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<IActionResult> CancelSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             identificationDbContext.Entry(selectedTeam).Reference(s => s.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(s => s.SubscriptionPlan).Load();
@@ -57,7 +57,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
@@ -106,7 +106,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.GetUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
@@ -217,7 +217,7 @@ namespace WebServer.Controllers.Identity
         [HttpPost]
         public async Task<ActionResult> Create()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
 
             var returnUrl = "https://localhost:44333";
 

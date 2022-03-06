@@ -7,10 +7,6 @@
     display: grid;
     grid-template-columns: 1fr 2.5fr;
 }
-.AccountManageAside{
-    display: flex;
-    flex-direction: column;
-}
 .LinkBody{
     height: 35px;
 }

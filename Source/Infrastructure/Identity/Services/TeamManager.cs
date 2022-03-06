@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Entities;
+using Infrastructure.Identity.Types;
 
 namespace Infrastructure.Identity.Services
 {
@@ -71,14 +72,30 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<Team> FindByIdAsync(Guid Id)
         {
-            Team team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
+            Team team;
+            try
+            {
+                team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
+            }
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("No Team is found");
+            }
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
             return team;
         }
         public async Task<Team> FindByIdAsync(string Id)
         {
-            Team team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            Team team;
+            try
+            {
+                team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException("No Team is found");
+            }
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
             return team;
