@@ -104,6 +104,7 @@ input {
 a {
     text-decoration: none;
     color: black !important;
+    outline: none !important;
 }
 
 th{

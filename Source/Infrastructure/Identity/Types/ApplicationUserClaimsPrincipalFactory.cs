@@ -29,7 +29,7 @@ namespace Infrastructure.Identity.Types.Overrides
             var membershipClaims = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
             claims.AddRange(membershipClaims);
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.Name, ClaimTypes.Role);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.Name, "TeamRole");
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             
             return claimsPrincipal;

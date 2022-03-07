@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.DTOs.TeamDTOs
 {
-    public class TeamAdminDTO
+    public class TeamExtendedDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

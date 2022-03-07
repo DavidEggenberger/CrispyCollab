@@ -9,7 +9,7 @@ namespace Common
 {
     public class ClaimConstants
     {
-        public const string NameClaimType = nameof(ClaimTypes.Name);
+        public const string NameClaimType = ClaimTypes.Name;
         public const string TeamRoleClaimType = "TeamRole";
         public const string TeamIdClaimType = "TeamId";
     }

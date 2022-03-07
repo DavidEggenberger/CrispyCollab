@@ -18,7 +18,6 @@
 }
     ::deep .NavElement.active {
         background: rgba(255, 255, 255, 0.9);
-        border: 1px solid white;
     }
     ::deep .NavElement:hover {
         background: rgba(255, 255, 255, 0.9);

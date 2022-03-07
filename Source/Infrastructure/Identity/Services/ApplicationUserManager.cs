@@ -98,8 +98,11 @@ namespace Infrastructure.Identity.Services
             {
                 throw new IdentityOperationException();
             }
+            await identificationDbContext.Entry(applicationUserTeam).Reference(x => x.Team).Query().Include(t => t.Subscription).ThenInclude(x => x.SubscriptionPlan).LoadAsync();
             List<Claim> claims = new List<Claim>
             {
+                new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
+                new Claim("TeamName", applicationUserTeam.Team.Name),
                 new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),
                 new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
             };

@@ -4,16 +4,19 @@
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
+    @if(User.HasTeam())
+    {
+        <NavLink href='@("/" + User.GetTeamName())' Match="NavLinkMatch.All" class="NavElement">
+            <h5>Pipelines</h5>
+        </NavLink>
+    }
     <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
         <h5>Notifications</h5>
     </NavLink>
-    <NavLink href="/Integrations" Match="NavLinkMatch.Prefix" class="NavElement">
-        <h5>Integrations</h5>
-    </NavLink>
-    @if(Team != null && User.IsInRole("Admin"))
+    @if(User.HasTeam() && User.IsAdmin())
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
-            <h5>Manage @Team.Name</h5>
+            <h5>Manage @Team?.Name</h5>
         </NavLink>
     }
     <div class="NavElement NoUnderline">

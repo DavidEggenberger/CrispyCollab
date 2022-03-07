@@ -1,5 +1,6 @@
 ﻿using Common.DTOs.Identity.Team;
 using Common.Identity.ApplicationUser;
+using Common.Identity.DTOs.TeamDTOs;
 using Common.Identity.Team.DTOs;
 using Common.Identity.Team.DTOs.Enums;
 using Infrastructure.Identity;
@@ -11,9 +12,9 @@ namespace WebServer.Mappings.Identity
 {
     public static class TeamExtendedDTOMapping
     {
-        public static async Task<TeamDTO> MapToTeamExtendedDTO(this Team team)
+        public static async Task<TeamExtendedDTO> MapToTeamExtendedDTO(this Team team)
         {
-            return new TeamDTO
+            return new TeamExtendedDTO
             {
                 Name = team.Name,
                 IconUrl = "adsf",
