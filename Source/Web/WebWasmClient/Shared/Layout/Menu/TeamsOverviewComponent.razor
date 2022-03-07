@@ -24,7 +24,7 @@
             {
                 foreach(var tenant in teams)
                 {
-                    if(tenant.Id == Team?.Id)
+                    if(tenant.Id == User.GetTeamId())
                     {
                         <div class="Group Selected">
                             <h6 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>

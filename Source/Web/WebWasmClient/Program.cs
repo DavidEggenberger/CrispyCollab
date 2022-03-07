@@ -54,6 +54,14 @@ namespace WebWasmClient
                     options.RequireClaim("TeamId");
                     options.RequireClaim("TeamRole", "Admin");
                 });
+                options.AddPolicy("PremiumSubscriptionPlan", options =>
+                {
+                    options.RequireClaim("TeamSubscriptionPlanType", "Premium");
+                });
+                options.AddPolicy("EnterpriseSubscriptionPlan", options =>
+                {
+                    options.RequireClaim("TeamSubscriptionPlanType", "Enterprise");
+                });
             });
             #endregion
             builder.Services.AddBlazoredModal();

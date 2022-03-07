@@ -1,11 +1,9 @@
 ﻿@attribute [Authorize]
 <CascadingValue Value="User">
-    <CascadingValue Value="Team">
-        @if(User != null)
-        {
-            @ChildContent
-        }
-    </CascadingValue>
+    @if(User != null)
+    {
+        @ChildContent
+    }
 </CascadingValue>
 
 @code{
@@ -16,14 +14,5 @@
     protected override async Task OnParametersSetAsync()
     {
         User = (await AuthenticationState).User;
-        if(User.HasClaim(c => c.Type == "TeamId"))
-        {
-            Team = await httpClientService.GetFromAPI<TeamAuthenticationDTO>("/team");
-        }
-        HubConnection.On("UpdateTeam", async () =>
-        {
-            Team = await httpClientService.GetFromAPI<TeamAuthenticationDTO>("/team");
-            StateHasChanged();
-        });
     }
 }

@@ -2,7 +2,7 @@
 @attribute [AuthorizeTeamAdmin]
 
 <div class="ManageTeamPageContainer">
-    <h3>Manage your Team @Team.Name @s</h3>
+    <h3>Manage your Team @User.GetTeamName()</h3>
     <div class="ManageTeamGrid">
         <div>
             <ManageMembersComponent/>

@@ -11,7 +11,6 @@ namespace WebWasmClient.Shared.Components
     {
         [CascadingParameter] public IModalService Modal { get; set; }
         [CascadingParameter] public ClaimsPrincipal User { get; set; }
-        [CascadingParameter] public TeamAuthenticationDTO Team { get; set; }
         [CascadingParameter] public HubConnection HubConnection { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 ﻿<div class="CurrentTenantDisplayComponent">
     <div class="LogoNameSection">
-        @if(Team != null)
+        @if(User.IsTeamMember())
         {
-            <img src="@Team.IconUrl"/>
-            <h4>@Team.Name</h4>
+            <h4>@User.GetTeamName()</h4>
             @if(User.IsInRole("Admin"))
             {
                 <div class="RoleDisplay"> 
