@@ -38,6 +38,10 @@ namespace Infrastructure.Identity.Services
             await identificationDbContext.Entry(user).Collection(u => u.Memberships).Query().Include(x => x.Team).LoadAsync();
             return user;
         }
+        public Task<ApplicationUser> FindByIdAsync(Guid id)
+        {
+            return FindByIdAsync(id.ToString());
+        }
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
             try

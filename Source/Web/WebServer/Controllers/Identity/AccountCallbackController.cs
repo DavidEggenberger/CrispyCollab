@@ -1,26 +1,23 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Stripe;
-using System.Collections.Generic;
-using Infrastructure.Identity.Types.Enums;
 
 namespace WebServer.Controllers.Identity
 {
     [Route("api/[controller]")]
     [AllowAnonymous]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountCallbackController : ControllerBase
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ApplicationUserManager userManager;
-        public AccountController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager)
+        public AccountCallbackController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;

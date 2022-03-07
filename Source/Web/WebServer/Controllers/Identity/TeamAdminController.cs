@@ -24,62 +24,31 @@ namespace WebServer.Controllers.Identity.TeamControllers
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SignInManager<ApplicationUser> signInManager;
-        public TeamAdminController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
+        private IHubContext<NotificationHub> notificationHubContext;
+        public TeamAdminController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IHubContext<NotificationHub> notificationHubContext)
         {
             this.teamManager = teamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
+            this.notificationHubContext = notificationHubContext;
         }
 
         [HttpPost("invite")]
-        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO, [FromServices] IHubContext<NotificationHub> hubContext)
+        public async Task<ActionResult> InviteUsersToTeam(InviteTeamMembersDTO inviteUserToGroupDTO)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            foreach (var email in inviteUserToGroupDTO.Emails)
-            {
-                ApplicationUser invitedUser = await applicationUserManager.FindByEmailAsync(email);
-                if (invitedUser == null)
-                {
-                    await applicationUserManager.CreateAsync(new ApplicationUser
-                    {
-                        UserName = email,
-                        Email = email,
-                        Memberships = new List<ApplicationUserTeam>
-                        {
-                            new ApplicationUserTeam
-                            {
-                                Role = TeamRole.Invited,
-                                Team = team
-                            }
-                        }
-                    });
-                }
-                if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
-                {
-                    invitedUser.Memberships.Add(new ApplicationUserTeam
-                    {
-                        Role = TeamRole.Invited,
-                        Team = team
-                    });
-                }
-            }
-            try
-            {
-                await identificationDbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            await hubContext.Clients.Group($"{team.Id}{TeamRole.Admin}").SendAsync("UpdateTeam");
+            await teamManager.InviteUsersToTeam(team, inviteUserToGroupDTO.Emails);   
+            await notificationHubContext.Clients.Group($"{team.Id}{TeamRole.Admin}").SendAsync("UpdateTeam");
             return Ok();
         }
 
         [HttpPost("changerole")]
-        public async Task<ActionResult> ChangeRoleOfTeamMember()
+        public async Task<ActionResult> ChangeRoleOfTeamMember(ChangeRoleOfTeamMemberDTO changeRoleOfTeamMemberDTO)
         {
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(changeRoleOfTeamMemberDTO.UserId);
+            await teamManager.ChangeRoleOfUserInTeamAsync(applicationUser, team, (TeamRole)changeRoleOfTeamMemberDTO.TargetRole);
             return Ok();
         }
 
@@ -87,9 +56,18 @@ namespace WebServer.Controllers.Identity.TeamControllers
         public async Task<ActionResult<TeamDTO>> DeleteTeam(Guid id)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            Team team = await teamManager.FindTeamByIdAsync(id);
             await teamManager.DeleteTeam(team);
             await signInManager.RefreshSignInAsync(applicationUser);
+            return Ok();
+        }
+
+        [HttpDelete("removeMember/{id}")]
+        public async Task<ActionResult<TeamDTO>> RemoveMember(Guid id)
+        {
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(id);
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            await teamManager.RemoveMemberAsync(team, applicationUser);
             return Ok();
         }
     }

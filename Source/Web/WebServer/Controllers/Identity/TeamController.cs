@@ -5,18 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Infrastructure.Identity.Types.Enums;
-using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using Infrastructure.Identity.Types.Shared;
-using Common.Identity.Team.DTOs;
-using Infrastructure.EmailSender;
-using Common.Misc.Attributes;
-using Common.Identity.Team.DTOs.Enums;
-using Common.Identity.ApplicationUser;
 using WebServer.Mappings.Identity;
 using Common.Identity.DTOs.TeamDTOs;
 

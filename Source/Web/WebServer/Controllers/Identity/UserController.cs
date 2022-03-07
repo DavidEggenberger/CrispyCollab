@@ -1,14 +1,11 @@
-﻿using Common.Identity.DTOs.TeamDTOs;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using System.Linq;
 using System.Threading.Tasks;
-using WebServer.Mappings.Identity;
 
 namespace WebServer.Controllers.Identity
 {

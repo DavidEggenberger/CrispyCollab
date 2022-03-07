@@ -35,16 +35,47 @@ namespace Infrastructure.Identity.Services
             Team team;
             try
             {
-                Guid id = new Guid(claimsPrincipal.Claims.First(x => x.Type == "TeamId").Value);
+                Guid id = new Guid(claimsPrincipal.FindFirst(x => x.Type == "TeamId").Value);
                 team = await identificationDbContext.Teams.SingleAsync(t => t.Id == id);
-                await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(y => y.User).LoadAsync();
-                await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(t => t.SubscriptionPlan).LoadAsync();
-                return team;
             }
             catch (Exception ex)
             {
                 throw new IdentityOperationException("No team is found");
             }
+            await LoadTeamRelationsAsync(team);
+            return team;
+        }
+        public async Task InviteUsersToTeam(Team team, List<string> emails)
+        {
+            foreach (var email in emails)
+            {
+                ApplicationUser invitedUser = await applicationUserManager.FindByEmailAsync(email);
+                if (invitedUser == null)
+                {
+                    await applicationUserManager.CreateAsync(new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        Memberships = new List<ApplicationUserTeam>
+                        {
+                            new ApplicationUserTeam
+                            {
+                                Role = TeamRole.Invited,
+                                Team = team
+                            }
+                        }
+                    });
+                }
+                if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
+                {
+                    invitedUser.Memberships.Add(new ApplicationUserTeam
+                    {
+                        Role = TeamRole.Invited,
+                        Team = team
+                    });
+                }
+            }
+            await identificationDbContext.SaveChangesAsync();
         }
         public async Task<SubscriptionPlanType> GetSubscriptionPlanTypeAsync(Team team)
         {
@@ -89,20 +120,9 @@ namespace Infrastructure.Identity.Services
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
-        public async Task<Team> FindTeamByIdAsync(Guid Id)
+        public Task<Team> FindTeamByIdAsync(Guid id)
         {
-            Team team;
-            try
-            {
-                team = await identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == Id);
-            }
-            catch(Exception ex)
-            {
-                throw new IdentityOperationException("No Team is found");
-            }
-            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
-            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
-            return team;
+            return FindTeamByIdAsync(id.ToString());
         }
         public async Task<Team> FindTeamByIdAsync(string Id)
         {
@@ -115,8 +135,7 @@ namespace Infrastructure.Identity.Services
             {
                 throw new IdentityOperationException("No Team is found");
             }
-            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
-            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
+            await LoadTeamRelationsAsync(team);
             return team;
         }
         public Task<Team> FindUsersSelectedTeam(string Id)
@@ -251,6 +270,15 @@ namespace Infrastructure.Identity.Services
         {
             identificationDbContext.Teams.Remove(identificationDbContext.Teams.Single(x => x.Id == team.Id));
             await identificationDbContext.SaveChangesAsync();
+        }
+        public async Task RemoveMemberAsync(Team team, ApplicationUser applicationUser)
+        {
+            
+        }
+        public async Task LoadTeamRelationsAsync(Team team)
+        {
+            await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
+            await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
         }
     }
 }
