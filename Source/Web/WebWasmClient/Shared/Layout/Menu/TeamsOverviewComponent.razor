@@ -50,10 +50,10 @@
 </div>
 
 @code{
-    private List<TeamDTO> teams;
+    private List<TeamAuthenticationDTO> teams;
     protected override async Task OnInitializedAsync()
     {
-        teams = await httpClientService.GetFromAPI<List<TeamDTO>>("/team/all");
+        teams = await httpClientService.GetFromAPI<List<TeamAuthenticationDTO>>("/team/all");
     }
     private bool expanded = true;
     public void Click()

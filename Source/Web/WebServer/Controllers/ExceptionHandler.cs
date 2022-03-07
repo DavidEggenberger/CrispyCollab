@@ -13,11 +13,11 @@ namespace WebServer.Controllers
     [Route("[controller]")]
     [AllowAnonymous]
     [ApiController]
-    public class ExceptionHandlerController : ControllerBase
+    public class ExceptionHandler : ControllerBase
     {
-        private ILogger<ExceptionHandlerController> logger;
+        private ILogger<ExceptionHandler> logger;
         private Dictionary<Type, Func<Exception, Task<ActionResult>>> exceptionHandlers;
-        public ExceptionHandlerController(ILogger<ExceptionHandlerController> logger)
+        public ExceptionHandler(ILogger<ExceptionHandler> logger)
         {
             this.logger = logger;
             exceptionHandlers = new Dictionary<Type, Func<Exception, Task<ActionResult>>>

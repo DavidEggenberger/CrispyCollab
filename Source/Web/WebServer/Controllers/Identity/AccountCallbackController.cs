@@ -123,13 +123,5 @@ namespace WebServer.Controllers.Identity
                 _ => LocalRedirect("/")
             };
         }
-
-        [Authorize]
-        [HttpGet("Logout")]
-        public async Task<ActionResult> LogoutCurrentUser()
-        {
-            await signInManager.SignOutAsync();
-            return Redirect("/");
-        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@attribute [Authorize]
-@inject IAuthorizationService authorizationService
 <CascadingValue Value="User">
     <CascadingValue Value="Team">
         @if(User != null)
@@ -19,24 +18,11 @@
         User = (await AuthenticationState).User;
         if(User.HasClaim(c => c.Type == "TeamId"))
         {
-            Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
-        }
-        if((await authorizationService.AuthorizeAsync(User, "TeamAdmin")).Succeeded)
-        {
-
-        }
-        else
-        {
-            
+            Team = await httpClientService.GetFromAPI<TeamAuthenticationDTO>("/team");
         }
         HubConnection.On("UpdateTeam", async () =>
         {
-            Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
-            StateHasChanged();
-        });
-        HubConnection.On("UpdateTeamAdmin", async () =>
-        {
-            Team = await httpClientService.GetFromAPI<TeamAdminDTO>("/teamadmin");
+            Team = await httpClientService.GetFromAPI<TeamAuthenticationDTO>("/team");
             StateHasChanged();
         });
     }

@@ -18,6 +18,7 @@ using Common.Misc.Attributes;
 using Common.Identity.Team.DTOs.Enums;
 using Common.Identity.ApplicationUser;
 using WebServer.Mappings.Identity;
+using Common.Identity.DTOs.TeamDTOs;
 
 namespace WebServer.Controllers.Identity
 {
@@ -58,16 +59,6 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
-            await signInManager.RefreshSignInAsync(applicationUser);
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TeamDTO>> DeleteTeam(Guid id)
-        {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            await teamManager.DeleteTeam(team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Ok();
         }

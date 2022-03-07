@@ -12,8 +12,8 @@ namespace Common
         public const string IdentityAccountPath = "/Identity/Account";
         public const string SignUpPath = "Identity/SignUp";
         public const string LoginPath = "Identity/Login";
-        public const string LogoutPath = "api/account/Logout";
-        public const string UserClaimsPath = "api/BFF/User";
+        public const string LogoutPath = "api/user/Logout";
+        public const string UserClaimsPath = "api/user/bff";
         public const string NotificationHub = "/NotificationHub";
     }
 }
