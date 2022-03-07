@@ -1,4 +1,6 @@
-﻿<CascadingValue Value="User">
+﻿@attribute [Authorize]
+@inject IAuthorizationService authorizationService
+<CascadingValue Value="User">
     <CascadingValue Value="Team">
         @if(User != null)
         {
@@ -10,25 +12,31 @@
 @code{
     [Parameter]
     public RenderFragment ChildContent { get; set; }
-    [CascadingParameter]
+    [CascadingParameter] 
     public Task<AuthenticationState> AuthenticationState { get; set; }
-    [Inject]
-    public HostAuthenticationStateProvider authenticationStateProvider { get; set; }
     protected override async Task OnParametersSetAsync()
     {
         User = (await AuthenticationState).User;
-        if (!User.Identity.IsAuthenticated)
-        {
-            authenticationStateProvider.SignIn();
-        }
         if(User.HasClaim(c => c.Type == "TeamId"))
         {
             Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
         }
+        if((await authorizationService.AuthorizeAsync(User, "TeamAdmin")).Succeeded)
+        {
 
+        }
+        else
+        {
+            
+        }
         HubConnection.On("UpdateTeam", async () =>
         {
             Team = await httpClientService.GetFromAPI<TeamDTO>("/team");
+            StateHasChanged();
+        });
+        HubConnection.On("UpdateTeamAdmin", async () =>
+        {
+            Team = await httpClientService.GetFromAPI<TeamAdminDTO>("/teamadmin");
             StateHasChanged();
         });
     }

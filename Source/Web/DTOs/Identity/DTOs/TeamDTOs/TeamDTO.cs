@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.DTOs.Identity.Team
+namespace Common.Identity.DTOs.TeamDTOs
 {
     public class TeamDTO
     {
@@ -14,7 +14,5 @@ namespace Common.DTOs.Identity.Team
         public string Name { get; set; }
         public string IconUrl { get; set; }
         public List<TeamUserDTO> Members { get; set; }
-        public SubscriptionStatusDTO SubscriptionStatus { get; set; }
-        public SubscriptionPlanTypeDTO SubscriptionPlanType { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using AuthPermissions;
 using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
+using Common;
 using Common.EnvironmentService;
 using FluentValidation.AspNetCore;
 using Infrastructure.CQRS;
@@ -134,13 +135,13 @@ namespace WebServer
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.AddPolicy("TeamUser", options =>
                 {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "User", "Admin");
+                    options.RequireClaim(ClaimConstants.TeamIdClaimType);
+                    options.RequireClaim(ClaimConstants.TeamRoleClaimType, "User", "Admin");
                 });
                 options.AddPolicy("TeamAdmin", options =>
                 {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "Admin");
+                    options.RequireClaim(ClaimConstants.TeamIdClaimType);
+                    options.RequireClaim(ClaimConstants.TeamRoleClaimType, "Admin");
                 });
             });
 
@@ -241,7 +242,7 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<NotificationHub>("/Hubs/WebWasmClientNotification");
+                endpoints.MapHub<NotificationHub>(EndpointConstants.NotificationHub);
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");

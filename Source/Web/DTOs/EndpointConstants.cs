@@ -5,13 +5,15 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace Common
 {
-    public class IdentityEndpointConstants
+    public class EndpointConstants
     {
-        public const string SignUp = "Identity/SignUp";
+        public const string IdentityAccountPath = "/Identity/Account";
+        public const string SignUpPath = "Identity/SignUp";
         public const string LoginPath = "Identity/Login";
         public const string LogoutPath = "api/account/Logout";
         public const string UserClaimsPath = "api/BFF/User";
+        public const string NotificationHub = "/NotificationHub";
     }
 }

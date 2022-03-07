@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Common;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shared;
 using Shared.DTOs.Identity;
@@ -48,7 +49,7 @@ namespace WebWasmClient.Authentication
         {
             try
             {
-                var response = await httpClient.GetAsync(IdentityEndpointConstants.UserClaimsPath);
+                var response = await httpClient.GetAsync(EndpointConstants.UserClaimsPath);
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -56,8 +57,8 @@ namespace WebWasmClient.Authentication
 
                     var identity = new ClaimsIdentity(
                         nameof(HostAuthenticationStateProvider),
-                        bffUserInfoDTO.NameClaimType,
-                        "TeamRole");
+                        ClaimConstants.NameClaimType,
+                        ClaimConstants.TeamRoleClaimType);
 
                     foreach (var claim in bffUserInfoDTO.Claims)
                     {
@@ -78,24 +79,24 @@ namespace WebWasmClient.Authentication
         public void SignIn(string customReturnUrl = null)
         {
             var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
-            var logInUrl = navigationManager.ToAbsoluteUri($"{IdentityEndpointConstants.LoginPath}?returnUrl={encodedReturnUrl}");
+            var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.LoginPath}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
         public void SignUp(string customReturnUrl = null)
         {
             var encodedReturnUrl = Uri.EscapeDataString(customReturnUrl ?? navigationManager.Uri);
-            var logInUrl = navigationManager.ToAbsoluteUri($"{IdentityEndpointConstants.SignUp}?returnUrl={encodedReturnUrl}");
+            var logInUrl = navigationManager.ToAbsoluteUri($"{EndpointConstants.SignUpPath}?returnUrl={encodedReturnUrl}");
             navigationManager.NavigateTo(logInUrl.ToString(), true);
         }
 
         public void GoToManageAccount()
         {
-            navigationManager.NavigateTo("/Identity/Account", true);
+            navigationManager.NavigateTo(EndpointConstants.IdentityAccountPath, true);
         }
         public void SignOut()
         {
-            navigationManager.NavigateTo(IdentityEndpointConstants.LogoutPath, true);
+            navigationManager.NavigateTo(EndpointConstants.LogoutPath, true);
         }
     }
 }

@@ -12,7 +12,7 @@
     protected override async Task OnInitializedAsync()
     {
         HubConnection = new HubConnectionBuilder()
-            .WithUrl(navigationManager.ToAbsoluteUri("/Hubs/WebWasmClientNotification"))
+            .WithUrl(navigationManager.ToAbsoluteUri(EndpointConstants.NotificationHub))
             .Build();
         await HubConnection.StartAsync();
     }
