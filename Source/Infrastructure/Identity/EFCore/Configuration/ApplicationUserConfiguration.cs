@@ -16,9 +16,15 @@ namespace Infrastructure.Identity.EFCore.Configuration
                 .WithMany(x => x.SelectedByUsers)
                 .HasForeignKey(x => x.SelectedTeamId)
                 .OnDelete(DeleteBehavior.NoAction);
-            builder.HasMany(x => x.Memberships)
-                .WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId);
+
+            builder.HasMany(x => x.CreatedTeams)
+                .WithOne(x => x.Creator)
+                .HasForeignKey(x => x.CreatorId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Navigation(x => x.SelectedTeam)
+                .IsRequired(false);
+
             builder.Navigation(b => b.Memberships)
                 .HasField("memberships")
                 .UsePropertyAccessMode(PropertyAccessMode.Field);

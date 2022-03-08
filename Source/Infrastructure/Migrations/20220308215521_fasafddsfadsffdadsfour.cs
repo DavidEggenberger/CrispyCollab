@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class fasafddsfadsffdadsfour : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -195,8 +195,7 @@ namespace Infrastructure.Migrations
                         name: "FK_Teams_AspNetUsers_CreatorId",
                         column: x => x.CreatorId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -312,16 +311,14 @@ namespace Infrastructure.Migrations
                 table: "ApplicationUserTeams",
                 column: "UserId",
                 principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ApplicationUserTeams_Teams_TeamId",
                 table: "ApplicationUserTeams",
                 column: "TeamId",
                 principalTable: "Teams",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUserClaims_AspNetUsers_ApplicationUserId",

@@ -17,6 +17,7 @@ namespace Infrastructure.Identity
         public string StripeCustomerId { get; set; }
         public Guid SelectedTeamId { get; set; }
         public Team SelectedTeam { get; set; }
+        public List<Team> CreatedTeams { get; set; }
 
         private List<ApplicationUserTeam> memberships = new List<ApplicationUserTeam>();
         public IReadOnlyCollection<ApplicationUserTeam> Memberships => memberships.AsReadOnly();

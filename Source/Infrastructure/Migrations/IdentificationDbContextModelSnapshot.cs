@@ -360,8 +360,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Infrastructure.Identity.Team", "SelectedTeam")
                         .WithMany("SelectedByUsers")
                         .HasForeignKey("SelectedTeamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("SelectedTeam");
                 });
@@ -371,14 +370,12 @@ namespace Infrastructure.Migrations
                     b.HasOne("Infrastructure.Identity.Team", "Team")
                         .WithMany("Members")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Infrastructure.Identity.ApplicationUser", "User")
                         .WithMany("Memberships")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Team");
 
@@ -407,9 +404,9 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Identity.Team", b =>
                 {
                     b.HasOne("Infrastructure.Identity.ApplicationUser", "Creator")
-                        .WithMany()
+                        .WithMany("CreatedTeams")
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Creator");
@@ -481,6 +478,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("CreatedTeams");
 
                     b.Navigation("Logins");
 
