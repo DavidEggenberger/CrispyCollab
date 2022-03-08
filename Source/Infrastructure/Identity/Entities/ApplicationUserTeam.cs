@@ -16,6 +16,5 @@ namespace Infrastructure.Identity
         public Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
         public TeamRole Role { get; set; }
-        public UserSelectionStatus SelectionStatus { get; set; }
     }
 }

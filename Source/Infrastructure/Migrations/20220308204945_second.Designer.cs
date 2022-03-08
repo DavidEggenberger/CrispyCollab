@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Identity.EFCore.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(IdentificationDbContext))]
-    [Migration("20220301222359_sgsgsgsdgsfg")]
-    partial class sgsgsgsdgsfg
+    [Migration("20220308204945_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,9 @@ namespace Infrastructure.Identity.EFCore.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("SelectedTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("StripeCustomerId")
                         .HasColumnType("nvarchar(max)");
 
@@ -99,6 +102,8 @@ namespace Infrastructure.Identity.EFCore.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("SelectedTeamId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -113,14 +118,42 @@ namespace Infrastructure.Identity.EFCore.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "TeamId");
 
                     b.HasIndex("TeamId");
 
                     b.ToTable("ApplicationUserTeams");
+                });
+
+            modelBuilder.Entity("Infrastructure.Identity.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StripeSubscriptionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SubscriptionPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionPlanId");
+
+                    b.HasIndex("TeamId")
+                        .IsUnique();
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.Entities.SubscriptionPlan", b =>
@@ -141,8 +174,11 @@ namespace Infrastructure.Identity.EFCore.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("StripeSubscriptionId")
+                    b.Property<string>("StripePriceId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrialPeriodDays")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -155,18 +191,18 @@ namespace Infrastructure.Identity.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte[]>("IconData")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NameIdentitifer")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SubscriptionPlanId")
+                    b.Property<Guid>("SubscriptionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubscriptionPlanId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Teams");
                 });
@@ -321,6 +357,17 @@ namespace Infrastructure.Identity.EFCore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Identity.ApplicationUser", b =>
+                {
+                    b.HasOne("Infrastructure.Identity.Team", "SelectedTeam")
+                        .WithMany("SelectedByUsers")
+                        .HasForeignKey("SelectedTeamId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("SelectedTeam");
+                });
+
             modelBuilder.Entity("Infrastructure.Identity.ApplicationUserTeam", b =>
                 {
                     b.HasOne("Infrastructure.Identity.Team", "Team")
@@ -340,15 +387,34 @@ namespace Infrastructure.Identity.EFCore.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.Team", b =>
+            modelBuilder.Entity("Infrastructure.Identity.Entities.Subscription", b =>
                 {
                     b.HasOne("Infrastructure.Identity.Entities.SubscriptionPlan", "SubscriptionPlan")
-                        .WithMany("SubscribedTeams")
+                        .WithMany("Subscriptions")
                         .HasForeignKey("SubscriptionPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Infrastructure.Identity.Team", "Team")
+                        .WithOne("Subscription")
+                        .HasForeignKey("Infrastructure.Identity.Entities.Subscription", "TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("SubscriptionPlan");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Infrastructure.Identity.Team", b =>
+                {
+                    b.HasOne("Infrastructure.Identity.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -427,12 +493,16 @@ namespace Infrastructure.Identity.EFCore.Migrations
 
             modelBuilder.Entity("Infrastructure.Identity.Entities.SubscriptionPlan", b =>
                 {
-                    b.Navigation("SubscribedTeams");
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.Team", b =>
                 {
                     b.Navigation("Members");
+
+                    b.Navigation("SelectedByUsers");
+
+                    b.Navigation("Subscription");
                 });
 #pragma warning restore 612, 618
         }

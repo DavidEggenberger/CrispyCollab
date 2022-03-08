@@ -52,27 +52,20 @@ namespace Infrastructure.Identity.Services
                 ApplicationUser invitedUser = await applicationUserManager.FindByEmailAsync(email);
                 if (invitedUser == null)
                 {
-                    await applicationUserManager.CreateAsync(new ApplicationUser
+                    ApplicationUser _applicationUser = new ApplicationUser
                     {
                         UserName = email,
-                        Email = email,
-                        Memberships = new List<ApplicationUserTeam>
-                        {
-                            new ApplicationUserTeam
-                            {
-                                Role = TeamRole.Invited,
-                                Team = team
-                            }
-                        }
-                    });
+                        Email = email
+                    };
+                    var result = await applicationUserManager.CreateAsync(_applicationUser);
+                    if (result.Succeeded)
+                    {
+                        team.AddMember(_applicationUser, TeamRole.Invited);
+                    }
                 }
                 if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
                 {
-                    invitedUser.Memberships.Add(new ApplicationUserTeam
-                    {
-                        Role = TeamRole.Invited,
-                        Team = team
-                    });
+                    team.AddMember(invitedUser, TeamRole.Invited);
                 }
             }
             await identificationDbContext.SaveChangesAsync();
@@ -84,23 +77,12 @@ namespace Infrastructure.Identity.Services
             {
                 if(!team.Members.Any(x => x.UserId == applicationUser.Id))
                 {
-                    team.Members.Add(new ApplicationUserTeam
-                    {
-                        Role = TeamRole.Invited,
-                        User = applicationUser
-                    });
+                    
                 }
             }
             else
             {
-                team.Members.Add(new ApplicationUserTeam
-                {
-                    Role = TeamRole.Invited,
-                    User = new ApplicationUser
-                    {
-                        Email = email
-                    }
-                });
+                
             }
             await identificationDbContext.SaveChangesAsync();
         }
@@ -128,26 +110,21 @@ namespace Infrastructure.Identity.Services
         }
         public async Task CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
-            var sapplicationUser = await identificationDbContext.Users.Include(x => x.Memberships).SingleOrDefaultAsync(x => x.Id == applicationUser.Id);
             if(identificationDbContext.Teams.Any(t => t.Name == name))
             {
                 throw new IdentityOperationException("The Team name is taken");
             }
-            applicationUser.Memberships.ForEach(x => x.SelectionStatus = UserSelectionStatus.NotSelected);
-            sapplicationUser.Memberships.Add(new ApplicationUserTeam
+            Team team = new Team
             {
-                Team = new Team
+                Creator = applicationUser,
+                Name = name,
+                Subscription = new Subscription
                 {
-                    Name = name,
-                    Subscription = new Subscription
-                    {
-                        SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
-                        Status = SubscriptionStatus.Active
-                    }
-                },
-                Role = TeamRole.Admin,
-                SelectionStatus = UserSelectionStatus.Selected
-            });
+                    SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
+                    Status = SubscriptionStatus.Active
+                }
+            };
+            team.AddMember(applicationUser, TeamRole.Admin);
             await identificationDbContext.SaveChangesAsync();
         }
         public async Task UpdateTeamNameAsync(Team team, string name)
@@ -161,10 +138,7 @@ namespace Infrastructure.Identity.Services
         }
         public async Task AddMemberToTeamAsync(ApplicationUser user, Team Team, TeamRole teamRole = TeamRole.User)
         {
-            Team.Members.Add(new ApplicationUserTeam
-            {
-                User = user
-            });
+            Team.AddMember(user, teamRole);
             await identificationDbContext.SaveChangesAsync();
         }
         public async Task ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team team, TeamRole teamRoleType)
@@ -181,23 +155,16 @@ namespace Infrastructure.Identity.Services
             applicationUserTeam.Role = teamRoleType;
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task<IdentityOperationResult> SetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser, Team Team)
+        public async Task SetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser, Team Team)
         {
-            if (CheckTeamMembershipOfApplicationUser(applicationUser, Team))
-            {
-                applicationUser.Memberships.ForEach(x => x.SelectionStatus = UserSelectionStatus.NotSelected);
-                applicationUser.Memberships.Where(x => x.TeamId == Team.Id).First().SelectionStatus = UserSelectionStatus.Selected;
-                await identificationDbContext.SaveChangesAsync();
-                await signInManager.RefreshSignInAsync(applicationUser);
-                return IdentityOperationResult.Success();
-            }
-            return IdentityOperationResult.Fail("User is not a member of the Team");
+            applicationUser.SelectedTeam = Team;
+            await identificationDbContext.SaveChangesAsync();   
         }
         public async Task<Team> GetSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser)
         {
             try
             {
-                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected).Team;
+                return applicationUser.SelectedTeam;
             }
             catch(Exception ex)
             {
@@ -230,30 +197,8 @@ namespace Infrastructure.Identity.Services
         }
         public async Task RemoveMemberAsync(Team team, ApplicationUser applicationUser)
         {
-            ApplicationUserTeam applicationUserTeam = GetCurrentMembershipForApplicationUser(applicationUser);
-            
-        }
-        private ApplicationUserTeam GetCurrentMembershipForApplicationUser(ApplicationUser applicationUser)
-        {
-            try
-            {
-                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
-            }
-            catch(Exception ex)
-            {
-                throw new IdentityOperationException("No Membership could be found");
-            }
-        }
-        private ApplicationUserTeam GetTeamMembershiForApplicationUser(ApplicationUser applicationUser, Team team)
-        {
-            try
-            {
-                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
-            }
-            catch (Exception ex)
-            {
-                throw new IdentityOperationException("No Membership could be found");
-            }
+            team.RemoveMember(applicationUser);
+            await identificationDbContext.SaveChangesAsync();
         }
         private async Task LoadTeamRelationsAsync(Team team)
         {

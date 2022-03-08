@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace Infrastructure.Identity.EFCore.Migrations
+namespace Infrastructure.Migrations
 {
-    public partial class sgsgsgsdgsfg : Migration
+    public partial class second : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

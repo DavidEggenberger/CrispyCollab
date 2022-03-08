@@ -42,6 +42,11 @@ namespace Infrastructure.Identity.Services
         {
             return FindByIdAsync(id.ToString());
         }
+        public async Task SetTeamAsSelected(ApplicationUser applicationUser, Team team)
+        {
+            applicationUser.SelectedTeam = team;
+            await identificationDbContext.SaveChangesAsync();
+        }
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser applicationUser;
@@ -56,39 +61,6 @@ namespace Infrastructure.Identity.Services
                 throw new IdentityOperationException();
             }
         }
-        public async Task<Guid> GetSelectedTeamId(ApplicationUser applicationUser)
-        {
-            try
-            {
-                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected).Team.Id;
-            }
-            catch (Exception ex)
-            {
-                applicationUser.Memberships.Add(new ApplicationUserTeam
-                {
-                    Role = TeamRole.Admin,
-                    SelectionStatus = UserSelectionStatus.Selected,
-                    Team = new Team
-                    {
-                        Name = "Your Team",
-                        Subscription = new Subscription
-                        {
-                            SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
-                            Status = SubscriptionStatus.Active
-                        }
-                    }
-                });
-                await identificationDbContext.SaveChangesAsync();
-                return await GetSelectedTeamId(applicationUser);
-            }
-            throw new IdentityOperationException();
-        }
-        public async Task SelectTeamForUser(ApplicationUser applicationUser, Team team)
-        {
-            applicationUser.Memberships.ForEach(x => x.SelectionStatus = UserSelectionStatus.NotSelected);
-            applicationUser.Memberships.Single(m => m.TeamId == team.Id).SelectionStatus = UserSelectionStatus.Selected;
-            await identificationDbContext.SaveChangesAsync();
-        }
         public List<ApplicationUserTeam> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
             return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).ToList();
@@ -98,7 +70,7 @@ namespace Infrastructure.Identity.Services
             ApplicationUserTeam applicationUserTeam;
             try
             {
-                applicationUserTeam = applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
+                applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeamId);
             }
             catch (Exception ex)
             {

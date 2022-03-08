@@ -59,7 +59,7 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamByIdAsync(teamId);
-            await applicationUserManager.SelectTeamForUser(applicationUser, team);
+            await applicationUserManager.SetTeamAsSelected(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return Redirect("/");
         }

@@ -16,6 +16,9 @@ namespace Infrastructure.Identity.EFCore.Configuration
             builder.HasOne(x => x.Subscription)
                 .WithOne(x => x.Team)
                 .HasForeignKey<Subscription>(x => x.TeamId);
+            builder.Navigation(b => b.Members)
+                .HasField("members")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
