@@ -35,7 +35,7 @@ namespace Infrastructure.Identity.Services
             {
                 throw new IdentityOperationException();
             }
-            await identificationDbContext.Entry(user).Collection(u => u.Memberships).Query().Include(x => x.Team).LoadAsync();
+            await LoadApplicationUserAsync(user);
             return user;
         }
         public Task<ApplicationUser> FindByIdAsync(Guid id)
@@ -44,9 +44,12 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
+            ApplicationUser applicationUser;
             try
             {
-                return await identificationDbContext.Users.SingleAsync(u => u.StripeCustomerId == stripeCustomerId);
+                applicationUser = await identificationDbContext.Users.SingleAsync(u => u.StripeCustomerId == stripeCustomerId);
+                await LoadApplicationUserAsync(applicationUser);
+                return applicationUser;
             }
             catch(Exception ex)
             {
@@ -86,23 +89,21 @@ namespace Infrastructure.Identity.Services
             applicationUser.Memberships.Single(m => m.TeamId == team.Id).SelectionStatus = UserSelectionStatus.Selected;
             await identificationDbContext.SaveChangesAsync();
         }
-        public Task<List<ApplicationUserTeam>> GetAllTeamMemberships(ApplicationUser applicationUser)
+        public List<ApplicationUserTeam> GetAllTeamMemberships(ApplicationUser applicationUser)
         {
-            return identificationDbContext.ApplicationUserTeams.Include(x => x.Team).Where(x => x.UserId == applicationUser.Id).ToListAsync();
+            return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).ToList();
         }
         public async Task<List<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
-            ApplicationUser _applicationUser = await identificationDbContext.Users.Include(x => x.Memberships).FirstAsync(x => x.Id == applicationUser.Id);
             ApplicationUserTeam applicationUserTeam;
             try
             {
-                applicationUserTeam = _applicationUser.Memberships.Where(x => x.SelectionStatus == UserSelectionStatus.Selected).Single();
+                applicationUserTeam = applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
             }
             catch (Exception ex)
             {
                 throw new IdentityOperationException();
             }
-            await identificationDbContext.Entry(applicationUserTeam).Reference(x => x.Team).Query().Include(t => t.Subscription).ThenInclude(x => x.SubscriptionPlan).LoadAsync();
             List<Claim> claims = new List<Claim>
             {
                 new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
@@ -111,6 +112,13 @@ namespace Infrastructure.Identity.Services
                 new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
             };
             return claims;
+        }
+        private async Task LoadApplicationUserAsync(ApplicationUser applicationUser)
+        {
+            await identificationDbContext.Entry(applicationUser).Collection(u => u.Memberships).Query()
+                .Include(x => x.Team)
+                .ThenInclude(x => x.Subscription)
+                .ThenInclude(x => x.SubscriptionPlan).LoadAsync();
         }
     }
 }

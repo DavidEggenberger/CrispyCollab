@@ -77,18 +77,7 @@ namespace Infrastructure.Identity.Services
             }
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task<SubscriptionPlanType> GetSubscriptionPlanTypeAsync(Team team)
-        {
-            await identificationDbContext.Entry(team).Reference(x => x.Subscription).LoadAsync();
-            await identificationDbContext.Entry(team.Subscription).Reference(x => x.SubscriptionPlan).LoadAsync();
-            return team.Subscription.SubscriptionPlan.PlanType;
-        }
-        public async Task<List<ApplicationUserTeam>> GetMembersAsync(Team team)
-        {
-            Team _team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).SingleOrDefaultAsync(t => t.Id == team.Id);
-            return _team.Members.ToList();
-        }
-        public async Task<IdentityOperationResult> InviteUserToRoleThroughEmail(Team team, TeamRole role, string email)
+        public async Task InviteUserToRoleThroughEmail(Team team, TeamRole role, string email)
         {
             ApplicationUser applicationUser;
             if((applicationUser = await applicationUserManager.FindByEmailAsync(email)) != null)
@@ -114,9 +103,8 @@ namespace Infrastructure.Identity.Services
                 });
             }
             await identificationDbContext.SaveChangesAsync();
-            return null;
         }
-        public Task<IdentityOperationResult> InviteUserThroughEmail(Team team, string email)
+        public Task InviteUserThroughEmail(Team team, string email)
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
@@ -137,10 +125,6 @@ namespace Infrastructure.Identity.Services
             }
             await LoadTeamRelationsAsync(team);
             return team;
-        }
-        public Task<Team> FindUsersSelectedTeam(string Id)
-        {
-            return identificationDbContext.Teams.SingleOrDefaultAsync(x => x.Id == new Guid(Id));
         }
         public async Task CreateNewTeamAsync(ApplicationUser applicationUser, string name)
         {
@@ -166,16 +150,6 @@ namespace Infrastructure.Identity.Services
             });
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersAsync(Team Team)
-        {
-            Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
-            return IdentityOperationResult<List<ApplicationUser>>.Success(Team.Members.Select(x => x.User).ToList());
-        }
-        public async Task<IdentityOperationResult<List<ApplicationUser>>> GetAllMembersByRoleAsync(Team Team, TeamRole role)
-        {
-            Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
-            return IdentityOperationResult<List<ApplicationUser>>.Success(Team.Members.Where(x => x.Role == role).Select(x => x.User).ToList());
-        }
         public async Task UpdateTeamNameAsync(Team team, string name)
         {
             if (identificationDbContext.Teams.Any(t => t.Name == name))
@@ -185,48 +159,27 @@ namespace Infrastructure.Identity.Services
             team.Name = name;
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task<bool> CheckIfNameIsValidForTeamAsync(string name)
+        public async Task AddMemberToTeamAsync(ApplicationUser user, Team Team, TeamRole teamRole = TeamRole.User)
         {
-            if(!identificationDbContext.Teams.Any(x => x.Name == name))
-            {
-                return true;
-            }
-            return false;
-        }
-        public async Task<IdentityOperationResult> AddNewUserToTeamAsync(ApplicationUser user, Team Team)
-        {
-            Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
-            if (_Team == null)
-            {
-                return IdentityOperationResult.Fail("Invalid Team");
-            }
-            ApplicationUserTeam _TeamUser = _Team.Members.First(x => x.UserId == user.Id);
-            if (_TeamUser != null)
-            {
-                return IdentityOperationResult.Fail("User is already member of the Team");
-            }
-            _Team.Members.Add(new ApplicationUserTeam
+            Team.Members.Add(new ApplicationUserTeam
             {
                 User = user
             });
             await identificationDbContext.SaveChangesAsync();
-            return IdentityOperationResult.Success();
         }
-        public async Task<IdentityOperationResult> ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team Team, TeamRole TeamRoleType)
+        public async Task ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team team, TeamRole teamRoleType)
         {
-            Team _Team = await identificationDbContext.Teams.Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Id == Team.Id);
-            if (_Team == null)
+            ApplicationUserTeam applicationUserTeam;
+            try
             {
-                return IdentityOperationResult.Fail("Invalid Team");
+                applicationUserTeam = team.Members.Single(x => x.TeamId == team.Id);
             }
-            ApplicationUserTeam _TeamUser = _Team.Members.First(x => x.UserId == user.Id);
-            if (_TeamUser == null)
+            catch(Exception ex)
             {
-                return IdentityOperationResult.Fail("User doesnt exist in Team");
+                throw new IdentityOperationException("Could retrieve ApplicationUserTeam");
             }
-            _TeamUser.Role = TeamRoleType;
+            applicationUserTeam.Role = teamRoleType;
             await identificationDbContext.SaveChangesAsync();
-            return IdentityOperationResult.Success();
         }
         public async Task<IdentityOperationResult> SetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser, Team Team)
         {
@@ -240,15 +193,16 @@ namespace Infrastructure.Identity.Services
             }
             return IdentityOperationResult.Fail("User is not a member of the Team");
         }
-        public async Task<IdentityOperationResult<Team>> GetCurrentSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser)
+        public async Task<Team> GetSelectedTeamForApplicationUserAsync(ApplicationUser applicationUser)
         {
-            ApplicationUser _applicationUser = identificationDbContext.Users.Include(x => x.Memberships).ThenInclude(x => x.Team).Where(x => x.Id == applicationUser.Id).FirstOrDefault();
-            Team Team = _applicationUser.Memberships.Where(x => x.SelectionStatus == UserSelectionStatus.Selected).First().Team;
-            if (Team != null)
+            try
             {
-                return IdentityOperationResult<Team>.Success(Team);
+                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected).Team;
             }
-            return IdentityOperationResult<Team>.Fail("User is not a member of the Team");
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("Selected Team couldn't be retrieved");
+            }
         }
         public bool CheckTeamMembershipOfApplicationUser(ApplicationUser applicationUser, Team Team)
         {
@@ -258,13 +212,16 @@ namespace Infrastructure.Identity.Services
             }
             return false;
         }
-        public IdentityOperationResult<TeamRole> GetTeamRoleOfApplicationUser(ApplicationUser applicationUser, Team Team)
+        public TeamRole GetTeamRoleOfApplicationUser(ApplicationUser applicationUser, Team Team)
         {
-            if (CheckTeamMembershipOfApplicationUser(applicationUser, Team))
+            try
             {
-                return IdentityOperationResult<TeamRole>.Success(applicationUser.Memberships.Single(x => x.TeamId == Team.Id).Role);
+                return applicationUser.Memberships.Single(x => x.TeamId == Team.Id).Role;
             }
-            return IdentityOperationResult<TeamRole>.Fail("User is not a member of the Team");
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("User is no member of the team");
+            }
         }
         public async Task DeleteTeam(Team team)
         {
@@ -273,9 +230,32 @@ namespace Infrastructure.Identity.Services
         }
         public async Task RemoveMemberAsync(Team team, ApplicationUser applicationUser)
         {
+            ApplicationUserTeam applicationUserTeam = GetCurrentMembershipForApplicationUser(applicationUser);
             
         }
-        public async Task LoadTeamRelationsAsync(Team team)
+        private ApplicationUserTeam GetCurrentMembershipForApplicationUser(ApplicationUser applicationUser)
+        {
+            try
+            {
+                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
+            }
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("No Membership could be found");
+            }
+        }
+        private ApplicationUserTeam GetTeamMembershiForApplicationUser(ApplicationUser applicationUser, Team team)
+        {
+            try
+            {
+                return applicationUser.Memberships.Single(x => x.SelectionStatus == UserSelectionStatus.Selected);
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException("No Membership could be found");
+            }
+        }
+        private async Task LoadTeamRelationsAsync(Team team)
         {
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();

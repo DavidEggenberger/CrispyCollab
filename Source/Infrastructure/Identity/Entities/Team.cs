@@ -16,6 +16,16 @@ namespace Infrastructure.Identity
         public string Name { get; set; }
         public Guid SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
-        public List<ApplicationUserTeam> Members { get; set; }   
+        public IReadOnlyCollection<ApplicationUserTeam> Members => members.AsReadOnly();
+        private List<ApplicationUserTeam> members = new List<ApplicationUserTeam>();
+        public void AddMember(ApplicationUser applicationUser, TeamRole teamRole)
+        {
+            members.Add(new ApplicationUserTeam
+            {
+                Role = teamRole,
+                User = applicationUser,
+                
+            });
+        }
     }
 }

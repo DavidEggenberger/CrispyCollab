@@ -35,7 +35,7 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> CancelSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            Team selectedTeam = (await teamManager.GetSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             identificationDbContext.Entry(selectedTeam).Reference(s => s.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(s => s.SubscriptionPlan).Load();
             var service = new SubscriptionService();
@@ -53,7 +53,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            Team selectedTeam = (await teamManager.GetSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
@@ -102,7 +102,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team selectedTeam = (await teamManager.GetCurrentSelectedTeamForApplicationUserAsync(applicationUser)).Value;
+            Team selectedTeam = (await teamManager.GetSelectedTeamForApplicationUserAsync(applicationUser)).Value;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();

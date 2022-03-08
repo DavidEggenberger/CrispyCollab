@@ -14,7 +14,8 @@ namespace Infrastructure.Identity
         public bool IsOnline { get; set; }
         public int TabsOpen { get; set; }
         public string StripeCustomerId { get; set; }
-        public List<ApplicationUserTeam> Memberships { get; set; }
+        public IReadOnlyCollection<ApplicationUserTeam> Memberships => memberships.AsReadOnly();
+        private List<ApplicationUserTeam> memberships = new List<ApplicationUserTeam>();
         public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }
         public virtual ICollection<IdentityUserClaim<Guid>> Claims { get; set; }
         public virtual ICollection<IdentityUserToken<Guid>> Tokens { get; set; }
