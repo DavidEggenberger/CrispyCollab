@@ -18,7 +18,7 @@ namespace Infrastructure.Identity
         public string Name { get; set; }
         public Guid SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
-        public Guid CreatorId { get; set; }
+        public Guid? CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
         public List<ApplicationUser> SelectedByUsers { get; set; }
 

@@ -28,6 +28,11 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
+        public async Task CreateUserAsnyc(ApplicationUser applicationUser)
+        {
+            identificationDbContext.Users.Add(applicationUser);
+            await identificationDbContext.SaveChangesAsync();
+        }
         public async Task<ApplicationUser> FindUserAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);

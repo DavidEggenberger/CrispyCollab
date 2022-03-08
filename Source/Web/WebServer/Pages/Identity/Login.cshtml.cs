@@ -32,7 +32,7 @@ namespace WebServer.Pages.Identity
 
         public ActionResult OnPostExternalLogin([FromForm] string provider, string returnUrl)
         {
-            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { returnUrl });
+            var redirectUrl = Url.Action("ExternalLoginCallback", "AccountCallback", new { returnUrl });
             var properties = SignInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
