@@ -28,6 +28,10 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
+        public async Task<List<ApplicationUserTeam>> GetInvitedMemberships(ApplicationUser applicationUser)
+        {
+            return applicationUser.Memberships.Where(x => x.Role == TeamRole.Invited).ToList(); 
+        }
         public async Task<ApplicationUser> FindUserAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);

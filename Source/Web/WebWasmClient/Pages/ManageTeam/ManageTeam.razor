@@ -14,13 +14,9 @@
 </div>
 
 @code{
-    string s = string.Empty;
+
     protected override async Task OnInitializedAsync()
     {
-        HubConnection.On("UpdateUI", () =>
-        {
-            s = "David";
-            StateHasChanged();
-        });
+        
     }
 }

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.Team.DTOs.Enums
+namespace Common.Identity.Entities
 {
-    public enum TeamRoleDTO
+    internal class SubscriptionPlanDTO
     {
-        Admin,
-        User,
-        Invited
     }
 }

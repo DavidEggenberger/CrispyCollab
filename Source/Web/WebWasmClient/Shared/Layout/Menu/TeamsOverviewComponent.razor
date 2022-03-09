@@ -24,11 +24,21 @@
             {
                 foreach(var tenant in teams)
                 {
-                    if(tenant.Id == User.GetTeamId())
+                    if (User.HasTeamClaims())
                     {
-                        <div class="Group Selected">
-                            <h6 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
-                        </div>
+                        if(tenant.Id == User.GetTeamId())
+                        {
+                            <div class="Group Selected">
+                                <h6 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="Group">
+                                <h6>@tenant.Name</h6>
+                                <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
+                            </div>
+                        }       
                     }
                     else
                     {
@@ -36,7 +46,7 @@
                             <h6>@tenant.Name</h6>
                             <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
                         </div>
-                    }       
+                    }
                 }
             }
             else
