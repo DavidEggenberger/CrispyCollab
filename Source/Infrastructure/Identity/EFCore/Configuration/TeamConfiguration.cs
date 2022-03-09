@@ -19,9 +19,8 @@ namespace Infrastructure.Identity.EFCore.Configuration
 
             builder.HasMany(x => x.SelectedByUsers)
                 .WithOne(x => x.SelectedTeam)
-                .HasForeignKey(x => x.SelectedTeamId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
 
             builder.Navigation(b => b.Members)
                 .HasField("members")

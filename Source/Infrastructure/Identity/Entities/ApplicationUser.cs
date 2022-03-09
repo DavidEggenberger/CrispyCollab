@@ -15,7 +15,6 @@ namespace Infrastructure.Identity
         public bool IsOnline { get; set; }
         public int TabsOpen { get; set; }
         public string StripeCustomerId { get; set; }
-        public Guid SelectedTeamId { get; set; }
         public Team SelectedTeam { get; set; }
         public List<Team> CreatedTeams { get; set; }
 

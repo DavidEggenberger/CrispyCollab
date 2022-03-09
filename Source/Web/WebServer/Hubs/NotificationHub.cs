@@ -22,7 +22,7 @@ namespace WebServer.Hubs
         public override async Task OnConnectedAsync()
         {
             ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
-            ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.TeamId == appUser.SelectedTeamId);
+            ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.TeamId == appUser.SelectedTeam.Id);
             await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
             if (appUser.IsOnline is false)
             {
@@ -50,7 +50,7 @@ namespace WebServer.Hubs
             {
                 appUser.IsOnline = false;
                 await applicationUserManager.UpdateAsync(appUser);
-                ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.TeamId == appUser.SelectedTeamId);
+                ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.TeamId == appUser.SelectedTeam.Id);
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }

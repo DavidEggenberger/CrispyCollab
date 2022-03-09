@@ -75,7 +75,7 @@ namespace Infrastructure.Identity.Services
             ApplicationUserTeam applicationUserTeam;
             try
             {
-                applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeamId);
+                applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
             }
             catch (Exception ex)
             {
