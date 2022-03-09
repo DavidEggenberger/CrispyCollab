@@ -1,11 +1,11 @@
-﻿using Common.Identity.Team.DTOs.Enums;
+﻿using Common.Identity.UserTeam;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.ApplicationUser
+namespace Common.Identity.User
 {
     public class TeamUserDTO
     {

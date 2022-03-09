@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.User
 {
-    internal class UserDTO
+    public class UserDTO
     {
     }
 }

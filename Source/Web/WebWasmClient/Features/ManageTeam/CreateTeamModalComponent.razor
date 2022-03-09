@@ -1,11 +1,7 @@
 ﻿<div>
     <h3>Create a new Team</h3>
-    <EditForm Model=@team Context="editContext">
-        <FluentValidationValidator />
         <div class="form-group">
             <label>Name</label>
-            <OnInputBindInputText @bind-Value="team.Name"/>
-            <ValidationMessage For="() => team.Name" />
         </div>
         <div class="form-group">
             <div class="CenterContainer">
@@ -18,21 +14,15 @@
                 <button @onclick="async() => await CreateGroupAsync()">Create</button>
             </div>         
         </div>
-    </EditForm>
 </div>
 
 
 @code{
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
-    private EditContext editContext;
-    TeamAuthenticationDTO team = new TeamAuthenticationDTO();
     private IBrowserFile browserFile;
     private string picturePreview;
     private string base64;
-    protected override async Task OnInitializedAsync()
-    {
-        editContext = new EditContext(team);
-    }
+
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         IBrowserFile imgFile = e.File;

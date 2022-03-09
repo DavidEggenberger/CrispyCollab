@@ -17,7 +17,7 @@ namespace WebWasmClient.Services
             httpClient = httpClientFactory.CreateClient("authorizedClient");
             httpClient.BaseAddress = new Uri(httpClient.BaseAddress.ToString());
         }
-        public async Task<T> GetFromAPI<T>(string route)
+        public async Task<T> GetFromAPIAsync<T>(string route)
         {
             HttpResponseMessage httpResponseMessage = await httpClient.GetAsync("/api" + route);
             if(httpResponseMessage.IsSuccessStatusCode)
@@ -39,7 +39,7 @@ namespace WebWasmClient.Services
             return default;
         }
 
-        public async Task<T> PostToAPI<T>(string route, T t)
+        public async Task<T> PostToAPIAsync<T>(string route, T t)
         {
             HttpResponseMessage httpResponseMessage = await httpClient.PostAsJsonAsync("/api" + route, t, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             if (httpResponseMessage.IsSuccessStatusCode)

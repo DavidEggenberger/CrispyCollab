@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.EnvironmentService
+namespace Common.Identity.UserTeam
 {
-    public enum HostingEnvironment
+    public enum TeamRoleDTO
     {
-        Server,
-        WebAssembly
+        Admin,
+        User,
+        Invited
     }
 }

@@ -14,9 +14,9 @@
 </div>
 
 @code{
-
+    private TeamAdminInfoDTO teamAdminInfo;
     protected override async Task OnInitializedAsync()
     {
-        
+        teamAdminInfo = await httpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/");
     }
 }

@@ -1,5 +1,5 @@
-﻿using Common.Identity.ApplicationUser;
-using Common.Identity.Team.DTOs.Enums;
+﻿using Common.Identity.Team.DTOs.Enums;
+using Common.Identity.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.DTOs.TeamDTOs
 {
-    public class TeamExtendedDTO
+    public class TeamAdminInfoDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

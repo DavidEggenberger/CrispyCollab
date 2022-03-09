@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Aggregates\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.4" />
     <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.4" />
     <PackageReference Include="AuthPermissions.AspNetCore" Version="2.2.0" />

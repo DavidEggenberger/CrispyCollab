@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebServer.Hubs;
+using WebServer.Mappings.Identity;
 
 namespace WebServer.Controllers.Identity.TeamControllers
 {
@@ -32,6 +33,13 @@ namespace WebServer.Controllers.Identity.TeamControllers
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
             this.notificationHubContext = notificationHubContext;
+        }
+
+        [HttpGet]
+        public async Task<TeamAdminInfoDTO> GetSelectedTeamForUser()
+        {
+            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            return team.MapToTeamInfoAdminDTO();
         }
 
         [HttpPost("invite")]

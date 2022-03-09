@@ -41,6 +41,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebServer.Hubs;
+using WebServer.Services;
 
 namespace WebServer
 {
@@ -109,6 +110,9 @@ namespace WebServer
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
+            #endregion
+            #region Mapping
+            services.AddScoped<MappingService>();
             #endregion
             #region CQRS
             services.AddCQRS(GetType().Assembly);

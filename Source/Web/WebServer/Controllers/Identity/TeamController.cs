@@ -34,7 +34,7 @@ namespace WebServer.Controllers.Identity
         public async Task<ActionResult<TeamDTO>> GetSelectedTeamForUser()
         {
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            return Ok(await team.MapToTeamExtendedDTO());
+            return Ok(team.MapToTeamDTO());
         }
 
         [HttpGet("all")]

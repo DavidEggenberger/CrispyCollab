@@ -1,4 +1,5 @@
 ﻿using Common.Identity.Team.DTOs.Enums;
+using Common.Identity.UserTeam;
 using System;
 using System.Collections.Generic;
 using System.Linq;
