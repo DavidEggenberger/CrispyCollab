@@ -37,23 +37,24 @@ namespace WebServer.Controllers.Identity
                     Email = info.Principal.FindFirst(claim => claim.Type == ClaimTypes.Email).Value,
                     PictureUri = info.Principal.Claims.Where(c => c.Type == "picture").First().Value
                 };
-                await userManager.CreateUserAsnyc(_user);
-                
-                //if (result.Succeeded)
-                //{
-                //    result = await userManager.AddLoginAsync(_user, info);
-                //    await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
 
-                //    var stripeCustomer = await new CustomerService().CreateAsync(new CustomerCreateOptions { Email = _user.Email });
-                //    _user.StripeCustomerId = stripeCustomer.Id;
-                //    await userManager.UpdateAsync(_user);
+                var result = await userManager.CreateAsync(_user);
 
-                //    return LocalRedirect("/");
-                //}
-                //if (result.Succeeded is false)
-                //{
-                //    return RedirectToPage("/Error", new { IdentityErrors = result.Errors });
-                //}
+                if (result.Succeeded)
+                {
+                    result = await userManager.AddLoginAsync(_user, info);
+                    await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
+
+                    var stripeCustomer = await new CustomerService().CreateAsync(new CustomerCreateOptions { Email = _user.Email });
+                    _user.StripeCustomerId = stripeCustomer.Id;
+                    await userManager.UpdateAsync(_user);
+
+                    return LocalRedirect("/");
+                }
+                if (result.Succeeded is false)
+                {
+                    return RedirectToPage("/Error", new { IdentityErrors = result.Errors });
+                }
             }
 
             string pictureUri = info.Principal.Claims.Where(c => c.Type == "picture").First().Value;

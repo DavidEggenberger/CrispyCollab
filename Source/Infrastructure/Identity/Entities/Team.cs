@@ -1,6 +1,7 @@
 ﻿using Domain.SharedKernel;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types;
+using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Types.Shared;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -24,6 +25,21 @@ namespace Infrastructure.Identity
 
         private List<ApplicationUserTeam> members = new List<ApplicationUserTeam>();
         public IReadOnlyCollection<ApplicationUserTeam> Members => members.AsReadOnly();
+        private Team() { }
+        public Team(ApplicationUser creator, Subscription subscription, string name)
+        {
+            Creator = creator;
+            Name = name;
+            members = new List<ApplicationUserTeam>
+            {
+                new ApplicationUserTeam
+                {
+                    Role = TeamRole.Admin,
+                    User = creator
+                }
+            };
+            Subscription = subscription;
+        }
         public void AddMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
             if(members.Any(m => m.UserId == applicationUser.Id) is false)
@@ -36,11 +52,15 @@ namespace Infrastructure.Identity
             }
             else
             {
-                throw new IdentityOperationException("");
+                throw new IdentityOperationException("The user is already a member");
             }
         }
         public void ChangeRoleOfMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
+            if(Creator == applicationUser && teamRole != TeamRole.Admin)
+            {
+                throw new IdentityOperationException("The Creator's role cant be changed from admin");
+            }
             ApplicationUserTeam applicationUserTeam;
             try
             {
@@ -54,18 +74,11 @@ namespace Infrastructure.Identity
         }
         public void RemoveMember(ApplicationUser applicationUser)
         {
-            try
+            if(applicationUser.Id == Creator.Id)
             {
-                members.Remove(members.Single(m => m.UserId == applicationUser.Id));
+                throw new IdentityOperationException("The Creator of the Team cannot be removed");
             }
-            catch(Exception ex)
-            {
-                throw new IdentityOperationException("");
-            }
-        }
-        public void SetCreator(ApplicationUser applicationUser)
-        {
-            Creator = applicationUser;
+            members.Remove(members.Single(m => m.UserId == applicationUser.Id));
         }
     }
 }

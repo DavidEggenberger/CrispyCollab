@@ -4,7 +4,7 @@
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
-    @if(User.IsTeamMember())
+    @if(User.HasTeamClaims())
     {
         <NavLink href='@("/" + User.GetTeamName())' Match="NavLinkMatch.All" class="NavElement">
             <h5>Pipelines</h5>

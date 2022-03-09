@@ -11,17 +11,18 @@ namespace WebWasmClient.Authentication
         {
             return claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "TeamRole")?.Value == TeamRoleDTO.Admin.ToString();
         }
-        public static bool IsTeamMember(this ClaimsPrincipal claimsPrincipal)
+        public static bool HasTeamClaims(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal.HasClaim(x => x.Type == "TeamId") && claimsPrincipal.HasClaim(x => x.Type == "TeamName");
         }
         public static string GetTeamName(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.FindFirst("TeamName").Value;
+            return claimsPrincipal.FindFirst("TeamName")?.Value;
         }
-        public static Guid GetTeamId(this ClaimsPrincipal claimsPrincipal)
+        public static Guid? GetTeamId(this ClaimsPrincipal claimsPrincipal)
         {
-            return new Guid(claimsPrincipal.FindFirst("TeamId").Value);
+            string teamId = claimsPrincipal.FindFirst("TeamId")?.Value;
+            return teamId == null ? null : new Guid(teamId);
         }
     }
 }

@@ -114,17 +114,14 @@ namespace Infrastructure.Identity.Services
             {
                 throw new IdentityOperationException("The Team name is taken");
             }
-            Team team = new Team
+            var Subscription = new Subscription
             {
-                Creator = applicationUser,
-                Name = name,
-                Subscription = new Subscription
-                {
-                    SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
-                    Status = SubscriptionStatus.Active
-                }
+                SubscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free),
+                Status = SubscriptionStatus.Active
             };
-            team.AddMember(applicationUser, TeamRole.Admin);
+            Team team = new Team(applicationUser, Subscription, name);
+            applicationUser.SelectedTeam = team;
+            identificationDbContext.Teams.Add(team);    
             await identificationDbContext.SaveChangesAsync();
         }
         public async Task UpdateTeamNameAsync(Team team, string name)

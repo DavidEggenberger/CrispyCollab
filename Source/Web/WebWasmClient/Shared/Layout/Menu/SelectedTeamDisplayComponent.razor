@@ -1,6 +1,6 @@
 ﻿<div class="CurrentTenantDisplayComponent">
     <div class="LogoNameSection">
-        @if(User.IsTeamMember())
+        @if(User.HasTeamClaims())
         {
             <h4>@User.GetTeamName()</h4>
             @if(User.IsInRole("Admin"))

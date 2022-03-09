@@ -28,11 +28,6 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public async Task CreateUserAsnyc(ApplicationUser applicationUser)
-        {
-            identificationDbContext.Users.Add(applicationUser);
-            await identificationDbContext.SaveChangesAsync();
-        }
         public async Task<ApplicationUser> FindUserAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
@@ -70,25 +65,21 @@ namespace Infrastructure.Identity.Services
         {
             return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).ToList();
         }
-        public async Task<List<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
+        public async Task<IEnumerable<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
-            ApplicationUserTeam applicationUserTeam;
-            try
+            if(applicationUser.SelectedTeam != null)
             {
-                applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
+                ApplicationUserTeam applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
+                List<Claim> claims = new List<Claim>
+                {
+                    new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
+                    new Claim("TeamName", applicationUserTeam.Team.Name),
+                    new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),
+                    new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
+                };
+                return claims;
             }
-            catch (Exception ex)
-            {
-                throw new IdentityOperationException();
-            }
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
-                new Claim("TeamName", applicationUserTeam.Team.Name),
-                new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),
-                new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
-            };
-            return claims;
+            return Array.Empty<Claim>();
         }
         private async Task LoadApplicationUserAsync(ApplicationUser applicationUser)
         {
