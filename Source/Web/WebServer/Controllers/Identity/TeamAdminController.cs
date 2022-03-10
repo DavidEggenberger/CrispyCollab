@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebServer.Hubs;
-using WebServer.Mappings.Identity;
+using WebServer.Mappings;
 
 namespace WebServer.Controllers.Identity.TeamControllers
 {
@@ -36,7 +36,7 @@ namespace WebServer.Controllers.Identity.TeamControllers
         }
 
         [HttpGet]
-        public async Task<TeamAdminInfoDTO> GetSelectedTeamForUser()
+        public async Task<TeamAdminInfoDTO> GetAdminInformationForTeam()
         {
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
             return team.MapToTeamInfoAdminDTO();
@@ -61,22 +61,20 @@ namespace WebServer.Controllers.Identity.TeamControllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TeamDTO>> DeleteTeam(Guid id)
+        public async Task<TeamDTO> DeleteTeam(Guid id)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamByIdAsync(id);
             await teamManager.DeleteTeam(team);
             await signInManager.RefreshSignInAsync(applicationUser);
-            return Ok();
         }
 
         [HttpDelete("removeMember/{id}")]
-        public async Task<ActionResult<TeamDTO>> RemoveMember(Guid id)
+        public async Task<TeamDTO> RemoveMember(Guid id)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(id);
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
             await teamManager.RemoveMemberAsync(team, applicationUser);
-            return Ok();
         }
     }
 }
