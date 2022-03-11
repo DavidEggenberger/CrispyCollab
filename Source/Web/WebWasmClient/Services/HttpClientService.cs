@@ -59,6 +59,11 @@ namespace WebWasmClient.Services
             }
             return default;
         }
+
+        public void AddDefaultHeader(string name, string value)
+        {
+            httpClient.DefaultRequestHeaders.Add(name, value); 
+        }
     }
     public class HttpClientServiceException : Exception
     {

@@ -14,5 +14,6 @@
     protected override async Task OnParametersSetAsync()
     {
         User = (await AuthenticationState).User;
+        //HttpClientService.AddDefaultHeader("X-XSRF-TOKEN", await JSRuntime.InvokeAsync<string>("getAntiForgeryToken"));
     }
 }

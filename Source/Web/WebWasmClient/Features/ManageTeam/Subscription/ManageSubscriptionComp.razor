@@ -17,9 +17,9 @@
                 <div class="SubscriptionPlan">
                     <h5>@subscriptionPlan.Name</h5>
                     <h6>@subscriptionPlan.Description</h6>
+                    <button @onclick='() => NavigationManager.NavigateTo($"/api/stripe/subscribe/{subscriptionPlan.PlanType}", true)'>Buy Subscription</button>
                 </div>
             }
-            
         }
     </div>
 </div>

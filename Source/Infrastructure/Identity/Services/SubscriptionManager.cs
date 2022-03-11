@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Subscription = Infrastructure.Identity.Entities.Subscription;
 
 namespace Infrastructure.Identity.Services
 {
@@ -19,15 +20,15 @@ namespace Infrastructure.Identity.Services
             this.identificationDbContext = identificationDbContext;
             this.subscriptionService = new SubscriptionService();
         }
-        public Entities.Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)
+        public Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)
         {
-            return new Entities.Subscription
+            return new Subscription
             {
                 SubscriptionPlan = subscriptionPlan,
                 PeriodEnd = dateTime
             };
         }
-        public Task<Entities.Subscription> FindSubscriptionByStripeSubscriptionId(string id)
+        public Task<Subscription> FindSubscriptionByStripeSubscriptionId(string id)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace Infrastructure.Identity.Services
                 throw new IdentityOperationException();
             }
         }
-        public async Task SetSubscriptionForTeam(Entities.Subscription subscriptionPlan, Team team)
+        public async Task SetSubscriptionForTeam(Subscription subscriptionPlan, Team team)
         {
             team.Subscription = subscriptionPlan;
             await identificationDbContext.SaveChangesAsync();
@@ -50,6 +51,15 @@ namespace Infrastructure.Identity.Services
         public List<SubscriptionPlan> GetAllSubscriptionPlans()
         {
             return identificationDbContext.SubscriptionPlans.ToList();
+        }
+        public async Task CancelSubscriptionAsync(Subscription subscription)
+        {
+            var cancelOptions = new SubscriptionCancelOptions
+            {
+                InvoiceNow = false,
+                Prorate = true
+            };
+            await subscriptionService.CancelAsync(subscription.StripeSubscriptionId, cancelOptions);
         }
     }
 }

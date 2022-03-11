@@ -103,6 +103,7 @@ namespace WebServer
             services.AddSingleton<IUserIdProvider, UserIdProvider>();
             services.AddAntiforgery(options =>
             {
+                options.FormFieldName = "AntiforgeryToken";
                 options.HeaderName = "X-XSRF-TOKEN";
                 options.Cookie.Name = "__Host-X-XSRF-TOKEN";
                 options.Cookie.SameSite = SameSiteMode.Strict;

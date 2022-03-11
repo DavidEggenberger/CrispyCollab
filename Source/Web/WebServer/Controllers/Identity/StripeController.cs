@@ -35,31 +35,20 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> CancelSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-            Team selectedTeam = applicationUser.SelectedTeam;
-            identificationDbContext.Entry(selectedTeam).Reference(s => s.Subscription).Load();
-            identificationDbContext.Entry(selectedTeam.Subscription).Reference(s => s.SubscriptionPlan).Load();
-            var service = new SubscriptionService();
-            var cancelOptions = new SubscriptionCancelOptions
-            {
-                InvoiceNow = false,
-                Prorate = false,
-            };
-            Stripe.Subscription subscription = await service.CancelAsync(selectedTeam.Subscription.StripeSubscriptionId, cancelOptions);
+            await subscriptionManager.CancelSubscriptionAsync(applicationUser.SelectedTeam.Subscription);
             return Ok();
         }
-
-        [HttpPost("Subscribe/Premium")]
+        
+        [HttpGet("Subscribe/Premium")]
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             Team selectedTeam = applicationUser.SelectedTeam;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
-            identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
-            identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
             if(selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Premium)
             {
-                return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
+                return LocalRedirect("/ManageTeam");
             }
             var domain = "https://localhost:44333";
 
@@ -79,8 +68,8 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/Identity/Stripe/Success",
-                CancelUrl = domain + "/Identity/Stripe/Cancel",
+                SuccessUrl = domain + "/ManageTeam",
+                CancelUrl = domain + "/ManageTeam",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
                     Metadata = new Dictionary<string, string>
@@ -97,18 +86,16 @@ namespace WebServer.Controllers.Identity
             return new StatusCodeResult(303);
         }
 
-        [HttpPost("Subscribe/Enterprise")]
+        [HttpGet("Subscribe/Enterprise")]
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             Team selectedTeam = applicationUser.SelectedTeam;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
-            identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
-            identificationDbContext.Entry(selectedTeam.Subscription).Reference(x => x.SubscriptionPlan).Load();
             if (selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Enterprise)
             {
-                return LocalRedirect("/Identity/TeamManagement/SubscriptionPlan");
+                return LocalRedirect("/ManageTeam");
             }
             var domain = "https://localhost:44333";
 
@@ -128,8 +115,8 @@ namespace WebServer.Controllers.Identity
                     }
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "/Identity/Stripe/Success",
-                CancelUrl = domain + "/Identity/Stripe/Cancel",
+                SuccessUrl = domain + "/ManageTeam",
+                CancelUrl = domain + "/ManageTeam",
                 SubscriptionData = new SessionSubscriptionDataOptions
                 {
                     Metadata = new Dictionary<string, string>
@@ -147,7 +134,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [IgnoreAntiforgeryToken]
-        [HttpPost("webhooks")]
+        [HttpGet("webhooks")]
         public async Task<IActionResult> Index()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
@@ -207,9 +194,8 @@ namespace WebServer.Controllers.Identity
             }
         }
 
-        [IgnoreAntiforgeryToken]
         [Route("create-portal-session")]
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> Create()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
