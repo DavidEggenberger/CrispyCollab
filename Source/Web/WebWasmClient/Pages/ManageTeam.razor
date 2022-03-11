@@ -4,19 +4,24 @@
 <div class="ManageTeamPageContainer">
     <h3>Manage your Team @User.GetTeamName()</h3>
     <div class="ManageTeamGrid">
-        <div>
-            <ManageMembersComp/>
-        </div>
-        <div>
-            <ManageMembersComp/>
-        </div>
+        @if(loading is false)
+        {
+            <div>
+                <ManageMembersComp Members="teamAdminInfo.Members"/>
+            </div>
+            <div>
+                <ManageSubscriptionComp Subscription="teamAdminInfo.Subscription"/>
+            </div>
+        }       
     </div>
 </div>
 
 @code{
+    private bool loading = true;
     private TeamAdminInfoDTO teamAdminInfo;
     protected override async Task OnInitializedAsync()
     {
-        teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/");
+        teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
+        loading = false;
     }
 }

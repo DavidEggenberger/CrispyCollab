@@ -16,8 +16,8 @@ namespace WebServer.Mappings
                 .ForMember(x => x.Role, opt => opt.MapFrom(x => x.Role));
             CreateMap<Team, TeamDTO>();
             CreateMap<Team, TeamAdminInfoDTO>()
-                .ForMember(x => x.SubscriptionStatus, opt => opt.MapFrom(x => x.Subscription.Status))
-                .ForMember(x => x.SubscriptionPlanType, opt => opt.MapFrom(x => x.Subscription.SubscriptionPlan.PlanType))
+                .ForPath(x => x.Subscription.SubscriptionStatus, opt => opt.MapFrom(x => x.Subscription.Status))
+                .ForPath(x => x.Subscription.SubscriptionPlanType, opt => opt.MapFrom(x => x.Subscription.SubscriptionPlan.PlanType))
                 .ForMember(x => x.Members, opt => opt.MapFrom(x => x.Members));
         }
     }

@@ -1,4 +1,4 @@
-﻿@*<h4>Manage the Users of the Team</h4>
+﻿<h4>Manage the Users of the Team</h4>
 
 <table>
     <thead>
@@ -10,16 +10,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var user in Team.Members)
+        @foreach(var user in Members)
         {
             <tr>
-                <td>@user.UserName</td>
+                <td>@user.Name</td>
                 <td>@user.Email</td>
                 <td>@user.Role</td>
                 <td>Do sth</td>
             </tr>
         }
     </tbody>
-</table>*@
+</table>
 
 <button @onclick="() => Modal.Show<InviteMemberComp>()">Invite Users to Team</button>
+
+@code{
+    [Parameter] public List<MemberDTO> Members { get; set; }
+}
