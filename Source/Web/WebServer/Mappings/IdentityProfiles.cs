@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Common.Identity.DTOs.TeamDTOs;
+using Common.Identity.Subscription;
 using Common.Identity.Team;
 using Infrastructure.Identity;
+using Infrastructure.Identity.Entities;
 using System.Linq;
 
 namespace WebServer.Mappings
@@ -20,6 +22,7 @@ namespace WebServer.Mappings
                 .ForPath(x => x.Subscription.SubscriptionStatus, opt => opt.MapFrom(x => x.Subscription.Status))
                 .ForPath(x => x.Subscription.SubscriptionPlanType, opt => opt.MapFrom(x => x.Subscription.SubscriptionPlan.PlanType))
                 .ForMember(x => x.Members, opt => opt.MapFrom(x => x.Members));
+            CreateMap<SubscriptionPlan, SubscriptionPlanDTO>();
         }
     }
 }

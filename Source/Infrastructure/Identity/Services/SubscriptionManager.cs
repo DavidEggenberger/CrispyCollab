@@ -43,5 +43,13 @@ namespace Infrastructure.Identity.Services
             team.Subscription = subscriptionPlan;
             await identificationDbContext.SaveChangesAsync();
         }
+        public Task<SubscriptionPlan> FindByIdAsync(Guid id)
+        {
+            return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.Id == id);
+        }
+        public List<SubscriptionPlan> GetAllSubscriptionPlans()
+        {
+            return identificationDbContext.SubscriptionPlans.ToList();
+        }
     }
 }
