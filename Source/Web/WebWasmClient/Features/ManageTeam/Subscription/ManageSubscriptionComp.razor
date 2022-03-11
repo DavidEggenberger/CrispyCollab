@@ -1,7 +1,27 @@
 ﻿<div class="ManageSubscriptionCompContainer">
+    <div class="SubscriptionStatusContainer">
 
+    </div>
+    <div class="SubscriptionPlanContainer">
+        @foreach(var subscriptionPlan in subscriptionPlans)
+        {
+            if(subscriptionPlan.PlanType == CurrentSubscription.SubscriptionPlanType)
+            {
+                <div class="SubscriptionPlan" style="background-color: orange;">
+                    <h5>@subscriptionPlan.Name</h5>
+                    <h6>@subscriptionPlan.Description</h6>
+                </div>
+            }
+            else
+            {
+                <div class="SubscriptionPlan">
+                    <h5>@subscriptionPlan.Name</h5>
+                    <h6>@subscriptionPlan.Description</h6>
+                </div>
+            }
+            
+        }
+    </div>
 </div>
-@Subscription.SubscriptionPlanType
 
-@Subscription.SubscriptionStatus
 

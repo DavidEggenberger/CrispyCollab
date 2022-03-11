@@ -9,6 +9,7 @@ namespace Common.Identity.Subscription
 {
     public class SubscriptionDTO
     {
+        public Guid Id { get; set; }
         public SubscriptionStatusDTO SubscriptionStatus { get; set; }
         public SubscriptionPlanTypeDTO SubscriptionPlanType { get; set; }
     }
