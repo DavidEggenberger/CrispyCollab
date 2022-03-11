@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.User
+namespace Common.Identity.Team
 {
-    public class TeamUserDTO
+    public class MemberDTO
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string ProfilePictureUri { get; set; }
         public TeamRoleDTO Role { get; set; }
+        public string MyProperty { get; set; }
     }
 }

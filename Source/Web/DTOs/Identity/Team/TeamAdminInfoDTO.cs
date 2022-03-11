@@ -1,5 +1,5 @@
-﻿using Common.Identity.Team.DTOs.Enums;
-using Common.Identity.User;
+﻿using Common.Identity.Team;
+using Common.Identity.Team.DTOs.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Common.Identity.DTOs.TeamDTOs
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string IconUrl { get; set; }
-        public List<TeamUserDTO> Members { get; set; }
+        public List<MemberDTO> Members { get; set; }
         public SubscriptionStatusDTO SubscriptionStatus { get; set; }
         public SubscriptionPlanTypeDTO SubscriptionPlanType { get; set; }
     }

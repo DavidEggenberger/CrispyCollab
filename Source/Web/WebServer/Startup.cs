@@ -109,22 +109,15 @@ namespace WebServer
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
             #endregion
-            #region CQRS
+            services.AddAutoMapper(GetType().Assembly);
             services.AddCQRS(GetType().Assembly);
-            #endregion
-            #region Stripe
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
-            #endregion
-            #region EMail
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
-            #endregion
-            #region EFCore 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
-            #endregion
             #region Identity
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();

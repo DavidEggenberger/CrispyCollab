@@ -1,5 +1,4 @@
-﻿using Common.DTOs.Identity.Team;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +9,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Common.Identity.DTOs.TeamDTOs;
 using WebServer.Mappings;
+using System.Linq;
+using AutoMapper;
 
 namespace WebServer.Controllers.Identity
 {
@@ -22,36 +23,38 @@ namespace WebServer.Controllers.Identity
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SignInManager<ApplicationUser> signInManager;
-        public TeamController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager)
+        private readonly IMapper mapper;
+        public TeamController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IMapper mapper)
         {
             this.teamManager = teamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<TeamDTO> GetSelectedTeamForUser()
         {
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            return team.MapToTeamDTO();
+            return mapper.Map<TeamDTO>(team);
         }
 
         [HttpGet("all")]
-        public async Task<List<TeamDTO>> GetAllTeamsForUser()
+        public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             List<ApplicationUserTeam> teamMemberships = applicationUserManager.GetAllTeamMemberships(applicationUser);
-            return Ok(await teamMemberships.MapToListTeamDTO());
+            return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
         }
 
         [HttpPost]
-        public async Task<ActionResult<TeamDTO>> CreateTeam(CreateTeamDto createTeamDto)
+        public async Task<ActionResult<TeamDTO>> CreateTeam(TeamDTO team)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            await teamManager.CreateNewTeamAsync(applicationUser, createTeamDto.Name);
+            await teamManager.CreateNewTeamAsync(applicationUser, team.Name);
             await signInManager.RefreshSignInAsync(applicationUser);
-            return CreatedAtAction("CreateTeam", createTeamDto);
+            return CreatedAtAction("CreateTeam", team);
         }
 
         [HttpGet("select/{TeamId}")]
