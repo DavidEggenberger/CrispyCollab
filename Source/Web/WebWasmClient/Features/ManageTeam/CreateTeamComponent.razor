@@ -1,27 +1,34 @@
 ﻿<div>
     <h3>Create a new Team</h3>
-        <div class="form-group">
-            <label>Name</label>
-        </div>
-        <div class="form-group">
-            <div class="CenterContainer">
-                @if(picturePreview != null)
-                {
-                    <img src="@picturePreview"/>
-                }
-                <label id="SelectFileLabel" for="InputFile">Upload Icon</label>
-                <InputFile id="InputFile" OnChange="@LoadFiles"/>
-                <button @onclick="async() => await CreateGroupAsync()">Create</button>
-            </div>         
-        </div>
+    <div class="form-group">
+        <label>Name</label>
+        <input />
+    </div>
+    <div class="form-group">
+        <div class="CenterContainer">
+            @if(picturePreview != null)
+            {
+                <img src="@picturePreview"/>
+            }
+            <label id="SelectFileLabel" for="InputFile">Upload Icon</label>
+            <InputFile id="InputFile" OnChange="@LoadFiles"/>
+            <button @onclick="async() => await CreateGroupAsync()">Create</button>
+        </div>         
+    </div>
 </div>
 
 
 @code{
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+    private TeamDTO team;
     private IBrowserFile browserFile;
     private string picturePreview;
     private string base64;
+
+    protected override async Task OnInitializedAsync()
+    {
+        team = new TeamDTO();
+    }
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
@@ -34,7 +41,7 @@
     }
     public async Task CreateGroupAsync()
     {
-        await httpClientService.PostToAPI("/team", new CreateTeamDto { Name = team.Name, Base64Data = base64});
+        await httpClientService.PostToAPIAsync("/team", team);
         await ModalInstance.CloseAsync();
         navigationManager.NavigateTo("/", true);
     }

@@ -1,4 +1,3 @@
-using Common.EnvironmentService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -26,13 +25,11 @@ namespace WebWasmClient
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-            #region HttpClient
+            #region HttpClients
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<HttpClientService>();
             builder.Services.AddHttpClient("default", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("default"));
-            #endregion
-            #region HttpClientAuthorized
             builder.Services.AddTransient<AuthorizedHandler>();
             builder.Services.AddHttpClient("authorizedClient", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<AuthorizedHandler>();
@@ -65,7 +62,7 @@ namespace WebWasmClient
             });
             #endregion
             builder.Services.AddBlazoredModal();
-            
+
             await builder.Build().RunAsync();
         }
     }

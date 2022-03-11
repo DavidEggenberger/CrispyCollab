@@ -44,7 +44,7 @@ namespace WebServer.Controllers.Identity
         public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            List<ApplicationUserTeam> teamMemberships = applicationUserManager.GetAllTeamMemberships(applicationUser);
+            List<Team> teamMemberships = applicationUserManager.GetAllTeamsWhereUserIsMember(applicationUser);
             return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
         }
 

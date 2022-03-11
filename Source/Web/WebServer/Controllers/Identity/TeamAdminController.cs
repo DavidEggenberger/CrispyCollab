@@ -1,4 +1,5 @@
-﻿using Common.Identity.DTOs.TeamDTOs;
+﻿using AutoMapper;
+using Common.Identity.DTOs.TeamDTOs;
 using Common.Identity.Team.DTOs;
 using Common.Misc.Attributes;
 using Infrastructure.Identity;
@@ -25,21 +26,23 @@ namespace WebServer.Controllers.Identity.TeamControllers
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private IHubContext<NotificationHub> notificationHubContext;
-        public TeamAdminController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IHubContext<NotificationHub> notificationHubContext)
+        private readonly IHubContext<NotificationHub> notificationHubContext;
+        private readonly IMapper mapper;
+        public TeamAdminController(TeamManager teamManager, ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IHubContext<NotificationHub> notificationHubContext, IMapper mapper)
         {
             this.teamManager = teamManager;
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.signInManager = signInManager;
             this.notificationHubContext = notificationHubContext;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<TeamAdminInfoDTO> GetAdminInformationForTeam()
         {
             Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            return team.MapToTeamInfoAdminDTO();
+            return mapper.Map<TeamAdminInfoDTO>(team);
         }
 
         [HttpPost("invite")]
@@ -61,7 +64,7 @@ namespace WebServer.Controllers.Identity.TeamControllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<TeamDTO> DeleteTeam(Guid id)
+        public async Task DeleteTeam(Guid id)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
             Team team = await teamManager.FindTeamByIdAsync(id);
@@ -70,7 +73,7 @@ namespace WebServer.Controllers.Identity.TeamControllers
         }
 
         [HttpDelete("removeMember/{id}")]
-        public async Task<TeamDTO> RemoveMember(Guid id)
+        public async Task RemoveMember(Guid id)
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(id);
             Team team = await teamManager.FindTeamAsync(HttpContext.User);

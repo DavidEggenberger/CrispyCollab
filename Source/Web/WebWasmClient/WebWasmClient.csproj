@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <Folder Include="Features\Dashboard\" />
+    <Folder Include="Features\Pipelines\" />
+    <Folder Include="Features\Notifications\" />
   </ItemGroup>
 
   <ItemGroup>

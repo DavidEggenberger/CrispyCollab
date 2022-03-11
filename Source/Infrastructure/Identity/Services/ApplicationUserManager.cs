@@ -65,9 +65,9 @@ namespace Infrastructure.Identity.Services
                 throw new IdentityOperationException();
             }
         }
-        public List<ApplicationUserTeam> GetAllTeamMemberships(ApplicationUser applicationUser)
+        public List<Team> GetAllTeamsWhereUserIsMember(ApplicationUser applicationUser)
         {
-            return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).ToList();
+            return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).Select(x => x.Team).ToList();
         }
         public async Task<IEnumerable<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {

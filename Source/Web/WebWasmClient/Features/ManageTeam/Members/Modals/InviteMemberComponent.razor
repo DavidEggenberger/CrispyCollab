@@ -1,7 +1,4 @@
-﻿@inject HttpClientService httpClientService
-@inject NavigationManager navigationManager
-
-<div class="InviteUserToTeamContainer">
+﻿<div class="InviteUserToTeamContainer">
     <h3>Invite User through their E-Mail addresses to Team</h3>
     @foreach(var email in emailAddresses)
     {
@@ -30,7 +27,7 @@
         set
         {
             _currentMail = value;
-            valid = emailValidator.Validate(currentMail).IsValid;
+            valid = ValidationService.Validate(currentMail).IsValid;
         }
     }
     protected override async Task OnInitializedAsync()
@@ -63,7 +60,7 @@
         {
             Emails = emailAddresses
         };
-        await httpClientService.PostToAPI("/teammember/invite", inviteUserToTeamDTO);
+        await httpClientService.PostToAPIAsync("/teammember/invite", inviteUserToTeamDTO);
         await ModalInstance.CloseAsync();
     }
 }

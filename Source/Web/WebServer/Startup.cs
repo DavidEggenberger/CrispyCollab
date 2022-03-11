@@ -73,7 +73,7 @@ namespace WebServer
             }).AddFluentValidation(options =>
             {
                 options.DisableDataAnnotationsValidation = true;
-                options.RegisterValidatorsFromAssembly(typeof(Common.Misc.IAssemblyMarker).GetType().Assembly);
+                options.RegisterValidatorsFromAssembly(typeof(Common.IAssemblyMarker).Assembly);
             }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;

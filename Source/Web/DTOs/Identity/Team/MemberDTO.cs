@@ -10,6 +10,7 @@ namespace Common.Identity.Team
     public class MemberDTO
     {
         public TeamRoleDTO Role { get; set; }
-        public string MyProperty { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

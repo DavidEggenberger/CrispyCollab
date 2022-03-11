@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Text.Json;
 using System;
-using WebWasmClient.Services.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
 
@@ -59,6 +58,13 @@ namespace WebWasmClient.Services
                 throw new HttpClientServiceException(problemDetails.Detail);
             }
             return default;
+        }
+    }
+    public class HttpClientServiceException : Exception
+    {
+        public HttpClientServiceException(string message) : base(message)
+        {
+
         }
     }
 }

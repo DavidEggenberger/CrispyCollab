@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Identity.Team.DTOs.Enums;
 using System;
+using Common.Identity.UserTeam;
 
 namespace WebWasmClient.Authentication
 {

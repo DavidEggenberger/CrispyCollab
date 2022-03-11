@@ -1,5 +1,4 @@
-﻿using Common.DTOs.Identity.Team;
-using Common.Identity.DTOs.TeamDTOs;
+﻿using Common.Identity.DTOs.TeamDTOs;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,7 +17,7 @@ namespace WebWasmClient.Features.Dashboard.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Teams = await httpClientService.GetFromAPI<List<TeamDTO>>("api/Team/all");
+            Teams = await httpClientService.GetFromAPIAsync<List<TeamDTO>>("api/Team/all");
         }    
     }
 }
