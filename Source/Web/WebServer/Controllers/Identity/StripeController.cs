@@ -34,7 +34,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<IActionResult> CancelSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             Team selectedTeam = applicationUser.SelectedTeam;
             identificationDbContext.Entry(selectedTeam).Reference(s => s.Subscription).Load();
             identificationDbContext.Entry(selectedTeam.Subscription).Reference(s => s.SubscriptionPlan).Load();
@@ -52,7 +52,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             Team selectedTeam = applicationUser.SelectedTeam;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
@@ -101,7 +101,7 @@ namespace WebServer.Controllers.Identity
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             Team selectedTeam = applicationUser.SelectedTeam;
             SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
             identificationDbContext.Entry(selectedTeam).Reference(x => x.Subscription).Load();
@@ -163,7 +163,7 @@ namespace WebServer.Controllers.Identity
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     team.Subscription.StripeSubscriptionId = subscription.Id;
@@ -173,7 +173,7 @@ namespace WebServer.Controllers.Identity
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     Infrastructure.Identity.Entities.Subscription _subscription = await subscriptionManager.FindSubscriptionByStripeSubscriptionId(subscription.Id);
@@ -185,7 +185,7 @@ namespace WebServer.Controllers.Identity
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
 
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free);
                     team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
@@ -195,7 +195,7 @@ namespace WebServer.Controllers.Identity
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    Team team = await teamManager.FindTeamByIdAsync(subscription.Metadata["TeamId"]);
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                 }
@@ -212,7 +212,7 @@ namespace WebServer.Controllers.Identity
         [HttpPost]
         public async Task<ActionResult> Create()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
 
             var returnUrl = "https://localhost:44333";
 

@@ -28,11 +28,11 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public async Task<List<ApplicationUserTeam>> GetInvitedMemberships(ApplicationUser applicationUser)
+        public List<ApplicationUserTeam> GetInvitedMemberships(ApplicationUser applicationUser)
         {
             return applicationUser.Memberships.Where(x => x.Role == TeamRole.Invited).ToList(); 
         }
-        public async Task<ApplicationUser> FindUserAsync(ClaimsPrincipal claimsPrincipal)
+        public async Task<ApplicationUser> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
             if(user == null)
@@ -60,10 +60,6 @@ namespace Infrastructure.Identity.Services
         {
             applicationUser.SelectedTeam = team;
             await identificationDbContext.SaveChangesAsync();
-        }
-        public Team GetDefaultTeamForUser(ApplicationUser applicationUser)
-        {
-            return applicationUser.SelectedTeam;
         }
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {

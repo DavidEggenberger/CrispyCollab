@@ -36,8 +36,8 @@ namespace WebServer.Controllers.Identity
         [HttpPost]
         public async Task<ActionResult<TeamDTO>> CreateTeam(TeamDTO team)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            await teamManager.CreateNewTeamAsync(applicationUser, team.Name);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
+            await teamManager.CreateNewAsync(applicationUser, team.Name);
             await signInManager.RefreshSignInAsync(applicationUser);
             return CreatedAtAction("CreateTeam", team);
         }

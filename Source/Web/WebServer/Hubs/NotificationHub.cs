@@ -21,7 +21,7 @@ namespace WebServer.Hubs
         }
         public override async Task OnConnectedAsync()
         {
-            ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
+            ApplicationUser appUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
             //await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
             if (appUser.IsOnline is false)
             {
@@ -39,7 +39,7 @@ namespace WebServer.Hubs
         }
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            ApplicationUser appUser = await applicationUserManager.FindUserAsync(Context.User);
+            ApplicationUser appUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
             if (appUser.TabsOpen > 0)
             {
                 appUser.TabsOpen--;

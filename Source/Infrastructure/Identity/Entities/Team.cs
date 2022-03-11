@@ -40,6 +40,10 @@ namespace Infrastructure.Identity
             };
             Subscription = subscription;
         }
+        public void InviteMember(ApplicationUser applicationUser, TeamRole teamRole)
+        {
+
+        }
         public void AddMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
             if(members.Any(m => m.UserId == applicationUser.Id) is false)
@@ -47,7 +51,8 @@ namespace Infrastructure.Identity
                 members.Add(new ApplicationUserTeam
                 {
                     Role = teamRole,
-                    User = applicationUser
+                    User = applicationUser,
+                    Status = MembershipStatus.Joined
                 });
             }
             else

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Identity
+namespace Infrastructure.Identity.Types.Enums
 {
-    public enum TeamRole
+    public enum MembershipStatus
     {
-        Admin,
-        User
+        Invited,
+        Joined
     }
 }

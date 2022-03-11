@@ -24,7 +24,7 @@ namespace WebServer.Pages.Identity.TeamManagement
         public Team Team { get; set; }
         public async Task OnGet()
         {
-            Team = await teamManager.FindTeamAsync(User);
+            Team = await teamManager.FindByClaimsPrincipalAsync(User);
             SubscriptionPlans = await subscriptionPlanManager.LoadAllSubscriptionPlans();
         }
     }

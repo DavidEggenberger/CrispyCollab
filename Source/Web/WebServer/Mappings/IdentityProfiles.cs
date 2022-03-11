@@ -10,6 +10,7 @@ namespace WebServer.Mappings
     {
         public IdentityProfiles()
         {
+            
             CreateMap<ApplicationUserTeam, MemberDTO>()
                 .ForMember(x => x.Email, opt => opt.MapFrom(x => x.User.Email))
                 .ForMember(x => x.Name, opt => opt.MapFrom(x => x.User.UserName))

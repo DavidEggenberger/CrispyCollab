@@ -26,7 +26,15 @@ namespace Infrastructure.Identity.Services
         }
         public Task<SubscriptionPlan> FindByStripePriceId(string id)
         {
-            return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripePriceId == id);
+            SubscriptionPlan subscriptionPlan;
+            try
+            {
+                return identificationDbContext.SubscriptionPlans.SingleAsync(x => x.StripePriceId == id);
+            }
+            catch(Exception ex)
+            {
+                throw new IdentityOperationException("");
+            }
         }
         public Task<SubscriptionPlan> FindByPlanType(SubscriptionPlanType planType)
         {

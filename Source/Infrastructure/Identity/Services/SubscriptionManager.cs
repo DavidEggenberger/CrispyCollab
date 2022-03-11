@@ -40,8 +40,7 @@ namespace Infrastructure.Identity.Services
         }
         public async Task SetSubscriptionForTeam(Entities.Subscription subscriptionPlan, Team team)
         {
-            Team _team = await identificationDbContext.Teams.Include(t => t.Subscription).SingleOrDefaultAsync(t => t.Id == team.Id);
-            _team.Subscription = subscriptionPlan;
+            team.Subscription = subscriptionPlan;
             await identificationDbContext.SaveChangesAsync();
         }
     }

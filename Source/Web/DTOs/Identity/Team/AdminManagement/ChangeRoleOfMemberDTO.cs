@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.DTOs.TeamDTOs
 {
-    public class ChangeRoleOfTeamMemberDTO
+    public class ChangeRoleOfMemberDTO
     {
         public Guid UserId { get; set; }
         public TeamRoleDTO TargetRole { get; set; }

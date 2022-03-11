@@ -30,7 +30,7 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public async Task<Team> FindTeamAsync(ClaimsPrincipal claimsPrincipal)
+        public async Task<Team> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             Team team;
             try
@@ -45,7 +45,7 @@ namespace Infrastructure.Identity.Services
             await LoadTeamRelationsAsync(team);
             return team;
         }
-        public async Task InviteUsersToTeam(Team team, List<string> emails)
+        public async Task InviteMembersAsync(Team team, List<string> emails)
         {
             foreach (var email in emails)
             {
@@ -70,7 +70,7 @@ namespace Infrastructure.Identity.Services
             }
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task InviteUserToRoleThroughEmail(Team team, TeamRole role, string email)
+        public async Task InviteMemberToRoleThroughEmailAsync(Team team, TeamRole role, string email)
         {
             ApplicationUser applicationUser;
             if((applicationUser = await applicationUserManager.FindByEmailAsync(email)) != null)
@@ -88,9 +88,9 @@ namespace Infrastructure.Identity.Services
         }
         public Task InviteUserThroughEmail(Team team, string email)
         {
-            return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
+            return InviteMemberToRoleThroughEmailAsync(team, TeamRole.User, email);
         }
-        public async Task<Team> FindTeamByIdAsync(Guid id)
+        public async Task<Team> FindByIdAsync(Guid id)
         {
             Team team;
             try
@@ -104,7 +104,7 @@ namespace Infrastructure.Identity.Services
             await LoadTeamRelationsAsync(team);
             return team;
         }
-        public async Task<Team> FindTeamByIdAsync(string Id)
+        public async Task<Team> FindByIdAsync(string Id)
         {
             Team team;
             try
@@ -118,7 +118,7 @@ namespace Infrastructure.Identity.Services
             await LoadTeamRelationsAsync(team);
             return team;
         }
-        public async Task CreateNewTeamAsync(ApplicationUser applicationUser, string name)
+        public async Task CreateNewAsync(ApplicationUser applicationUser, string name)
         {
             if(identificationDbContext.Teams.Any(t => t.Name == name))
             {
@@ -134,7 +134,7 @@ namespace Infrastructure.Identity.Services
             identificationDbContext.Teams.Add(team);    
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task UpdateTeamNameAsync(Team team, string name)
+        public async Task UpdateNameAsync(Team team, string name)
         {
             if (identificationDbContext.Teams.Any(t => t.Name == name))
             {
@@ -143,12 +143,12 @@ namespace Infrastructure.Identity.Services
             team.Name = name;
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task AddMemberToTeamAsync(ApplicationUser user, Team Team, TeamRole teamRole = TeamRole.User)
+        public async Task AddMemberAsync(ApplicationUser user, Team Team, TeamRole teamRole = TeamRole.User)
         {
             Team.AddMember(user, teamRole);
             await identificationDbContext.SaveChangesAsync();
         }
-        public async Task ChangeRoleOfUserInTeamAsync(ApplicationUser user, Team team, TeamRole teamRoleType)
+        public async Task ChangeRoleOfMemberAsync(ApplicationUser user, Team team, TeamRole teamRoleType)
         {
             ApplicationUserTeam applicationUserTeam;
             try
@@ -197,7 +197,7 @@ namespace Infrastructure.Identity.Services
                 throw new IdentityOperationException("User is no member of the team");
             }
         }
-        public async Task DeleteTeam(Team team)
+        public async Task DeleteAsync(Team team)
         {
             identificationDbContext.Teams.Remove(identificationDbContext.Teams.Single(x => x.Id == team.Id));
             await identificationDbContext.SaveChangesAsync();

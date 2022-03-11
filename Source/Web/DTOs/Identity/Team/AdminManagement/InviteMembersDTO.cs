@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Common.Identity.Team.DTOs
 {
-    public class InviteTeamMembersDTO
+    public class InviteMembersDTO
     {
         public List<string> Emails { get; set; }
     }
 
-    public class InviteTeamMembersDTOValidator : AbstractValidator<InviteTeamMembersDTO>
+    public class InviteMembersDTOValidator : AbstractValidator<InviteMembersDTO>
     {
-        public InviteTeamMembersDTOValidator()
+        public InviteMembersDTOValidator()
         {
             RuleForEach(x => x.Emails).EmailAddress();
         }

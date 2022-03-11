@@ -47,14 +47,14 @@ namespace WebServer.Controllers.Identity
         [HttpGet("selectedTeam")]
         public async Task<TeamDTO> GetSelectedTeamForUser()
         {
-            Team team = await teamManager.FindTeamAsync(HttpContext.User);
+            Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
             return mapper.Map<TeamDTO>(team);
         }
 
         [HttpGet("allTeams")]
         public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
             List<Team> teamMemberships = applicationUserManager.GetAllTeamsWhereUserIsMember(applicationUser);
             return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
         }
@@ -62,8 +62,8 @@ namespace WebServer.Controllers.Identity
         [HttpGet("selectTeam/{TeamId}")]
         public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId, [FromQuery] string redirectUri)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team team = await teamManager.FindTeamByIdAsync(teamId);
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
+            Team team = await teamManager.FindByIdAsync(teamId);
             await applicationUserManager.SetTeamAsSelected(applicationUser, team);
             await signInManager.RefreshSignInAsync(applicationUser);
             return LocalRedirect(redirectUri ?? "/");

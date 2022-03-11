@@ -19,7 +19,7 @@ namespace WebWasmClient.Features.ManageTeam.Members.Modals
             set
             {
                 _currentMail = value;
-                valid = ValidationService.Validate(new InviteTeamMembersDTO { Emails = new List<string> { _currentMail } }).IsValid;
+                valid = ValidationService.Validate(new InviteMembersDTO { Emails = new List<string> { _currentMail } }).IsValid;
             }
         }
         protected override async Task OnInitializedAsync()
@@ -38,7 +38,7 @@ namespace WebWasmClient.Features.ManageTeam.Members.Modals
 
         public async Task InviteUsersAsync()
         {
-            InviteTeamMembersDTO inviteUserToTeamDTO = new InviteTeamMembersDTO()
+            InviteMembersDTO inviteUserToTeamDTO = new InviteMembersDTO()
             {
                 Emails = emailAddresses
             };
