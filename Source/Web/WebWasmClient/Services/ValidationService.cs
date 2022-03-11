@@ -20,14 +20,19 @@ namespace WebWasmClient.Services
             assemblyScanResult.AddRange(FindValidatorsInAssembly(assembly));
         }
 
-        public ValidationResult Validate<T>(T model)
+        public ValidationServiceResult Validate<T>(T model)
         {
             var validator = GetValidatorForModel(model);
             if(validator == null)
             {
                 throw new ValidationServiceException("No Validator is registerd");
             }
-            return validator.Validate(new ValidationContext<T>(model));
+            ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
+            return new ValidationServiceResult
+            {
+                IsValid = validationResult.IsValid,
+                Errors = validationResult.Errors.Select(s => s.ErrorMessage).ToList()
+            };
         }
 
         private IValidator GetValidatorForModel(object model)
@@ -43,6 +48,11 @@ namespace WebWasmClient.Services
 
             return (IValidator)ActivatorUtilities.CreateInstance(serviceProvider, modelValidatorType);
         }
+    }
+    public class ValidationServiceResult
+    {
+        public bool IsValid { get; set; }
+        public List<string> Errors { get; set; }
     }
     public class ValidationServiceException : Exception
     {

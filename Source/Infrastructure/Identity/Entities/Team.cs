@@ -42,11 +42,24 @@ namespace Infrastructure.Identity
         }
         public void InviteMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
-
+            if (members.Any(m => m.UserId == applicationUser.Id) is false)
+            {
+                members.Add(new ApplicationUserTeam
+                {
+                    Role = teamRole,
+                    User = applicationUser,
+                    Status = MembershipStatus.Invited
+                });
+            }
+            else
+            {
+                throw new IdentityOperationException("The user is already a member");
+            }
         }
         public void AddMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
-            if(members.Any(m => m.UserId == applicationUser.Id) is false)
+            ApplicationUserTeam applicationUserTeam = members.SingleOrDefault(x => x.UserId == applicationUser.Id);
+            if(applicationUserTeam == null)
             {
                 members.Add(new ApplicationUserTeam
                 {
@@ -57,12 +70,12 @@ namespace Infrastructure.Identity
             }
             else
             {
-                throw new IdentityOperationException("The user is already a member");
+                applicationUserTeam.Status = MembershipStatus.Joined;
             }
         }
         public void ChangeRoleOfMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
-            if(Creator == applicationUser && teamRole != TeamRole.Admin)
+            if(Creator.Id == applicationUser.Id && teamRole != TeamRole.Admin)
             {
                 throw new IdentityOperationException("The Creator's role cant be changed from admin");
             }

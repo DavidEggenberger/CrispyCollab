@@ -15,7 +15,6 @@ using WebWasmClient.Authentication.Antiforgery;
 using WebWasmClient;
 using Blazored.Modal;
 using WebWasmClient.Services;
-using Blazored.FluentValidation;
 
 namespace WebWasmClient
 {

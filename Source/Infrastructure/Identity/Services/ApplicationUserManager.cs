@@ -30,7 +30,7 @@ namespace Infrastructure.Identity.Services
 
         public List<ApplicationUserTeam> GetInvitedMemberships(ApplicationUser applicationUser)
         {
-            return applicationUser.Memberships.Where(x => x.Role == TeamRole.Invited).ToList(); 
+            return applicationUser.Memberships.Where(x => x.Status == MembershipStatus.Invited).ToList(); 
         }
         public async Task<ApplicationUser> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
@@ -79,7 +79,7 @@ namespace Infrastructure.Identity.Services
         {
             return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).Select(x => x.Team).ToList();
         }
-        public async Task<IEnumerable<Claim>> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
+        public IEnumerable<Claim> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             if(applicationUser.SelectedTeam != null)
             {

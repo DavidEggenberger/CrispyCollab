@@ -45,7 +45,7 @@ namespace Infrastructure.Identity.Services
             await LoadTeamRelationsAsync(team);
             return team;
         }
-        public async Task InviteMembersAsync(Team team, List<string> emails)
+        public async Task InviteMembersAsync(Team team, List<string> emails, TeamRole teamRole = TeamRole.User)
         {
             foreach (var email in emails)
             {
@@ -60,35 +60,15 @@ namespace Infrastructure.Identity.Services
                     var result = await applicationUserManager.CreateAsync(_applicationUser);
                     if (result.Succeeded)
                     {
-                        team.AddMember(_applicationUser, TeamRole.Invited);
+                        team.InviteMember(_applicationUser, TeamRole.User);
                     }
                 }
                 if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
                 {
-                    team.AddMember(invitedUser, TeamRole.Invited);
+                    team.InviteMember(invitedUser, teamRole);
                 }
             }
             await identificationDbContext.SaveChangesAsync();
-        }
-        public async Task InviteMemberToRoleThroughEmailAsync(Team team, TeamRole role, string email)
-        {
-            ApplicationUser applicationUser;
-            if((applicationUser = await applicationUserManager.FindByEmailAsync(email)) != null)
-            {
-                if(!team.Members.Any(x => x.UserId == applicationUser.Id))
-                {
-                    
-                }
-            }
-            else
-            {
-                
-            }
-            await identificationDbContext.SaveChangesAsync();
-        }
-        public Task InviteUserThroughEmail(Team team, string email)
-        {
-            return InviteMemberToRoleThroughEmailAsync(team, TeamRole.User, email);
         }
         public async Task<Team> FindByIdAsync(Guid id)
         {

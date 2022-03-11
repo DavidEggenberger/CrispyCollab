@@ -26,7 +26,7 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim("picture", applicationUser.PictureUri),
                 new Claim(ClaimTypes.Sid, applicationUser.Id.ToString())
             };
-            var membershipClaims = await applicationUserManager.GetMembershipClaimsForApplicationUser(applicationUser);
+            var membershipClaims = applicationUserManager.GetMembershipClaimsForApplicationUser(applicationUser);
             claims.AddRange(membershipClaims);
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.Name, "TeamRole");

@@ -2,19 +2,19 @@
 using Common.Identity.DTOs.TeamDTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using WebWasmClient.Services;
 
 namespace WebWasmClient.Features.ManageTeam
 {
     public partial class CreateTeamComp
     {
         [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
-        private TeamDTO team;
-        private IBrowserFile browserFile;
-        private string picturePreview;
-        private string base64;
-        private bool valid;
+        private TeamDTO team = new TeamDTO();
+        private ValidationServiceResult validationServiceResult;
         private string currentName = string.Empty;
         public string CurrentName
         {
@@ -22,26 +22,12 @@ namespace WebWasmClient.Features.ManageTeam
             set
             {
                 currentName = value;
-                valid = ValidationService.Validate(new TeamDTO { Name = currentName }).IsValid;
+                validationServiceResult = ValidationService.Validate(new TeamDTO { Name = currentName });
             }
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            team = new TeamDTO();
-        }
-        private async Task LoadFiles(InputFileChangeEventArgs e)
-        {
-            IBrowserFile imgFile = e.File;
-            var buffers = new byte[imgFile.Size];
-            await imgFile.OpenReadStream().ReadAsync(buffers);
-            string imageType = imgFile.ContentType;
-            base64 = Convert.ToBase64String(buffers);
-            picturePreview = $"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
         }
         private async Task CreateGroupAsync()
         {
-            await HttpClientService.PostToAPIAsync("/team", team);
+            await HttpClientService.PostToAPIAsync("/team", new TeamDTO { Name = currentName });
             await ModalInstance.CloseAsync();
             NavigationManager.NavigateTo("/", true);
         }
