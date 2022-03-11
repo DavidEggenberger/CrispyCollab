@@ -41,14 +41,3 @@
         </ErrorContent>
     </CustomErrorBoundary>
 </div>
-
-@code{
-    private CustomErrorBoundary errorBoundary;
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("hideLoadingScreen");
-        }
-    }
-}

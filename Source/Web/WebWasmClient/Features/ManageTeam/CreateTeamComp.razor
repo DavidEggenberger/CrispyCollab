@@ -2,7 +2,7 @@
     <h3>Create a new Team</h3>
     <div class="form-group">
         <label>Name</label>
-        <input />
+        <input @bind="CurrentName" @bind:event="oninput" type="text"/>
     </div>
     <div class="form-group">
         <div class="CenterContainer">
@@ -16,33 +16,3 @@
         </div>         
     </div>
 </div>
-
-
-@code{
-    [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
-    private TeamDTO team;
-    private IBrowserFile browserFile;
-    private string picturePreview;
-    private string base64;
-
-    protected override async Task OnInitializedAsync()
-    {
-        team = new TeamDTO();
-    }
-
-    private async Task LoadFiles(InputFileChangeEventArgs e)
-    {
-        IBrowserFile imgFile = e.File;
-        var buffers = new byte[imgFile.Size];
-        await imgFile.OpenReadStream().ReadAsync(buffers);
-        string imageType = imgFile.ContentType;
-        base64 = Convert.ToBase64String(buffers);
-        picturePreview =$"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
-    }
-    public async Task CreateGroupAsync()
-    {
-        await HttpClientService.PostToAPIAsync("/team", team);
-        await ModalInstance.CloseAsync();
-        NavigationManager.NavigateTo("/", true);
-    }
-}

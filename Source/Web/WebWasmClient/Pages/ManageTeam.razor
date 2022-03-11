@@ -15,13 +15,3 @@
         }       
     </div>
 </div>
-
-@code{
-    private bool loading = true;
-    private TeamAdminInfoDTO teamAdminInfo;
-    protected override async Task OnInitializedAsync()
-    {
-        teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
-        loading = false;
-    }
-}
