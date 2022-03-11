@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Aggregates\" />
     <Folder Include="Aggregates\" />
-    <Folder Include="Identity\Team\Validators\" />
   </ItemGroup>
 
   <ItemGroup>

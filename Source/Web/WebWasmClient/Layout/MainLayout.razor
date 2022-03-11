@@ -1,13 +1,13 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime jsRuntime
-@inject NavigationManager navigationManager
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <div class="page">
     <CustomErrorBoundary @ref="errorBoundary">
         <ChildContent>
             <aside>
                 <div class="CurrentTenantDisplayComponentContainer">
-                    <SelectedTeamDisplayComponent/>
+                    <SelectedTeamDisplayComp/>
                 </div>
                 <NavMenu/>
             </aside>
@@ -48,7 +48,7 @@
     {
         if (firstRender)
         {
-            await jsRuntime.InvokeVoidAsync("hideLoadingScreen");
+            await JSRuntime.InvokeVoidAsync("hideLoadingScreen");
         }
     }
 }

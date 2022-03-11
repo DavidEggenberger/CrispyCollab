@@ -18,7 +18,6 @@
 @code {
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
     private List<string> emailAddresses;
-    EmailValidator emailValidator;
     private bool valid;
     private string _currentMail = string.Empty;
     public string currentMail
@@ -27,13 +26,12 @@
         set
         {
             _currentMail = value;
-            valid = ValidationService.Validate(currentMail).IsValid;
+            valid = ValidationService.Validate(new InviteTeamMembersDTO { Emails = new List<string> { _currentMail } }).IsValid;
         }
     }
     protected override async Task OnInitializedAsync()
     {
         emailAddresses = new List<string>();
-        emailValidator = new EmailValidator();
     }
 
     public async Task OnKeyDown(KeyboardEventArgs args)
@@ -46,21 +44,13 @@
         }
     }
 
-    private class EmailValidator : AbstractValidator<string>
-    {
-        public EmailValidator()
-        {
-            RuleFor(x => x).EmailAddress().WithMessage("Must be a valid E-Mail Address");
-        }
-    }
-
     public async Task InviteUsersAsync()
     {
         InviteTeamMembersDTO inviteUserToTeamDTO = new InviteTeamMembersDTO()
         {
             Emails = emailAddresses
         };
-        await httpClientService.PostToAPIAsync("/teammember/invite", inviteUserToTeamDTO);
+        await HttpClientService.PostToAPIAsync("/teammember/invite", inviteUserToTeamDTO);
         await ModalInstance.CloseAsync();
     }
 }

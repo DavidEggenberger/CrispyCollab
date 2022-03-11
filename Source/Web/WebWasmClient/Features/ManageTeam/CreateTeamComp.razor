@@ -41,8 +41,8 @@
     }
     public async Task CreateGroupAsync()
     {
-        await httpClientService.PostToAPIAsync("/team", team);
+        await HttpClientService.PostToAPIAsync("/team", team);
         await ModalInstance.CloseAsync();
-        navigationManager.NavigateTo("/", true);
+        NavigationManager.NavigateTo("/", true);
     }
 }

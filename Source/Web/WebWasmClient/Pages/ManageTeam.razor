@@ -5,10 +5,10 @@
     <h3>Manage your Team @User.GetTeamName()</h3>
     <div class="ManageTeamGrid">
         <div>
-            <ManageMembersComponent/>
+            <ManageMembersComp/>
         </div>
         <div>
-            <ManageSubscriptionCompoment/>
+            <ManageMembersComp/>
         </div>
     </div>
 </div>
@@ -17,6 +17,6 @@
     private TeamAdminInfoDTO teamAdminInfo;
     protected override async Task OnInitializedAsync()
     {
-        teamAdminInfo = await httpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/");
+        teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/");
     }
 }

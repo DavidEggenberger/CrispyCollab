@@ -4,36 +4,29 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using static FluentValidation.AssemblyScanner;
 
 namespace WebWasmClient.Services
 {
     public class ValidationService
     {
-        private readonly List<string> ScannedAssembly = new List<string>();
-        private readonly List<AssemblyScanResult> AssemblyScanResults = new List<AssemblyScanResult>();
+        private readonly List<AssemblyScanResult> assemblyScanResult;
         private readonly IServiceProvider serviceProvider;
-        public ValidationService(IServiceProvider serviceProvider)
+        public ValidationService(IServiceProvider serviceProvider, Assembly assembly)
         {
             this.serviceProvider = serviceProvider;
-
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Where(i => !ScannedAssembly.Contains(i.FullName)))
-            {
-                try
-                {
-                    AssemblyScanResults.AddRange(FindValidatorsInAssembly(assembly));
-                }
-                catch (Exception)
-                {
-                }
-
-                ScannedAssembly.Add(assembly.FullName);
-            }
+            assemblyScanResult = new List<AssemblyScanResult>();
+            assemblyScanResult.AddRange(FindValidatorsInAssembly(assembly));
         }
 
         public ValidationResult Validate<T>(T model)
         {
             var validator = GetValidatorForModel(model);
+            if(validator == null)
+            {
+                throw new ValidationServiceException("No Validator is registerd");
+            }
             return validator.Validate(new ValidationContext<T>(model));
         }
 
@@ -41,7 +34,7 @@ namespace WebWasmClient.Services
         {
             var interfaceValidatorType = typeof(IValidator<>).MakeGenericType(model.GetType());
 
-            Type modelValidatorType = AssemblyScanResults.FirstOrDefault(i => interfaceValidatorType.IsAssignableFrom(i.InterfaceType))?.ValidatorType;
+            Type modelValidatorType = assemblyScanResult.FirstOrDefault(i => interfaceValidatorType.IsAssignableFrom(i.InterfaceType))?.ValidatorType;
 
             if (modelValidatorType == null)
             {
@@ -49,6 +42,20 @@ namespace WebWasmClient.Services
             }
 
             return (IValidator)ActivatorUtilities.CreateInstance(serviceProvider, modelValidatorType);
+        }
+    }
+    public class ValidationServiceException : Exception
+    {
+        public ValidationServiceException(string message) : base(message)
+        {
+
+        }
+    }
+    public static class ValidationServieCollectionExtender
+    {
+        public static IServiceCollection AddValidation(this IServiceCollection serviceCollection, Assembly assembly)
+        {
+            return serviceCollection.AddScoped<ValidationService>(sp => new ValidationService(sp, assembly));
         }
     }
 }

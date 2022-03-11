@@ -62,6 +62,7 @@ namespace WebWasmClient
             });
             #endregion
             builder.Services.AddBlazoredModal();
+            builder.Services.AddValidation(typeof(Common.IAssemblyMarker).Assembly);
 
             await builder.Build().RunAsync();
         }

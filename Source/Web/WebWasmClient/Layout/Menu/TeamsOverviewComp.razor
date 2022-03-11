@@ -1,7 +1,4 @@
-﻿@inject HttpClientService httpClientService
-@inject NavigationManager navigationManager
-
-<div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
+﻿<div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
     <div class="ExpanderTitle">
         <h5>Select Team</h5>
         @if (expanded)
@@ -29,14 +26,14 @@
                         if(tenant.Id == User.GetTeamId())
                         {
                             <div class="Group Selected">
-                                <h6 @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
+                                <h6 @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
                             </div>
                         }
                         else
                         {
                             <div class="Group">
                                 <h6>@tenant.Name</h6>
-                                <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
+                                <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
                             </div>
                         }       
                     }
@@ -44,7 +41,7 @@
                     {
                         <div class="Group">
                             <h6>@tenant.Name</h6>
-                            <button class="SelectTeamButton" @onclick='() => navigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
+                            <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
                         </div>
                     }
                 }
@@ -63,7 +60,7 @@
     private List<TeamDTO> teams;
     protected override async Task OnInitializedAsync()
     {
-        teams = await httpClientService.GetFromAPIAsync<List<TeamDTO>>("/team/all");
+        teams = await HttpClientService.GetFromAPIAsync<List<TeamDTO>>("/team/all");
     }
     private bool expanded = true;
     public void Click()
