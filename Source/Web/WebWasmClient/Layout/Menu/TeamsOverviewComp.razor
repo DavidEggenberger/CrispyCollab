@@ -26,14 +26,14 @@
                         if(tenant.Id == User.GetTeamId())
                         {
                             <div class="Group Selected">
-                                <h6 @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>@tenant.Name</h6>
+                                <h6 @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>@tenant.Name</h6>
                             </div>
                         }
                         else
                         {
                             <div class="Group">
                                 <h6>@tenant.Name</h6>
-                                <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
+                                <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>Select</button>
                             </div>
                         }       
                     }
@@ -41,7 +41,7 @@
                     {
                         <div class="Group">
                             <h6>@tenant.Name</h6>
-                            <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/team/select/{tenant.Id}", true)'>Select</button>
+                            <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>Select</button>
                         </div>
                     }
                 }

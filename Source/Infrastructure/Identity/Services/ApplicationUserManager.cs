@@ -51,6 +51,10 @@ namespace Infrastructure.Identity.Services
             applicationUser.SelectedTeam = team;
             await identificationDbContext.SaveChangesAsync();
         }
+        public Team GetDefaultTeamForUser(ApplicationUser applicationUser)
+        {
+            return applicationUser.SelectedTeam;
+        }
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser applicationUser;
@@ -87,6 +91,7 @@ namespace Infrastructure.Identity.Services
         }
         private async Task LoadApplicationUserAsync(ApplicationUser applicationUser)
         {
+            await identificationDbContext.Entry(applicationUser).Reference(x => x.SelectedTeam).LoadAsync();
             await identificationDbContext.Entry(applicationUser).Collection(u => u.Memberships).Query()
                 .Include(x => x.Team)
                 .ThenInclude(x => x.Subscription)

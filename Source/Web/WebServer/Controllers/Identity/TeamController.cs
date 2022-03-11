@@ -33,21 +33,6 @@ namespace WebServer.Controllers.Identity
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<TeamDTO> GetSelectedTeamForUser()
-        {
-            Team team = await teamManager.FindTeamAsync(HttpContext.User);
-            return mapper.Map<TeamDTO>(team);
-        }
-
-        [HttpGet("all")]
-        public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
-        {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            List<Team> teamMemberships = applicationUserManager.GetAllTeamsWhereUserIsMember(applicationUser);
-            return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
-        }
-
         [HttpPost]
         public async Task<ActionResult<TeamDTO>> CreateTeam(TeamDTO team)
         {
@@ -55,16 +40,6 @@ namespace WebServer.Controllers.Identity
             await teamManager.CreateNewTeamAsync(applicationUser, team.Name);
             await signInManager.RefreshSignInAsync(applicationUser);
             return CreatedAtAction("CreateTeam", team);
-        }
-
-        [HttpGet("select/{TeamId}")]
-        public async Task<ActionResult> SetCurrentTeamForUser(Guid teamId, [FromQuery] string redirectUri)
-        {
-            ApplicationUser applicationUser = await applicationUserManager.FindUserAsync(HttpContext.User);
-            Team team = await teamManager.FindTeamByIdAsync(teamId);
-            await applicationUserManager.SetTeamAsSelected(applicationUser, team);
-            await signInManager.RefreshSignInAsync(applicationUser);
-            return LocalRedirect(redirectUri ?? "/");
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WebWasmClient.Layout.Menu
         private List<TeamDTO> teams;
         protected override async Task OnInitializedAsync()
         {
-            teams = await HttpClientService.GetFromAPIAsync<List<TeamDTO>>("/team/all");
+            teams = await HttpClientService.GetFromAPIAsync<List<TeamDTO>>("/user/allTeams");
         }
         private bool expanded = true;
         public void Click()

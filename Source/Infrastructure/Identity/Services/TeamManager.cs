@@ -40,7 +40,7 @@ namespace Infrastructure.Identity.Services
             }
             catch (Exception ex)
             {
-                throw new IdentityOperationException("No team is found");
+                return default;
             }
             await LoadTeamRelationsAsync(team);
             return team;
@@ -90,9 +90,15 @@ namespace Infrastructure.Identity.Services
         {
             return InviteUserToRoleThroughEmail(team, TeamRole.User, email);
         }
-        public Task<Team> FindTeamByIdAsync(Guid id)
+        public async Task<Team> FindTeamByIdAsync(Guid id)
         {
-            return FindTeamByIdAsync(id.ToString());
+            Team team = await FindTeamByIdAsync(id.ToString());
+            if(team == null)
+            {
+                throw new IdentityOperationException("No team is found");
+            }
+            await LoadTeamRelationsAsync(team);
+            return team;
         }
         public async Task<Team> FindTeamByIdAsync(string Id)
         {

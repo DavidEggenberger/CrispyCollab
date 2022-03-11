@@ -18,7 +18,7 @@ namespace Infrastructure.Identity.Types.Overrides
         }
         public async Task<ClaimsPrincipal> CreateAsync(User user)
         {
-            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id.ToString());
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id);
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, applicationUser.UserName),
@@ -26,7 +26,7 @@ namespace Infrastructure.Identity.Types.Overrides
                 new Claim("picture", applicationUser.PictureUri),
                 new Claim(ClaimTypes.Sid, applicationUser.Id.ToString())
             };
-            var membershipClaims = await applicationUserManager.GetMembershipClaimsForApplicationUser(user);
+            var membershipClaims = await applicationUserManager.GetMembershipClaimsForApplicationUser(applicationUser);
             claims.AddRange(membershipClaims);
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimTypes.Name, "TeamRole");

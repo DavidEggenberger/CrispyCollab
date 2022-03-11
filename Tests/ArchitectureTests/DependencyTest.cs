@@ -14,7 +14,7 @@ namespace ArchitectureTests
             var applicationAssembly = typeof(Application.Misc.IAssemblyMarker).Assembly;
             var webAPIAssembly = typeof(WebServer.Misc.IAssemblyMarker).Assembly;
             var webClientAssembly = typeof(WebWasmClient.Misc.IAssemblyMarker).Assembly;
-            var commonAssembly = typeof(Common.Misc.IAssemblyMarker).Assembly;
+            var commonAssembly = typeof(Common.IAssemblyMarker).Assembly;
 
             domainAssembly.Should().NotReference(infrastructureAssembly);
             domainAssembly.Should().NotReference(applicationAssembly);
