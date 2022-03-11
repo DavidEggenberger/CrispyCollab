@@ -42,9 +42,19 @@ namespace Infrastructure.Identity.Services
             await LoadApplicationUserAsync(user);
             return user;
         }
-        public Task<ApplicationUser> FindByIdAsync(Guid id)
+        public async Task<ApplicationUser> FindByIdAsync(Guid id)
         {
-            return FindByIdAsync(id.ToString());
+            ApplicationUser applicationUser;
+            try
+            {
+                applicationUser = await identificationDbContext.Users.SingleAsync(x => x.Id == id);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
+            await LoadApplicationUserAsync(applicationUser);
+            return applicationUser;
         }
         public async Task SetTeamAsSelected(ApplicationUser applicationUser, Team team)
         {

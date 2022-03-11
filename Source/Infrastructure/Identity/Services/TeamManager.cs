@@ -92,8 +92,12 @@ namespace Infrastructure.Identity.Services
         }
         public async Task<Team> FindTeamByIdAsync(Guid id)
         {
-            Team team = await FindTeamByIdAsync(id.ToString());
-            if(team == null)
+            Team team;
+            try
+            {
+                team = await identificationDbContext.Teams.SingleAsync(x => x.Id == id);
+            }
+            catch (Exception ex)
             {
                 throw new IdentityOperationException("No team is found");
             }

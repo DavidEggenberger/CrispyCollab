@@ -38,7 +38,6 @@ namespace WebServer.Controllers.Identity
             {
                 return BFFUserInfoDTO.Anonymous;
             }
-
             return new BFFUserInfoDTO()
             {
                 Claims = User.Claims.Select(claim => new ClaimValueDTO { Type = claim.Type, Value = claim.Value }).ToList()
