@@ -123,6 +123,7 @@ namespace WebServer
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
             #region Identity
+            services.AddScoped<ApplicationUserTeamManager>();
             services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();

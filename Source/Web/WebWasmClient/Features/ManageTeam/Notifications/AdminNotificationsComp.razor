@@ -1,13 +1,12 @@
 ﻿<div>
-    @foreach(var notification in AdminNotifications)
+    @if(AdminNotifications is not null)
     {
-        <div>
-            @notification.CreatedAt
-            @notification.Message
-        </div>
+        foreach(var notification in AdminNotifications)
+        {
+            <div>
+                @notification.CreatedAt
+                @notification.Message
+            </div>
+        }
     }
 </div>
-
-@code {
-
-}

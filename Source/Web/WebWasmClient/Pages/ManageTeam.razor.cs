@@ -1,4 +1,5 @@
 ﻿using Common.Identity.DTOs.TeamDTOs;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Pages
@@ -11,6 +12,12 @@ namespace WebWasmClient.Pages
         {
             teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
             loading = false;
+
+            HubConnection.On("UpdateAdminInformation", async () =>
+            {
+                teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
+                StateHasChanged();
+            });
         }
     }
 }

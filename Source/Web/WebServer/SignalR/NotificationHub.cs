@@ -14,27 +14,30 @@ namespace WebServer.Hubs
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
+        private ApplicationUserTeamManager applicationUserTeamManager;
+        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, ApplicationUserTeamManager applicationUserTeamManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
+            this.applicationUserTeamManager = applicationUserTeamManager;
         }
         public override async Task OnConnectedAsync()
         {
-            ApplicationUser appUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
-            //await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
-            if (appUser.IsOnline is false)
+            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
+            ApplicationUserTeam applicationUserTeam = await applicationUserTeamManager.GetCurrentTeamMembership(Context.User);
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
+            if (applicationUser.IsOnline is false)
             {
-                appUser.IsOnline = true;
-                appUser.TabsOpen = 1;
-                await applicationUserManager.UpdateAsync(appUser);
+                applicationUser.IsOnline = true;
+                applicationUser.TabsOpen = 1;
+                await applicationUserManager.UpdateAsync(applicationUser);
                 await Clients.All.SendAsync("UpdateOnlineUsers");
                 return;
             }
-            if (appUser.IsOnline)
+            if (applicationUser.IsOnline)
             {
-                appUser.TabsOpen++;
-                await applicationUserManager.UpdateAsync(appUser);
+                applicationUser.TabsOpen++;
+                await applicationUserManager.UpdateAsync(applicationUser);
             }
         }
         public override async Task OnDisconnectedAsync(Exception ex)
@@ -49,8 +52,9 @@ namespace WebServer.Hubs
             {
                 appUser.IsOnline = false;
                 await applicationUserManager.UpdateAsync(appUser);
-                //ApplicationUserTeam applicationUserTeam = appUser.Memberships.Single(x => x.TeamId == appUser.SelectedTeam.Id);
-                //await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
+                ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
+                ApplicationUserTeam applicationUserTeam = await applicationUserTeamManager.GetCurrentTeamMembership(Context.User);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }
         }

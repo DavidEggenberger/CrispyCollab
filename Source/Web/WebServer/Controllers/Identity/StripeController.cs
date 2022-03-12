@@ -176,11 +176,11 @@ namespace WebServer.Controllers.Identity
                 }  
                 else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
-                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-                    SubscriptionService subscriptionService = new SubscriptionService();
-                    await identificationDbContext.SaveChangesAsync();
+                    //var subscription = stripeEvent.Data.Object as Stripe.Subscription;
+                    //ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
+                    //Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    //SubscriptionService subscriptionService = new SubscriptionService();
+                    //await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {

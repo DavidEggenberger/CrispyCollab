@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Identity.Interfaces;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
 
@@ -8,9 +9,15 @@ namespace WebServer.Hubs
 {
     public class IdentityUINotifierService : IIdentityUINotifierService
     {
+        private readonly IHubContext<NotificationHub> notificationHubContext;
+        public IdentityUINotifierService(IHubContext<NotificationHub> notificationHubContext)
+        {
+            this.notificationHubContext = notificationHubContext;
+        }
+
         public async Task NotifyAdminMembersAboutNewNotification(Guid teamId)
         {
-            //throw new NotImplementedException();
+            await notificationHubContext.Clients.Group($"{teamId}{TeamRole.Admin}").SendAsync("UpdateAdminInformation");
         }
 
         public Task NotifyAdminTeamMembers(Guid teamId)

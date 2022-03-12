@@ -18,14 +18,12 @@ namespace Infrastructure.Identity.Services
     public class TeamManager
     {
         private IdentificationDbContext identificationDbContext;
-        private SignInManager<ApplicationUser> signInManager;
         private ApplicationUserManager applicationUserManager;
         private SubscriptionPlanManager subscriptionPlanManager;
 
-        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SignInManager<ApplicationUser> signInManager, SubscriptionPlanManager subscriptionPlanManager)
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager)
         {
             this.identificationDbContext = identificationDbContext;
-            this.signInManager = signInManager;
             this.applicationUserManager = applicationUserManager;
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
@@ -189,7 +187,7 @@ namespace Infrastructure.Identity.Services
         }
         private async Task LoadTeamRelationsAsync(Team team)
         {
-            await identificationDbContext.Entry(team).Collection(x => x.AdminNotifications).LoadAsync();
+            await identificationDbContext.Entry(team).Collection(x => x.Notifications).LoadAsync();
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
         }

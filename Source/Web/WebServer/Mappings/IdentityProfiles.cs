@@ -23,7 +23,8 @@ namespace WebServer.Mappings
                 .ForMember(x => x.SubscriptionPlanType, opt => opt.MapFrom(opt => opt.SubscriptionPlan.PlanType))
                 .ForMember(x => x.PeriodEnd, opt => opt.MapFrom(opt => opt.PeriodEnd))
                 .ForMember(x => x.SubscriptionStatus, opt => opt.MapFrom(opt => opt.Status));
-            CreateMap<Team, TeamAdminInfoDTO>();
+            CreateMap<Team, TeamAdminInfoDTO>()
+                .ForMember(x => x.AdminNotifications, opt => opt.MapFrom(x => x.Notifications));
             CreateMap<SubscriptionPlan, SubscriptionPlanDTO>();
             CreateMap<ApplicationUser, UserDTO>();
             CreateMap<AdminNotification, AdminNotificationDTO>()
