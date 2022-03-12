@@ -17,6 +17,5 @@ namespace Infrastructure.Identity.Entities
         public string StripeSubscriptionId { get; set; }
         public DateTime PeriodEnd { get; set; }
         public SubscriptionStatus Status { get; set; }
-
     }
 }

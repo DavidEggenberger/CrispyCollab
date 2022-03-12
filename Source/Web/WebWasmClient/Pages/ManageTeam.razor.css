@@ -11,4 +11,8 @@
     .ManageTeamGrid{
         grid-template-columns: 1fr;
     }
+    .ManageSubscriptionCompContainer{
+        padding-top: 15px;
+        width: 50%;
+    }
 }

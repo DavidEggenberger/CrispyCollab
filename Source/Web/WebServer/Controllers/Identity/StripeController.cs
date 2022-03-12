@@ -133,6 +133,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [HttpPost("webhooks")]
+        [IgnoreAntiforgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
