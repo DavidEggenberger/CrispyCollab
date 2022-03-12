@@ -20,7 +20,9 @@
         <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
     </head>
     <body>
-        @Html.AntiForgeryToken()
+        <div class="AntiforgeryTokenContainer">
+            @Html.AntiForgeryToken()
+        </div>
         <div id="loadingBackground">
             <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>

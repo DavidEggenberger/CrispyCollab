@@ -15,14 +15,14 @@ namespace Infrastructure.EmailSender
     {
         private readonly ILogger _logger;
 
-        public SendGridEmailSender(IOptions<EmailSenderOptions> optionsAccessor,
+        public SendGridEmailSender(IOptions<SendGridEmailOptions> optionsAccessor,
                            ILogger<SendGridEmailSender> logger)
         {
             Options = optionsAccessor.Value;
             _logger = logger;
         }
 
-        public EmailSenderOptions Options { get; } //Set with Secret Manager.
+        public SendGridEmailOptions Options { get; } //Set with Secret Manager.
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {

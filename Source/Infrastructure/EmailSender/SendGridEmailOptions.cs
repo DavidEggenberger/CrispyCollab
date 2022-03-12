@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EmailSender
 {
-    public class EmailSenderOptions
+    public class SendGridEmailOptions
     {
         public string? SendGridKey { get; set; }
     }

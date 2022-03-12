@@ -115,7 +115,7 @@ namespace WebServer
             services.AddAutoMapper(GetType().Assembly);
             services.AddCQRS(GetType().Assembly);
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
-            services.Configure<EmailSenderOptions>(Configuration);
+            services.Configure<SendGridEmailOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddScoped<IAggregatesUINotifierService, AggregatesUINotifierService>();
             //services.AddDbContext<ApplicationDbContext>(options =>
