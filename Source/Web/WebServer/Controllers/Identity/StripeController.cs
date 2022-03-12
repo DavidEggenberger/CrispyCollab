@@ -2,6 +2,7 @@
 using Infrastructure.Identity;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -15,6 +16,7 @@ namespace WebServer.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizeTeamAdmin]
     public class StripeController : ControllerBase
     {
         private readonly ApplicationUserManager applicationUserManager;
@@ -31,7 +33,6 @@ namespace WebServer.Controllers.Identity
             this.subscriptionManager = subscriptionManager;
         }
 
-        [AuthorizeTeamAdmin]
         public async Task<IActionResult> CancelSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
@@ -39,8 +40,7 @@ namespace WebServer.Controllers.Identity
             return Ok();
         }
         
-        [HttpGet("Subscribe/Premium")]
-        [AuthorizeTeamAdmin]
+        [HttpPost("Subscribe/Premium")]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
@@ -86,8 +86,7 @@ namespace WebServer.Controllers.Identity
             return new StatusCodeResult(303);
         }
 
-        [HttpGet("Subscribe/Enterprise")]
-        [AuthorizeTeamAdmin]
+        [HttpPost("Subscribe/Enterprise")]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
@@ -133,8 +132,8 @@ namespace WebServer.Controllers.Identity
             return new StatusCodeResult(303);
         }
 
-        [IgnoreAntiforgeryToken]
-        [HttpGet("webhooks")]
+        [HttpPost("webhooks")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
@@ -195,7 +194,7 @@ namespace WebServer.Controllers.Identity
         }
 
         [Route("create-portal-session")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult> Create()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);

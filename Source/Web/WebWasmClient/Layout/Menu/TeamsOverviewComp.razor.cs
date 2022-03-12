@@ -6,10 +6,10 @@ namespace WebWasmClient.Layout.Menu
 {
     public partial class TeamsOverviewComp
     {
-        private List<TeamDTO> teams;
+        private IEnumerable<TeamDTO> teams;
         protected override async Task OnInitializedAsync()
         {
-            teams = await HttpClientService.GetFromAPIAsync<List<TeamDTO>>("/user/allTeams");
+            teams = await HttpClientService.GetFromAPIAsync<IEnumerable<TeamDTO>>("/user/allTeams");
         }
         private bool expanded = true;
         public void Click()

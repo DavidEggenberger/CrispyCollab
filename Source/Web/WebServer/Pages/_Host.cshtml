@@ -20,6 +20,7 @@
         <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
     </head>
     <body>
+        @Html.AntiForgeryToken()
         <div id="loadingBackground">
             <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
@@ -28,8 +29,6 @@
         </div>
         <script src="_framework/blazor.webassembly.js"></script>
         <script src="_content/Blazored.Modal/blazored.modal.js"></script>
-        <script src="~/js/antiForgeryToken.js"></script>
-        @Html.AntiForgeryToken()
     </body>
 }
 else
@@ -38,9 +37,8 @@ else
 
     <partial name="/Pages/LandingPages/_Index.cshtml"/>
 }
-
-<script src="~/js/site.js"></script>
-<script src="~/js/antiForgeryToken.js"></script>
-@Html.AntiForgeryToken()
+    <script src="~/js/site.js"></script>
+    <script src="~/js/antiForgeryToken.js"></script>
+    @Html.AntiForgeryToken()
 </html>
 

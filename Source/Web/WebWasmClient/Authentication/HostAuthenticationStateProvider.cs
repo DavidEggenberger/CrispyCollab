@@ -1,6 +1,7 @@
 ﻿using Common;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using Shared;
 using Shared.DTOs.Identity;
 using System;
@@ -9,21 +10,23 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebWasmClient.Authentication.Antiforgery;
 
 namespace WebWasmClient.Authentication
 {
     public class HostAuthenticationStateProvider : AuthenticationStateProvider
     {
+        private readonly AntiforgeryTokenService antiforgeryTokenService;
         private readonly NavigationManager navigationManager;
         private readonly HttpClient httpClient;
         private static readonly TimeSpan UserCacheRefreshInterval = TimeSpan.FromSeconds(60);
         private DateTimeOffset userLastCheck = DateTimeOffset.FromUnixTimeSeconds(0);
         private ClaimsPrincipal cachedUser = new ClaimsPrincipal(new ClaimsIdentity());
-
-        public HostAuthenticationStateProvider(NavigationManager navigationManager, HttpClient httpClient)
+        public HostAuthenticationStateProvider(NavigationManager navigationManager, HttpClient httpClient, AntiforgeryTokenService antiforgeryTokenService)
         {
             this.navigationManager = navigationManager;
             this.httpClient = httpClient;
+            this.antiforgeryTokenService = antiforgeryTokenService;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()

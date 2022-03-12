@@ -25,5 +25,9 @@ namespace WebWasmClient.Authentication
             string teamId = claimsPrincipal.FindFirst("TeamId")?.Value;
             return teamId == null ? null : new Guid(teamId);
         }
+        public static string GetAntiforgeryToken(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal.FindFirst("AntiforgeryToken").Value;
+        }
     }
 }

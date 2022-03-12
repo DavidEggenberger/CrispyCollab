@@ -34,7 +34,7 @@ namespace WebWasmClient
                 .AddHttpMessageHandler<AuthorizedHandler>();
             #endregion
             #region Authentication
-            builder.Services.AddScoped<AntiforgeryTokenService>();
+            builder.Services.AddSingleton<AntiforgeryTokenService>();
             builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();
             builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());         
             builder.Services.AddAuthorizationCore(options =>

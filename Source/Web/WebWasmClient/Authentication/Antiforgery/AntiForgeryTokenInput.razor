@@ -13,8 +13,8 @@
         if (firstRender)
         {
             token = await JSRuntime.InvokeAsync<string>("getAntiForgeryToken");
+            StateHasChanged();
         }
-        Console.WriteLine(token == null ? "asfsdaf" : token);
     }
 
     public string GetToken()
