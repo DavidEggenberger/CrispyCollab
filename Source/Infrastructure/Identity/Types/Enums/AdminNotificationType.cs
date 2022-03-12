@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Types.Enums
 {
-    public enum NotificationType
+    public enum AdminNotificationType
     {
         SubscriptionDeleted,
         SubscriptionCreated,

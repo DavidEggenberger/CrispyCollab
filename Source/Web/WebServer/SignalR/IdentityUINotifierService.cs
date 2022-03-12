@@ -8,6 +8,11 @@ namespace WebServer.Hubs
 {
     public class IdentityUINotifierService : IIdentityUINotifierService
     {
+        public async Task NotifyAdminMembersAboutNewNotification(Guid teamId)
+        {
+            //throw new NotImplementedException();
+        }
+
         public Task NotifyAdminTeamMembers(Guid teamId)
         {
             throw new NotImplementedException();

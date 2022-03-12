@@ -9,29 +9,26 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.Services
 {
-    public class AdminNotificationService
+    public class AdminNotificationManager
     {
         private readonly IdentificationDbContext identificationDbContext;
         private readonly IIdentityUINotifierService identityUINotifierService;
-        public AdminNotificationService(IdentificationDbContext identificationDbContext, IIdentityUINotifierService identityUINotifierService)
+        public AdminNotificationManager(IdentificationDbContext identificationDbContext, IIdentityUINotifierService identityUINotifierService)
         {
             this.identityUINotifierService = identityUINotifierService;
             this.identificationDbContext = identificationDbContext;
         }
 
-        public async Task CreateNotification(Team team, NotificationType notificationType, ApplicationUser creator, Subscription subscription = null)
+        public async Task CreateNotification(Team team, AdminNotificationType notificationType, ApplicationUser creator, string message)
         {
             AdminNotification notification = new AdminNotification()
             {
                 Team = team,
                 Creator = creator,
-                Type = notificationType
+                Type = notificationType,
+                Message = message
             };
-            notification.Message = notificationType switch
-            {
-
-            };
-            identificationDbContext.AdminNotifications.Add(new AdminNotification(team, notificationType, creator));
+            identificationDbContext.AdminNotifications.Add(notification);
             await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
         }
     }

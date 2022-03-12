@@ -2,6 +2,8 @@
 using Common.Identity.DTOs.TeamDTOs;
 using Common.Identity.Subscription;
 using Common.Identity.Team;
+using Common.Identity.Team.AdminManagement;
+using Common.Identity.User;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Entities;
 using System.Linq;
@@ -23,6 +25,8 @@ namespace WebServer.Mappings
                 .ForMember(x => x.SubscriptionStatus, opt => opt.MapFrom(opt => opt.Status));
             CreateMap<Team, TeamAdminInfoDTO>();
             CreateMap<SubscriptionPlan, SubscriptionPlanDTO>();
+            CreateMap<ApplicationUser, UserDTO>();
+            CreateMap<AdminNotification, AdminNotificationDTO>();
         }
     }
 }

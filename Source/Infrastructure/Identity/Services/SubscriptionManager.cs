@@ -15,9 +15,11 @@ namespace Infrastructure.Identity.Services
     {
         private readonly IdentificationDbContext identificationDbContext;
         private readonly SubscriptionService subscriptionService;
-        public SubscriptionManager(IdentificationDbContext identificationDbContext)
+        private readonly AdminNotificationManager adminNotificationManager;
+        public SubscriptionManager(IdentificationDbContext identificationDbContext, AdminNotificationManager adminNotificationManager)
         {
             this.identificationDbContext = identificationDbContext;
+            this.adminNotificationManager = adminNotificationManager;
             this.subscriptionService = new SubscriptionService();
         }
         public Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)

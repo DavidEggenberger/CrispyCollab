@@ -189,6 +189,7 @@ namespace Infrastructure.Identity.Services
         }
         private async Task LoadTeamRelationsAsync(Team team)
         {
+            await identificationDbContext.Entry(team).Collection(x => x.AdminNotifications).LoadAsync();
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
         }

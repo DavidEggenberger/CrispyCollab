@@ -10,7 +10,7 @@ namespace Infrastructure.Identity.Entities
     public class AdminNotification
     {
         public Guid Id { get; set; }
-        public NotificationType Type { get; set; }
+        public AdminNotificationType Type { get; set; }
         public string Message { get; set; }
         public Guid CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }

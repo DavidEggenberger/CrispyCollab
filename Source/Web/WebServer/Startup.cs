@@ -127,6 +127,7 @@ namespace WebServer
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();
             services.AddScoped<TeamManager>();
+            services.AddScoped<AdminNotificationManager>();
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
