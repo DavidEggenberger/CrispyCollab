@@ -24,15 +24,13 @@ namespace WebServer.Controllers.Identity
         private readonly SubscriptionPlanManager subscriptionPlanManager;
         private readonly SubscriptionManager subscriptionManager;
         private readonly TeamManager teamManager;
-        private readonly NotificationManager notificationManager;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager, NotificationManager notificationManager)
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.subscriptionPlanManager = subscriptionPlanManager;
             this.teamManager = teamManager;
             this.subscriptionManager = subscriptionManager;
-            this.notificationManager = notificationManager;
         }
 
         public async Task<IActionResult> CancelSubscription()

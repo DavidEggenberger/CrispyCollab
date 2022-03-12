@@ -7,6 +7,7 @@ using FluentValidation.AspNetCore;
 using Infrastructure.CQRS;
 using Infrastructure.EmailSender;
 using Infrastructure.Identity;
+using Infrastructure.Identity.Interfaces;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
@@ -119,6 +120,7 @@ namespace WebServer
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
             #region Identity
+            services.AddScoped<IWebClientNotificationService, WebClientNotificationService>();
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();
             services.AddScoped<TeamManager>();

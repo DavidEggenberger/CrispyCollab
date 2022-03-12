@@ -28,7 +28,8 @@ namespace Infrastructure.Identity.Entities
             Message = notificationType switch
             {
                 NotificationType.SubscriptionCreated => $"{Creator.UserName} created a subscription for {Team.Name}",
-
+                NotificationType.SubscriptionDeleted => $"{Creator.UserName} created a subscription for {Team.Name}",
+                NotificationType.InvoicePaid => $"{Creator.UserName} created a subscription for {Team.Name}",
             };
         }
     }

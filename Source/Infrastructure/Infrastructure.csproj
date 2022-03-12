@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="EFCore\Configuration\" />
-    <Folder Include="Caching\" />
     <Folder Include="EFCore\Migrations\" />
   </ItemGroup>
 
