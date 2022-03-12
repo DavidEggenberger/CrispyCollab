@@ -17,11 +17,11 @@ namespace Infrastructure.Identity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
         public Guid CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
         public List<ApplicationUser> SelectedByUsers { get; set; }
+        public List<Notification> Notifications { get; set; }
 
         private List<ApplicationUserTeam> members = new List<ApplicationUserTeam>();
         public IReadOnlyCollection<ApplicationUserTeam> Members => members.AsReadOnly();

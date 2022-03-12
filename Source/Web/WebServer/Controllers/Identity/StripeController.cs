@@ -24,13 +24,15 @@ namespace WebServer.Controllers.Identity
         private readonly SubscriptionPlanManager subscriptionPlanManager;
         private readonly SubscriptionManager subscriptionManager;
         private readonly TeamManager teamManager;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager)
+        private readonly NotificationManager notificationManager;
+        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager, NotificationManager notificationManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
             this.subscriptionPlanManager = subscriptionPlanManager;
             this.teamManager = teamManager;
             this.subscriptionManager = subscriptionManager;
+            this.notificationManager = notificationManager;
         }
 
         public async Task<IActionResult> CancelSubscription()
@@ -151,6 +153,10 @@ namespace WebServer.Controllers.Identity
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    if(team.Subscription is not null)
+                    {
+                        await subscriptionManager.CancelSubscriptionAsync(team.Subscription);
+                    }
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     team.Subscription.StripeSubscriptionId = subscription.Id;
@@ -164,13 +170,11 @@ namespace WebServer.Controllers.Identity
                     SubscriptionService subscriptionService = new SubscriptionService();
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     Infrastructure.Identity.Entities.Subscription _subscription = await subscriptionManager.FindSubscriptionByStripeSubscriptionId(subscription.Id);
-                    //_subscription.Status = (SubscriptionStatus)subscription.Status;
                     await identificationDbContext.SaveChangesAsync();
                 }  
                 else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
                     var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();

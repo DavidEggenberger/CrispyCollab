@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\Communication\" />
-    <Folder Include="Aggregates\NewFolder\" />
-    <Folder Include="Aggregates\Pipeline\" />
     <Folder Include="Shared\ValueObjects\" />
   </ItemGroup>
 
