@@ -21,7 +21,7 @@ namespace Infrastructure.Identity
         public Guid CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
         public List<ApplicationUser> SelectedByUsers { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<AdminNotification> Notifications { get; set; }
 
         private List<ApplicationUserTeam> members = new List<ApplicationUserTeam>();
         public IReadOnlyCollection<ApplicationUserTeam> Members => members.AsReadOnly();

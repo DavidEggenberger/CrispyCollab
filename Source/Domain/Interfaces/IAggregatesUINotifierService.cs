@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.EmailSender
+namespace Domain.Interfaces
 {
-    public class AuthMessageSenderOptions
+    public interface IAggregatesUINotifierService
     {
-        public string? SendGridKey { get; set; }
+        
     }
 }

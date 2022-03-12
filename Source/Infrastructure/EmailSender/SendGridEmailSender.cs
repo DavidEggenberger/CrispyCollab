@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -14,14 +15,14 @@ namespace Infrastructure.EmailSender
     {
         private readonly ILogger _logger;
 
-        public SendGridEmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
+        public SendGridEmailSender(IOptions<EmailSenderOptions> optionsAccessor,
                            ILogger<SendGridEmailSender> logger)
         {
             Options = optionsAccessor.Value;
             _logger = logger;
         }
 
-        public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
+        public EmailSenderOptions Options { get; } //Set with Secret Manager.
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {

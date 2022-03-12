@@ -4,6 +4,7 @@ using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(IdentificationDbContext))]
-    partial class IdentificationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220312182552_nasdfsadfotification")]
+    partial class nasdfsadfotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +155,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("AdminNotifications");
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.Entities.Subscription", b =>

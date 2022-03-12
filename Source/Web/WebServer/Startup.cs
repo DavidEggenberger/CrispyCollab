@@ -3,11 +3,12 @@ using AuthPermissions.AspNetCore;
 using AuthPermissions.AspNetCore.Services;
 using AuthPermissions.SetupCode;
 using Common;
+using Domain.Interfaces;
 using FluentValidation.AspNetCore;
+using Identity.Interfaces;
 using Infrastructure.CQRS;
 using Infrastructure.EmailSender;
 using Infrastructure.Identity;
-using Infrastructure.Identity.Interfaces;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Persistence;
@@ -41,6 +42,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebServer.Hubs;
+using WebServer.SignalR;
 
 namespace WebServer
 {
@@ -113,14 +115,15 @@ namespace WebServer
             services.AddAutoMapper(GetType().Assembly);
             services.AddCQRS(GetType().Assembly);
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.Configure<EmailSenderOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.AddScoped<IAggregatesUINotifierService, AggregatesUINotifierService>();
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
             //});
             #region Identity
-            services.AddScoped<IWebClientNotificationService, WebClientNotificationService>();
+            services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();
             services.AddScoped<TeamManager>();
