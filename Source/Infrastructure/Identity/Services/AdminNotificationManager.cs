@@ -26,7 +26,8 @@ namespace Infrastructure.Identity.Services
                 Team = team,
                 Creator = creator,
                 Type = notificationType,
-                Message = message
+                Message = message,
+                CreatedAt = DateTime.Now
             };
             identificationDbContext.AdminNotifications.Add(notification);
             await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);

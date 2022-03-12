@@ -160,8 +160,7 @@ namespace WebServer.Controllers.Identity
                         await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionDeleted, applicationUser, $"{applicationUser.UserName} canceled the {team.Subscription.SubscriptionPlan.PlanType} subscription");
                     }
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
-                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
-                    team.Subscription.StripeSubscriptionId = subscription.Id;
+                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd, subscription.Id);
                     await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionCreated, applicationUser, $"{applicationUser.UserName} created the {team.Subscription.SubscriptionPlan.PlanType} subscription");
                     await identificationDbContext.SaveChangesAsync();
                 }
@@ -181,8 +180,6 @@ namespace WebServer.Controllers.Identity
                     ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
                     Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
                     SubscriptionService subscriptionService = new SubscriptionService();
-                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Free);
-                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd);
                     await identificationDbContext.SaveChangesAsync();
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)

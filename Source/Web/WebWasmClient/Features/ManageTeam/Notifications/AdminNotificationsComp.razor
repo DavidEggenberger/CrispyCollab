@@ -1,0 +1,13 @@
+﻿<div>
+    @foreach(var notification in AdminNotifications)
+    {
+        <div>
+            @notification.CreatedAt
+            @notification.Message
+        </div>
+    }
+</div>
+
+@code {
+
+}

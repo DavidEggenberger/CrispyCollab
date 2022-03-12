@@ -26,7 +26,8 @@ namespace WebServer.Mappings
             CreateMap<Team, TeamAdminInfoDTO>();
             CreateMap<SubscriptionPlan, SubscriptionPlanDTO>();
             CreateMap<ApplicationUser, UserDTO>();
-            CreateMap<AdminNotification, AdminNotificationDTO>();
+            CreateMap<AdminNotification, AdminNotificationDTO>()
+                .ForMember(x => x.CreatedAt, opt => opt.MapFrom(opt => opt.CreatedAt));
         }
     }
 }

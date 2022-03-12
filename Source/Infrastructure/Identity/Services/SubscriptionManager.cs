@@ -22,10 +22,12 @@ namespace Infrastructure.Identity.Services
             this.adminNotificationManager = adminNotificationManager;
             this.subscriptionService = new SubscriptionService();
         }
-        public Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime)
+        public Subscription CreateSubscription(SubscriptionPlan subscriptionPlan, DateTime dateTime, string stripeSubscriptionId)
         {
             return new Subscription
             {
+                Status = Types.Enums.SubscriptionStatus.Active,
+                StripeSubscriptionId = stripeSubscriptionId,
                 SubscriptionPlan = subscriptionPlan,
                 PeriodEnd = dateTime
             };
