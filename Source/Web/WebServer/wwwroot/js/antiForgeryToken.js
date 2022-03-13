@@ -1,4 +1,4 @@
 ﻿function getAntiForgeryToken() {
-    var antiForgeryTokenInput = document.getElementsByClassName('.AntiforgeryTokenContainer');
+    var antiForgeryTokenInput = document.querySelector('.AntiforgeryTokenContainer').querySelectorAll('input');
     return antiForgeryTokenInput[0].Value;
 }
