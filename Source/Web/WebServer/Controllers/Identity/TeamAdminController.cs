@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Common.Identity.DTOs.TeamDTOs;
+using Common.Identity.Team.AdminManagement;
 using Common.Identity.Team.DTOs;
 using Common.Misc.Attributes;
 using Infrastructure.Identity;
+using Infrastructure.Identity.BusinessObjects;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +44,10 @@ namespace WebServer.Controllers.Identity.TeamControllers
         public async Task<TeamAdminInfoDTO> GetAdminInfo()
         {
             Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-            return mapper.Map<TeamAdminInfoDTO>(team);
+            TeamMetrics teamMetrics = teamManager.GetMetricsForTeam(team);
+            TeamAdminInfoDTO teamAdminInfoDTO = mapper.Map<TeamAdminInfoDTO>(team);
+            teamAdminInfoDTO.Metrics = mapper.Map<TeamMetricsDTO>(teamMetrics);
+            return teamAdminInfoDTO;
         }
 
         [HttpPost("invite")]

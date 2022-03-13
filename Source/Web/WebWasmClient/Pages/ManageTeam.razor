@@ -2,17 +2,20 @@
 @attribute [AuthorizeTeamAdmin]
 
 <div class="ManageTeamPageContainer">
-    <h3>@User.GetTeamName()</h3>
+    <h3>Manage @User.GetTeamName()</h3>
     <div class="ManageTeamGrid">
         @if(loading is false)
         {
-            <div>
+            <div class="ManageMembersCompContainer">
                 <ManageMembersComp Members="teamAdminInfo.Members"/>
             </div>
             <div class="ManageSubscriptionCompContainer">
                 <ManageSubscriptionComp CurrentSubscription="teamAdminInfo.Subscription"/>
             </div>
-            <div>
+            <div class="MetricsCompContainer">
+                <MetricsComp/>
+            </div>
+            <div class="AdminNotificationsCompContainer">
                 <AdminNotificationsComp AdminNotifications="teamAdminInfo.AdminNotifications"/>
             </div>
         }       

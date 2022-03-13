@@ -5,6 +5,7 @@ using Common.Identity.Team;
 using Common.Identity.Team.AdminManagement;
 using Common.Identity.User;
 using Infrastructure.Identity;
+using Infrastructure.Identity.BusinessObjects;
 using Infrastructure.Identity.Entities;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace WebServer.Mappings
     {
         public IdentityProfiles()
         {
+            CreateMap<TeamMetrics, TeamMetricsDTO>();
             CreateMap<ApplicationUserTeam, MemberDTO>()
                 .ForMember(x => x.Email, opt => opt.MapFrom(x => x.User.Email))
                 .ForMember(x => x.Name, opt => opt.MapFrom(x => x.User.UserName))

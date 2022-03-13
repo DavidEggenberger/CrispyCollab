@@ -12,6 +12,7 @@ using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Infrastructure.Identity.BusinessObjects;
 
 namespace Infrastructure.Identity.Services
 {
@@ -28,6 +29,13 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
+        public TeamMetrics GetMetricsForTeam(Team team)
+        {
+            return new TeamMetrics
+            {
+                UserCount = team.Members.Count
+            };
+        }
         public async Task<Team> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             Team team;

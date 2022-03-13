@@ -1,15 +1,14 @@
-﻿.ManageSubscriptionCompContainer{
+﻿.ManageSubscriptionContainer{
     display: grid;
     height: 100%;
     width: 100%;
+    grid-row-gap: 10px;
 }
 .SubscriptionPlanActive {
     background-color: rgba(255, 195, 160, 0.5);
-    margin-bottom: 10px;
 }
 .SubscriptionPlan {
     background-color: rgba(255, 195, 160, 0.2);
-    margin-bottom: 10px;
     transition: 0.2s;
 }
     .SubscriptionPlan:hover {
