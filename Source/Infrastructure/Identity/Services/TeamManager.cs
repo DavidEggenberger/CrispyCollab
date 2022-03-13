@@ -42,7 +42,7 @@ namespace Infrastructure.Identity.Services
         }
         public async Task RemoveInvitationAsync(Team team, ApplicationUser applicationUser)
         {
-            team.RevokeInvitation(applicationUser);
+            identificationDbContext.ApplicationUserTeams.Remove(identificationDbContext.ApplicationUserTeams.Where(x => x.TeamId == team.Id && x.UserId == applicationUser.Id && x.Status == MembershipStatus.Invited).FirstOrDefault());
             await identificationDbContext.SaveChangesAsync();
             await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
         }
