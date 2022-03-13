@@ -11,6 +11,7 @@ namespace Domain.Aggregates.IntegrationAggregate
     [AggregateRoot]
     public class Integration : Entity
     {
+        public string ProviderName { get; set; }
 
     }
 }

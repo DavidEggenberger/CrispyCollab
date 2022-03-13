@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Aggregates\SubjectAggregate\" />
     <Folder Include="Shared\ValueObjects\" />
   </ItemGroup>
 

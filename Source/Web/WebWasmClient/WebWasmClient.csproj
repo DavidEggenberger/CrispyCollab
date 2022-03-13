@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Z.Blazor.Diagrams" Version="2.1.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Dashboard\" />
-    <Folder Include="Features\Pipelines\" />
-    <Folder Include="Features\Notifications\" />
+    <Folder Include="Components\Dashboard\" />
+    <Folder Include="Components\Pipelines\" />
+    <Folder Include="Components\Notifications\" />
   </ItemGroup>
 
   <ItemGroup>
