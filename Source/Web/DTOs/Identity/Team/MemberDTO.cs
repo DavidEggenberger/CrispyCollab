@@ -9,6 +9,8 @@ namespace Common.Identity.Team
 {
     public class MemberDTO
     {
+
+        public MembershipStatusDTO Status { get; set; }
         public TeamRoleDTO Role { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

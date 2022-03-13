@@ -1,0 +1,9 @@
+﻿.RevokeInvitationContainer{
+    margin-top: 10px;
+}
+.RevokeButtonDisplay{
+    height: 40px;
+    width: 40%;
+    display: flex;
+    align-items: center;
+}

@@ -35,7 +35,8 @@ namespace Infrastructure.Identity
                 new ApplicationUserTeam
                 {
                     Role = TeamRole.Admin,
-                    User = creator
+                    User = creator,
+                    Status = MembershipStatus.Joined
                 }
             };
             Subscription = subscription;

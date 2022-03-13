@@ -35,7 +35,9 @@ namespace Infrastructure.Identity.Services
         {
             return new TeamMetrics
             {
-                UserCount = team.Members.Count
+                TotalUserCount = team.Members.Count,
+                JoinedUserCount = team.Members.Where(x => x.Status == MembershipStatus.Joined).Count(),
+                InvitedUserCount = team.Members.Where(x => x.Status == MembershipStatus.Invited).Count()
             };
         }
         public async Task<Team> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)

@@ -8,6 +8,8 @@ namespace Common.Identity.Team.AdminManagement
 {
     public class TeamMetricsDTO
     {
-        public int UserCount { get; set; }
+        public int TotalUserCount { get; set; }
+        public int JoinedUserCount { get; set; }
+        public int InvitedUserCount { get; set; }
     }
 }

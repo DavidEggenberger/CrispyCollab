@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Identity.UserTeam
+namespace Common.Identity.Team
 {
-    public enum TeamRoleDTO
+    public enum MembershipStatusDTO
     {
-        Admin,
-        User
+        Invited,
+        Joined
     }
 }

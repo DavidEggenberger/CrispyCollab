@@ -8,6 +8,8 @@ namespace Infrastructure.Identity.BusinessObjects
 {
     public class TeamMetrics
     {
-        public int UserCount { get; set; }
+        public int TotalUserCount { get; set; }
+        public int JoinedUserCount { get; set; }
+        public int InvitedUserCount { get; set; }
     }
 }

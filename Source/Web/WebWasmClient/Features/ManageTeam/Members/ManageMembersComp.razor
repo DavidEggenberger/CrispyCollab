@@ -6,6 +6,7 @@
             <th>UserName</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -16,10 +17,15 @@
                 <td>@user.Name</td>
                 <td>@user.Email</td>
                 <td>@user.Role</td>
+                <td>@user.Status</td>
                 <td>
                     @if(user.Id == User.GetId())
                     {
                         <button>YourSelf</button>
+                    }
+                    else if(user.Status == MembershipStatusDTO.Invited)
+                    {
+                        <button @onclick="() => ShowInvitationRevokeModal(user)">Revoke Invitation</button>
                     }
                     else
                     {
@@ -33,7 +39,3 @@
 </table>
 
 <button @onclick="() => Modal.Show<InviteMemberComp>()">Invite Users to Team</button>
-
-@code{
-    [Parameter] public List<MemberDTO> Members { get; set; }
-}

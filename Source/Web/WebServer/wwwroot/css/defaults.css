@@ -118,6 +118,10 @@ tr{
     height: 25px;
 }
 
+bold{
+    font-weight: 600;
+}
+
 .card{
     border-radius: 5px;
     padding: 5px;
