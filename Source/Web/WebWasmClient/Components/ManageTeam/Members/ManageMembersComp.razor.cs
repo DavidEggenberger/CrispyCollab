@@ -4,9 +4,9 @@ using Common.Identity.Team;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebWasmClient.Features.ManageTeam.Members.Modals;
+using WebWasmClient.Components.ManageTeam.Members.Modals;
 
-namespace WebWasmClient.Features.ManageTeam.Members
+namespace WebWasmClient.Components.ManageTeam.Members
 {
     public partial class ManageMembersComp
     {

@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebWasmClient.Services;
 
-namespace WebWasmClient.Features.ManageTeam.Subscription
+namespace WebWasmClient.Components.ManageTeam.Subscription
 {
     public partial class ManageSubscriptionComp
     {

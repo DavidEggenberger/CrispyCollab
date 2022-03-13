@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebWasmClient.Services;
 
-namespace WebWasmClient.Features.ManageTeam
+namespace WebWasmClient.Components.ManageTeam
 {
     public partial class CreateTeamComp
     {

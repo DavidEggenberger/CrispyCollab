@@ -1,7 +1,7 @@
 ﻿using Common.Identity.Team.AdminManagement;
 using Microsoft.AspNetCore.Components;
 
-namespace WebWasmClient.Features.ManageTeam.Metrics
+namespace WebWasmClient.Components.ManageTeam.Metrics
 {
     public partial class MetricsComp
     {

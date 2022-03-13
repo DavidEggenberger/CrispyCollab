@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebWasmClient.Features.ManageTeam.Members.Modals
+namespace WebWasmClient.Components.ManageTeam.Members.Modals
 {
     public partial class InviteMemberComp
     {

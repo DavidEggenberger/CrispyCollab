@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebWasmClient.Services;
 
-namespace WebWasmClient.Features.Dashboard.Pages
+namespace WebWasmClient.Components.Dashboard.Pages
 {
     public partial class Dashboard : ComponentBase
     {
