@@ -57,6 +57,19 @@ namespace Infrastructure.Identity
                 throw new IdentityOperationException("The user is already a member");
             }
         }
+        public void RevokeInvitation(ApplicationUser applicationUser)
+        {
+            ApplicationUserTeam applicationUserTeam;
+            try
+            {
+                applicationUserTeam = members.Single(x => x.UserId == applicationUser.Id && x.Status == MembershipStatus.Invited);
+            }
+            catch (Exception ex)
+            {
+                throw new IdentityOperationException("The user is already a member");
+            }
+            members.Remove(applicationUserTeam);
+        }
         public void AddMember(ApplicationUser applicationUser, TeamRole teamRole)
         {
             ApplicationUserTeam applicationUserTeam = members.SingleOrDefault(x => x.UserId == applicationUser.Id);

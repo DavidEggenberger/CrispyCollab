@@ -58,6 +58,15 @@ namespace WebServer.Controllers.Identity.TeamControllers
             return Ok();
         }
 
+        [HttpPost("invite/revoke")]
+        public async Task<ActionResult> RevokeInvitation(RevokeInvitationDTO revokeInvitationDTO)
+        {
+            Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
+            ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(revokeInvitationDTO.UserId);
+            await teamManager.RemoveInvitationAsync(team, applicationUser);
+            return Ok();
+        }
+
         [HttpPost("changerole")]
         public async Task<ActionResult> ChangeRoleOfTeamMember(ChangeRoleOfMemberDTO changeRoleOfTeamMemberDTO)
         {

@@ -40,6 +40,12 @@ namespace Infrastructure.Identity.Services
                 InvitedUserCount = team.Members.Where(x => x.Status == MembershipStatus.Invited).Count()
             };
         }
+        public async Task RemoveInvitationAsync(Team team, ApplicationUser applicationUser)
+        {
+            team.RevokeInvitation(applicationUser);
+            await identificationDbContext.SaveChangesAsync();
+            await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
+        }
         public async Task<Team> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             Team team;
