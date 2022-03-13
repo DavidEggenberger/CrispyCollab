@@ -16,7 +16,17 @@
                 <td>@user.Name</td>
                 <td>@user.Email</td>
                 <td>@user.Role</td>
-                <td>Do sth</td>
+                <td>
+                    @if(user.Id == User.GetId())
+                    {
+                        <button>YourSelf</button>
+                    }
+                    else
+                    {
+                        <button @onclick="() => Modal.Show<ChangeRoleOfMemberComp>()">Change Role</button>
+                        <button @onclick="() => Modal.Show<RemoveMemberComp>()">Remove Member</button>
+                    }     
+                </td>
             </tr>
         }
     </tbody>

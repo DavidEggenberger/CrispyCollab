@@ -3,11 +3,16 @@ using System.Linq;
 using Common.Identity.Team.DTOs.Enums;
 using System;
 using Common.Identity.UserTeam;
+using Common;
 
 namespace WebWasmClient.Authentication
 {
     public static class ClaimsPrincipalExtensions
     {
+        public static Guid GetId(this ClaimsPrincipal claimsPrincipal)
+        {
+            return new Guid(claimsPrincipal.FindFirst(ClaimTypes.Sid).Value);
+        }
         public static bool IsAdmin(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "TeamRole")?.Value == TeamRoleDTO.Admin.ToString();

@@ -42,7 +42,7 @@ namespace WebWasmClient.Features.ManageTeam.Members.Modals
             {
                 Emails = emailAddresses
             };
-            await HttpClientService.PostToAPIAsync("/teammember/invite", inviteUserToTeamDTO);
+            await HttpClientService.PostToAPIAsync("/teamadmin/invite", inviteUserToTeamDTO);
             await ModalInstance.CloseAsync();
         }
     }

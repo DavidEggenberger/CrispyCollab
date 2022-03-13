@@ -55,7 +55,6 @@ namespace WebServer.Controllers.Identity.TeamControllers
         {
             Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
             await teamManager.InviteMembersAsync(team, inviteUserToGroupDTO.Emails);   
-            await notificationHubContext.Clients.Group($"{team.Id}{TeamRole.Admin}").SendAsync("UpdateTeam");
             return Ok();
         }
 

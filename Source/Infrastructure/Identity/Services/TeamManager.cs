@@ -13,6 +13,7 @@ using Infrastructure.Identity.Types;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Infrastructure.Identity.BusinessObjects;
+using Identity.Interfaces;
 
 namespace Infrastructure.Identity.Services
 {
@@ -21,12 +22,13 @@ namespace Infrastructure.Identity.Services
         private IdentificationDbContext identificationDbContext;
         private ApplicationUserManager applicationUserManager;
         private SubscriptionPlanManager subscriptionPlanManager;
-
-        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager)
+        private IIdentityUINotifierService identityUINotifierService;
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager, IIdentityUINotifierService identityUINotifierService)
         {
             this.identificationDbContext = identificationDbContext;
             this.applicationUserManager = applicationUserManager;
             this.subscriptionPlanManager = subscriptionPlanManager;
+            this.identityUINotifierService = identityUINotifierService;
         }
 
         public TeamMetrics GetMetricsForTeam(Team team)
@@ -69,12 +71,13 @@ namespace Infrastructure.Identity.Services
                         team.InviteMember(_applicationUser, TeamRole.User);
                     }
                 }
-                if ((invitedUser = await applicationUserManager.FindByEmailAsync(email)) != null && !team.Members.Any(m => m.UserId == invitedUser.Id))
+                else if(!team.Members.Any(m => m.UserId == invitedUser.Id))
                 {
                     team.InviteMember(invitedUser, teamRole);
                 }
             }
             await identificationDbContext.SaveChangesAsync();
+            await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
         }
         public async Task<Team> FindByIdAsync(Guid id)
         {
