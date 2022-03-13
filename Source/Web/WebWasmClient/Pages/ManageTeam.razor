@@ -2,7 +2,6 @@
 @attribute [AuthorizeTeamAdmin]
 
 <div class="ManageTeamPageContainer">
-    <h3>Manage @User.GetTeamName()</h3>
     <div class="ManageTeamGrid">
         @if(loading is false)
         {
@@ -13,7 +12,7 @@
                 <ManageSubscriptionComp CurrentSubscription="teamAdminInfo.Subscription"/>
             </div>
             <div class="MetricsCompContainer">
-                <MetricsComp/>
+                <MetricsComp TeamMetrics="teamAdminInfo.Metrics"/>
             </div>
             <div class="AdminNotificationsCompContainer">
                 <AdminNotificationsComp AdminNotifications="teamAdminInfo.AdminNotifications"/>

@@ -1,12 +1,29 @@
-﻿<div>
-    @if(AdminNotifications is not null)
-    {
-        foreach(var notification in AdminNotifications)
+﻿<div class="AdminNotificationsContainer">
+    <div class="AdminNotificationHeading">
+        <select @bind="DateSorter" @bind:event="oninput">
+            @foreach(var filter in dateFilterings.Keys)
+            {
+                <option>@filter</option>
+            }
+        </select>
+        <select @bind="TypeSorter" @bind:event="oninput">
+            <option>All</option>
+            @foreach(var item in Enum.GetValues(typeof(AdminNotificationTypeDTO)))
+            {
+                <option>@item</option>
+            }
+        </select>
+    </div>
+    <div class="AdminNotificationDisplay">
+        @if(AdminNotifications is not null)
         {
-            <div>
-                @notification.CreatedAt
-                @notification.Message
-            </div>
+            foreach(var notification in sortedAdminNotifications)
+            {
+                <div>
+                    @notification.CreatedAt
+                    @notification.Message
+                </div>
+            }
         }
-    }
+    </div>   
 </div>

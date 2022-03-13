@@ -2,7 +2,7 @@
     display: grid;
     height: 100%;
     width: 100%;
-    grid-row-gap: 10px;
+    grid-row-gap: 5px;
 }
 .SubscriptionPlanActive {
     background-color: rgba(255, 195, 160, 0.5);
