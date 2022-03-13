@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Notifications\**" />
+    <Compile Remove="Components\Pipelines\**" />
+    <Content Remove="Components\Notifications\**" />
+    <Content Remove="Components\Pipelines\**" />
+    <EmbeddedResource Remove="Components\Notifications\**" />
+    <EmbeddedResource Remove="Components\Pipelines\**" />
+    <None Remove="Components\Notifications\**" />
+    <None Remove="Components\Pipelines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="6.0.1" />
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
@@ -24,8 +35,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Dashboard\" />
-    <Folder Include="Components\Pipelines\" />
-    <Folder Include="Components\Notifications\" />
+    <Folder Include="Components\Topics\" />
   </ItemGroup>
 
   <ItemGroup>

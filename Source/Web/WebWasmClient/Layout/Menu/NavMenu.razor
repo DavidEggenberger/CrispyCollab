@@ -5,13 +5,10 @@
     </NavLink>
     @if(User.HasTeamClaims())
     {
-        <NavLink href='@("/" + User.GetTeamName())' Match="NavLinkMatch.All" class="NavElement">
-            <h5>Pipelines</h5>
+        <NavLink href="/Topics" Match="NavLinkMatch.All" class="NavElement">
+            <h5>Topics</h5>
         </NavLink>
     }
-    <NavLink href="/Notifications" Match="NavLinkMatch.Prefix" class="NavElement">
-        <h5>Notifications</h5>
-    </NavLink>
     @if(User.IsAdmin())
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">

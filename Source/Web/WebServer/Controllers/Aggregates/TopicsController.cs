@@ -5,7 +5,7 @@ namespace WebServer.Controllers.Aggregates
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DataSourceController : ControllerBase
+    public class TopicsController : ControllerBase
     {
     }
 }
