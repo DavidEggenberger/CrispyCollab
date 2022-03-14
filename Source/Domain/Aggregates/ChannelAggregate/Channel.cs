@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel.Attributes;
+﻿using Domain.Aggregates.MessagingAggregate;
+using Domain.SharedKernel.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

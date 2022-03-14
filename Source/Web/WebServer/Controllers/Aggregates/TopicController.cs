@@ -1,7 +1,9 @@
-﻿using Common.Features.Topic;
+﻿using Application.Topic.CreateTopic;
+using Common.Features.Topic;
 using Infrastructure.CQRS.Command;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebServer.Controllers.Aggregates
@@ -16,10 +18,10 @@ namespace WebServer.Controllers.Aggregates
             this.commandDispatcher = commandDispatcher;
         }
 
-        [HttpPost]
-        public async Task CreateTopic(CreateTopicDTO createTopicDTO)
+        [HttpGet]
+        public async Task CreateTopic()
         {
-            
+            await commandDispatcher.DispatchAsync<CreateTopicCommand, bool>(new CreateTopicCommand(), CancellationToken.None);
         }
     }
 }

@@ -113,7 +113,7 @@ namespace WebServer
             });
             #endregion
             services.AddAutoMapper(GetType().Assembly);
-            services.AddCQRS(GetType().Assembly);
+            services.AddCQRS(typeof(Application.IAssemblyMarker).Assembly);
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
             services.Configure<SendGridEmailOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
