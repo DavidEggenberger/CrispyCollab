@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    public class TextMessage : Message
+    public class MessageReaction
     {
-        public string Content { get; set; }
-
+        public Guid MyProperty { get; set; }
+        public Guid UserId { get; set; }
     }
 }

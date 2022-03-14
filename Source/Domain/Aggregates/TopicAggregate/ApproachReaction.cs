@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.MessagingAggregate
+namespace Domain.Aggregates.TopicAggregate
 {
-    public class TextMessage : Message
+    internal class ApproachReaction
     {
-        public string Content { get; set; }
-
     }
 }

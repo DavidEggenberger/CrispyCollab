@@ -16,5 +16,6 @@ namespace Domain.Aggregates.TopicAggregate
         public TopicType Type { get; set; }
         public TopicStatus Status { get; set; }
         public string Multimedia { get; set; }
+        public List<Approach> Approaches { get; set; }
     }
 }
