@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.TopicAggregate
+namespace Domain.Aggregates.TopicAggregate.Approach
 {
     public class Approach
     {

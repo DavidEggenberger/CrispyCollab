@@ -10,6 +10,6 @@ namespace Infrastructure.CQRS.Command
 {
     public interface ICommandHandler<in TCommand, TCommandResult> where TCommand : ICommand
     {
-        Task<TCommandResult> Handle(TCommand query, CancellationToken cancellation);
+        Task<TCommandResult> HandleAsync(TCommand query, CancellationToken cancellation);
     }
 }

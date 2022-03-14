@@ -9,6 +9,6 @@ namespace Infrastructure.CQRS.Command
 {
     public interface ICommandDispatcher
     {
-        Task<TCommandResult> Dispatch<TCommand, TCommandResult>(TCommand command, CancellationToken cancellation) where TCommand : ICommand;
+        Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken cancellation) where TCommand : ICommand;
     }
 }

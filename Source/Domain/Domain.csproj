@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\TriggerAggregate\" />
-    <Folder Include="Aggregates\TriggerAggregate\" />
     <Folder Include="Shared\ValueObjects\" />
   </ItemGroup>
 

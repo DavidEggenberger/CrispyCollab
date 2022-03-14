@@ -17,10 +17,10 @@ namespace Infrastructure.CQRS.Query
             this.serviceProvider = serviceProvider;
         }
 
-        public Task<TQueryResult> Dispatch<TQuery, TQueryResult>(TQuery query, CancellationToken cancellation)
+        public Task<TQueryResult> DispatchAsync<TQuery, TQueryResult>(TQuery query, CancellationToken cancellation)
         {
             var handler = serviceProvider.GetRequiredService<IQueryHandler<TQuery, TQueryResult>>();
-            return handler.Handle(query, cancellation);
+            return handler.HandleAsync(query, cancellation);
         }
     }
 }

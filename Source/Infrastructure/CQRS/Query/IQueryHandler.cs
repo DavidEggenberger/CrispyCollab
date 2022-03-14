@@ -9,6 +9,6 @@ namespace Infrastructure.CQRS.Query
 {
     public interface IQueryHandler<in TQuery, TQueryResult>
     {
-        Task<TQueryResult> Handle(TQuery query, CancellationToken cancellation);
+        Task<TQueryResult> HandleAsync(TQuery query, CancellationToken cancellation);
     }
 }

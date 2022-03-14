@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Aggregates.TopicAggregate;
+using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +18,10 @@ namespace Infrastructure.Persistence
         {
             this.domainEventDispatcher = domainEventDispatcher;
         }
+
+        public DbSet<Topic> Topics { get; set; }
+
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateAutitableEntities();
