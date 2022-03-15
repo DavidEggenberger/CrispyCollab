@@ -10,6 +10,7 @@ namespace Infrastructure.CQRS.DomainEvent
 {
     public interface IDomainEventDispatcher
     {
-        Task Dispatch<TDomainEvent>(TDomainEvent command, CancellationToken cancellation) where TDomainEvent : IDomainEvent;
+        Task DispatchAsync<TDomainEvent>(TDomainEvent command, CancellationToken cancellation) where TDomainEvent : IDomainEvent;
+        Task<TDomainEventResponse> DispatchAsync<TDomainEventResponse>(IDomainEvent<TDomainEventResponse> command, CancellationToken cancellation);
     }
 }

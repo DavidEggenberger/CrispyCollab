@@ -10,6 +10,11 @@ namespace Infrastructure.CQRS.DomainEvent
 {
     public interface IDomainEventHandler<in TDomainEvent> where TDomainEvent : IDomainEvent
     {
-        Task Handle(TDomainEvent query, CancellationToken cancellation);
+        Task HandleAsync(TDomainEvent query, CancellationToken cancellation);
+    }
+
+    public interface IDomainEventHandler<in TDomainEvent, TDomainEventResponse> where TDomainEvent : IDomainEvent<TDomainEventResponse>
+    {
+        Task<TDomainEventResponse> HandleAsync(IDomainEvent<TDomainEventResponse> query, CancellationToken cancellation);
     }
 }

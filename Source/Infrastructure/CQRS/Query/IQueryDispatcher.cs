@@ -9,6 +9,6 @@ namespace Infrastructure.CQRS.Query
 {
     public interface IQueryDispatcher
     {
-        Task<TQueryResult> DispatchAsync<TQuery, TQueryResult>(TQuery query, CancellationToken cancellation);
+        Task<TQueryResult> DispatchAsync<TQueryResult>(IQuery<TQueryResult> query, CancellationToken cancellation);
     }
 }

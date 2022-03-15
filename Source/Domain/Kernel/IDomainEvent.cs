@@ -9,4 +9,7 @@ namespace Domain.SharedKernel
     public interface IDomainEvent
     {
     }
+    public interface IDomainEvent<IDomainEventResponse>
+    {
+    }
 }
