@@ -1,10 +1,12 @@
-﻿
-<div class="NavMenuContainer">
+﻿<div class="NavMenuContainer">
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
     @if(User.HasTeamClaims())
     {
+        <NavLink href="/Channels" Match="NavLinkMatch.All" class="NavElement">
+            <h5>Channels</h5>
+        </NavLink>
         <NavLink href="/Topics" Match="NavLinkMatch.All" class="NavElement">
             <h5>Topics</h5>
         </NavLink>

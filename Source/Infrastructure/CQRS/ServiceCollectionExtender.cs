@@ -36,7 +36,7 @@ namespace Infrastructure.CQRS
                 selector.FromAssemblies(assemblies)
                         .AddClasses(filter =>
                         {
-                            filter.AssignableTo(typeof(ICommandHandler<,>));
+                            filter.AssignableTo(typeof(ICommandHandler<>));
                         })
                         .AsImplementedInterfaces()
                         .WithScopedLifetime();
@@ -47,6 +47,10 @@ namespace Infrastructure.CQRS
                         .AddClasses(filter =>
                         {
                             filter.AssignableTo(typeof(IDomainEventHandler<>));
+                        })
+                        .AddClasses(filter =>
+                        {
+                            filter.AssignableTo(typeof(IDomainEventHandler<,>));
                         })
                         .AsImplementedInterfaces()
                         .WithScopedLifetime();

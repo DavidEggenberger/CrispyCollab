@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebWasmClient.Layout.Menu
+namespace WebWasmClient.Layouts.MainLayoutMenu
 {
     public partial class TeamsOverviewComp
     {

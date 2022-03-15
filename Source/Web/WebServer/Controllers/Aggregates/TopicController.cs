@@ -21,7 +21,7 @@ namespace WebServer.Controllers.Aggregates
         [HttpGet]
         public async Task CreateTopic(CancellationToken cancellationToken)
         {
-            await commandDispatcher.DispatchAsync<CreateTopicCommand>(new CreateTopicCommand(), cancellationToken);
+            await commandDispatcher.DispatchAsync(new CreateTopicCommand(), cancellationToken);
         }
     }
 }

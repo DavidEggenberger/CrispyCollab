@@ -1,6 +1,6 @@
 ﻿namespace WebWasmClient.Pages
 {
-    public partial class Topics
+    public partial class Channels
     {
     }
 }

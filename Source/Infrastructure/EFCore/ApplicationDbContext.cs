@@ -43,7 +43,7 @@ namespace Infrastructure.Persistence
                 entity.ClearDomainEvents();
                 foreach (var domainEvent in events)
                 {
-                    await domainEventDispatcher.Dispatch(domainEvent, cancellationToken).ConfigureAwait(false);
+                    await domainEventDispatcher.DispatchAsync(domainEvent, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

@@ -11,9 +11,9 @@ namespace Application.Topic.CreateTopic
     public class CreateTopicCommand : ICommand
     {
     }
-    public class CreateTopicCommandHandler : ICommandHandler<CreateTopicCommand, bool>
+    public class CreateTopicCommandHandler : ICommandHandler<CreateTopicCommand>
     {
-        public Task<bool> HandleAsync(CreateTopicCommand query, CancellationToken cancellation)
+        public Task HandleAsync(CreateTopicCommand query, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
