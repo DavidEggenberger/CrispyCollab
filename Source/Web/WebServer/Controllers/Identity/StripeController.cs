@@ -157,7 +157,6 @@ namespace WebServer.Controllers.Identity
                     if(team.Subscription is not null && team.Subscription.SubscriptionPlan.PlanType != SubscriptionPlanType.Free)
                     {
                         await subscriptionManager.CancelSubscriptionAsync(team.Subscription);
-                        await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionDeleted, applicationUser, $"{applicationUser.UserName} canceled the {team.Subscription.SubscriptionPlan.PlanType} subscription");
                     }
                     SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
                     team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd, subscription.Id);
@@ -176,11 +175,10 @@ namespace WebServer.Controllers.Identity
                 }  
                 else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
                 {
-                    //var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-                    //ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-                    //Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-                    //SubscriptionService subscriptionService = new SubscriptionService();
-                    //await identificationDbContext.SaveChangesAsync();
+                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
+                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
+                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
+                    await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionDeleted, applicationUser, $"{applicationUser.UserName} canceled the {team.Subscription.SubscriptionPlan.PlanType} subscription");
                 }
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.TopicAggregate.Approach
+namespace Domain.Aggregates.TopicAggregate
 {
     public class Approach
     {
         public Guid TopicId { get; set; }
         public Guid UserId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public ApproachStatus Status { get; set; }
     }
 }

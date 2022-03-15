@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CQRS.Command
 {
-    public interface ICommandHandler<in TCommand, TCommandResult> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
-        Task<TCommandResult> HandleAsync(TCommand query, CancellationToken cancellation);
+        Task HandleAsync(TCommand query, CancellationToken cancellation);
     }
 }

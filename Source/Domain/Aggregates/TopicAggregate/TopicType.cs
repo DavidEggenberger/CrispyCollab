@@ -8,5 +8,6 @@ namespace Domain.Aggregates.TopicAggregate
 {
     public enum TopicType
     {
+        Question
     }
 }

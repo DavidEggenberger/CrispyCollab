@@ -8,5 +8,7 @@ namespace Domain.Aggregates.TopicAggregate
 {
     public enum ApproachStatus
     {
+        Active,
+        Abandonned
     }
 }
