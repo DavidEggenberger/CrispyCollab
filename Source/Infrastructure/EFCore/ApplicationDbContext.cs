@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.TopicAggregate;
+﻿using Domain.Aggregates.ChannelAggregate;
+using Domain.Aggregates.TopicAggregate;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Infrastructure.Persistence
         }
 
         public DbSet<Topic> Topics { get; set; }
-
+        public DbSet<Channel> Channels { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

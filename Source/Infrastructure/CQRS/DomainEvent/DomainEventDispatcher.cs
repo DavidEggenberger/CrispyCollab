@@ -16,13 +16,13 @@ namespace Infrastructure.CQRS.DomainEvent
         {
             this.serviceProvider = serviceProvider;
         }
-        public Task DispatchAsync<TDomainEvent>(TDomainEvent command, CancellationToken cancellation) where TDomainEvent : IDomainEvent
+        public Task DispatchAsync<TDomainEvent>(TDomainEvent command, CancellationToken cancellation = default) where TDomainEvent : IDomainEvent
         {
             var handler = serviceProvider.GetRequiredService<IDomainEventHandler<TDomainEvent>>();
             return handler.HandleAsync(command, cancellation);
         }
 
-        public Task<TDomainEventResponse> DispatchAsync<TDomainEventResponse>(IDomainEvent<TDomainEventResponse> domainEvent, CancellationToken cancellation)
+        public Task<TDomainEventResponse> DispatchAsync<TDomainEventResponse>(IDomainEvent<TDomainEventResponse> domainEvent, CancellationToken cancellation = default)
         {
             var handler = serviceProvider.GetRequiredService<IDomainEventHandler<IDomainEvent<TDomainEventResponse>, TDomainEventResponse>>();
             return handler.HandleAsync(domainEvent, cancellation);

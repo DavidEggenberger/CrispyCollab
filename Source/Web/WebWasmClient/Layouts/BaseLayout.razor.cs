@@ -6,7 +6,7 @@ namespace WebWasmClient.Layouts
 {
     public partial class BaseLayout
     {
-        [Inject] public JSRuntime JSRuntime { get; set; }
+        [Inject] public IJSRuntime JSRuntime { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
