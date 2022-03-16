@@ -10,6 +10,7 @@ namespace Domain.SharedKernel
     public abstract class Entity
     {
         public Guid Id { get; set; }
+        public Guid TeamId { get; set; }
         public bool IsSoftDeleted { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset LastUpdated { get; set; }

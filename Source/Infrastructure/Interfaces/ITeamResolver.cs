@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Infrastructure.Interfaces
 {
-    public interface IAssemblyMarker
+    public interface ITeamResolver
     {
+        Guid GetTeamId();
     }
 }

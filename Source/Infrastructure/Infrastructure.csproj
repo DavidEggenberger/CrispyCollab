@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EFCore\Configuration\" />
+    <Folder Include="EFCore\Configuration\TopicAggregate\" />
     <Folder Include="EFCore\Migrations\" />
   </ItemGroup>
 

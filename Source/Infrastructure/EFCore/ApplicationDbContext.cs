@@ -2,10 +2,12 @@
 using Domain.Aggregates.TopicAggregate;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,15 +16,29 @@ namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
-        private IDomainEventDispatcher domainEventDispatcher;
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher) : base(dbContextOptions)
+        private readonly IDomainEventDispatcher domainEventDispatcher;
+        private readonly ITeamResolver teamResolver;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITeamResolver teamResolver) : base(dbContextOptions)
         {
             this.domainEventDispatcher = domainEventDispatcher;
+            this.teamResolver = teamResolver;   
         }
 
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Channel> Channels { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
+            foreach (var entity in Model.GetEntityTypes())
+            {
+                var method = SetGlobalQueryMethod.MakeGenericMethod(entity.GetType());
+                method.Invoke(this, new object[] { modelBuilder, teamResolver.GetTeamId() });
+            }
+        }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateAutitableEntities();
@@ -63,6 +79,13 @@ namespace Infrastructure.Persistence
                         break;
                 }
             }
+        }
+        static readonly MethodInfo SetGlobalQueryMethod = typeof(ApplicationDbContext).GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Single(t => t.IsGenericMethod && t.Name == "SetGlobalQuery");
+        public void SetGlobalQuery<T>(ModelBuilder builder, Guid teamId) where T : Entity
+        {
+            builder.Entity<T>().HasKey(e => e.Id);
+            builder.Entity<T>().HasQueryFilter(e => e.TeamId == teamId);
         }
     }
 }
