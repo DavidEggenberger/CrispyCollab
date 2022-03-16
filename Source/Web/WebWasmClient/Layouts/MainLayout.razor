@@ -1,41 +1,28 @@
 ﻿@inherits BaseLayout
 
-<div class="page">
-    <CustomErrorBoundary @ref="errorBoundary">
-        <ChildContent>
-            <aside>
-                <div class="CurrentTenantDisplayComponentContainer">
-                    <SelectedTeamDisplayComp/>
-                </div>
-                <NavMenu/>
-            </aside>
-            <main>
-                <nav>
-                    <div class="Filler"></div>
-                    <div class="LogoContainer">
-                        <div>
-                            <a href="/">
-                                <h1>CrispyCollab</h1>
-                            </a>
-                        </div>    
-                    </div>
-                    <div class="ProfileContainer">
-                        <div>
-                            <ProfileComponent/>
-                        </div>
-                    </div>
-                </nav>
-                <div class="Body">
-                    @Body
-                </div>
-            </main>
-        </ChildContent>
-        <ErrorContent Context="Exception">
-            <div class="ExceptionAlert">
-                <h3>@Exception.GetType()</h3>
-                <h3>@Exception.Message</h3>
-                <button class="btn btn-info" @onclick="() => errorBoundary.Recover()">Clear</button>
+<aside>
+    <div class="CurrentTenantDisplayComponentContainer">
+        <SelectedTeamDisplayComp/>
+    </div>
+    <NavMenu/>
+</aside>
+<main>
+    <nav>
+        <div class="Filler"></div>
+        <div class="LogoContainer">
+            <div>
+                <a href="/">
+                    <h1>CrispyCollab</h1>
+                </a>
+            </div>    
+        </div>
+        <div class="ProfileContainer">
+            <div>
+                <ProfileComponent/>
             </div>
-        </ErrorContent>
-    </CustomErrorBoundary>
-</div>
+        </div>
+    </nav>
+    <div class="Body">
+        @Body
+    </div>
+</main>
