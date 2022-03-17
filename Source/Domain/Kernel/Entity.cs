@@ -12,6 +12,7 @@ namespace Domain.SharedKernel
         public Guid Id { get; set; }
         public Guid TeamId { get; set; }
         public bool IsSoftDeleted { get; set; }
+        public byte[] RowVersion { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset LastUpdated { get; set; }
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();

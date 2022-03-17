@@ -85,6 +85,7 @@ namespace Infrastructure.Persistence
         public void SetGlobalQuery<T>(ModelBuilder builder, Guid teamId) where T : Entity
         {
             builder.Entity<T>().HasKey(e => e.Id);
+            builder.Entity<T>().Property(e => e.RowVersion).IsConcurrencyToken();
             builder.Entity<T>().HasQueryFilter(e => e.TeamId == teamId);
         }
     }
