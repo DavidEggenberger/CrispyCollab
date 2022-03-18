@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.IntegrationAggregate
 {
-    internal class IntegrationType
+    public class IntegrationType
     {
     }
 }

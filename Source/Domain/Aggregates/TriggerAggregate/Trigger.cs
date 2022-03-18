@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel.Attributes;
+﻿using Domain.SharedKernel;
+using Domain.SharedKernel.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Domain.Aggregates.TriggerAggregate
 {
     [AggregateRoot]
-    public class Trigger
+    public class Trigger : Entity
     {
         public string Name { get; set; }
         public TriggerType Type { get; set; }

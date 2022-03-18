@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Infrastructure.Interfaces
 {
     public interface ITeamResolver
     {
-        Guid GetTeamId();
+        Guid ResolveTeamId();
+        Task<Team> ResolveTeamAsync();
     }
 }

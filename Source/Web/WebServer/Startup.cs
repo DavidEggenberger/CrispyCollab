@@ -113,18 +113,20 @@ namespace WebServer
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
-            #endregion
             services.AddAutoMapper(GetType().Assembly);
+            #endregion
+            #region Infrastructure
             services.AddCQRS(typeof(Application.IAssemblyMarker).Assembly);
             StripeConfiguration.ApiKey = Configuration["StripeKey"];
             services.Configure<SendGridEmailOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddScoped<IAggregatesUINotifierService, AggregatesUINotifierService>();
             services.AddScoped<ITeamResolver, TeamResolver>();
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
-            //});
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));
+            });
+            #endregion
             #region Identity
             services.AddScoped<ApplicationUserTeamManager>();
             services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();

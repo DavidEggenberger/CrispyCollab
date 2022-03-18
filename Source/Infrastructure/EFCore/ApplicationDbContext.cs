@@ -2,6 +2,7 @@
 using Domain.Aggregates.TopicAggregate;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
+using Infrastructure.EFCore.Configuration;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,8 +36,8 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
             foreach (var entity in Model.GetEntityTypes())
             {
-                var method = SetGlobalQueryMethod.MakeGenericMethod(entity.GetType());
-                method.Invoke(this, new object[] { modelBuilder, teamResolver.GetTeamId() });
+                var method = EntityConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
+                method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
             }
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -79,14 +80,6 @@ namespace Infrastructure.Persistence
                         break;
                 }
             }
-        }
-        static readonly MethodInfo SetGlobalQueryMethod = typeof(ApplicationDbContext).GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .Single(t => t.IsGenericMethod && t.Name == "SetGlobalQuery");
-        public void SetGlobalQuery<T>(ModelBuilder builder, Guid teamId) where T : Entity
-        {
-            builder.Entity<T>().HasKey(e => e.Id);
-            builder.Entity<T>().Property(e => e.RowVersion).IsConcurrencyToken();
-            builder.Entity<T>().HasQueryFilter(e => e.TeamId == teamId);
         }
     }
 }

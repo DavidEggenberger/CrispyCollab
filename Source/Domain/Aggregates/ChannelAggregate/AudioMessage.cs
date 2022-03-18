@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    internal class AudioMessage : Message
+    public class AudioMessage : Message
     {
     }
 }

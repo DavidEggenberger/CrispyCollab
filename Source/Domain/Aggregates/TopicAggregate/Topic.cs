@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel.Attributes;
+﻿using Domain.SharedKernel;
+using Domain.SharedKernel.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 namespace Domain.Aggregates.TopicAggregate
 {
     [AggregateRoot]
-    public class Topic
+    public class Topic : Entity
     {
-        public Guid TeamId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public TopicType Type { get; set; }
