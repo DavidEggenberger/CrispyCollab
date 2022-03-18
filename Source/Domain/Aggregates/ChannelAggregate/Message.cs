@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Kernel;
+using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    public class Message : Entity
+    public class Message : Entity, ICreatedByUser
     {
-        public Guid UserId { get; set; }
+        public Guid CreatedByUserId { get; set; }
         public DateTime TimeSent { get; set; }
         public string Text { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
 using Domain.Aggregates.TopicAggregate;
+using Domain.Kernel;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.EFCore.Configuration;
@@ -19,10 +20,12 @@ namespace Infrastructure.Persistence
     {
         private readonly IDomainEventDispatcher domainEventDispatcher;
         private readonly ITeamResolver teamResolver;
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITeamResolver teamResolver) : base(dbContextOptions)
+        private readonly IUserResolver userResolver;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITeamResolver teamResolver, IUserResolver userResolver) : base(dbContextOptions)
         {
             this.domainEventDispatcher = domainEventDispatcher;
-            this.teamResolver = teamResolver;   
+            this.teamResolver = teamResolver;
+            this.userResolver = userResolver;
         }
 
         public DbSet<Topic> Topics { get; set; }
@@ -44,6 +47,7 @@ namespace Infrastructure.Persistence
         {
             UpdateAutitableEntities();
             SetTeamId(teamResolver.ResolveTeamId());
+            UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             int result = await base.SaveChangesAsync(cancellationToken);
             await DispatchEventsAsync(cancellationToken);
             return result;
@@ -87,6 +91,13 @@ namespace Infrastructure.Persistence
             foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.TeamId = teamId;
+            }
+        }
+        private void UpdateCreatedByUserEntities(Guid userId)
+        {
+            foreach (var entry in ChangeTracker.Entries<ICreatedByUser>().Where(x => x.State == EntityState.Added))
+            {
+                entry.Entity.CreatedByUserId = userId;
             }
         }
     }

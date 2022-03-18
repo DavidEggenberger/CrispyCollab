@@ -45,4 +45,8 @@
     <PackageReference Include="Stripe.net" Version="39.93.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authorization\" />
+  </ItemGroup>
+
 </Project>

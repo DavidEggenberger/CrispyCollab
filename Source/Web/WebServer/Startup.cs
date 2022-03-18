@@ -129,6 +129,7 @@ namespace WebServer
             });
             #endregion
             #region Identity
+            services.AddScoped<IUserResolver, UserResolver>();
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
             services.AddScoped<ApplicationUserTeamManager>();
@@ -149,6 +150,10 @@ namespace WebServer
                 {
                     options.RequireClaim(ClaimConstants.TeamIdClaimType);
                     options.RequireClaim(ClaimConstants.TeamRoleClaimType, "Admin");
+                });
+                options.AddPolicy("CreatorPolicy", policy =>
+                {
+                    policy.Requirements.Add(new )
                 });
             });
 

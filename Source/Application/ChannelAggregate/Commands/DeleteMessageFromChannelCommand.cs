@@ -19,7 +19,7 @@ namespace Application.ChannelAggregate.Commands
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public Task HandleAsync(DeleteMessageFromChannelCommand command, CancellationToken cancellationToken)
+        public async Task HandleAsync(DeleteMessageFromChannelCommand command, CancellationToken cancellationToken)
         {
             
         }

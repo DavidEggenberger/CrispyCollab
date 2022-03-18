@@ -49,9 +49,16 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpPost]
-        public async Task CreateChannel([FromBody] CreateChannelDTO channelDTO, CancellationToken cancellationToken)
+        public async Task UpdateChannel([FromBody] UpdateChannelDTO updateChannelDTO, CancellationToken cancellationToken)
         {
-            CreateChannelCommand createChannelCommand = mapper.Map<CreateChannelCommand>(channelDTO);
+            UpdateChannelCommand updateChannelCommand = mapper.Map<UpdateChannelCommand>(updateChannelDTO);
+            await commandDispatcher.DispatchAsync(updateChannelCommand, cancellationToken);
+        }
+
+        [HttpPost]
+        public async Task CreateChannel([FromBody] CreateChannelDTO createChannelDTO, CancellationToken cancellationToken)
+        {
+            CreateChannelCommand createChannelCommand = mapper.Map<CreateChannelCommand>(createChannelDTO);
             await commandDispatcher.DispatchAsync(createChannelCommand, cancellationToken);
         }
 
@@ -60,6 +67,13 @@ namespace WebServer.Controllers.Aggregates
         {
             AddMessageToChannelCommand addMessageToChannelCommand = mapper.Map<AddMessageToChannelCommand>(addMessageToChannelDTO);
             await commandDispatcher.DispatchAsync(addMessageToChannelCommand, cancellationToken);
+        }
+
+        [HttpDelete]
+        public async Task DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
+        {
+            DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);
+            await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
         }
 
         [HttpDelete("{id}")]
