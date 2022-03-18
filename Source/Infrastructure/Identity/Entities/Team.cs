@@ -3,6 +3,7 @@ using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Types;
 using Infrastructure.Identity.Types.Enums;
 using Infrastructure.Identity.Types.Shared;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Infrastructure.Identity
         public Subscription Subscription { get; set; }
         public Guid CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
+        public List<TeamAuthScheme> SupportedAuthSchemes { get; set; }
         public List<ApplicationUser> SelectedByUsers { get; set; }
         public List<AdminNotification> Notifications { get; set; }
 

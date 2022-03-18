@@ -28,7 +28,7 @@ namespace WebServer.Controllers.Aggregates
         public async Task<List<ChannelDTO>> GetChannels()
         {
             Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-
+            return null;
         }
     }
 }

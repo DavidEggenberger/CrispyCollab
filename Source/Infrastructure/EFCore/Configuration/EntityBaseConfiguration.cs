@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EFCore.Configuration
 {
-    public class EntityConfiguration
+    public class EntityBaseConfiguration
     {
         public static readonly MethodInfo ConfigureEntity = 
             typeof(ApplicationDbContext).GetMethods(BindingFlags.Public | BindingFlags.Instance)

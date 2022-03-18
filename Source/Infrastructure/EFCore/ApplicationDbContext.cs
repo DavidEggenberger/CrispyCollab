@@ -36,7 +36,7 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
             foreach (var entity in Model.GetEntityTypes())
             {
-                var method = EntityConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
+                var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
                 method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
             }
         }

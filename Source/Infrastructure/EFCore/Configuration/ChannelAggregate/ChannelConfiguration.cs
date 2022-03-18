@@ -13,7 +13,7 @@ namespace Infrastructure.EFCore.Configuration.ChannelAggregate
     {
         public void Configure(EntityTypeBuilder<Channel> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
