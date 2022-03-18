@@ -12,7 +12,7 @@ namespace Application.ChannelAggregate
 {
     public class CreateChannelCommand : ICommand
     {
-        
+        public string Name { get; set; }
     }
     public class CreateChannelCommandHandler : ICommandHandler<CreateChannelCommand>
     {
@@ -23,7 +23,7 @@ namespace Application.ChannelAggregate
         }
         public async Task HandleAsync(CreateChannelCommand command, CancellationToken cancellationToken)
         {
-            applicationDbContext.Channels.Add(command.Channel);
+            applicationDbContext.Channels.Add(new Channel { Name = command.Name });
             await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }

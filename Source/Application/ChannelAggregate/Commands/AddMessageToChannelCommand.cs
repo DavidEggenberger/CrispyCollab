@@ -1,7 +1,9 @@
-﻿using Domain.Aggregates.MessagingAggregate;
+﻿using Domain.Aggregates.ChannelAggregate;
+using Domain.Aggregates.MessagingAggregate;
 using Domain.Interfaces;
 using Infrastructure.CQRS.Command;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace Application.ChannelAggregate.Commands
     public class AddMessageToChannelCommand : ICommand
     {
         public Guid ChannelId { get; set; }
-        public Message Message { get; set; }
+        public string Text { get; set; }
     }
     public class AddMessageToChannelCommandHandler : ICommandHandler<AddMessageToChannelCommand>
     {
@@ -27,7 +29,9 @@ namespace Application.ChannelAggregate.Commands
         }
         public async Task HandleAsync(AddMessageToChannelCommand command, CancellationToken cancellationToken)
         {
-            
+            Channel channel = applicationDbContext.Channels.Include(c => c.Messages).Single(c => c.Id == command.ChannelId);
+            channel.Messages.Add(new Message { Text = command.Text });
+            await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

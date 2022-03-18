@@ -12,7 +12,7 @@ namespace Application.ChannelAggregate
 {
     public class DeleteChannelCommand : ICommand
     {
-        public Guid Id { get; set; }
+        public Guid ChannelId { get; set; }
     }
     public class DeleteChannelCommandCommandHandler : ICommandHandler<DeleteChannelCommand>
     {
@@ -23,6 +23,8 @@ namespace Application.ChannelAggregate
         }
         public async Task HandleAsync(DeleteChannelCommand command, CancellationToken cancellationToken)
         {
+            Channel channel = applicationDbContext.Channels.Single(c => c.Id == command.ChannelId);
+            applicationDbContext.Channels.Remove(channel);
             await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }

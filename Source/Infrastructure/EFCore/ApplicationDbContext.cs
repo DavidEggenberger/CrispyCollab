@@ -99,6 +99,10 @@ namespace Infrastructure.Persistence
             {
                 entry.Entity.CreatedByUserId = userId;
             }
+            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
+            {
+                entry.Entity.CreatedByUserId = userId;
+            }
         }
     }
 }

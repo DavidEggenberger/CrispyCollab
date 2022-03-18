@@ -1,5 +1,7 @@
-﻿using Infrastructure.CQRS.Command;
+﻿using Domain.Aggregates.ChannelAggregate;
+using Infrastructure.CQRS.Command;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,8 @@ namespace Application.ChannelAggregate.Commands
 {
     public class DeleteMessageFromChannelCommand : ICommand
     {
+        public Guid ChanelId { get; set; }
+        public Guid MessageId { get; set; }
     }
     public class DeleteMessageFromChannelCommandHandler : ICommandHandler<DeleteMessageFromChannelCommand>
     {
@@ -21,7 +25,9 @@ namespace Application.ChannelAggregate.Commands
         }
         public async Task HandleAsync(DeleteMessageFromChannelCommand command, CancellationToken cancellationToken)
         {
-            
+            Channel channel = applicationDbContext.Channels.Include(c => c.Messages).Single(c => c.Id == command.ChanelId);
+            channel.Messages.RemoveAll(m => m.Id == command.MessageId);
+            await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
