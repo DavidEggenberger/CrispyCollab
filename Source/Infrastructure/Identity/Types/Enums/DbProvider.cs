@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ChannelAggregate.Queries
+namespace Infrastructure.Identity.Types.Enums
 {
-    internal class GetChannelQuery
+    public enum DbProvider
     {
+        MSSQL
     }
 }

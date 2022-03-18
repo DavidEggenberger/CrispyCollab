@@ -8,14 +8,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    [AggregateRoot]
     public class Message : Entity
     {
-        public Guid TopicId { get; set; }
-        public Guid ApproachId { get; set; }
         public Guid UserId { get; set; }
-        public MessageType Type { get; set; }
-        public List<Message> AnswerMessages { get; set; }
-        public List<MessageReaction> Reactions { get; set; }
+        public DateTime TimeSent { get; set; }
+        public string Text { get; set; }
     }
 }

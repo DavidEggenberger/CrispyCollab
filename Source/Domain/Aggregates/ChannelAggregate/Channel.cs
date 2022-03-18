@@ -13,6 +13,6 @@ namespace Domain.Aggregates.ChannelAggregate
     public class Channel : Entity
     {
         public string Name { get; set; }
-        public List<Message> MyProperty { get; set; }
+        public List<Message> Messages { get; set; }
     }
 }

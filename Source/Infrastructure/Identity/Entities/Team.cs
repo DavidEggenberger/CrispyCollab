@@ -18,6 +18,8 @@ namespace Infrastructure.Identity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public DbProvider DatabaseProvider { get; set; }
+        public string DbConnectionString { get; set; }
         public Subscription Subscription { get; set; }
         public Guid CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
