@@ -7,6 +7,7 @@ using Common.Identity.User;
 using Infrastructure.Identity;
 using Infrastructure.Identity.BusinessObjects;
 using Infrastructure.Identity.Entities;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Linq;
 
 namespace WebServer.Mappings
@@ -32,6 +33,7 @@ namespace WebServer.Mappings
             CreateMap<ApplicationUser, UserDTO>();
             CreateMap<AdminNotification, AdminNotificationDTO>()
                 .ForMember(x => x.CreatedAt, opt => opt.MapFrom(opt => opt.CreatedAt));
+            CreateMap<OpenIdOptions, OpenIdConnectOptions>();
         }
     }
 }

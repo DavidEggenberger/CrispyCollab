@@ -12,5 +12,6 @@ namespace Infrastructure.Identity.Entities
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Handler { get; set; }
+        public OpenIdOptions OpenIdOptions { get; set; }
     }
 }

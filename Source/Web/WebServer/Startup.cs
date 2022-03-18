@@ -18,6 +18,7 @@ using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
@@ -128,6 +129,8 @@ namespace WebServer
             });
             #endregion
             #region Identity
+            services.AddSingleton<OpenIdConnectPostConfigureOptions>();
+            services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
             services.AddScoped<ApplicationUserTeamManager>();
             services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();
             services.AddScoped<SubscriptionManager>();

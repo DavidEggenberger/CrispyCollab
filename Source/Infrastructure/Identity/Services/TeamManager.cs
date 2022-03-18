@@ -14,23 +14,29 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Infrastructure.Identity.BusinessObjects;
 using Identity.Interfaces;
+using Infrastructure.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Infrastructure.Identity.Services
 {
     public class TeamManager
     {
-        private IdentificationDbContext identificationDbContext;
-        private ApplicationUserManager applicationUserManager;
-        private SubscriptionPlanManager subscriptionPlanManager;
-        private IIdentityUINotifierService identityUINotifierService;
-        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager, IIdentityUINotifierService identityUINotifierService)
+        private readonly IdentificationDbContext identificationDbContext;
+        private readonly ApplicationUserManager applicationUserManager;
+        private readonly SubscriptionPlanManager subscriptionPlanManager;
+        private readonly IIdentityUINotifierService identityUINotifierService;
+        private readonly IAuthenticationSchemeService authenticationSchemeService;
+        private readonly IMapper mapper;
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager, IIdentityUINotifierService identityUINotifierService, IAuthenticationSchemeService authenticationSchemeService, IMapper mapper)
         {
             this.identificationDbContext = identificationDbContext;
             this.applicationUserManager = applicationUserManager;
             this.subscriptionPlanManager = subscriptionPlanManager;
             this.identityUINotifierService = identityUINotifierService;
+            this.authenticationSchemeService = authenticationSchemeService;
+            this.mapper = mapper;
         }
-
         public TeamMetrics GetMetricsForTeam(Team team)
         {
             return new TeamMetrics
@@ -60,6 +66,22 @@ namespace Infrastructure.Identity.Services
             }
             await LoadTeamRelationsAsync(team);
             return team;
+        }
+        public async Task RemoveAuthenticationScheme(AuthScheme authScheme)
+        {
+            authenticationSchemeService.RemoveAuthenticationScheme(authScheme);
+        }
+        public async Task AddAuthenticationScheme(AuthScheme authScheme)
+        {
+            if(authScheme.OpenIdOptions != null)
+            {
+                var openIdConnectOptions = mapper.Map<OpenIdConnectOptions>(authScheme.OpenIdOptions);
+                authenticationSchemeService.AddAuthenticationScheme(authScheme, openIdConnectOptions);
+            }
+            else
+            {
+                authenticationSchemeService.AddAuthenticationScheme(authScheme);
+            }
         }
         public async Task InviteMembersAsync(Team team, List<string> emails, TeamRole teamRole = TeamRole.User)
         {
@@ -206,6 +228,7 @@ namespace Infrastructure.Identity.Services
         }
         private async Task LoadTeamRelationsAsync(Team team)
         {
+            await identificationDbContext.Entry(team).Collection(x => x.SupportedAuthSchemes).Query().Include(x => x.AuthScheme).ThenInclude(x => x.OpenIdOptions).LoadAsync();
             await identificationDbContext.Entry(team).Collection(x => x.Notifications).LoadAsync();
             await identificationDbContext.Entry(team).Collection(t => t.Members).Query().Include(x => x.User).LoadAsync();
             await identificationDbContext.Entry(team).Reference(t => t.Subscription).Query().Include(x => x.SubscriptionPlan).LoadAsync();
