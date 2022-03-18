@@ -4,21 +4,28 @@
 }
 
 <div>
-    <h4>Log-In with a social Account</h4>
-     <partial name="Shared/_LogInSignUpSwitch" model=@(new _LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
-     @{
-        var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
-            <div class="centerChildren">
-                <div>     
-                    @foreach (var provider in providers)
-                    {
-                        <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
-                    }
+    <div>
+        <h4>Log-In with a social Account</h4>
+         <partial name="Shared/_LogInSignUpSwitch" model=@(new _LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
+         @{
+            var providers = (await Model.SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            <form asp-route-returnurl="@Model.ReturnUrl" method="post" asp-page-handler="ExternalLogin">
+                <div class="centerChildren">
+                    <div>     
+                        @foreach (var provider in providers)
+                        {
+                            <button type="submit" value="@provider.Name" name="provider">@provider.Name</button>
+                        }
+                    </div>
                 </div>
-            </div>
-        </form>
-     }
+            </form>
+         }
+    </div>
+    <h4>Log-In with SSO</h4>
+    <div>
+        <input type="email"/>
+        <label>Your company E-Mail</label>
+    </div>
 </div>
 
 

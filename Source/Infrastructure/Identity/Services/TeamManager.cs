@@ -67,22 +67,6 @@ namespace Infrastructure.Identity.Services
             await LoadTeamRelationsAsync(team);
             return team;
         }
-        public async Task RemoveAuthenticationScheme(AuthScheme authScheme)
-        {
-            authenticationSchemeService.RemoveAuthenticationScheme(authScheme);
-        }
-        public async Task AddAuthenticationScheme(AuthScheme authScheme)
-        {
-            if(authScheme.OpenIdOptions != null)
-            {
-                var openIdConnectOptions = mapper.Map<OpenIdConnectOptions>(authScheme.OpenIdOptions);
-                authenticationSchemeService.AddAuthenticationScheme(authScheme, openIdConnectOptions);
-            }
-            else
-            {
-                authenticationSchemeService.AddAuthenticationScheme(authScheme);
-            }
-        }
         public async Task InviteMembersAsync(Team team, List<string> emails, TeamRole teamRole = TeamRole.User)
         {
             foreach (var email in emails)
@@ -108,6 +92,26 @@ namespace Infrastructure.Identity.Services
             }
             await identificationDbContext.SaveChangesAsync();
             await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
+        }
+        public async Task<List<AuthScheme>> GetAuthSchemesAsync(Team team)
+        {
+            return team.SupportedAuthSchemes.Select(s => s.AuthScheme).ToList();
+        }
+        public async Task RemoveAuthenticationScheme(AuthScheme authScheme)
+        {
+            authenticationSchemeService.RemoveAuthenticationScheme(authScheme);
+        }
+        public async Task AddAuthenticationScheme(AuthScheme authScheme)
+        {
+            if (authScheme.OpenIdOptions != null)
+            {
+                var openIdConnectOptions = mapper.Map<OpenIdConnectOptions>(authScheme.OpenIdOptions);
+                authenticationSchemeService.AddAuthenticationScheme(authScheme, openIdConnectOptions);
+            }
+            else
+            {
+                authenticationSchemeService.AddAuthenticationScheme(authScheme);
+            }
         }
         public async Task<Team> FindByIdAsync(Guid id)
         {
