@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Aggregates.ChannelAggregate;
 using System.Threading;
-using Infrastructure.Persistence;
+using Infrastructure.EFCore;
 
 namespace Application.ChannelAggregate
 {

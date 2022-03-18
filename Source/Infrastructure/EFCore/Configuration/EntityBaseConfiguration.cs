@@ -1,5 +1,5 @@
 ﻿using Domain.SharedKernel;
-using Infrastructure.Persistence;
+using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence
+namespace Infrastructure.EFCore
 {
     public class ApplicationDbContext : DbContext
     {
@@ -41,7 +41,7 @@ namespace Infrastructure.Persistence
             //    var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
             //    method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
             //}
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, x => x.);
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

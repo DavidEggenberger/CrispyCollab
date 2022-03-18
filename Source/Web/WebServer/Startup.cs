@@ -12,7 +12,7 @@ using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Interfaces;
-using Infrastructure.Persistence;
+using Infrastructure.EFCore;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Authentication;

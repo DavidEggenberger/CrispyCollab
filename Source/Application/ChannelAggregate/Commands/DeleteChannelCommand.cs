@@ -1,6 +1,6 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
 using Infrastructure.CQRS.Command;
-using Infrastructure.Persistence;
+using Infrastructure.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

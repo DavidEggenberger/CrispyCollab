@@ -2,7 +2,7 @@
 using Domain.Aggregates.MessagingAggregate;
 using Domain.Interfaces;
 using Infrastructure.CQRS.Command;
-using Infrastructure.Persistence;
+using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
