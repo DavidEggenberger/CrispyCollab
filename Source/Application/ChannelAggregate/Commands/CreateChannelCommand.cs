@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Channel.Queries
+namespace Application.ChannelAggregate
 {
-    internal class GetChannelQuery
+    internal class CreateChannelCommand
     {
     }
 }

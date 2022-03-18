@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Channel
+namespace Common.Features.Channel
 {
-    internal class UpdateChannelCommand
+    public class CreateChannelDTO
     {
     }
 }
