@@ -1,0 +1,27 @@
+﻿using Infrastructure.CQRS.Command;
+using Infrastructure.Persistence;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Application.ChannelAggregate.Commands
+{
+    public class DeleteMessageFromChannelCommand : ICommand
+    {
+    }
+    public class DeleteMessageFromChannelCommandHandler : ICommandHandler<DeleteMessageFromChannelCommand>
+    {
+        private readonly ApplicationDbContext applicationDbContext;
+        public DeleteMessageFromChannelCommandHandler(ApplicationDbContext applicationDbContext)
+        {
+            this.applicationDbContext = applicationDbContext;
+        }
+        public Task HandleAsync(DeleteMessageFromChannelCommand command, CancellationToken cancellationToken)
+        {
+            
+        }
+    }
+}

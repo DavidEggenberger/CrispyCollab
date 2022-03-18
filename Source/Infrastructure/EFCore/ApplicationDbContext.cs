@@ -43,6 +43,7 @@ namespace Infrastructure.Persistence
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateAutitableEntities();
+            SetTeamId(teamResolver.ResolveTeamId());
             int result = await base.SaveChangesAsync(cancellationToken);
             await DispatchEventsAsync(cancellationToken);
             return result;
@@ -79,6 +80,13 @@ namespace Infrastructure.Persistence
                         entry.Entity.LastUpdated = DateTime.Now;
                         break;
                 }
+            }
+        }
+        private void SetTeamId(Guid teamId)
+        {
+            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
+            {
+                entry.Entity.TeamId = teamId;
             }
         }
     }

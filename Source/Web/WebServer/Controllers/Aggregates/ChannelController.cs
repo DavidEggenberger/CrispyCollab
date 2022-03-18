@@ -1,7 +1,9 @@
 ﻿using Application.ChannelAggregate;
+using Application.ChannelAggregate.Commands;
 using Application.ChannelAggregate.Queries;
 using AutoMapper;
 using Common.Features.Channel;
+using Common.Misc.Attributes;
 using Domain.Aggregates.ChannelAggregate;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Query;
@@ -24,6 +26,7 @@ namespace WebServer.Controllers.Aggregates
         private readonly IMapper mapper;
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IQueryDispatcher queryDispatcher;
+
         public ChannelController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper)
         {
             this.commandDispatcher = commandDispatcher;
@@ -46,10 +49,24 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpPost]
-        public async Task CreateChannel([FromBody] ChannelDTO channelDTO, CancellationToken cancellationToken)
+        public async Task CreateChannel([FromBody] CreateChannelDTO channelDTO, CancellationToken cancellationToken)
         {
-            Channel channel = mapper.Map<Channel>(channelDTO);
-            await commandDispatcher.DispatchAsync(new CreateChannelCommand() {  }, cancellationToken);
+            CreateChannelCommand createChannelCommand = mapper.Map<CreateChannelCommand>(channelDTO);
+            await commandDispatcher.DispatchAsync(createChannelCommand, cancellationToken);
+        }
+
+        [HttpPost]
+        public async Task AddMessageToChannel([FromBody] AddMessageToChannelDTO addMessageToChannelDTO, CancellationToken cancellationToken)
+        {
+            AddMessageToChannelCommand addMessageToChannelCommand = mapper.Map<AddMessageToChannelCommand>(addMessageToChannelDTO);
+            await commandDispatcher.DispatchAsync(addMessageToChannelCommand, cancellationToken);
+        }
+
+        [HttpDelete("{id}")]
+        [AuthorizeTeamAdmin]
+        public async Task DeleteChannel([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            await commandDispatcher.DispatchAsync(new DeleteChannelCommand() { Id = id }, cancellationToken);
         }
     }
 }
