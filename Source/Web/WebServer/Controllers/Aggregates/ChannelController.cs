@@ -82,7 +82,7 @@ namespace WebServer.Controllers.Aggregates
         [AuthorizeTeamAdmin]
         public async Task DeleteChannel([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            await commandDispatcher.DispatchAsync(new DeleteChannelCommand() { Id = id }, cancellationToken);
+            await commandDispatcher.DispatchAsync(new DeleteChannelCommand() { ChannelId = id }, cancellationToken);
         }
     }
 }

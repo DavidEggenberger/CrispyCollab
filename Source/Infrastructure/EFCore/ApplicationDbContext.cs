@@ -36,12 +36,12 @@ namespace Infrastructure.Persistence
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //foreach (var entity in Model.GetEntityTypes())
+            //{
+            //    var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
+            //    method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
+            //}
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
-            foreach (var entity in Model.GetEntityTypes())
-            {
-                var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
-                method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
-            }
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

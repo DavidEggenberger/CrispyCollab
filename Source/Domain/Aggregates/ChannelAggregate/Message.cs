@@ -15,6 +15,6 @@ namespace Domain.Aggregates.ChannelAggregate
         public string Text { get; set; }
         public bool HasDerivedTopic { get; set; }
         public string DerivedTopicId { get; set; }
-        public List<MakeTopicVote> MakeTopicVotes { get; set; }
+        public List<Vote> MakeTopicVotes { get; set; }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate
 {
-    public record MakeTopicVote : ValueObject
+    public record Vote : ValueObject
     {
-        public bool MakeTopic { get; set; }
+        public bool Yes { get; set; }
     }
 }
