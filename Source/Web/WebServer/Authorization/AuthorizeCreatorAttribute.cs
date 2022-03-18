@@ -4,7 +4,7 @@ using System;
 namespace WebServer.Authorization
 {
     [Authorize(Policy = "CreatorPolicy")]
-    public class CreatorPolicyAttribute : Attribute
+    public class AuthorizeCreatorAttribute : Attribute
     {
 
     }

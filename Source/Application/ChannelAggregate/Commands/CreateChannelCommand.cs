@@ -12,7 +12,7 @@ namespace Application.ChannelAggregate
 {
     public class CreateChannelCommand : ICommand
     {
-        public Channel Channel { get; set; }
+        
     }
     public class CreateChannelCommandHandler : ICommandHandler<CreateChannelCommand>
     {

@@ -71,7 +71,7 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpDelete]
-        [CreatorPolicy]
+        [AuthorizeCreator]
         public async Task DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
         {
             DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);
