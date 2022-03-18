@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    public class Message : Entity, ICreatedByUser
+    public class Message : Entity
     {
-        public Guid CreatedByUserId { get; set; }
         public DateTime TimeSent { get; set; }
         public string Text { get; set; }
     }

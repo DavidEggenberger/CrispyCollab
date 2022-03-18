@@ -95,7 +95,7 @@ namespace Infrastructure.Persistence
         }
         private void UpdateCreatedByUserEntities(Guid userId)
         {
-            foreach (var entry in ChangeTracker.Entries<ICreatedByUser>().Where(x => x.State == EntityState.Added))
+            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.CreatedByUserId = userId;
             }

@@ -11,6 +11,7 @@ namespace Domain.SharedKernel
     {
         public Guid Id { get; set; }
         public Guid TeamId { get; set; }
+        public Guid CreatedByUserId { get; set; }
         public bool IsSoftDeleted { get; set; }
         public byte[] RowVersion { get; set; }
         public DateTimeOffset Created { get; set; }

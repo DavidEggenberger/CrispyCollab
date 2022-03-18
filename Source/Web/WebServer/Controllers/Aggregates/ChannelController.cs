@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using WebServer.Authorization;
 
 namespace WebServer.Controllers.Aggregates
 {
@@ -70,6 +71,7 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpDelete]
+        [CreatorPolicy]
         public async Task DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
         {
             DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);

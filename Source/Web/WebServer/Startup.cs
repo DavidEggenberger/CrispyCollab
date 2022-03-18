@@ -46,6 +46,7 @@ using System.Threading.Tasks;
 using WebServer.Hubs;
 using WebServer.Services;
 using WebServer.SignalR;
+using WebServer.Authorization;
 
 namespace WebServer
 {
@@ -153,7 +154,7 @@ namespace WebServer
                 });
                 options.AddPolicy("CreatorPolicy", policy =>
                 {
-                    policy.Requirements.Add(new )
+                    policy.Requirements.Add(new CreatorPolicyRequirement());
                 });
             });
 
