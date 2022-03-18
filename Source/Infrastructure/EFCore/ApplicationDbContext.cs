@@ -41,7 +41,7 @@ namespace Infrastructure.EFCore
             //    var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
             //    method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
             //}
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, x => x.);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

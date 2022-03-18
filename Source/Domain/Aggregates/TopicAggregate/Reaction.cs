@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.TopicAggregate
 {
-    public class ApproachReaction : Entity
+    public class Reaction : Entity
     {
     }
 }

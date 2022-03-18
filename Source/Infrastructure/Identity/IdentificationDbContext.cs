@@ -25,7 +25,7 @@ namespace Infrastructure.Identity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);   
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, x => x.Namespace == "Infrastructure.Identity.EFCore.Configuration");
             base.OnModelCreating(modelBuilder);
         }
     }
