@@ -11,6 +11,7 @@ using Infrastructure.EmailSender;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
+using Infrastructure.Interfaces;
 using Infrastructure.Persistence;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
@@ -42,6 +43,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebServer.Hubs;
+using WebServer.Services;
 using WebServer.SignalR;
 
 namespace WebServer
@@ -118,6 +120,7 @@ namespace WebServer
             services.Configure<SendGridEmailOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddScoped<IAggregatesUINotifierService, AggregatesUINotifierService>();
+            services.AddScoped<ITeamResolver, TeamResolver>();
             //services.AddDbContext<ApplicationDbContext>(options =>
             //{
             //    options.UseSqlServer(Configuration["AzureSQLConnection"]);
