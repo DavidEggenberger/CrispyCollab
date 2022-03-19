@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.MessagingAggregate;
+﻿using Domain.Aggregates.ChannelAggregate.Events;
+using Domain.Aggregates.MessagingAggregate;
 using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 using System;
@@ -20,10 +21,12 @@ namespace Domain.Aggregates.ChannelAggregate
         public void AddMessage(Message message)
         {
             messages.Add(message);
+            AddDomainEvent(new MessagesChangedEvent());
         }
         public void RemoveMessage(Message message)
         {
             messages.Remove(messages.Single(m => m.Id == message.Id));
+            AddDomainEvent(new MessagesChangedEvent());
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Domain.SharedKernel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Kernel
+namespace Domain.Aggregates.ChannelAggregate.Events
 {
-    public record ValueObject
+    public class MessagesChangedEvent : IDomainEvent
     {
         public Guid TeamId { get; set; }
-        public Guid CreatedByUserId { get; set; }
     }
 }

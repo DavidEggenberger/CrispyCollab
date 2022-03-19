@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <Folder Include="ChannelAggregate\EventHandlers\" />
+    <Folder Include="MessageAggregate\Commands\" />
+    <Folder Include="MessageAggregate\EventHandlers\" />
+    <Folder Include="MessageAggregate\Queries\" />
     <Folder Include="TopicAggregate\EventHandlers\" />
   </ItemGroup>
 
