@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    public class MessageReaction : Entity
+    public class Reaction : Entity
     {
-        public Guid MyProperty { get; set; }
-        public Guid UserId { get; set; }
     }
 }

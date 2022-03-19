@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.TriggerAggregate
+namespace Domain.Aggregates.MessagingAggregate
 {
-    public enum TriggerType
+    public class AudioMessage : Message
     {
     }
 }

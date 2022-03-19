@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    public class TextMessage
+    public class TextMessage : Message
     {
         public string Content { get; set; }
 

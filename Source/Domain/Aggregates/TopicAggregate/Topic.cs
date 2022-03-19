@@ -15,6 +15,8 @@ namespace Domain.Aggregates.TopicAggregate
         public string Goal { get; set; }
         public TopicType Type { get; set; }
         public TopicStatus Status { get; set; }
-        public List<Approach> Approaches { get; set; }
+
+        private List<Approach> approaches = new List<Approach>();
+        public IReadOnlyCollection<Approach> Approaches => approaches.AsReadOnly();
     }
 }

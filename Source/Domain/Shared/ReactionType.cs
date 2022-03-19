@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.IntegrationAggregate
+namespace Domain.Shared
 {
-    public class IntegrationType
+    public enum ReactionType
     {
+        Support,
+        Celebrate,
+        Like,
+        Adore,
+        Love
     }
 }

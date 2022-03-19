@@ -19,11 +19,11 @@ namespace Domain.Aggregates.ChannelAggregate
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
         public void AddMessage(Message message)
         {
-
+            messages.Add(message);
         }
         public void RemoveMessage(Message message)
         {
-
+            messages.Remove(messages.Single(m => m.Id == message.Id));
         }
     }
 }
