@@ -30,27 +30,24 @@ namespace Infrastructure.EFCore
 
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Channel> Channels { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //foreach (var entity in Model.GetEntityTypes())
-            //{
-            //    var method = EntityBaseConfiguration.ConfigureEntity.MakeGenericMethod(entity.GetType());
-            //    method.Invoke(this, new object[] { modelBuilder, teamResolver.ResolveTeamId() });
-            //}
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
+            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTeamId());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, 
+                x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateAutitableEntities();
             SetTeamId(teamResolver.ResolveTeamId());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
-            int result = await base.SaveChangesAsync(cancellationToken);
             await DispatchEventsAsync(cancellationToken);
-            return result;
+            return await base.SaveChangesAsync(cancellationToken);
         }
         private async Task DispatchEventsAsync(CancellationToken cancellationToken)
         {

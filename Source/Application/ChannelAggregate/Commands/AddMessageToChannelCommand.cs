@@ -30,7 +30,7 @@ namespace Application.ChannelAggregate.Commands
         public async Task HandleAsync(AddMessageToChannelCommand command, CancellationToken cancellationToken)
         {
             Channel channel = applicationDbContext.Channels.Include(c => c.Messages).Single(c => c.Id == command.ChannelId);
-            channel.Messages.Add(new Message { Text = command.Text });
+            channel.AddMessage(new Message { Text = command.Text });
             await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }

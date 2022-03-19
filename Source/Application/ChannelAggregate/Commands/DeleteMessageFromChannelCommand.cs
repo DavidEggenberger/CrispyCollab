@@ -26,7 +26,7 @@ namespace Application.ChannelAggregate.Commands
         public async Task HandleAsync(DeleteMessageFromChannelCommand command, CancellationToken cancellationToken)
         {
             Channel channel = applicationDbContext.Channels.Include(c => c.Messages).Single(c => c.Id == command.ChanelId);
-            channel.Messages.RemoveAll(m => m.Id == command.MessageId);
+            channel.RemoveMessage(null);
             await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }
