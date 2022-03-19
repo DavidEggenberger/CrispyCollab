@@ -12,7 +12,7 @@ namespace Domain.Aggregates.TopicAggregate
     public class Topic : Entity
     {
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Goal { get; set; }
         public TopicType Type { get; set; }
         public TopicStatus Status { get; set; }
         public List<Approach> Approaches { get; set; }

@@ -50,9 +50,10 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpPost]
-        public async Task UpdateChannel([FromBody] UpdateChannelDTO updateChannelDTO, CancellationToken cancellationToken)
+        [AuthorizeTeamAdmin]
+        public async Task ChangeChannelName([FromBody] ChangeChannelNameDTO changeChannelNameDTO, CancellationToken cancellationToken)
         {
-            UpdateChannelCommand updateChannelCommand = mapper.Map<UpdateChannelCommand>(updateChannelDTO);
+            ChangeChannelNameCommand updateChannelCommand = mapper.Map<ChangeChannelNameCommand>(changeChannelNameDTO);
             await commandDispatcher.DispatchAsync(updateChannelCommand, cancellationToken);
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Features.Channel
 {
-    public class UpdateChannelDTO
+    public class ChangeChannelNameDTO
     {
     }
 }

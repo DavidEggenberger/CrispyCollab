@@ -12,7 +12,6 @@
   <ItemGroup>
     <Folder Include="ChannelAggregate\EventHandlers\" />
     <Folder Include="TopicAggregate\EventHandlers\" />
-    <Folder Include="TopicAggregate\Queries\" />
   </ItemGroup>
 
 </Project>
