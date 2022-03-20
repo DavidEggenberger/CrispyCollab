@@ -14,22 +14,39 @@ namespace Domain.Aggregates.ChannelAggregate
     public class Channel : Entity
     {
         public string Name { get; set; }
-        public bool IsAnonymous { get; set; }
-
-        private TopicTrigger topicTrigger { get; set; }
-        public TopicTrigger TopicTrigger => topicTrigger;
+        public bool MessagesAreAnonymous { get; set; }
+        public TopicTrigger TopicTrigger { get; private set; }
 
         private List<Message> messages = new List<Message>();
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
+        private Channel() { }
+        public Channel(string name, bool messagesAreAnonymous)
+        {
+            Name = name;
+            MessagesAreAnonymous = messagesAreAnonymous;
+        }
         public void AddMessage(Message message)
         {
             messages.Add(message);
-            AddDomainEvent(new MessagesChangedEvent());
+            AddDomainEvent(new ChannelMessagesUpdatedEvent());
         }
         public void RemoveMessage(Message message)
         {
             messages.Remove(messages.Single(m => m.Id == message.Id));
-            AddDomainEvent(new MessagesChangedEvent());
+            AddDomainEvent(new ChannelMessagesUpdatedEvent());
+        }
+        public void AddMessageVote(Message message, Vote vote)
+        {
+            messages.Single(m => m.Id == message.Id).AddVote(vote);
+        }
+        public void RemoveMessageVote(Message message, Vote vote)
+        {
+            messages.Single(m => m.Id == message.Id).RemoveVote(vote);
+        }
+        public void SetTopicTrigger(TopicTrigger topicTrigger)
+        {
+            TopicTrigger = topicTrigger;
+            AddDomainEvent(new TopicTriggerUpdatedEvent());
         }
     }
 }

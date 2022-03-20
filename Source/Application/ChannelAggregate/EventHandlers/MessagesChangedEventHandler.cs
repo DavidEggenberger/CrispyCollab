@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Application.ChannelAggregate.EventHandlers
 {
-    public class MessagesChangedEventHandler : IDomainEventHandler<MessagesChangedEvent>
+    public class MessagesChangedEventHandler : IDomainEventHandler<MessageVotesUpdatedEvent>
     {
-        public Task HandleAsync(MessagesChangedEvent query, CancellationToken cancellation)
+        public Task HandleAsync(MessageVotesUpdatedEvent query, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }

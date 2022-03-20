@@ -13,7 +13,8 @@ namespace Infrastructure.EFCore.Configuration.ChannelAggregate
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.OwnsMany(x => x.MakeTopicVotes);
+            builder.OwnsMany(x => x.MakeMessageTopicVotes)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

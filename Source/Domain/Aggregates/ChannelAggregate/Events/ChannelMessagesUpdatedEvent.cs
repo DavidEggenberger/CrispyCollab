@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate.Events
 {
-    public class MessagesChangedEvent : IDomainEvent
-    {
-        public Guid TeamId { get; set; }
+    public class ChannelMessagesUpdatedEvent : IDomainEvent
+    { 
     }
 }

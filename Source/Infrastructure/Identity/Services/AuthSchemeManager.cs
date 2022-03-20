@@ -21,7 +21,6 @@ namespace Infrastructure.Identity.Services
             this.mapper = mapper;
             this.identificationDbContext = identificationDbContext;
         }
-
         public async Task RemoveAuthenticationScheme(AuthScheme authScheme)
         {
             authenticationSchemeService.RemoveAuthenticationScheme(authScheme);

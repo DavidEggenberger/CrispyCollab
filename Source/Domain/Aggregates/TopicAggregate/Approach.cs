@@ -21,9 +21,13 @@ namespace Domain.Aggregates.TopicAggregate
             Name = name;
             Description = description;
         }
-        public void AddReaction()
+        public void AddReaction(Reaction reaction)
         {
-
+            reactions.Add(reaction);
+        }
+        public void RemoveReaction(Reaction reaction)
+        {
+            reactions.Remove(reactions.Single(r => r.Id == reaction.Id));
         }
     }
 }

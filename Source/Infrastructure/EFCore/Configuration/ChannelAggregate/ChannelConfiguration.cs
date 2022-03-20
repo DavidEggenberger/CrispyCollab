@@ -13,7 +13,9 @@ namespace Infrastructure.EFCore.Configuration.ChannelAggregate
     {
         public void Configure(EntityTypeBuilder<Channel> builder)
         {
-            
+            builder.Navigation(b => b.Messages)
+                .HasField("messages")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

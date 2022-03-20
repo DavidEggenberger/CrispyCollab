@@ -28,7 +28,7 @@ namespace Domain.Aggregates.TopicAggregate
         }
         public void RemoveApproach(Approach approach)
         {
-
+            approaches.Remove(approaches.Single(a => a.Id == approach.Id));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Kernel;
+using Domain.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate
 {
-    public class TopicTrigger : Entity
+    public record TopicTrigger : ValueObject
     {
-        public decimal NeccessaryVoteRelativePercentageCount { get; set; }
-        public int NeccessaryVoteAbsoluteCount { get; set; }
+        public decimal NeccessaryVotePercentage { get; set; }
+        public int NeccessaryVoteAbsolute { get; set; }
     }
 }

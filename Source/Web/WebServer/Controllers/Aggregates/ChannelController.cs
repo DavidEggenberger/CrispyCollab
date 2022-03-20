@@ -27,12 +27,14 @@ namespace WebServer.Controllers.Aggregates
         private readonly IMapper mapper;
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IQueryDispatcher queryDispatcher;
+        private readonly IAuthorizationService authorizationService;
 
-        public ChannelController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper)
+        public ChannelController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper, IAuthorizationService authorizationService)
         {
             this.commandDispatcher = commandDispatcher;
             this.queryDispatcher = queryDispatcher;
             this.mapper = mapper;
+            this.authorizationService = authorizationService;
         }
 
         [HttpGet]
@@ -72,11 +74,19 @@ namespace WebServer.Controllers.Aggregates
         }
 
         [HttpDelete]
-        [AuthorizeCreator]
-        public async Task DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
         {
             DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);
-            await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
+            Message message = await queryDispatcher.DispatchAsync(new GetMessageByIdQuery() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
+            if((await authorizationService.AuthorizeAsync(HttpContext.User, message, "EditorPolicy")).Succeeded)
+            {
+                await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
+                return Ok();
+            }
+            else
+            {
+                return Forbid();
+            }
         }
 
         [HttpDelete("{id}")]

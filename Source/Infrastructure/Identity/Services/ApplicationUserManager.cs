@@ -79,6 +79,10 @@ namespace Infrastructure.Identity.Services
         {
             return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).Select(x => x.Team).ToList();
         }
+        public async Task<ApplicationUserTeam> GetCurrentTeamMembership(ApplicationUser applicationUser)
+        {
+            return applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
+        }
         public IEnumerable<Claim> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
         {
             if(applicationUser.SelectedTeam != null)

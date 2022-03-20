@@ -133,7 +133,6 @@ namespace WebServer
             services.AddScoped<IUserResolver, UserResolver>();
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
-            services.AddScoped<ApplicationUserTeamManager>();
             services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();
             services.AddScoped<SubscriptionManager>();
             services.AddScoped<SubscriptionPlanManager>();

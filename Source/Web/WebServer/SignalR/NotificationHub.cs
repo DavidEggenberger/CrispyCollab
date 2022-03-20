@@ -14,17 +14,15 @@ namespace WebServer.Hubs
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;
-        private ApplicationUserTeamManager applicationUserTeamManager;
-        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, ApplicationUserTeamManager applicationUserTeamManager)
+        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;
-            this.applicationUserTeamManager = applicationUserTeamManager;
         }
         public override async Task OnConnectedAsync()
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
-            ApplicationUserTeam applicationUserTeam = await applicationUserTeamManager.GetCurrentTeamMembership(Context.User);
+            ApplicationUserTeam applicationUserTeam = await applicationUserManager.GetCurrentTeamMembership(applicationUser);
             await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
             if (applicationUser.IsOnline is false)
             {
@@ -53,7 +51,7 @@ namespace WebServer.Hubs
                 appUser.IsOnline = false;
                 await applicationUserManager.UpdateAsync(appUser);
                 ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
-                ApplicationUserTeam applicationUserTeam = await applicationUserTeamManager.GetCurrentTeamMembership(Context.User);
+                ApplicationUserTeam applicationUserTeam = await applicationUserManager.GetCurrentTeamMembership(applicationUser);
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }

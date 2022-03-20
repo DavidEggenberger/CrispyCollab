@@ -1,4 +1,5 @@
-﻿using Domain.Kernel;
+﻿using Domain.Aggregates.ChannelAggregate.Events;
+using Domain.Kernel;
 using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 using System;
@@ -18,17 +19,19 @@ namespace Domain.Aggregates.ChannelAggregate
         public bool Votable { get; set; }
 
         private List<Vote> votes = new List<Vote>();
-        public void AddVote(Vote vote)
+        public List<Vote> MakeMessageTopicVotes => votes;
+        internal void AddVote(Vote vote)
         {
             if(votes.Any(v => v.CreatedByUserId == vote.CreatedByUserId) is false)
             {
                 votes.Add(vote);
+                AddDomainEvent(new MessageVotesUpdatedEvent());
             }
         }
-        public void RemoveVote(Vote vote)
+        internal void RemoveVote(Vote vote)
         {
             votes.Remove(votes.FirstOrDefault(v => v.CreatedByUserId == vote.CreatedByUserId));
+            AddDomainEvent(new MessageVotesUpdatedEvent());
         }
-        public List<Vote> MakeTopicVotes { get; set; }
     }
 }
