@@ -13,6 +13,18 @@ namespace Domain.Aggregates.TopicAggregate
         public string Name { get; set; }
         public string Description { get; set; }
         public ApproachStatus Status { get; set; }
-        public List<Reaction> Reactions { get; set; }
+
+        private List<Reaction> reactions = new List<Reaction>();
+        public IReadOnlyCollection<Reaction> Reactions => reactions.AsReadOnly();
+        private Approach() { }
+        public Approach(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
+        public void AddReaction()
+        {
+
+        }
     }
 }

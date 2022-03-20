@@ -18,6 +18,13 @@ namespace Domain.Aggregates.TopicAggregate
 
         private List<Approach> approaches = new List<Approach>();
         public IReadOnlyCollection<Approach> Approaches => approaches.AsReadOnly();
+        private Topic() { }
+        public Topic(string name, string goal, TopicType topicType)
+        {
+            Name = name;
+            Goal = goal;
+            Type = topicType;
+        }
         public void AddApproach(Approach approach)
         {
             approaches.Add(approach);

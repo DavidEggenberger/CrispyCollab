@@ -1,4 +1,6 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Kernel;
+using Domain.Shared;
+using Domain.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.TopicAggregate
 {
-    public class Reaction : Entity
+    public record Reaction : ValueObject
     {
+        public ReactionType Type { get; set; }
     }
 }

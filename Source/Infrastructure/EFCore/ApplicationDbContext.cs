@@ -89,6 +89,10 @@ namespace Infrastructure.EFCore
             {
                 entry.Entity.TeamId = teamId;
             }
+            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
+            {
+                entry.Entity.TeamId = teamId;
+            }
         }
         private void UpdateCreatedByUserEntities(Guid userId)
         {
