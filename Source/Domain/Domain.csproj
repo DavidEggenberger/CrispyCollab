@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\MessageAggregate\Events\" />
+    <Folder Include="Aggregates\ProposalAggregate\Events\" />
     <Folder Include="Aggregates\TopicAggregate\Events\" />
     <Folder Include="Shared\ValueObjects\" />
   </ItemGroup>

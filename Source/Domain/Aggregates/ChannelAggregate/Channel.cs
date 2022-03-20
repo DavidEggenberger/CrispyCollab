@@ -16,6 +16,9 @@ namespace Domain.Aggregates.ChannelAggregate
         public string Name { get; set; }
         public bool IsAnonymous { get; set; }
 
+        private TopicTrigger topicTrigger { get; set; }
+        public TopicTrigger TopicTrigger => topicTrigger;
+
         private List<Message> messages = new List<Message>();
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
         public void AddMessage(Message message)

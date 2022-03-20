@@ -13,17 +13,14 @@ namespace Domain.Aggregates.TopicAggregate
     {
         public string Name { get; set; }
         public string Goal { get; set; }
-        public TopicType Type { get; set; }
-        public TopicStatus Status { get; set; }
 
         private List<Approach> approaches = new List<Approach>();
         public IReadOnlyCollection<Approach> Approaches => approaches.AsReadOnly();
         private Topic() { }
-        public Topic(string name, string goal, TopicType topicType)
+        public Topic(string name, string goal)
         {
             Name = name;
             Goal = goal;
-            Type = topicType;
         }
         public void AddApproach(Approach approach)
         {

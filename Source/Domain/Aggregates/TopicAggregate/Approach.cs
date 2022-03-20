@@ -12,7 +12,6 @@ namespace Domain.Aggregates.TopicAggregate
         public Guid TopicId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ApproachStatus Status { get; set; }
 
         private List<Reaction> reactions = new List<Reaction>();
         public IReadOnlyCollection<Reaction> Reactions => reactions.AsReadOnly();
