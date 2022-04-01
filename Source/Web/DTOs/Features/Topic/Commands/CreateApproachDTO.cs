@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.TopicAggregate.Commands
+namespace Common.Features.Topic.Commands
 {
-    internal class AddTopicApproachCommand
+    public class CreateApproachDTO
     {
     }
 }
