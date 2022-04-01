@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Domain.Aggregates.TopicAggregate;
+using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.MessagingAggregate
 {
-    [AggregateRoot]
     public class Message : Entity
     {
         public Guid ApproachId { get; set; }

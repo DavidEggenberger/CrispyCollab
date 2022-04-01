@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Topic.CreateTopic
+namespace Application.TopicAggregate.Commands
 {
     public class CreateTopicCommand : ICommand
     {

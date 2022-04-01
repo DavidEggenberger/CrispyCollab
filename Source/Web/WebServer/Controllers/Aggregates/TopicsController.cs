@@ -1,4 +1,5 @@
 ﻿using Application.Topic.CreateTopic;
+using Application.TopicAggregate.Queries;
 using AutoMapper;
 using Common.Features.Topic;
 using Infrastructure.CQRS.Command;
@@ -12,13 +13,13 @@ namespace WebServer.Controllers.Aggregates
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TopicController : ControllerBase
+    public class TopicsController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IQueryDispatcher queryDispatcher;
 
-        public TopicController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper)
+        public TopicsController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper)
         {
             this.commandDispatcher = commandDispatcher;
             this.queryDispatcher = queryDispatcher;
@@ -28,7 +29,7 @@ namespace WebServer.Controllers.Aggregates
         [HttpGet]
         public async Task CreateTopic(CancellationToken cancellationToken)
         {
-            await commandDispatcher.DispatchAsync(new CreateTopicCommand(), cancellationToken);
+            await queryDispatcher.DispatchAsync(new GetAllTopicsQuery(), cancellationToken);
         }
     }
 }
