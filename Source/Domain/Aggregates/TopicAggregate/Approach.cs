@@ -23,7 +23,10 @@ namespace Domain.Aggregates.TopicAggregate
         }
         public void AddReaction(Reaction reaction)
         {
-            reactions.Add(reaction);
+            if (reactions.Any(r => r.Id == reaction.Id) is false)
+            {
+                reactions.Add(reaction);
+            }
         }
         public void RemoveReaction(Reaction reaction)
         {

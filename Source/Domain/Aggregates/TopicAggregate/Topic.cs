@@ -30,5 +30,13 @@ namespace Domain.Aggregates.TopicAggregate
         {
             approaches.Remove(approaches.Single(a => a.Id == approach.Id));
         }
+        public void AddApproachReaction(Approach approach, Reaction reaction)
+        {
+            approaches.Single(a => a.Id == approach.Id).AddReaction(reaction);
+        }
+        public void RemoveApproachReaction(Approach approach, Reaction reaction)
+        {
+            approaches.Single(a => a.Id == approach.Id).RemoveReaction(reaction);
+        }
     }
 }

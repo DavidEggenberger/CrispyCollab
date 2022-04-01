@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.ChannelAggregate.EventHandlers
 {
-    public class MessagesChangedEventHandler : IDomainEventHandler<MessageVotesUpdatedEvent>
+    public class ChannelMessagesUpdatedEventHandler : IDomainEventHandler<MessageVotesUpdatedEvent>
     {
         public Task HandleAsync(MessageVotesUpdatedEvent query, CancellationToken cancellation)
         {
