@@ -4,7 +4,6 @@
 }
 
 <div>
-    <div>
         <h4>Log-In with a social Account</h4>
          <partial name="Shared/_LogInSignUpSwitch" model=@(new _LogInSignUpSwitchModel{ SignUpActive = false, ReturnUrl = Model.ReturnUrl })/>
          @{
@@ -20,12 +19,6 @@
                 </div>
             </form>
          }
-    </div>
-    <h4>Log-In with SSO</h4>
-    <div>
-        <input type="email"/>
-        <label>Your company E-Mail</label>
-    </div>
 </div>
 
 

@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Layouts\MainLayout.razor">
+    <Content Update="Shared\Layouts\MainLayout.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

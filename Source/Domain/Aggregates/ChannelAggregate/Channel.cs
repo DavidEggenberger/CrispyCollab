@@ -1,5 +1,4 @@
 ﻿using Domain.Aggregates.ChannelAggregate.Events;
-using Domain.Aggregates.MessagingAggregate;
 using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 using System;

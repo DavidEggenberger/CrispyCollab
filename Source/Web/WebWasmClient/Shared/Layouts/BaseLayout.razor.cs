@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace WebWasmClient.Layouts
+namespace WebWasmClient.Shared.Layouts
 {
     public partial class BaseLayout
     {

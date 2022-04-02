@@ -1,5 +1,4 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
-using Domain.Aggregates.MessagingAggregate;
 using Domain.Interfaces;
 using Infrastructure.CQRS.Command;
 using Infrastructure.EFCore;

@@ -1,5 +1,4 @@
-﻿using Application.Topic.CreateTopic;
-using Application.TopicAggregate.Queries;
+﻿using Application.TopicAggregate.Queries;
 using AutoMapper;
 using Common.Features.Topic;
 using Common.Features.Topic.Commands;
@@ -33,40 +32,40 @@ namespace WebServer.Controllers.Aggregates
             this.authorizationService = authorizationService;
         }
 
-        [HttpGet]
-        public async Task<List<TopicDTO>> GetTopics(CancellationToken cancellationToken)
-        {
-            await queryDispatcher.DispatchAsync(new GetAllTopicsQuery(), cancellationToken);
-        }
+        //[HttpGet]
+        //public async Task<List<TopicDTO>> GetTopics(CancellationToken cancellationToken)
+        //{
+        //    await queryDispatcher.DispatchAsync(new GetAllTopicsQuery(), cancellationToken);
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<TopicDTO> GetTopicById([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
-            await queryDispatcher.DispatchAsync(new GetTopicByIdQuery() { }, cancellationToken);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<TopicDTO> GetTopicById([FromRoute] Guid id, CancellationToken cancellationToken)
+        //{
+        //    await queryDispatcher.DispatchAsync(new GetTopicByIdQuery() { }, cancellationToken);
+        //}
 
-        [HttpPost]
-        public async Task CreateTopic([FromBody] CreateTopicDTO createTopicDTO, CancellationToken cancellationToken)
-        {
-        }
+        //[HttpPost]
+        //public async Task CreateTopic([FromBody] CreateTopicDTO createTopicDTO, CancellationToken cancellationToken)
+        //{
+        //}
 
-        [HttpPost]
-        public async Task CreateApproach([FromBody] CreateApproachDTO createApproachDTO, CancellationToken cancellationToken)
-        {
-        }
+        //[HttpPost]
+        //public async Task CreateApproach([FromBody] CreateApproachDTO createApproachDTO, CancellationToken cancellationToken)
+        //{
+        //}
 
-        [HttpDelete("{id}")]
-        [AuthorizeTeamAdmin]
-        public async Task DeleteApproach([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
+        //[HttpDelete("{id}")]
+        //[AuthorizeTeamAdmin]
+        //public async Task DeleteApproach([FromRoute] Guid id, CancellationToken cancellationToken)
+        //{
 
-        }
+        //}
 
-        [HttpDelete("{id}")]
-        [AuthorizeTeamAdmin]
-        public async Task DeleteTopic([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
+        //[HttpDelete("{id}")]
+        //[AuthorizeTeamAdmin]
+        //public async Task DeleteTopic([FromRoute] Guid id, CancellationToken cancellationToken)
+        //{
 
-        }
+        //}
     }
 }

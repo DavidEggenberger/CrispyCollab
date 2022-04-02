@@ -57,19 +57,15 @@ namespace Infrastructure.Identity.Services
             Team team;
             try
             {
-                if(claimsPrincipal.FindFirst(x => x.Type == "TeamId") != null)
-                {
-                    Guid id = new Guid(claimsPrincipal.FindFirst(x => x.Type == "TeamId").Value);
-                    team = await identificationDbContext.Teams.SingleAsync(t => t.Id == id);
-                    await LoadTeamRelationsAsync(team);
-                }
-                return null;
+                Guid id = new Guid(claimsPrincipal.FindFirst(x => x.Type == "TeamId").Value);
+                team = await identificationDbContext.Teams.SingleAsync(t => t.Id == id);
+                await LoadTeamRelationsAsync(team);
+                return team;
             }
             catch (Exception ex)
             {
                 return default;
             }
-            return team;
         }
         public async Task InviteMembersAsync(Team team, List<string> emails, TeamRole teamRole = TeamRole.User)
         {

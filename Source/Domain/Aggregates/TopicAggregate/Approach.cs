@@ -15,6 +15,9 @@ namespace Domain.Aggregates.TopicAggregate
 
         private List<Reaction> reactions = new List<Reaction>();
         public IReadOnlyCollection<Reaction> Reactions => reactions.AsReadOnly();
+        
+        private List<Message> messages = new List<Message>();
+        public IReadOnlyCollection<Reaction> Messages => reactions.AsReadOnly();
         private Approach() { }
         public Approach(string name, string description)
         {

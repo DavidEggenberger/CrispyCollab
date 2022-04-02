@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WebWasmClient.Framework.ExceptionHandling;
 
-namespace WebWasmClient.Layouts
+namespace WebWasmClient.Shared.Layouts
 {
     public partial class MainLayout
     {

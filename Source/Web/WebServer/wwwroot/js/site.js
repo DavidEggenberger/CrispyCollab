@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 function hideLoadingScreen() {
-    document.getElementById('loadingBackground').remove();
+    document.getElementById('loadingBackground')?.remove();
 }
 
 function expandAside() {

@@ -23,7 +23,7 @@ namespace Application.ChannelAggregate
         }
         public async Task HandleAsync(CreateChannelCommand command, CancellationToken cancellationToken)
         {
-            applicationDbContext.Channels.Add(new Channel { Name = command.Name });
+            applicationDbContext.Channels.Add(new Channel(command.Name, false));
             await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }
