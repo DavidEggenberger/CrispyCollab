@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Kernel
 {
-    public record ValueObject
+    public class ValueObject
     {
         public Guid Id { get; set; }
         public Guid TeamId { get; set; }

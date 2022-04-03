@@ -28,7 +28,6 @@ namespace Infrastructure.EFCore
             this.userResolver = userResolver;
         }
 
-        public DbSet<Topic> Topics { get; set; }
         public DbSet<Channel> Channels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

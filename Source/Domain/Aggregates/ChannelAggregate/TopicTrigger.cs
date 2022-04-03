@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate
 {
-    public record TopicTrigger : ValueObject
+    public class TopicTrigger : ValueObject
     {
         public decimal NeccessaryVotePercentage { get; set; }
         public int NeccessaryVoteAbsolute { get; set; }

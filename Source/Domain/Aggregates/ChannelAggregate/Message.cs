@@ -12,6 +12,8 @@ namespace Domain.Aggregates.ChannelAggregate
 {
     public class Message : Entity
     {
+        public Guid ChannelId { get; set; }
+        public Channel Channel { get; set; }
         public DateTime TimeSent { get; set; }
         public string Text { get; set; }
         public bool HasDerivedTopic { get; set; }

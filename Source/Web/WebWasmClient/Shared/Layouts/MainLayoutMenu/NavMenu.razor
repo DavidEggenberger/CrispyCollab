@@ -4,10 +4,10 @@
     </NavLink>
     @if(User.HasTeamClaims())
     {
-        <NavLink href="/Channels" Match="NavLinkMatch.All" class="NavElement">
+        <NavLink href="/Channels" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Channels</h5>
         </NavLink>
-        <NavLink href="/Topics" Match="NavLinkMatch.All" class="NavElement">
+        <NavLink href="/Topics" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Topics</h5>
         </NavLink>
     }

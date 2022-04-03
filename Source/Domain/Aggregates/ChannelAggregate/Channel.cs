@@ -14,7 +14,6 @@ namespace Domain.Aggregates.ChannelAggregate
     {
         public string Name { get; set; }
         public bool MessagesAreAnonymous { get; set; }
-        public TopicTrigger TopicTrigger { get; private set; }
 
         private List<Message> messages = new List<Message>();
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
@@ -44,7 +43,6 @@ namespace Domain.Aggregates.ChannelAggregate
         }
         public void SetTopicTrigger(TopicTrigger topicTrigger)
         {
-            TopicTrigger = topicTrigger;
             AddDomainEvent(new TopicTriggerUpdatedEvent());
         }
     }

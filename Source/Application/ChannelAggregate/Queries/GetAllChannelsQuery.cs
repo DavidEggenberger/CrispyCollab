@@ -20,6 +20,7 @@ namespace Application.ChannelAggregate
         }
         public async Task<List<Channel>> HandleAsync(GetAllChannelsQuery query, CancellationToken cancellation)
         {
+            var v = applicationDbContext.Channels;
             return applicationDbContext.Channels.ToList();
         }
     }

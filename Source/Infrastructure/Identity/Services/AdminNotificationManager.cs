@@ -30,6 +30,7 @@ namespace Infrastructure.Identity.Services
                 CreatedAt = DateTime.Now
             };
             identificationDbContext.AdminNotifications.Add(notification);
+            await identificationDbContext.SaveChangesAsync();
             await identityUINotifierService.NotifyAdminMembersAboutNewNotification(team.Id);
         }
     }

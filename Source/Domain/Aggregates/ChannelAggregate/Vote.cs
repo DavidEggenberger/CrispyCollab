@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate
 {
-    public record Vote : ValueObject
+    public class Vote : ValueObject
     {
         public bool Yes { get; set; }
     }

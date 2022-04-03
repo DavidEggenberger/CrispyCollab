@@ -48,10 +48,6 @@ namespace Infrastructure.CQRS
                         {
                             filter.AssignableTo(typeof(IDomainEventHandler<>));
                         })
-                        .AddClasses(filter =>
-                        {
-                            filter.AssignableTo(typeof(IDomainEventHandler<,>));
-                        })
                         .AsImplementedInterfaces()
                         .WithScopedLifetime();
             });

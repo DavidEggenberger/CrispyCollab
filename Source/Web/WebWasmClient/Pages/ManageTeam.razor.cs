@@ -10,12 +10,12 @@ namespace WebWasmClient.Pages
         private TeamAdminInfoDTO teamAdminInfo;
         protected override async Task OnInitializedAsync()
         {
-            teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
+            teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
             loading = false;
 
             HubConnection.On("UpdateAdminInformation", async () =>
             {
-                teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/teamAdmin");
+                teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
                 StateHasChanged();
             });
         }

@@ -77,6 +77,17 @@ button {
     height: 25px;
     margin: 3px;
 }
+button.sml {
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
+    padding: 3px;
+    border: 2px solid black;
+    border-radius: 3px;
+    font-size: 12px;
+    height: 20px;
+    margin: 3px;
+}
 
 img,
 video {

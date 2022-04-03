@@ -17,11 +17,11 @@ nav div {
     height: 36px;
 }
 .Body{
-    position: absolute;
     left: 200;
     right: 15;
     top: 70;
     bottom: 15;
+    position: absolute;
 }
 aside {
     border: 2px solid rgba(255, 255, 255, 0.18);

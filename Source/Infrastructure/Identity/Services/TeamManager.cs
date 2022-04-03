@@ -22,14 +22,16 @@ namespace Infrastructure.Identity.Services
 {
     public class TeamManager
     {
+        private readonly AdminNotificationManager adminNotificationManager;
         private readonly IdentificationDbContext identificationDbContext;
         private readonly ApplicationUserManager applicationUserManager;
         private readonly SubscriptionPlanManager subscriptionPlanManager;
         private readonly IIdentityUINotifierService identityUINotifierService;
         private readonly IAuthenticationSchemeService authenticationSchemeService;
         private readonly IMapper mapper;
-        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager, IIdentityUINotifierService identityUINotifierService, IAuthenticationSchemeService authenticationSchemeService, IMapper mapper)
+        public TeamManager(IdentificationDbContext identificationDbContext, ApplicationUserManager applicationUserManager, SubscriptionPlanManager subscriptionPlanManager, IIdentityUINotifierService identityUINotifierService, IAuthenticationSchemeService authenticationSchemeService, IMapper mapper, AdminNotificationManager adminNotificationManager)
         {
+            this.adminNotificationManager = adminNotificationManager;
             this.identificationDbContext = identificationDbContext;
             this.applicationUserManager = applicationUserManager;
             this.subscriptionPlanManager = subscriptionPlanManager;
@@ -156,6 +158,7 @@ namespace Infrastructure.Identity.Services
             applicationUser.SelectedTeam = team;
             identificationDbContext.Teams.Add(team);    
             await identificationDbContext.SaveChangesAsync();
+            await adminNotificationManager.CreateNotification(team, AdminNotificationType.AdminManagement, applicationUser, "The team is created");
         }
         public async Task UpdateNameAsync(Team team, string name)
         {

@@ -13,6 +13,6 @@ namespace Infrastructure.Identity.Types.Enums
         InvoicePaid,
         TrialEnded,
         AdminManagement,
-        Invitation
+        Invitation,
     }
 }

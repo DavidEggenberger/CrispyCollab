@@ -17,9 +17,9 @@ namespace Infrastructure.CQRS.Query
             this.serviceProvider = serviceProvider;
         }
 
-        public Task<TQueryResult> DispatchAsync<TQueryResult>(IQuery<TQueryResult> query, CancellationToken cancellation = default)
+        public Task<TQueryResult> DispatchAsync<TQuery, TQueryResult>(TQuery query, CancellationToken cancellation = default) where TQuery : IQuery<TQueryResult>
         {
-            var handler = serviceProvider.GetRequiredService<IQueryHandler<IQuery<TQueryResult>, TQueryResult>>();
+            var handler = serviceProvider.GetRequiredService<IQueryHandler<TQuery, TQueryResult>>();
             return handler.HandleAsync(query, cancellation);
         }
     }

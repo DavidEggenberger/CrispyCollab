@@ -1,5 +1,10 @@
 ﻿.ChannelsContainer{
     height: 100%;
     width: 100%;
-
+}
+.ChannelHeader {
+    height: 60px;
+}
+.ChannelMain{
+    height: calc(100% - 60px);
 }
