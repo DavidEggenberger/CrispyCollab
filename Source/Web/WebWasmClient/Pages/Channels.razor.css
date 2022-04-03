@@ -4,7 +4,19 @@
 }
 .ChannelHeader {
     height: 60px;
+    display: flex;
 }
 .ChannelMain{
     height: calc(100% - 60px);
+}
+.ChannelCompContainer{
+    height: 100%;
+}
+.ChannelOverviewContainer{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.CreateChannelContainer{
+    margin-left: 15px;
 }

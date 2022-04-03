@@ -13,14 +13,16 @@ namespace Domain.Aggregates.ChannelAggregate
     public class Channel : Entity
     {
         public string Name { get; set; }
+        public string Goal { get; set; }
         public bool MessagesAreAnonymous { get; set; }
 
         private List<Message> messages = new List<Message>();
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
         private Channel() { }
-        public Channel(string name, bool messagesAreAnonymous)
+        public Channel(string name, string goal, bool messagesAreAnonymous)
         {
             Name = name;
+            Goal = goal;
             MessagesAreAnonymous = messagesAreAnonymous;
         }
         public void AddMessage(Message message)

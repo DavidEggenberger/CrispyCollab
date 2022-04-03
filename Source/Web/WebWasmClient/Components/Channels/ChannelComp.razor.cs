@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Components.Channels
@@ -15,7 +16,7 @@ namespace WebWasmClient.Components.Channels
             {
                 if(Channel.Id == channelId)
                 {
-
+                    Channel = await HttpClientService.GetFromAPIAsync<ChannelDTO>($"/channel/{Channel.Id}");
                     StateHasChanged();
                 }
             });

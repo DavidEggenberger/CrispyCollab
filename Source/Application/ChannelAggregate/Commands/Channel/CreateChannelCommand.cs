@@ -15,6 +15,7 @@ namespace Application.ChannelAggregate
     public class CreateChannelCommand : ICommand
     {
         public string Name { get; set; }
+        public string Goal { get; set; }
     }
     public class CreateChannelCommandHandler : ICommandHandler<CreateChannelCommand>
     {
@@ -29,7 +30,7 @@ namespace Application.ChannelAggregate
         }
         public async Task HandleAsync(CreateChannelCommand command, CancellationToken cancellationToken)
         {
-            applicationDbContext.Channels.Add(new Channel(command.Name, false));
+            applicationDbContext.Channels.Add(new Channel(command.Name, command.Goal, false));
             await applicationDbContext.SaveChangesAsync(cancellationToken);
             await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTeamId());
         }

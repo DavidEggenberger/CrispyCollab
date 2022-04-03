@@ -1,0 +1,24 @@
+﻿<div>
+    <h3>Create a new Channel</h3>
+    <div class="form-group" style="width: 270px;">
+        <label>Name</label>
+        <input @bind="CurrentName" @bind:event="oninput" type="text"/>
+        @if (validationServiceResult?.IsValid is false)
+        {
+            foreach(var item in validationServiceResult.Errors)
+            {
+                <h8>@item</h8>
+            }
+        }
+    </div>
+    <div class="CenterContainer">
+        @if(validationServiceResult?.IsValid is true)
+        {
+            <button @onclick="async() => await CreateChannelAsync()">Create</button>
+        }
+        else
+        {
+            <button style="visibility: hidden;" @onclick="async() => await CreateChannelAsync()">Create</button>
+        }
+    </div>         
+</div>
