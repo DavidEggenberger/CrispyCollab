@@ -24,6 +24,7 @@ namespace WebServer.Hubs
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
             ApplicationUserTeam applicationUserTeam = await applicationUserManager.GetCurrentTeamMembership(applicationUser);
             await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}");
             if (applicationUser.IsOnline is false)
             {
                 applicationUser.IsOnline = true;
@@ -53,6 +54,7 @@ namespace WebServer.Hubs
                 ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(Context.User);
                 ApplicationUserTeam applicationUserTeam = await applicationUserManager.GetCurrentTeamMembership(applicationUser);
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}");
                 await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
             }
         }

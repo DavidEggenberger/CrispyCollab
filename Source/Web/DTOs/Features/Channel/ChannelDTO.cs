@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Features.Channel
 {
-    public class ChannelDTO
+    public class ChannelDTO : BaseDTO
     {
         public string Name { get; set; }
         public List<MessageDTO> Messages { get; set; }

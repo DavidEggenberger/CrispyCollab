@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using Application.ChannelAggregate;
+using AutoMapper;
+using Common.Features.Channel;
+using Domain.Aggregates.ChannelAggregate;
 
 namespace WebServer.Mappings
 {
@@ -6,7 +9,8 @@ namespace WebServer.Mappings
     {
         public ChannelProfiles()
         {
-
+            CreateMap<CreateChannelCommandDTO, CreateChannelCommand>();
+            CreateMap<Channel, ChannelDTO>();
         }
     }
 }

@@ -60,6 +60,20 @@ namespace WebWasmClient.Services
             return default;
         }
 
+        public async Task DeleteFromAPIAsync(string route, Guid id)
+        {
+            HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync("/api" + route + "/" + id);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                
+            }
+            if (httpResponseMessage.IsSuccessStatusCode is false)
+            {
+                ProblemDetails problemDetails = JsonSerializer.Deserialize<ProblemDetails>(await httpResponseMessage.Content.ReadAsStringAsync());
+                throw new HttpClientServiceException(problemDetails.Detail);
+            }
+        }
+
         public void AddDefaultHeader(string name, string value)
         {
             httpClient.DefaultRequestHeaders.Add(name, value); 

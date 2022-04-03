@@ -1,6 +1,8 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
+using Domain.Interfaces;
 using Infrastructure.CQRS.Command;
 using Infrastructure.EFCore;
+using Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +19,20 @@ namespace Application.ChannelAggregate
     public class DeleteChannelCommandCommandHandler : ICommandHandler<DeleteChannelCommand>
     {
         private readonly ApplicationDbContext applicationDbContext;
-        public DeleteChannelCommandCommandHandler(ApplicationDbContext applicationDbContext)
+        private readonly IAggregatesUINotifierService aggregatesUINotifierService;
+        private readonly ITeamResolver teamResolver;
+        public DeleteChannelCommandCommandHandler(ApplicationDbContext applicationDbContext, IAggregatesUINotifierService aggregatesUINotifierService, ITeamResolver teamResolver)
         {
             this.applicationDbContext = applicationDbContext;
+            this.teamResolver = teamResolver;
+            this.aggregatesUINotifierService = aggregatesUINotifierService;
         }
         public async Task HandleAsync(DeleteChannelCommand command, CancellationToken cancellationToken)
         {
             Channel channel = applicationDbContext.Channels.Single(c => c.Id == command.ChannelId);
             applicationDbContext.Channels.Remove(channel);
             await applicationDbContext.SaveChangesAsync(cancellationToken);
+            await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTeamId());
         }
     }
 }

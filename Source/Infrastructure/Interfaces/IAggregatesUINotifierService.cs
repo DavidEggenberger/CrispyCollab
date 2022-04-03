@@ -8,6 +8,6 @@ namespace Domain.Interfaces
 {
     public interface IAggregatesUINotifierService
     {
-        
+        Task UpdateChannels(Guid teamId);
     }
 }

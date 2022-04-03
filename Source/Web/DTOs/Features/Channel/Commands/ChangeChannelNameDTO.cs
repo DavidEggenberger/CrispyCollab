@@ -8,5 +8,6 @@ namespace Common.Features.Channel
 {
     public class ChangeChannelNameDTO
     {
+        public string NewName { get; set; }
     }
 }

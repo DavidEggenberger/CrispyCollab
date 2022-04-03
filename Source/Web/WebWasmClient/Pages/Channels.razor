@@ -3,20 +3,19 @@
 
 <div class="ChannelsContainer">
     <div class="ChannelHeader">
-        <h2>Engage with @User.GetTeamName()</h2>
+        <h2>Engage with your colleagues from @User.GetTeamName()</h2>
     </div>
     <div class="ChannelMain">
         @if(loading is false)
         {
-            if(channels.Count == 0)
-            {
-            
-            }
-            else
+            <input @bind="channelName" @bind:event="oninput"/>
+            <button @onclick="() => CreateChannel(channelName)">Create a new Channel</button>
+
+            if(channels.Count > 0)
             {
                 foreach(var channel in channels)
                 {
-                    <ChannelComp/>
+                    <ChannelComp Channel="channel"/>
                 }
             }
         }      
