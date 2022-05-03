@@ -141,7 +141,7 @@ namespace WebServer.Controllers.Identity
         public async Task<IActionResult> Index()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            const string endpointSecret = "whsec_1e2d0609f798c0d2b32de188b680fa5edafbd3212dead57d24b0e408085f8bd4";
+            const string endpointSecret = "";
             try
             {
                 var stripeEvent = EventUtility.ParseEvent(json);

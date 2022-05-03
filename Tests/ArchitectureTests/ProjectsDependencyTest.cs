@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ArchitectureTests
 {
-    public class DependencyTest
+    public class ProjectsDependencyTest
     {
         [Fact]
         public void AssemblyReferencesMustBeCorrect()

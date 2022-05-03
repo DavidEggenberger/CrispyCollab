@@ -7,8 +7,6 @@ using Common.Misc.Attributes;
 using Domain.Aggregates.ChannelAggregate;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Query;
-using Infrastructure.Identity;
-using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WebServer.Authorization;
 
 namespace WebServer.Controllers.Aggregates
 {
