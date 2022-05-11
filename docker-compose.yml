@@ -2,10 +2,10 @@ version: '3.4'
 
 services:
   crispycollab:
-    image: ${DOCKER_REGISTRY-}eshopwebmvc
+    image: ${DOCKER_REGISTRY-}crispycollab
     build:
       context: .
-      dockerfile: /Dockerfile
+      dockerfile: Dockerfile
     depends_on:
       - "sqlserver"
   sqlserver:
