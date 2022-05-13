@@ -23,8 +23,8 @@ namespace WebServer
             {
                 using IHost host = CreateHostBuilder(args).Build();
                 using IServiceScope serviceScope = host.Services.CreateScope();
-                IdentificationDbContext context = serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>();
-                await IdentityDbSeeder.SeedAsync(context, serviceScope.ServiceProvider.GetRequiredService<IConfiguration>());
+                //IdentificationDbContext context = serviceScope.ServiceProvider.GetRequiredService<IdentificationDbContext>();
+                //await IdentityDbSeeder.SeedAsync(context, serviceScope.ServiceProvider.GetRequiredService<IConfiguration>());
                 host.Run();
             }
             catch (Exception ex)
