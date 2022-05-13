@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   crispycollab:
+    container_name: CrispyCollab
     image: ${DOCKER_REGISTRY-}crispycollab
     build:
       context: .
@@ -9,6 +10,7 @@ services:
     depends_on:
       - "sqlserver"
   sqlserver:
+    container_name: SQLServer
     image: mcr.microsoft.com/azure-sql-edge
     ports:
       - "1433:1433"
