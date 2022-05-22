@@ -9,7 +9,16 @@ This repository is a **reference application** for building monolithic SaaS solu
 - Multi-tenancy
 - Tenant wide operations (sending chat messages)
 - Admin Section (e.g. inviting users)
+- Domain Driven Design
+- CQRS (no library)
 
 ### Architecture
 
-<img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/SolutionProjects.png" />
+<img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/Dependencies.png" height=350/>
+
+**WebWasmClient**: Blazor WebAssembly Application \
+**WebCommon**: DTOs, Path Constants \
+**WebServer**: API, Razor Pages for Identity \
+**Application**: Business Logic \
+**Infrastructure**: Infrastructure Components (e.g. Database access) \
+**Domain**: Entities 
