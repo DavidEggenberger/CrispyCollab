@@ -40,12 +40,12 @@ The possibilities and methods for developping SaaS applications with .NET are en
 
 ## Running CrispyCollab
 #### Docker
-You can run CrispyCollab by running these commands from the root folder (where CrispyCollab.sln file is located):
+When running through Docker the appsettings are read from the appsettings.docker.json file. You can run CrispyCollab by running these commands from the root folder (where CrispyCollab.sln file is located):
 ```
 docker-compose build
 docker-compose up
 ```
-When running through Docker the appsettings are read from the appsettings.docker.json file.
+
 #### Local
 When running CrispyCollab locally SQL Server must be installed. The connection string must be added into appsettings.json. From the package manager console you can run the following commands:
 ```
