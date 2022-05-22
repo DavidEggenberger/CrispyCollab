@@ -14,6 +14,8 @@ This repository is a **reference application** for building monolithic SaaS solu
 
 ### Architecture
 
+CrispyCollab models its entities after the paradigms of Domain Driven Design. CQRS is used to organize the business logic. For each aggregate the Application class library defines the supported Commands and Queries. The respective Command and QueryHandlers reside in the same file. They get executed when the controllers dispatch the according Query or Command. 
+
 <img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/Dependencies.png" height=350/>
 
 **WebWasmClient**: Blazor WebAssembly Application \
@@ -22,3 +24,4 @@ This repository is a **reference application** for building monolithic SaaS solu
 **Application**: Business Logic \
 **Infrastructure**: Infrastructure Components (e.g. Database access) \
 **Domain**: Entities 
+
