@@ -1,15 +1,15 @@
 name: CrispyCollab Build and Test
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["CodeQL Analysis"]
+    branches: [main]
+    types: 
+      - completed
 
 jobs:
   build:
-
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
