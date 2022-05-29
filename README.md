@@ -10,13 +10,13 @@ This repository is a **reference application** for building monolithic SaaS solu
 - Tenant wide operations (sending chat messages)
 - Admin Section (e.g. inviting users)
 - Domain Driven Design
-- CQRS (no library)
+- CQRS (no library, own implementation through using Scrutor)
 
 ### Architecture
 
 CrispyCollab models its entities after the paradigms of Domain Driven Design. CQRS is used to organize the business logic. For each aggregate the Application class library defines the supported Commands and Queries. The respective Command and QueryHandlers reside in the same file. They get executed when the controllers dispatch the according Query or Command.
 
-<img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/Dependencies.png" height=350/>
+<img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/ProjectDependencies.png" height=350/>
 
 **WebWasmClient**: Blazor WebAssembly Application \
 **WebCommon**: DTOs, Path Constants \
