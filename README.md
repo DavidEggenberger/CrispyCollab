@@ -30,7 +30,7 @@ CrispyCollab models its entities after the paradigms of Domain Driven Design. CQ
 The possibilities and methods for developping SaaS applications with .NET are endless. For the application showcased three principles are of particular significance.
 
 #### Multitenancy
-
+Multitenancy denotes the application being shared by multiple tenants. A tenant describes a group of users. In the context of SaaS they mostly work together in a company.
 
 #### Business Logic respecting tenant
 
