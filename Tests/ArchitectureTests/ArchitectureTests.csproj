@@ -24,7 +24,7 @@
     <ProjectReference Include="..\..\Source\Application\Application.csproj" />
     <ProjectReference Include="..\..\Source\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Source\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Source\Web\DTOs\Common.csproj" />
+    <ProjectReference Include="..\..\Source\Web\DTOs\WebShared.csproj" />
     <ProjectReference Include="..\..\Source\Web\WebServer\WebServer.csproj" />
     <ProjectReference Include="..\..\Source\Web\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>

@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTOs\Common.csproj" />
+    <ProjectReference Include="..\DTOs\WebShared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
