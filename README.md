@@ -5,7 +5,7 @@
 
 This repository is a **reference application** for building monolithic SaaS solutions with ASP.NET Core, Blazor and EF Core. CrispyCollab features:
 
-- Subscription-based billing (Stripe)
+- Subscription-based billing (<a href="https://stripe.com/docs/payments/checkout">Stripe Checkout</a>)
 - Multi-tenancy
 - Tenant wide operations (sending chat messages)
 - Admin Section (e.g. inviting users)
@@ -36,7 +36,7 @@ Multitenancy denotes the application being shared by multiple tenants. A tenant 
 
 
 #### Subscription-based billing
-
+CrispyCollab uses <a href="https://stripe.com/docs/payments/checkout">Stripe Checkout</a>. Through Stripe's dashboard the subscription plans can be created. Each one is identifiable through an Id. The<a href="https://github.com/DavidEggenberger/CrispyCollab/blob/main/Source/Infrastructure/Identity/IdentityDbSeeder.cs"> IdentityDbSeeder</a> then stores the according subscriptions in the database. 
 
 ## Running CrispyCollab
 #### Docker
