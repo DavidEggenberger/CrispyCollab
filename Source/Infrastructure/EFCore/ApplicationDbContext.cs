@@ -42,6 +42,7 @@ namespace Infrastructure.EFCore
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            ThrowIfMultipleTenants();
             UpdateAutitableEntities();
             SetTeamId(teamResolver.ResolveTeamId());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
@@ -102,6 +103,29 @@ namespace Infrastructure.EFCore
             foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.CreatedByUserId = userId;
+            }
+        }
+        private void ThrowIfMultipleTenants()
+        {
+            var ids = (from e in ChangeTracker.Entries()
+                   where e.Entity is Entity
+                   select ((Entity)e.Entity).TeamId)
+                   .Distinct()
+                   .ToList();
+            
+            if(ids.Count == 0)
+            {
+                return;
+            }
+ 
+            if(ids.Count > 1)
+            {
+                throw new CrossTenantUpdateException(ids);
+            }
+ 
+            if(ids.First() != teamResolver.ResolveTeamId())
+            {
+                throw new CrossTenantUpdateException(ids);
             }
         }
     }
