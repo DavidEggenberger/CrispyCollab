@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\ValueObjects\" />
+    <Folder Include="Kernel\Enums\" />
+    <Folder Include="Kernel\ValueObjects\" />
   </ItemGroup>
 
 </Project>

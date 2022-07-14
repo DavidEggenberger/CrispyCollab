@@ -19,13 +19,15 @@ namespace Infrastructure.EFCore
     public class ApplicationDbContext : DbContext
     {
         private readonly IDomainEventDispatcher domainEventDispatcher;
-        private readonly ITeamResolver teamResolver;
+        private readonly ITenantResolver teamResolver;
         private readonly IUserResolver userResolver;
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITeamResolver teamResolver, IUserResolver userResolver) : base(dbContextOptions)
+        private readonly Guid tenantId;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITenantResolver teamResolver, IUserResolver userResolver) : base(dbContextOptions)
         {
             this.domainEventDispatcher = domainEventDispatcher;
             this.teamResolver = teamResolver;
             this.userResolver = userResolver;
+            tenantId = teamResolver.ResolveTenant();
         }
 
         public DbSet<Channel> Channels { get; set; }
@@ -36,7 +38,7 @@ namespace Infrastructure.EFCore
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTeamId());
+            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTenant());
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, 
                 x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
         }
@@ -44,7 +46,7 @@ namespace Infrastructure.EFCore
         {
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
-            SetTeamId(teamResolver.ResolveTeamId());
+            SetTeamId(teamResolver.ResolveTenant());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             await DispatchEventsAsync(cancellationToken);
             return await base.SaveChangesAsync(cancellationToken);
@@ -123,7 +125,7 @@ namespace Infrastructure.EFCore
                 throw new CrossTenantUpdateException(ids);
             }
  
-            if(ids.First() != teamResolver.ResolveTeamId())
+            if(ids.First() != tenantId)
             {
                 throw new CrossTenantUpdateException(ids);
             }

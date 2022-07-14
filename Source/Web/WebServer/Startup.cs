@@ -123,7 +123,7 @@ namespace WebServer
             services.Configure<SendGridEmailOptions>(Configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.AddScoped<IAggregatesUINotifierService, AggregatesUINotifierService>();
-            services.AddScoped<ITeamResolver, TeamResolver>();
+            services.AddScoped<ITenantResolver, TeamResolver>();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));

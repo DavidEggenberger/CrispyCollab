@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Interfaces
 {
-    public interface ITeamResolver
+    public interface ITenantResolver
     {
-        Guid ResolveTeamId();
+        Guid ResolveTenant();
         Task<Team> ResolveTeamAsync();
     }
 }

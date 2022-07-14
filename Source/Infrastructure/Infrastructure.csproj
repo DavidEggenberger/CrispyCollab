@@ -7,20 +7,13 @@
   <ItemGroup>
     <Compile Remove="EFCore\Configuration\ApplicationDbContext\**" />
     <Compile Remove="EFCore\Configuration\IdentificationDbContext\**" />
-    <Compile Remove="EFCore\Migrations\ApplicationDbContext\**" />
-    <Compile Remove="EFCore\Migrations\IdentificationDbContext\**" />
     <EmbeddedResource Remove="EFCore\Configuration\ApplicationDbContext\**" />
     <EmbeddedResource Remove="EFCore\Configuration\IdentificationDbContext\**" />
-    <EmbeddedResource Remove="EFCore\Migrations\ApplicationDbContext\**" />
-    <EmbeddedResource Remove="EFCore\Migrations\IdentificationDbContext\**" />
     <None Remove="EFCore\Configuration\ApplicationDbContext\**" />
     <None Remove="EFCore\Configuration\IdentificationDbContext\**" />
-    <None Remove="EFCore\Migrations\ApplicationDbContext\**" />
-    <None Remove="EFCore\Migrations\IdentificationDbContext\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EFCore\Migrations\" />
     <Folder Include="Identity\EFCore\Migrations\" />
   </ItemGroup>
 
