@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebServer.Services
 {
-    public class TeamResolver : ITeamResolver
+    public class TeamResolver : ITenantResolver
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly TeamManager teamManager;
@@ -22,7 +22,7 @@ namespace WebServer.Services
             return teamManager.FindByClaimsPrincipalAsync(httpContextAccessor.HttpContext.User);
         }
 
-        public Guid ResolveTeamId()
+        public Guid ResolveTenant()
         {
             try
             {

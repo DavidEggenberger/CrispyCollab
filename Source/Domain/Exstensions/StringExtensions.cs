@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exstensions
 {
-    public static class StringExtender
+    public static class StringExtensions
     {
         public static Guid ToGuid(this string stringGuid)
         {

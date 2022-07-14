@@ -20,8 +20,8 @@ namespace Application.ChannelAggregate
     {
         private readonly ApplicationDbContext applicationDbContext;
         private readonly IAggregatesUINotifierService aggregatesUINotifierService;
-        private readonly ITeamResolver teamResolver;
-        public DeleteChannelCommandCommandHandler(ApplicationDbContext applicationDbContext, IAggregatesUINotifierService aggregatesUINotifierService, ITeamResolver teamResolver)
+        private readonly ITenantResolver teamResolver;
+        public DeleteChannelCommandCommandHandler(ApplicationDbContext applicationDbContext, IAggregatesUINotifierService aggregatesUINotifierService, ITenantResolver teamResolver)
         {
             this.applicationDbContext = applicationDbContext;
             this.teamResolver = teamResolver;
@@ -32,7 +32,7 @@ namespace Application.ChannelAggregate
             Channel channel = applicationDbContext.Channels.Single(c => c.Id == command.ChannelId);
             applicationDbContext.Channels.Remove(channel);
             await applicationDbContext.SaveChangesAsync(cancellationToken);
-            await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTeamId());
+            await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTenant());
         }
     }
 }
