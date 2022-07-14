@@ -14,10 +14,10 @@ namespace Application.ChannelAggregate.Queries
     {
         public Guid Id { get; set; }
     }
-    public class GetChannelQueryHandler : IQueryHandler<GetChannelByIdQuery, Channel>
+    public class GetChannelByIdQueryHandler : IQueryHandler<GetChannelByIdQuery, Channel>
     {
         private readonly ApplicationDbContext applicationDbContext;
-        public GetChannelQueryHandler(ApplicationDbContext applicationDbContext)
+        public GetChannelByIdQueryHandler(ApplicationDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
