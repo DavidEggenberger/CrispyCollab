@@ -46,7 +46,7 @@ namespace Infrastructure.EFCore
         {
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
-            SetTeamId(teamResolver.ResolveTenant());
+            SetTenantId(teamResolver.ResolveTenant());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             await DispatchEventsAsync(cancellationToken);
             return await base.SaveChangesAsync(cancellationToken);
@@ -85,7 +85,7 @@ namespace Infrastructure.EFCore
                 }
             }
         }
-        private void SetTeamId(Guid teamId)
+        private void SetTenantId(Guid teamId)
         {
             foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
             {

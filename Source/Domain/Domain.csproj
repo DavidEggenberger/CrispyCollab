@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Kernel\Enums\" />
+    <Folder Include="Kernel\Services\" />
     <Folder Include="Kernel\ValueObjects\" />
   </ItemGroup>
 

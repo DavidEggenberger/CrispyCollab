@@ -1,6 +1,7 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
 using Infrastructure.CQRS.Query;
 using Infrastructure.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace Application.ChannelAggregate.Queries
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public async Task<Channel> HandleAsync(GetChannelByIdQuery query, CancellationToken cancellation)
+        public Task<Channel> HandleAsync(GetChannelByIdQuery query, CancellationToken cancellation)
         {
-            return applicationDbContext.Channels.Single(c => c.Id == query.Id);
+            return applicationDbContext.Channels.SingleAsync(c => c.Id == query.Id);
         }
     }
 }

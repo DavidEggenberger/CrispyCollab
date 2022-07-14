@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Application\ChannelAggregate\" />
     <Folder Include="Application\TopicAggregate\" />
-    <Folder Include="Domain\ChannelAggregate\" />
     <Folder Include="Domain\TopicAggregate\" />
   </ItemGroup>
 
