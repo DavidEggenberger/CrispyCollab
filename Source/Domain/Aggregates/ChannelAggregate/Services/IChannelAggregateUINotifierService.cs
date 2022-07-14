@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Domain.Aggregates.ChannelAggregate
 {
-    public interface IAggregatesUINotifierService
+    public interface IChannelAggregateUINotifierService
     {
-        Task UpdateChannels(Guid teamId);
     }
 }
