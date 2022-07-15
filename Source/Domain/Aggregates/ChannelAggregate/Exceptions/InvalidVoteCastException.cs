@@ -9,7 +9,7 @@ namespace Domain.Aggregates.ChannelAggregate.Exceptions
 {
     public class InvalidVoteCastException : DomainException
     {
-        public InvalidVoteCastException(string userId) : base($"User with Id {userId} voted already")
+        public InvalidVoteCastException(string userId, string voteId) : base($"User with Id {userId} voted for {voteId} already")
         {
         }
     }
