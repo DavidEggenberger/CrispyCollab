@@ -14,7 +14,7 @@ namespace Domain.Aggregates.ChannelAggregate
     {
         public string Name { get; set; }
         public string Goal { get; set; }
-        public bool MessagesAreAnonymous { get; set; }
+        public bool MessagesSenderIsAonymous { get; set; }
 
         private List<Message> messages = new List<Message>();
         public IReadOnlyCollection<Message> Messages => messages.AsReadOnly();
@@ -23,7 +23,7 @@ namespace Domain.Aggregates.ChannelAggregate
         {
             Name = name;
             Goal = goal;
-            MessagesAreAnonymous = messagesAreAnonymous;
+            MessagesSenderIsAonymous = messagesAreAnonymous;
         }
         public void AddMessage(Message message)
         {

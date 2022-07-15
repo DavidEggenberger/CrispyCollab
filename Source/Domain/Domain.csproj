@@ -5,9 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Kernel\Enums\" />
-    <Folder Include="Kernel\Services\" />
-    <Folder Include="Kernel\ValueObjects\" />
+    <Compile Remove="Kernel\Enums\**" />
+    <Compile Remove="Kernel\Services\**" />
+    <Compile Remove="Kernel\ValueObjects\**" />
+    <EmbeddedResource Remove="Kernel\Enums\**" />
+    <EmbeddedResource Remove="Kernel\Services\**" />
+    <EmbeddedResource Remove="Kernel\ValueObjects\**" />
+    <None Remove="Kernel\Enums\**" />
+    <None Remove="Kernel\Services\**" />
+    <None Remove="Kernel\ValueObjects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\ValueObjects\" />
   </ItemGroup>
 
 </Project>

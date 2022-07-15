@@ -10,15 +10,15 @@ using Infrastructure.EFCore;
 
 namespace Application.ChannelAggregate
 {
-    public class GetAllChannelsQuery : IQuery<List<Channel>> { }
-    public class GetAllChannelsQueryHandler : IQueryHandler<GetAllChannelsQuery, List<Channel>>
+    public class AllChannelsQuery : IQuery<List<Channel>> { }
+    public class AllChannelsQueryHandler : IQueryHandler<AllChannelsQuery, List<Channel>>
     {
         private readonly ApplicationDbContext applicationDbContext;
-        public GetAllChannelsQueryHandler(ApplicationDbContext applicationDbContext)
+        public AllChannelsQueryHandler(ApplicationDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public async Task<List<Channel>> HandleAsync(GetAllChannelsQuery query, CancellationToken cancellation)
+        public async Task<List<Channel>> HandleAsync(AllChannelsQuery query, CancellationToken cancellation)
         {
             return applicationDbContext.Channels.ToList();
         }
