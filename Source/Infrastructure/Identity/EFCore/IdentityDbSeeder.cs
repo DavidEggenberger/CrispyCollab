@@ -13,7 +13,7 @@ namespace Infrastructure.Identity
     {
         public static async Task SeedAsync(IdentificationDbContext context, IConfiguration _configuration)
         {
-            if (context.SubscriptionPlans.Count() != 3)
+            if (!context.SubscriptionPlans.Any())
             {
                 context.SubscriptionPlans.RemoveRange(context.SubscriptionPlans);
                 context.SubscriptionPlans.AddRange(new List<SubscriptionPlan>
