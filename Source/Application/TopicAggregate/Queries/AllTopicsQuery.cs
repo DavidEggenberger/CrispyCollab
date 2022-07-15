@@ -9,7 +9,7 @@ using Domain.Aggregates.TopicAggregate;
 
 namespace Application.TopicAggregate.Queries
 {
-    public class GetAllTopicsQuery : IQuery<List<Topic>>
+    public class AllTopicsQuery : IQuery<List<Topic>>
     {
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.TopicAggregate.Queries
 {
-    public class GetTopicByIdQuery : IQuery<Topic>
+    public class TopicByIdQuery : IQuery<Topic>
     {
     }
 }

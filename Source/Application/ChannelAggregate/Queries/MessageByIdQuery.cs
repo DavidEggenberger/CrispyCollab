@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.ChannelAggregate.Queries
 {
-    public class GetMessageByIdQuery : IQuery<Message>
+    public class MessageByIdQuery : IQuery<Message>
     {
         public Guid Id { get; set; }
     }

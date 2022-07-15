@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Application.ChannelAggregate.Queries
 {
-    public class GetChannelByIdQuery : IQuery<Channel> 
+    public class ChannelByIdQuery : IQuery<Channel> 
     {
         public Guid Id { get; set; }
     }
-    public class GetChannelQueryHandler : IQueryHandler<GetChannelByIdQuery, Channel>
+    public class GetChannelQueryHandler : IQueryHandler<ChannelByIdQuery, Channel>
     {
         private readonly ApplicationDbContext applicationDbContext;
         public GetChannelQueryHandler(ApplicationDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public Task<Channel> HandleAsync(GetChannelByIdQuery query, CancellationToken cancellation)
+        public Task<Channel> HandleAsync(ChannelByIdQuery query, CancellationToken cancellation)
         {
             return applicationDbContext.Channels.SingleAsync(c => c.Id == query.Id);
         }

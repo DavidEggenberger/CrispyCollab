@@ -37,14 +37,14 @@ namespace WebServer.Controllers.Aggregates
         [HttpGet]
         public async Task<List<ChannelDTO>> GetChannels(CancellationToken cancellationToken)
         {
-            List<Channel> channels = await queryDispatcher.DispatchAsync<GetAllChannelsQuery, List<Channel>>(new GetAllChannelsQuery(), cancellationToken);
+            List<Channel> channels = await queryDispatcher.DispatchAsync<AllChannelsQuery, List<Channel>>(new AllChannelsQuery(), cancellationToken);
             return mapper.Map<List<ChannelDTO>>(channels);
         }
 
         [HttpGet("{id}")]
         public async Task<ChannelDTO> GetChannelById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            Channel channel = await queryDispatcher.DispatchAsync<GetChannelByIdQuery, Channel>(new GetChannelByIdQuery() { Id = id }, cancellationToken);
+            Channel channel = await queryDispatcher.DispatchAsync<ChannelByIdQuery, Channel>(new ChannelByIdQuery() { Id = id }, cancellationToken);
             return mapper.Map<ChannelDTO>(channel);
         }
 
@@ -74,7 +74,7 @@ namespace WebServer.Controllers.Aggregates
         public async Task<ActionResult> DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
         {
             DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);
-            Message message = await queryDispatcher.DispatchAsync<GetMessageByIdQuery, Message>(new GetMessageByIdQuery() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
+            Message message = await queryDispatcher.DispatchAsync<MessageByIdQuery, Message>(new MessageByIdQuery() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
             if((await authorizationService.AuthorizeAsync(HttpContext.User, message, "CreatorPolicy")).Succeeded)
             {
                 await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
@@ -90,7 +90,7 @@ namespace WebServer.Controllers.Aggregates
         [AuthorizeTeamAdmin]
         public async Task<ActionResult> DeleteChannel([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            Channel channel = await queryDispatcher.DispatchAsync<GetChannelByIdQuery, Channel>(new GetChannelByIdQuery { Id = id }, cancellationToken);
+            Channel channel = await queryDispatcher.DispatchAsync<ChannelByIdQuery, Channel>(new ChannelByIdQuery { Id = id }, cancellationToken);
             if ((await authorizationService.AuthorizeAsync(HttpContext.User, channel, "CreatorPolicy")).Succeeded)
             {
                 await commandDispatcher.DispatchAsync(new DeleteChannelCommand() { ChannelId = id }, cancellationToken);
