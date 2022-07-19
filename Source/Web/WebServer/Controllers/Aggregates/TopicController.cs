@@ -1,8 +1,8 @@
 ﻿using Application.TopicAggregate.Queries;
 using AutoMapper;
-using Common.Features.Topic;
-using Common.Features.Topic.Commands;
-using Common.Misc.Attributes;
+using WebShared.Features.Topic;
+using WebShared.Features.Topic.Commands;
+using WebShared.Misc.Attributes;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Query;
 using Microsoft.AspNetCore.Authorization;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
-namespace Common
+namespace WebShared
 {
     public class ClaimConstants
     {

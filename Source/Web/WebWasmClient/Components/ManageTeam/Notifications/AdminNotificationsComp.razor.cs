@@ -1,4 +1,4 @@
-﻿using Common.Identity.Team.AdminManagement;
+﻿using WebShared.Identity.Team.AdminManagement;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;

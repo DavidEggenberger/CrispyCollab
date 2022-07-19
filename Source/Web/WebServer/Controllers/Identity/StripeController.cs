@@ -1,4 +1,4 @@
-﻿using Common.Misc.Attributes;
+﻿using WebShared.Misc.Attributes;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;

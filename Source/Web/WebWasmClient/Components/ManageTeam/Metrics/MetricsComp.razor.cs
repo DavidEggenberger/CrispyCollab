@@ -1,4 +1,4 @@
-﻿using Common.Identity.Team.AdminManagement;
+﻿using WebShared.Identity.Team.AdminManagement;
 using Microsoft.AspNetCore.Components;
 
 namespace WebWasmClient.Components.ManageTeam.Metrics

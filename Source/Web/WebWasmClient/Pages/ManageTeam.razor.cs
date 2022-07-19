@@ -1,4 +1,4 @@
-﻿using Common.Identity.DTOs.TeamDTOs;
+﻿using WebShared.Identity.DTOs.TeamDTOs;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 

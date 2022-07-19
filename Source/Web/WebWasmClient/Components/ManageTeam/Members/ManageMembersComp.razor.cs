@@ -1,6 +1,6 @@
 ﻿using Blazored.Modal;
-using Common.Identity.DTOs.TeamDTOs;
-using Common.Identity.Team;
+using WebShared.Identity.DTOs.TeamDTOs;
+using WebShared.Identity.Team;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;

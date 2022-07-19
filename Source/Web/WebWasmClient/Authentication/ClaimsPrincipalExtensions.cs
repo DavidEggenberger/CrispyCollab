@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Linq;
-using Common.Identity.Team.DTOs.Enums;
+using WebShared.Identity.Team.DTOs.Enums;
 using System;
-using Common.Identity.UserTeam;
-using Common;
+using WebShared.Identity.UserTeam;
+using WebShared;
 
 namespace WebWasmClient.Authentication
 {

@@ -1,4 +1,4 @@
-﻿using Common.Features.Channel;
+﻿using WebShared.Features.Channel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common.Identity.Subscription;
+using WebShared.Identity.Subscription;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Http;

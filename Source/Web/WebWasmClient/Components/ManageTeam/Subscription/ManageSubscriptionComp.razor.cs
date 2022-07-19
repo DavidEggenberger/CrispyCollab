@@ -1,4 +1,4 @@
-﻿using Common.Identity.Subscription;
+﻿using WebShared.Identity.Subscription;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;

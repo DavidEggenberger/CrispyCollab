@@ -1,5 +1,5 @@
 ﻿using Blazored.Modal;
-using Common.Identity.DTOs.TeamDTOs;
+using WebShared.Identity.DTOs.TeamDTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;

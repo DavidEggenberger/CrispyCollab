@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Common.Identity.DTOs.TeamDTOs;
-using Common.Identity.Subscription;
-using Common.Identity.Team;
-using Common.Identity.Team.AdminManagement;
-using Common.Identity.User;
+using WebShared.Identity.DTOs.TeamDTOs;
+using WebShared.Identity.Subscription;
+using WebShared.Identity.Team;
+using WebShared.Identity.Team.AdminManagement;
+using WebShared.Identity.User;
 using Infrastructure.Identity;
 using Infrastructure.Identity.BusinessObjects;
 using Infrastructure.Identity.Entities;

@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using WebShared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;

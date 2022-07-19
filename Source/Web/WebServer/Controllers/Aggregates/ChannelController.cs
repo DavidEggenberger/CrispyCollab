@@ -2,8 +2,8 @@
 using Application.ChannelAggregate.Commands;
 using Application.ChannelAggregate.Queries;
 using AutoMapper;
-using Common.Features.Channel;
-using Common.Misc.Attributes;
+using WebShared.Features.Channel;
+using WebShared.Misc.Attributes;
 using Domain.Aggregates.ChannelAggregate;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Query;

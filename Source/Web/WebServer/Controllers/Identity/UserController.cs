@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common.Identity.DTOs.TeamDTOs;
+using WebShared.Identity.DTOs.TeamDTOs;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;

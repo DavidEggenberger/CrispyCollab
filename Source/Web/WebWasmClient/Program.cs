@@ -15,6 +15,7 @@ using WebWasmClient.Authentication.Antiforgery;
 using WebWasmClient;
 using Blazored.Modal;
 using WebWasmClient.Services;
+using WebShared.Authorization;
 
 namespace WebWasmClient
 {
@@ -36,32 +37,11 @@ namespace WebWasmClient
             #region Authentication
             builder.Services.AddSingleton<AntiforgeryTokenService>();
             builder.Services.TryAddSingleton<AuthenticationStateProvider, HostAuthenticationStateProvider>();
-            builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());         
-            builder.Services.AddAuthorizationCore(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TeamUser", options =>
-                {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "User", "Admin");
-                });
-                options.AddPolicy("TeamAdmin", options =>
-                {
-                    options.RequireClaim("TeamId");
-                    options.RequireClaim("TeamRole", "Admin");
-                });
-                options.AddPolicy("PremiumSubscriptionPlan", options =>
-                {
-                    options.RequireClaim("TeamSubscriptionPlanType", "Premium");
-                });
-                options.AddPolicy("EnterpriseSubscriptionPlan", options =>
-                {
-                    options.RequireClaim("TeamSubscriptionPlanType", "Enterprise");
-                });
-            });
+            builder.Services.TryAddSingleton(sp => (HostAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>());
+            builder.Services.RegisterAuthorization();
             #endregion
             builder.Services.AddBlazoredModal();
-            builder.Services.AddValidation(typeof(Common.IAssemblyMarker).Assembly);
+            builder.Services.AddValidation(typeof(WebShared.IAssemblyMarker).Assembly);
 
             await builder.Build().RunAsync();
         }
