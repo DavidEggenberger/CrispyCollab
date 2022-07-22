@@ -16,4 +16,8 @@
     <None Remove="Kernel\ValueObjects\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Aggregates\TeamAggregate\" />
+  </ItemGroup>
+
 </Project>

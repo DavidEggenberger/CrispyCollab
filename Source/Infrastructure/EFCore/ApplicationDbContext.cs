@@ -1,53 +1,34 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
-using Domain.Aggregates.TopicAggregate;
-using Domain.Kernel;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
-using Infrastructure.EFCore.Configuration;
-using Infrastructure.Interfaces;
+using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.EFCore
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : MultiTenantDbContext<ApplicationDbContext>
     {
         private readonly IDomainEventDispatcher domainEventDispatcher;
-        private readonly ITenantResolver teamResolver;
-        private readonly IUserResolver userResolver;
-        private readonly Guid tenantId;
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions, IDomainEventDispatcher domainEventDispatcher, ITenantResolver teamResolver, IUserResolver userResolver) : base(dbContextOptions)
+        public ApplicationDbContext(IDomainEventDispatcher domainEventDispatcher, DbContextOptions<ApplicationDbContext> dbContextOptions, IServiceCollection serviceCollection) : base(dbContextOptions, serviceCollection)
         {
             this.domainEventDispatcher = domainEventDispatcher;
-            this.teamResolver = teamResolver;
-            this.userResolver = userResolver;
-            tenantId = teamResolver.ResolveTenant();
         }
 
         public DbSet<Channel> Channels { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            
-        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTenant());
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, 
                 x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
+            base.OnModelCreating(modelBuilder);
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            ThrowIfMultipleTenants();
-            UpdateAutitableEntities();
-            SetTenantId(teamResolver.ResolveTenant());
-            UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             await DispatchEventsAsync(cancellationToken);
             return await base.SaveChangesAsync(cancellationToken);
         }
@@ -67,67 +48,6 @@ namespace Infrastructure.EFCore
                 {
                     await domainEventDispatcher.DispatchAsync(domainEvent, cancellationToken).ConfigureAwait(false);
                 }
-            }
-        }
-        private void UpdateAutitableEntities()
-        {
-            foreach (var entry in ChangeTracker.Entries<Entity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.Created = DateTime.Now;
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Entity.LastUpdated = DateTime.Now;
-                        break;
-                }
-            }
-        }
-        private void SetTenantId(Guid teamId)
-        {
-            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.TeamId = teamId;
-            }
-            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.TeamId = teamId;
-            }
-        }
-        private void UpdateCreatedByUserEntities(Guid userId)
-        {
-            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.CreatedByUserId = userId;
-            }
-            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.CreatedByUserId = userId;
-            }
-        }
-        private void ThrowIfMultipleTenants()
-        {
-            var ids = (from e in ChangeTracker.Entries()
-                   where e.Entity is Entity
-                   select ((Entity)e.Entity).TeamId)
-                   .Distinct()
-                   .ToList();
-            
-            if(ids.Count == 0)
-            {
-                return;
-            }
- 
-            if(ids.Count > 1)
-            {
-                throw new CrossTenantUpdateException(ids);
-            }
- 
-            if(ids.First() != tenantId)
-            {
-                throw new CrossTenantUpdateException(ids);
             }
         }
     }

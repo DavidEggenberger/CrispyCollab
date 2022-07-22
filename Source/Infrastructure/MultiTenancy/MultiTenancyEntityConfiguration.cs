@@ -3,15 +3,12 @@ using Domain.SharedKernel;
 using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.EFCore.Configuration
 {
-    public static class BaseEntityConfiguration
+    public static class MultiTenancyEntityConfiguration
     {
         static void ConfigureEntity<TEntity, T>(ModelBuilder modelBuilder, Guid teamId)
             where TEntity : Entity
@@ -35,9 +32,9 @@ namespace Infrastructure.EFCore.Configuration
 
         public static ModelBuilder ApplyBaseEntityConfiguration(this ModelBuilder modelBuilder, Guid teamId)
         {
-            var configureEntityMethod = typeof(BaseEntityConfiguration).GetTypeInfo().DeclaredMethods
+            var configureEntityMethod = typeof(MultiTenancyEntityConfiguration).GetTypeInfo().DeclaredMethods
                 .Single(m => m.Name == nameof(ConfigureEntity));
-            var configureValueObject = typeof(BaseEntityConfiguration).GetTypeInfo().DeclaredMethods
+            var configureValueObject = typeof(MultiTenancyEntityConfiguration).GetTypeInfo().DeclaredMethods
                 .Single(m => m.Name == nameof(ConfigureValueObject));
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(x => x is Entity))
