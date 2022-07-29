@@ -25,16 +25,20 @@ CrsipyCollab is a web application. The backend, ASP.NET Core, is consumed by the
 **WebServer**: API, SignalR Hubs, Razor Pages (Identity, Landing Pages) \
 **Application**: Application Logic (Queries, Commands, Events) \
 **Infrastructure**: Infrastructure Services (e.g. Database access) \
-**Domain**: Entities (Rich domain model)
+**Domain**: Entities (Rich domain model, DDD)
 
 ### Architectural Concepts
 #### Clean Architecture
+CrsipyCollab follows the paradigms of Clean Architecture. Layering, dependency inversion, framework and database independence are the main principles of clean architecture. Structuring an application thereafter means spliting-up its code into three distinct layers, Application, Infrastructure and Domain. These layers are implemented as class libraries. Layering in the context of Clean Architecture now means that the dependencies of the respective class library can only point inwards. Referencing an outer circle is not possible. The innermost layer, the Domain layer, has subsequently no external dependencies. The infrastructure layer references the Domain layer. Through referencing the infrastructure layer the application layer has access to the types defined in both the infrastucture and domain class libraries. When an inner layer relies on functionality from an outer layer the inner layer defines an interface for which an outer layer will provide an implementation. This dependency inversion is of particular importance for the domain layer as it can't take on external dependencies. This allows to swap out infrastructure components, e.g. database access, at will without the need to change the domain layer.  
 
-CrsipyCollab follows the paradigms of Clean Architecture. Layering, framework and database independence are keywords.  
-models its entities after the paradigms of Domain Driven Design. CQRS is used to organize the application logic. For each aggregate the Application class library defines the supported Commands and Queries. The respective Command and QueryHandlers reside in the same file. They get executed when the controllers dispatch the according Query or Command.
+##### Application Layer
+CQRS is used to organize the application logic. For each aggregate the Application class library defines the supported Commands and Queries. The respective Command and QueryHandlers reside in the same file. They get executed when the controllers dispatch the according Query or Command.
+
+##### Infrastructure Layer
+
+##### Domain Layer
 
 #### Domain Driven Design
-
 CrispyCollab models its entities after the paradigms of Domain Driven Design. Entities denote objects that are persisted in a database. The fields and properties of their respective classes, structs or records they were instantiated from then determines the database scheme.
 
 #### Backend for Frontend Pattern
