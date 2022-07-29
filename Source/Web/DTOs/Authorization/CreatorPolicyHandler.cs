@@ -1,7 +1,6 @@
 ﻿using Domain.SharedKernel;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Threading.Tasks;
 
 namespace WebServer.Authorization

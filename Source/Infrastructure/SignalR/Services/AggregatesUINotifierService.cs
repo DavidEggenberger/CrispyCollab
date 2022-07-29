@@ -1,12 +1,11 @@
-﻿using Domain.Interfaces;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
 using WebServer.Hubs;
 
 namespace WebServer.SignalR
 {
-    public class AggregatesUINotifierService : IAggregatesUINotifierService
+    public class AggregatesUINotifierService
     {
         private readonly IHubContext<NotificationHub> hubContext;
         public AggregatesUINotifierService(IHubContext<NotificationHub> hubContext)
