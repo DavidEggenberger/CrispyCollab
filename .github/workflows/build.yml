@@ -2,10 +2,11 @@ name: CrispyCollab Build and Test
 
 on:
   workflow_run:
-    workflows: ["CodeQL Analysis"]
-    branches: [main]
-    types: 
-      - completed
+    on:
+      push:
+        branches:
+          - master
+      workflow_dispatch:
 
 jobs:
   build:
