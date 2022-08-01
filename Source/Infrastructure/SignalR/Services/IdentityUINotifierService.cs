@@ -35,9 +35,9 @@ namespace WebServer.Hubs
             throw new NotImplementedException();
         }
 
-        public Task NotifyUserAboutInvitation(Guid userId, ApplicationUserTeam invitation)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task NotifyUserAboutInvitation(Guid userId, ApplicationUserTeam invitation)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

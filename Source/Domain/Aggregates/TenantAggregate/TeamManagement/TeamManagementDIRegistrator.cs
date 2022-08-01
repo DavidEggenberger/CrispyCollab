@@ -1,11 +1,6 @@
 ﻿using Infrastructure.Identity.Services;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebServer.Services;
 
 namespace Infrastructure.MultiTenancy
@@ -16,7 +11,6 @@ namespace Infrastructure.MultiTenancy
         {
             services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
             services.AddScoped<TeamManager>();
-            services.AddScoped<AdminNotificationManager>();
 
             return services;
         }

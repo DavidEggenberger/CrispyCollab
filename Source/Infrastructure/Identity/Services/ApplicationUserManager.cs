@@ -28,10 +28,10 @@ namespace Infrastructure.Identity.Services
             this.subscriptionPlanManager = subscriptionPlanManager;
         }
 
-        public List<ApplicationUserTeam> GetInvitedMemberships(ApplicationUser applicationUser)
-        {
-            return applicationUser.Memberships.Where(x => x.Status == MembershipStatus.Invited).ToList(); 
-        }
+        //public List<ApplicationUserTeam> GetInvitedMemberships(ApplicationUser applicationUser)
+        //{
+        //    return applicationUser.Memberships.Where(x => x.Status == MembershipStatus.Invited).ToList(); 
+        //}
         public async Task<ApplicationUser> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
@@ -79,26 +79,26 @@ namespace Infrastructure.Identity.Services
         {
             return applicationUser.Memberships.Where(x => x.UserId == applicationUser.Id).Select(x => x.Team).ToList();
         }
-        public async Task<ApplicationUserTeam> GetCurrentTeamMembership(ApplicationUser applicationUser)
-        {
-            return applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
-        }
-        public IEnumerable<Claim> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
-        {
-            if(applicationUser.SelectedTeam != null)
-            {
-                ApplicationUserTeam applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
-                List<Claim> claims = new List<Claim>
-                {
-                    new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
-                    new Claim("TeamName", applicationUserTeam.Team.Name),
-                    new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),
-                    new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
-                };
-                return claims;
-            }
-            return Array.Empty<Claim>();
-        }
+        //public async Task<ApplicationUserTeam> GetCurrentTeamMembership(ApplicationUser applicationUser)
+        //{
+        //    return applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
+        //}
+        //public IEnumerable<Claim> GetMembershipClaimsForApplicationUser(ApplicationUser applicationUser)
+        //{
+        //    if(applicationUser.SelectedTeam != null)
+        //    {
+        //        ApplicationUserTeam applicationUserTeam = applicationUser.Memberships.Single(x => x.TeamId == applicationUser.SelectedTeam.Id);
+        //        List<Claim> claims = new List<Claim>
+        //        {
+        //            new Claim("TeamSubscriptionPlanType", applicationUserTeam.Team.Subscription.SubscriptionPlan.PlanType.ToString()),
+        //            new Claim("TeamName", applicationUserTeam.Team.Name),
+        //            new Claim(IdentityStringConstants.IdentityTeamIdClaimType, applicationUserTeam.TeamId.ToString()),
+        //            new Claim(IdentityStringConstants.IdentityTeamRoleClaimType, applicationUserTeam.Role.ToString())
+        //        };
+        //        return claims;
+        //    }
+        //    return Array.Empty<Claim>();
+        //}
         private async Task LoadApplicationUserAsync(ApplicationUser applicationUser)
         {
             await identificationDbContext.Entry(applicationUser).Reference(x => x.SelectedTeam).LoadAsync();

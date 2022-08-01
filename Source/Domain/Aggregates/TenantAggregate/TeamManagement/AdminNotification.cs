@@ -13,7 +13,7 @@ namespace Infrastructure.Identity.Entities
         public AdminNotificationType Type { get; set; }
         public string Message { get; set; }
         public Guid CreatorId { get; set; }
-        public ApplicationUser Creator { get; set; }
+        //public ApplicationUser Creator { get; set; }
         public Guid TeamId { get; set; }
         public Team Team { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -14,22 +14,25 @@ namespace ArchitectureTests
             var applicationAssembly = typeof(Application.IAssemblyMarker).Assembly;
             var webAPIAssembly = typeof(WebServer.IAssemblyMarker).Assembly;
             var webClientAssembly = typeof(WebWasmClient.Misc.IAssemblyMarker).Assembly;
-            var commonAssembly = typeof(WebShared.IAssemblyMarker).Assembly;
+            var webSharedAssembly = typeof(WebShared.IAssemblyMarker).Assembly;
 
             domainAssembly.Should().NotReference(infrastructureAssembly);
             domainAssembly.Should().NotReference(applicationAssembly);
             domainAssembly.Should().NotReference(webAPIAssembly);
             domainAssembly.Should().NotReference(webClientAssembly);
-            domainAssembly.Should().NotReference(commonAssembly);
+            domainAssembly.Should().NotReference(webSharedAssembly);
 
             infrastructureAssembly.Should().NotReference(applicationAssembly);
             infrastructureAssembly.Should().NotReference(webAPIAssembly);
             infrastructureAssembly.Should().NotReference(webClientAssembly);
-            infrastructureAssembly.Should().NotReference(commonAssembly);
+            infrastructureAssembly.Should().NotReference(webSharedAssembly);
 
             applicationAssembly.Should().NotReference(webAPIAssembly);
             applicationAssembly.Should().NotReference(webClientAssembly);
-            applicationAssembly.Should().NotReference(commonAssembly);
+            applicationAssembly.Should().NotReference(webSharedAssembly);
+
+            webSharedAssembly.Should().NotReference(webAPIAssembly);
+            webSharedAssembly.Should().NotReference(applicationAssembly);
 
             webClientAssembly.Should().NotReference(webAPIAssembly);
         }

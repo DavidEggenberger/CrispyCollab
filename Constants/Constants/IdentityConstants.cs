@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace WebShared
 {
-    public class ClaimConstants
+    public class IdentityConstants
     {
         public const string NameClaimType = ClaimTypes.Name;
         public const string TeamRoleClaimType = "TeamRole";

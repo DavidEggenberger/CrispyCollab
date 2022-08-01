@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebServer.Services
 {
-    public class TeamResolver : ITenantResolver
+    public class TenantResolver : ITenantResolver
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly TeamManager teamManager;
-        public TeamResolver(IHttpContextAccessor httpContextAccessor, TeamManager teamManager)
+        public TenantResolver(IHttpContextAccessor httpContextAccessor, TeamManager teamManager)
         {
             this.httpContextAccessor = httpContextAccessor;
             this.teamManager = teamManager;

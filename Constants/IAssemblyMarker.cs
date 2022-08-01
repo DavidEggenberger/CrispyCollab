@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Shared
 {
     public interface IAssemblyMarker
     {

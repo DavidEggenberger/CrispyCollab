@@ -1,9 +1,4 @@
 ﻿using Infrastructure.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Identity.Interfaces
 {
@@ -11,6 +6,6 @@ namespace Identity.Interfaces
     {
         Task NotifyAdminMembersAboutNewNotification(Guid teamId);
         Task NotifyAllTeamMembers(Guid teamId);
-        Task NotifyUserAboutInvitation(Guid userId, ApplicationUserTeam invitation);
+        //Task NotifyUserAboutInvitation(Guid userId, ApplicationUserTeam invitation);
     }
 }

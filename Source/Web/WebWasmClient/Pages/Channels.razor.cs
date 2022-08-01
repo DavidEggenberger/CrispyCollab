@@ -17,7 +17,7 @@ namespace WebWasmClient.Pages
                 channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
                 StateHasChanged();
             });
-
+            
             channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
 
             loading = false;

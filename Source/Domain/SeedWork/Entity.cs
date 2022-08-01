@@ -1,13 +1,9 @@
 ﻿using Domain.Shared.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shared.Kernel;
 
 namespace Domain.SharedKernel
 {
-    public abstract class Entity
+    public abstract class Entity : IAuditable
     {
         public Guid Id { get; set; }
         public Guid TeamId { get; set; }

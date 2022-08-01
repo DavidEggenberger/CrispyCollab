@@ -1,20 +1,13 @@
-﻿using Domain.SharedKernel;
-using Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Shared.Kernel;
 
 namespace WebServer.Authorization
 {
-    public class CreatorPolicyHandler : AuthorizationHandler<CreatorPolicyRequirement, Entity>
+    public class CreatorPolicyHandler : AuthorizationHandler<CreatorPolicyRequirement, IAuditable>
     {
-        private readonly IUserResolver userResolver;
-        public CreatorPolicyHandler(IUserResolver userResolver)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorPolicyRequirement requirement, IAuditable resource)
         {
-            this.userResolver = userResolver;
-        }
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorPolicyRequirement requirement, Entity resource)
-        {
-            if(userResolver.GetIdOfLoggedInUser() == resource.CreatedByUserId)
+            if(context.User.GetUserId() == resource.CreatedByUserId)
             {
                 context.Succeed(requirement);
             }

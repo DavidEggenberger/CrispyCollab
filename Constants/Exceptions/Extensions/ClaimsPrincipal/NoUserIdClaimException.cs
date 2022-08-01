@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates.ChannelAggregate
+namespace Shared.Exceptions.Extensions.ClaimsPrincipal
 {
-    public interface IChannelAggregateUINotifierService
+    internal class NoUserIdClaimException
     {
     }
 }

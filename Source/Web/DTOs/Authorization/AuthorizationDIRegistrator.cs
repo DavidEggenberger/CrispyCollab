@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
-using WebServer.Authorization;
 
 namespace WebShared.Authorization
 {
@@ -13,13 +12,13 @@ namespace WebShared.Authorization
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.AddPolicy("TeamUser", options =>
                 {
-                    options.RequireClaim(ClaimConstants.TeamIdClaimType);
-                    options.RequireClaim(ClaimConstants.TeamRoleClaimType, "User", "Admin");
+                    options.RequireClaim(IdentityConstants.TeamIdClaimType);
+                    options.RequireClaim(IdentityConstants.TeamRoleClaimType, "User", "Admin");
                 });
                 options.AddPolicy("TeamAdmin", options =>
                 {
-                    options.RequireClaim(ClaimConstants.TeamIdClaimType);
-                    options.RequireClaim(ClaimConstants.TeamRoleClaimType, "Admin");
+                    options.RequireClaim(IdentityConstants.TeamIdClaimType);
+                    options.RequireClaim(IdentityConstants.TeamRoleClaimType, "Admin");
                 });
                 options.AddPolicy("PremiumSubscriptionPlan", options =>
                 {
@@ -28,10 +27,6 @@ namespace WebShared.Authorization
                 options.AddPolicy("EnterpriseSubscriptionPlan", options =>
                 {
                     options.RequireClaim("TeamSubscriptionPlanType", "Enterprise");
-                });
-                options.AddPolicy("CreatorPolicy", policy =>
-                {
-                    policy.Requirements.Add(new CreatorPolicyRequirement());
                 });
             });
 

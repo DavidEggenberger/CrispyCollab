@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TeamAggregate\" />
+    <Folder Include="TenantAggregate\" />
     <Folder Include="TopicAggregate\EventHandlers\" />
   </ItemGroup>
 

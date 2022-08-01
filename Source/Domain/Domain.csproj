@@ -5,15 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Kernel\Enums\**" />
-    <Compile Remove="Kernel\Services\**" />
-    <Compile Remove="Kernel\ValueObjects\**" />
-    <EmbeddedResource Remove="Kernel\Enums\**" />
-    <EmbeddedResource Remove="Kernel\Services\**" />
-    <EmbeddedResource Remove="Kernel\ValueObjects\**" />
-    <None Remove="Kernel\Enums\**" />
-    <None Remove="Kernel\Services\**" />
-    <None Remove="Kernel\ValueObjects\**" />
+    <Compile Remove="SeedWork\Enums\**" />
+    <Compile Remove="SeedWork\Services\**" />
+    <Compile Remove="SeedWork\ValueObjects\**" />
+    <EmbeddedResource Remove="SeedWork\Enums\**" />
+    <EmbeddedResource Remove="SeedWork\Services\**" />
+    <EmbeddedResource Remove="SeedWork\ValueObjects\**" />
+    <None Remove="SeedWork\Enums\**" />
+    <None Remove="SeedWork\Services\**" />
+    <None Remove="SeedWork\ValueObjects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Aggregates\TenantAggregate\Events\" />
+    <Folder Include="Aggregates\TenantAggregate\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Constants\Shared.csproj" />
   </ItemGroup>
 
 </Project>

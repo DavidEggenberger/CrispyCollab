@@ -2,11 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
@@ -20,7 +15,7 @@ namespace Infrastructure.Identity
         public DbSet<AdminNotification> AdminNotifications { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
-        public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
+        //public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
         public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

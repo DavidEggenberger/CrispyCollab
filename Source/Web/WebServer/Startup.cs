@@ -98,7 +98,7 @@ namespace WebServer
             services.RegisterAuthorization();
             services.RegisterMultiTenancy();    
             services.RegisterTeamManagement();
-            services.AddScoped<IAuthorizationHandler, CreatorPolicyHandler>();
+            services.RegisterAuthorization();
             #endregion
         }
 
