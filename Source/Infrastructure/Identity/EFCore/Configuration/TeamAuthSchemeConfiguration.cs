@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class TeamAuthSchemeConfiguration : IEntityTypeConfiguration<TeamAuthScheme>
-    {
-        public void Configure(EntityTypeBuilder<TeamAuthScheme> builder)
-        {
-            builder.HasKey(x => new { x.AuthSchemeId, x.TeamId });
-        }
-    }
+    //public class TeamAuthSchemeConfiguration : IEntityTypeConfiguration<TeamAuthScheme>
+    //{
+    //    public void Configure(EntityTypeBuilder<TeamAuthScheme> builder)
+    //    {
+    //        builder.HasKey(x => new { x.AuthSchemeId, x.TeamId });
+    //    }
+    //}
 }

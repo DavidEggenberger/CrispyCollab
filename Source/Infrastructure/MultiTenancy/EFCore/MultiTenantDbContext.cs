@@ -5,11 +5,7 @@ using Infrastructure.EFCore.Configuration;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.MultiTenancy
 {
@@ -24,7 +20,7 @@ namespace Infrastructure.MultiTenancy
             var seriveProvider = serviceCollection.BuildServiceProvider();
             teamResolver = seriveProvider.GetRequiredService<ITenantResolver>();
             userResolver = seriveProvider.GetRequiredService<IUserResolver>();
-            tenantId = teamResolver.ResolveTenant();
+            tenantId = teamResolver.ResolveTenantId();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,14 +30,14 @@ namespace Infrastructure.MultiTenancy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTenant());
+            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTenantId());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
-            SetTenantId(teamResolver.ResolveTenant());
+            SetTenantId(teamResolver.ResolveTenantId());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             return await base.SaveChangesAsync(cancellationToken);
         }
@@ -79,11 +75,11 @@ namespace Infrastructure.MultiTenancy
         {
             foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
             {
-                entry.Entity.TeamId = teamId;
+                entry.Entity.TenantId = teamId;
             }
             foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
             {
-                entry.Entity.TeamId = teamId;
+                entry.Entity.TenantId = teamId;
             }
         }
 
@@ -91,7 +87,7 @@ namespace Infrastructure.MultiTenancy
         {
             var ids = (from e in ChangeTracker.Entries()
                        where e.Entity is Entity
-                       select ((Entity)e.Entity).TeamId)
+                       select ((Entity)e.Entity).TenantId)
                    .Distinct()
                    .ToList();
 

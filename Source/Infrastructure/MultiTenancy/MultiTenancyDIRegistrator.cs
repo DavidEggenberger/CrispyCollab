@@ -14,10 +14,10 @@ namespace Infrastructure.MultiTenancy
     {
         public static IServiceCollection RegisterMultiTenancy(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
-            services.AddScoped<ITenantResolver, TenantResolver>();
-            services.AddScoped<TeamManager>();
-            services.AddScoped<AdminNotificationManager>();
+            //services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
+            //services.AddScoped<ITenantResolver, TenantResolver>();
+            //services.AddScoped<TeamManager>();
+            //services.AddScoped<AdminNotificationManager>();
 
             return services;
         }

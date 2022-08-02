@@ -9,9 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Shared.Constants;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using WebServer.Hubs;
 using WebServer.Services;
 
@@ -98,8 +97,8 @@ namespace Infrastructure.Identity
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
                 options.User.RequireUniqueEmail = true;
                 options.Stores.MaxLengthForKeys = 128;
-                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Sid;
-                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Name;
+                options.ClaimsIdentity.UserIdClaimType = ClaimConstants.UserIdClaimType;
+                options.ClaimsIdentity.UserNameClaimType = ClaimConstants.UserNameClaimType;
             })
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()

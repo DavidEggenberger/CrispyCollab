@@ -16,7 +16,7 @@ namespace Infrastructure.EFCore.Configuration
             modelBuilder.Entity<TEntity>(builder =>
             {
                 builder.HasKey(x => x.Id);
-                builder.HasQueryFilter(x => x.TeamId == teamId);
+                builder.HasQueryFilter(x => x.TenantId == teamId);
                 builder.Property(e => e.RowVersion).IsConcurrencyToken();
             });
         }
@@ -26,7 +26,7 @@ namespace Infrastructure.EFCore.Configuration
         {
             modelBuilder.Entity<TValueObject>(builder =>
             {
-                builder.HasQueryFilter(x => x.TeamId == teamId);
+                builder.HasQueryFilter(x => x.TenantId == teamId);
             });
         }
 

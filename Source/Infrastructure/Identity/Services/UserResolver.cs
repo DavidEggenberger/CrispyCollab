@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Security.Claims;
+using Shared.Exstensions;
 
 namespace WebServer.Services
 {
@@ -14,7 +13,7 @@ namespace WebServer.Services
         }
         public Guid GetIdOfLoggedInUser()
         {
-            return new Guid(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid).Value);
+            return httpContextAccessor.HttpContext.User.GetUserId();
         }
     }
 }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.Kernel;
 
 namespace Domain.Kernel
 {
-    public class ValueObject
+    public class ValueObject :  IAuditable, IIdentifiable
     {
         public Guid Id { get; set; }
-        public Guid TeamId { get; set; }
+        public Guid TenantId { get; set; }
         public Guid CreatedByUserId { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset LastUpdated { get; set; }
     }
 }

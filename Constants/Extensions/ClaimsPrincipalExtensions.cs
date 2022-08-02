@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Shared.Constants;
+using System.Security.Claims;
 
 namespace Shared.Exstensions
 {
@@ -6,7 +7,7 @@ namespace Shared.Exstensions
     {
         public static Guid GetUserId(this ClaimsPrincipal claimsPrincipal)
         {
-            return new Guid(claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return new Guid(claimsPrincipal.FindFirst(ClaimConstants.UserIdClaimType).Value);
         }
     }
 }

@@ -12,13 +12,13 @@ namespace WebShared.Authorization
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.AddPolicy("TeamUser", options =>
                 {
-                    options.RequireClaim(IdentityConstants.TeamIdClaimType);
-                    options.RequireClaim(IdentityConstants.TeamRoleClaimType, "User", "Admin");
+                    options.RequireClaim(ClaimConstants.TenantIdClaimType);
+                    options.RequireRole("User", "Admin");
                 });
                 options.AddPolicy("TeamAdmin", options =>
                 {
-                    options.RequireClaim(IdentityConstants.TeamIdClaimType);
-                    options.RequireClaim(IdentityConstants.TeamRoleClaimType, "Admin");
+                    options.RequireClaim(ClaimConstants.TenantIdClaimType);
+                    options.RequireRole("Admin");
                 });
                 options.AddPolicy("PremiumSubscriptionPlan", options =>
                 {

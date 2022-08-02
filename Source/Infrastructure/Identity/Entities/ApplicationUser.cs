@@ -1,12 +1,4 @@
-﻿using Infrastructure.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Identity
 {
@@ -16,9 +8,9 @@ namespace Infrastructure.Identity
         public bool IsOnline { get; set; }
         public int TabsOpen { get; set; }
         public string StripeCustomerId { get; set; }
-        public Team SelectedTeam { get; set; }
-        public List<Team> CreatedTeams { get; set; }
-        public List<AdminNotification> CreatedNotifications { get; set; }
+        //public Team SelectedTeam { get; set; }
+        //public List<Team> CreatedTeams { get; set; }
+        //public List<AdminNotification> CreatedNotifications { get; set; }
 
         //private List<ApplicationUserTeam> memberships = new List<ApplicationUserTeam>();
         //public IReadOnlyCollection<ApplicationUserTeam> Memberships => memberships.AsReadOnly();

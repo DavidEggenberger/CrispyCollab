@@ -1,28 +1,23 @@
-﻿using Infrastructure.Identity;
-using Infrastructure.Identity.Services;
+﻿using Domain.Aggregates.TenantAggregate;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Threading.Tasks;
 
 namespace WebServer.Services
 {
     public class TenantResolver : ITenantResolver
     {
         private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly TeamManager teamManager;
-        public TenantResolver(IHttpContextAccessor httpContextAccessor, TeamManager teamManager)
+        public TenantResolver(IHttpContextAccessor httpContextAccessor)
         {
             this.httpContextAccessor = httpContextAccessor;
-            this.teamManager = teamManager;
         }
 
-        public Task<Team> ResolveTeamAsync()
+        public async Task<Tenant> ResolveTenantAsync()
         {
-            return teamManager.FindByClaimsPrincipalAsync(httpContextAccessor.HttpContext.User);
+            return default;
         }
 
-        public Guid ResolveTenant()
+        public Guid ResolveTenantId()
         {
             try
             {

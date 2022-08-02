@@ -15,8 +15,8 @@ namespace Infrastructure.Stripe
         public static IServiceCollection RegisterStripe(this IServiceCollection services, IConfiguration configuration)
         {
             StripeConfiguration.ApiKey = configuration["StripeKey"];
-            services.AddScoped<SubscriptionManager>();
-            services.AddScoped<SubscriptionPlanManager>();
+            //services.AddScoped<SubscriptionManager>();
+            //services.AddScoped<SubscriptionPlanManager>();
 
             return services;
         }

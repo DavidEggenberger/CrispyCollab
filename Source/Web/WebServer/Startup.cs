@@ -97,7 +97,7 @@ namespace WebServer
             services.RegisterSignalR();
             services.RegisterAuthorization();
             services.RegisterMultiTenancy();    
-            services.RegisterTeamManagement();
+            //services.RegisterTeamManagement();
             services.RegisterAuthorization();
             #endregion
         }

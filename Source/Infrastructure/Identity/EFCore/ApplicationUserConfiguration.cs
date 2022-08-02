@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
-    {
-        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
-        {
-            builder.HasMany(x => x.CreatedTeams)
-                .WithOne(x => x.Creator)
-                .HasForeignKey(x => x.CreatorId)
-                .OnDelete(DeleteBehavior.NoAction);
+    //public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+    //{
+    //    //public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    //    //{
+    //    //    builder.HasMany(x => x.CreatedTeams)
+    //    //        .WithOne(x => x.Creator)
+    //    //        .HasForeignKey(x => x.CreatorId)
+    //    //        .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Navigation(b => b.Memberships)
-                .HasField("memberships")
-                .UsePropertyAccessMode(PropertyAccessMode.Field);
-        }
-    }
+    //    //    builder.Navigation(b => b.Memberships)
+    //    //        .HasField("memberships")
+    //    //        .UsePropertyAccessMode(PropertyAccessMode.Field);
+    //    //}
+    //}
 }

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,12 +10,6 @@ namespace Infrastructure.Identity
         {
             
         }
-
-        public DbSet<AdminNotification> AdminNotifications { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
-        //public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
-        public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

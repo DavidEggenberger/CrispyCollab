@@ -1,15 +1,10 @@
-﻿using Infrastructure.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Aggregates.TenantAggregate;
 
 namespace Infrastructure.Interfaces
 {
     public interface ITenantResolver
     {
-        Guid ResolveTenant();
-        Task<Team> ResolveTeamAsync();
+        Guid ResolveTenantId();
+        Task<Tenant> ResolveTenantAsync();
     }
 }

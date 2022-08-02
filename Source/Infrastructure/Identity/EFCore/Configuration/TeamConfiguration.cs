@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity.EFCore.Configuration
 {
-    public class TeamConfiguration : IEntityTypeConfiguration<Team>
-    {
-        public void Configure(EntityTypeBuilder<Team> builder)
-        {
-            builder.HasOne(x => x.Subscription)
-                .WithOne(x => x.Team)
-                .HasForeignKey<Subscription>(x => x.TeamId);
+    //public class TeamConfiguration : IEntityTypeConfiguration<Team>
+    //{
+    //    public void Configure(EntityTypeBuilder<Team> builder)
+    //    {
+    //        builder.HasOne(x => x.Subscription)
+    //            .WithOne(x => x.Team)
+    //            .HasForeignKey<Subscription>(x => x.TeamId);
 
-            builder.HasMany(x => x.SelectedByUsers)
-                .WithOne(x => x.SelectedTeam)
-                .OnDelete(DeleteBehavior.NoAction)
-                .IsRequired(false);
+    //        builder.HasMany(x => x.SelectedByUsers)
+    //            .WithOne(x => x.SelectedTeam)
+    //            .OnDelete(DeleteBehavior.NoAction)
+    //            .IsRequired(false);
 
-            builder.Navigation(b => b.Members)
-                .HasField("members")
-                .UsePropertyAccessMode(PropertyAccessMode.Field);
-        }
-    }
+    //        builder.Navigation(b => b.Members)
+    //            .HasField("members")
+    //            .UsePropertyAccessMode(PropertyAccessMode.Field);
+    //    }
+    //}
 }

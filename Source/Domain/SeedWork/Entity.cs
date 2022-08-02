@@ -3,10 +3,10 @@ using Shared.Kernel;
 
 namespace Domain.SharedKernel
 {
-    public abstract class Entity : IAuditable
+    public abstract class Entity : IAuditable, IIdentifiable
     {
         public Guid Id { get; set; }
-        public Guid TeamId { get; set; }
+        public Guid TenantId { get; set; }
         public Guid CreatedByUserId { get; set; }
         public bool IsSoftDeleted { get; set; }
         public byte[] RowVersion { get; set; }
@@ -30,7 +30,7 @@ namespace Domain.SharedKernel
         {
             if (IsSoftDeleted is true)
             {
-                throw new InvalidEntityDeleteException("");
+                throw new InvalidEntityDeleteException("Can't delete an already deleted entity");
             }
             else
             {

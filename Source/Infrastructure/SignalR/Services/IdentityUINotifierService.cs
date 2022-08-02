@@ -17,7 +17,7 @@ namespace WebServer.Hubs
 
         public async Task NotifyAdminMembersAboutNewNotification(Guid teamId)
         {
-            await notificationHubContext.Clients.Group($"{teamId}{TeamRole.Admin}").SendAsync("UpdateAdminInformation");
+            //await notificationHubContext.Clients.Group($"{teamId}{TeamRole.Admin}").SendAsync("UpdateAdminInformation");
         }
 
         public Task NotifyAdminTeamMembers(Guid teamId)

@@ -1,15 +1,11 @@
 ﻿using WebShared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
-using Shared;
 using Shared.DTOs.Identity;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using WebWasmClient.Authentication.Antiforgery;
 
 namespace WebWasmClient.Authentication
@@ -60,8 +56,8 @@ namespace WebWasmClient.Authentication
 
                     var identity = new ClaimsIdentity(
                         nameof(HostAuthenticationStateProvider),
-                        ClaimConstants.NameClaimType,
-                        ClaimConstants.TeamRoleClaimType);
+                        ClaimConstants.UserNameClaimType,
+                        ClaimConstants.TenantRoleClaimType);
 
                     foreach (var claim in bffUserInfoDTO.Claims)
                     {
