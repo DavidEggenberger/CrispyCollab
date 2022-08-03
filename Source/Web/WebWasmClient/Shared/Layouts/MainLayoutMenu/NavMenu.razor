@@ -2,7 +2,7 @@
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
-    @if(User.HasTeamClaims())
+    @if(User.IsInRole(RoleConstants.User))
     {
         <NavLink href="/Channels" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Channels</h5>
@@ -11,10 +11,10 @@
             <h5>Topics</h5>
         </NavLink>
     }
-    @if(User.IsAdmin())
+    @if(User.IsInRole(RoleConstants.Admin))
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
-            <h5>Manage @User.GetTeamName()</h5>
+            <h5>Manage @TenantName</h5>
         </NavLink>
     }
     <div class="NavElement NoUnderline">

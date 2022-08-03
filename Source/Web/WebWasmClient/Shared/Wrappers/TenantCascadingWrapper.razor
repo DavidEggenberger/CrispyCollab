@@ -1,0 +1,16 @@
+﻿@attribute [Authorize(Policy = RoleConstants.User)]
+<CascadingValue Value="tenantName">
+    @ChildContent
+</CascadingValue>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] 
+    public ClaimsPrincipal User { get; set; }
+    private string tenantName;
+    protected override async Task OnParametersSetAsync()
+    {
+        tenantName = "";
+    }
+}

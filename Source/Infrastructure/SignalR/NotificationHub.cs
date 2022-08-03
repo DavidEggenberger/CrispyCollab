@@ -1,13 +1,9 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
-using Infrastructure.Identity.Types.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace WebServer.Hubs
+namespace Infrastructure.SignalR
 {
     [Authorize]
     public class NotificationHub : Hub

@@ -1,27 +1,32 @@
 ﻿using Domain.Aggregates.TenantAggregate;
+using Infrastructure.EFCore;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Shared.Exstensions;
 
 namespace WebServer.Services
 {
     public class TenantResolver : ITenantResolver
     {
         private readonly IHttpContextAccessor httpContextAccessor;
-        public TenantResolver(IHttpContextAccessor httpContextAccessor)
+        private readonly ApplicationDbContext applicationDbContext;
+        public TenantResolver(IHttpContextAccessor httpContextAccessor, ApplicationDbContext applicationDbContext)
         {
             this.httpContextAccessor = httpContextAccessor;
+            this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task<Tenant> ResolveTenantAsync()
+        public Task<Tenant> ResolveTenantAsync()
         {
-            return default;
+            return applicationDbContext.Tenants.SingleAsync(t => t.Id == ResolveTenantId());
         }
 
         public Guid ResolveTenantId()
         {
             try
             {
-                return new Guid(httpContextAccessor.HttpContext.User.FindFirst("TeamId").Value);
+                return httpContextAccessor.HttpContext.User.GetTenantId();
             }
             catch (Exception ex)
             {

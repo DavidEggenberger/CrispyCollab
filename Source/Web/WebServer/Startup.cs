@@ -1,10 +1,8 @@
-using WebShared;
 using FluentValidation.AspNetCore;
 using Infrastructure.CQRS;
 using Infrastructure.EmailSender;
 using Infrastructure.Identity;
 using Infrastructure.EFCore;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,12 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebServer.Hubs;
-using WebServer.SignalR;
-using WebServer.Authorization;
 using Infrastructure.Stripe;
 using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
+using Infrastructure.SignalR;
 
 namespace WebServer
 {
@@ -97,8 +93,6 @@ namespace WebServer
             services.RegisterSignalR();
             services.RegisterAuthorization();
             services.RegisterMultiTenancy();    
-            //services.RegisterTeamManagement();
-            services.RegisterAuthorization();
             #endregion
         }
 
@@ -119,7 +113,7 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<NotificationHub>(EndpointConstants.NotificationHub);
+                endpoints.MapSignalR();
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");

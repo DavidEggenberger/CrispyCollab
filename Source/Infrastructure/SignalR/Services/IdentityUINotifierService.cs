@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Identity.Interfaces;
 using Infrastructure.Identity;
+using Infrastructure.SignalR;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;

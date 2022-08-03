@@ -1,5 +1,4 @@
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace ArchitectureTests

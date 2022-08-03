@@ -19,7 +19,7 @@
                 <td>@user.Role</td>
                 <td>@user.Status</td>
                 <td>
-                    @if(user.Id == User.GetId())
+                    @if(user.Id == Guid.NewGuid())
                     {
                         <button>YourSelf</button>
                     }

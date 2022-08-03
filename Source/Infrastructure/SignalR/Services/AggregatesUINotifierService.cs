@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Infrastructure.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
 using WebServer.Hubs;

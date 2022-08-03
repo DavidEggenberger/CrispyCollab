@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace WebServer.SignalR
+namespace Infrastructure.SignalR
 {
     public static class SignalRDIRegistrator
     {
         public static IServiceCollection RegisterSignalR(this IServiceCollection services)
         {
+            services.AddSingleton<IUserIdProvider, UserIdProvider>();
 
             return services;
         }

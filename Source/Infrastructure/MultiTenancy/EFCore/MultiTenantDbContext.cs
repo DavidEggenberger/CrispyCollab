@@ -11,16 +11,16 @@ namespace Infrastructure.MultiTenancy
 {
     public class MultiTenantDbContext<T> : DbContext where T : DbContext
     {
-        private readonly ITenantResolver teamResolver;
+        private readonly ITenantResolver tenantResolver;
         private readonly IUserResolver userResolver;
         protected readonly Guid tenantId;
 
         public MultiTenantDbContext(DbContextOptions<T> dbContextOptions, IServiceCollection serviceCollection) : base(dbContextOptions)
         {
             var seriveProvider = serviceCollection.BuildServiceProvider();
-            teamResolver = seriveProvider.GetRequiredService<ITenantResolver>();
+            tenantResolver = seriveProvider.GetRequiredService<ITenantResolver>();
             userResolver = seriveProvider.GetRequiredService<IUserResolver>();
-            tenantId = teamResolver.ResolveTenantId();
+            tenantId = tenantResolver.ResolveTenantId();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,14 +30,14 @@ namespace Infrastructure.MultiTenancy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyBaseEntityConfiguration(teamResolver.ResolveTenantId());
+            modelBuilder.ApplyBaseEntityConfiguration(tenantResolver.ResolveTenantId());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
-            SetTenantId(teamResolver.ResolveTenantId());
+            SetTenantId(tenantResolver.ResolveTenantId());
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             return await base.SaveChangesAsync(cancellationToken);
         }

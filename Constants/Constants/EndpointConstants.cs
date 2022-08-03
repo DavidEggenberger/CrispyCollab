@@ -1,4 +1,4 @@
-﻿namespace WebShared
+﻿namespace Shared.Constants
 {
     public class EndpointConstants
     {
@@ -7,7 +7,6 @@
         public const string LoginPath = "Identity/Login";
         public const string LogoutPath = "api/user/Logout";
         public const string UserClaimsPath = "api/user";
-        public const string NotificationHub = "/NotificationHub";
         public const string StripePremiumSubscriptionPath = "/api/stripe/subscribe/premium"; 
         public const string StripeEnterpriseSubscriptionPath = "/api/stripe/subscribe/enterprise";
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
+using WebServer.Authorization;
 
 namespace WebShared.Authorization
 {
@@ -27,6 +28,10 @@ namespace WebShared.Authorization
                 options.AddPolicy("EnterpriseSubscriptionPlan", options =>
                 {
                     options.RequireClaim("TeamSubscriptionPlanType", "Enterprise");
+                });
+                options.AddPolicy("CreatorPolicy", options =>
+                {
+                    options.AddRequirements(new CreatorPolicyRequirement());
                 });
             });
 

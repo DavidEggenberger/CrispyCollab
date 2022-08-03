@@ -1,12 +1,11 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
+using Domain.Aggregates.TenantAggregate;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.EFCore
 {
@@ -19,8 +18,12 @@ namespace Infrastructure.EFCore
         }
 
         public DbSet<Channel> Channels { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
 
-        
+
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, 
@@ -29,8 +32,9 @@ namespace Infrastructure.EFCore
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            var changedRowCount = await base.SaveChangesAsync(cancellationToken);
             await DispatchEventsAsync(cancellationToken);
-            return await base.SaveChangesAsync(cancellationToken);
+            return changedRowCount;
         }
         private async Task DispatchEventsAsync(CancellationToken cancellationToken)
         {

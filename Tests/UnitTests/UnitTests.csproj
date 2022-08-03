@@ -28,6 +28,7 @@
     <Folder Include="Application\ChannelAggregate\" />
     <Folder Include="Application\TopicAggregate\" />
     <Folder Include="Domain\TopicAggregate\" />
+    <Folder Include="Infrastructure\Identity\" />
   </ItemGroup>
 
 </Project>

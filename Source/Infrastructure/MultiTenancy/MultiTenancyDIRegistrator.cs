@@ -1,11 +1,5 @@
-﻿using Infrastructure.Identity.Services;
-using Infrastructure.Interfaces;
+﻿using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebServer.Services;
 
 namespace Infrastructure.MultiTenancy
@@ -14,10 +8,7 @@ namespace Infrastructure.MultiTenancy
     {
         public static IServiceCollection RegisterMultiTenancy(this IServiceCollection services)
         {
-            //services.AddScoped<IAuthenticationSchemeService, AuthenticationSchemeService>();
-            //services.AddScoped<ITenantResolver, TenantResolver>();
-            //services.AddScoped<TeamManager>();
-            //services.AddScoped<AdminNotificationManager>();
+            services.AddScoped<ITenantResolver, TenantResolver>();
 
             return services;
         }

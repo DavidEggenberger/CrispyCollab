@@ -21,9 +21,9 @@
             {
                 foreach(var tenant in teams)
                 {
-                    if (User.HasTeamClaims())
+                    if (User.IsInRole(RoleConstants.User))
                     {
-                        if(tenant.Id == User.GetTeamId())
+                        if(tenant.Id == new Guid(TenantName))
                         {
                             <div class="Group Selected">
                                 <h6 @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>@tenant.Name</h6>

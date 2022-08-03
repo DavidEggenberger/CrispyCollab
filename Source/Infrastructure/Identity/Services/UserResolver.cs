@@ -13,7 +13,7 @@ namespace WebServer.Services
         }
         public Guid GetIdOfLoggedInUser()
         {
-            return httpContextAccessor.HttpContext.User.GetUserId();
+            return httpContextAccessor.HttpContext.User.GetUserIdAsGuid();
         }
     }
 }
