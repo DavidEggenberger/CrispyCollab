@@ -10,10 +10,7 @@ using Infrastructure.CQRS.Query;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebServer.Controllers.Aggregates
 {
@@ -75,7 +72,7 @@ namespace WebServer.Controllers.Aggregates
         {
             DeleteMessageFromChannelCommand deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannelCommand>(deleteMessageFromChannedDTO);
             Message message = await queryDispatcher.DispatchAsync<MessageByIdQuery, Message>(new MessageByIdQuery() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
-            if((await authorizationService.AuthorizeAsync(HttpContext.User, message, "CreatorPolicy")).Succeeded)
+            if((await authorizationService.AuthorizeAsync(HttpContext.User, message, PolicyConstants.CreatorPolicy)).Succeeded)
             {
                 await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
                 return Ok();

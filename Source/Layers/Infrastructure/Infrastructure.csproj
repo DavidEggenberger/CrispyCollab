@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EFCore\Configuration\ApplicationDbContext\**" />
+    <Compile Remove="EFCore\Configuration\IdentificationDbContext\**" />
+    <EmbeddedResource Remove="EFCore\Configuration\ApplicationDbContext\**" />
+    <EmbeddedResource Remove="EFCore\Configuration\IdentificationDbContext\**" />
+    <None Remove="EFCore\Configuration\ApplicationDbContext\**" />
+    <None Remove="EFCore\Configuration\IdentificationDbContext\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EFCore\Configuration\TeamAggregate\" />
+    <Folder Include="Identity\EFCore\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.4" />
+    <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.2" />
+    <PackageReference Include="Scrutor" Version="4.0.0" />
+    <PackageReference Include="SendGrid" Version="9.25.3" />
+    <PackageReference Include="Stripe.net" Version="39.93.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Constants\Common.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+</Project>

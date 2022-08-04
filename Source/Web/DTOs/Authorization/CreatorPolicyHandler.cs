@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Shared.Kernel;
+using Common.Kernel;
 
 namespace WebServer.Authorization
 {

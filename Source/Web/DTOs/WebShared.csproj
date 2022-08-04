@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Constants\Shared.csproj" />
+    <ProjectReference Include="..\..\..\Constants\Common.csproj" />
   </ItemGroup>
 
 </Project>
