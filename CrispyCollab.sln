@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Domain\Domain.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Layers\Domain\Domain.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{39CA6719-7F11-4A72-946C-8970E56C4658}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C4046A49-D1FA-400C-B7D7-5414868DDCE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Infrastructure\Infrastructure.csproj", "{8B62AF3A-C232-46ED-979E-010B753CE5D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Layers\Infrastructure\Infrastructure.csproj", "{8B62AF3A-C232-46ED-979E-010B753CE5D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4071F52-4845-40DB-BF73-9625EB786C64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Application\Application.csproj", "{9BA3E074-87AE-40D9-B689-7F1B6AC6D7E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Layers\Application\Application.csproj", "{9BA3E074-87AE-40D9-B689-7F1B6AC6D7E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShared", "Source\Web\DTOs\WebShared.csproj", "{601C36BA-7AAF-456C-9FC5-91A166D9BF5A}"
 EndProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\UnitTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{2E006C34-0AC7-44A7-806B-E4107966C89A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Constants\Common.csproj", "{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Source\Common\Common.csproj", "{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{18E02F7B-A23D-4EAA-A761-89C2C7C4B51D}"
 EndProject

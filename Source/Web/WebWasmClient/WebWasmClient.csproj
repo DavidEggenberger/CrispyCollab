@@ -31,12 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTOs\WebShared.csproj" />
+    <Folder Include="Components\Dashboard\" />
+    <Folder Include="Components\Topics\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Dashboard\" />
-    <Folder Include="Components\Topics\" />
+    <ProjectReference Include="..\..\Common\Common.csproj" />
+    <ProjectReference Include="..\DTOs\WebShared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\Application.csproj" />
-    <ProjectReference Include="..\..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Common\Common.csproj" />
+    <ProjectReference Include="..\..\Layers\Application\Application.csproj" />
+    <ProjectReference Include="..\..\Layers\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Layers\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\DTOs\WebShared.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
