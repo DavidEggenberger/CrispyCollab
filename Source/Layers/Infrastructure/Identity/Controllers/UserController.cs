@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using WebShared.Identity.DTOs.TeamDTOs;
 using Infrastructure.Identity;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DTOs.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

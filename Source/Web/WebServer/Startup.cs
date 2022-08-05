@@ -14,6 +14,7 @@ using Infrastructure.Stripe;
 using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using Infrastructure.SignalR;
+using System.Reflection;
 
 namespace WebServer
 {
@@ -40,11 +41,14 @@ namespace WebServer
                 options.Conventions.AllowAnonymousToPage("/Identity/TwoFactorLogin");
                 options.Conventions.AllowAnonymousToPage("/Identity/LoginWithRecoveryCode");
             });
+
             services.AddControllers(options =>
             {
                 //AuthorizeFilterBehaviour
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            }).AddFluentValidation(options =>
+            })
+            .AddApplicationPart(typeof(Infrastructure.IAssemblyMarker).Assembly)
+            .AddFluentValidation(options =>
             {
                 options.DisableDataAnnotationsValidation = true;
                 options.RegisterValidatorsFromAssembly(typeof(IAssemblyMarker).Assembly);
@@ -52,6 +56,7 @@ namespace WebServer
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -74,7 +79,6 @@ namespace WebServer
                 };
             });
             services.AddSignalR();
-            services.AddSingleton<IUserIdProvider, UserIdProvider>();
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -110,6 +114,8 @@ namespace WebServer
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMultiTenancyMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

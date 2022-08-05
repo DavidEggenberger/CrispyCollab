@@ -1,14 +1,4 @@
-﻿using AutoMapper;
-using WebShared.Identity.DTOs.TeamDTOs;
-using WebShared.Identity.Subscription;
-using WebShared.Identity.Team;
-using WebShared.Identity.Team.AdminManagement;
-using WebShared.Identity.User;
-using Infrastructure.Identity;
-using Infrastructure.Identity.Entities;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using System.Linq;
-
+﻿
 //namespace WebServer.Mappings
 //{
 //    public class IdentityProfiles : Profile

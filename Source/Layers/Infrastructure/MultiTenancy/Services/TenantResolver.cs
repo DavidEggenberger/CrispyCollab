@@ -26,7 +26,7 @@ namespace WebServer.Services
         {
             try
             {
-                return httpContextAccessor.HttpContext.User.GetTenantId();
+                return httpContextAccessor.HttpContext.User.GetTenantIdAsGuid();
             }
             catch (Exception ex)
             {

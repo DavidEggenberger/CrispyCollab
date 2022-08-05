@@ -1,5 +1,4 @@
-﻿using WebShared.Misc.Attributes;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.Identity.Entities;
 using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Enums;

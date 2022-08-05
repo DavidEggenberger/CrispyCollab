@@ -15,9 +15,14 @@ namespace Common.Exstensions
             return claimsPrincipal.FindFirst(ClaimConstants.UserIdClaimType).Value;
         }
 
-        public static Guid GetTenantId(this ClaimsPrincipal claimsPrincipal)
+        public static Guid GetTenantIdAsGuid(this ClaimsPrincipal claimsPrincipal)
         {
             return new Guid(claimsPrincipal.FindFirst(ClaimConstants.TenantIdClaimType).Value);
+        }
+
+        public static string GetTenantIdAsString(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal.FindFirst(ClaimConstants.TenantIdClaimType).Value;
         }
     }
 }

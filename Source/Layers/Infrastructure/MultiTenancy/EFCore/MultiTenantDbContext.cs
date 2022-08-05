@@ -1,4 +1,5 @@
-﻿using Domain.Kernel;
+﻿using Common.Kernel;
+using Domain.Kernel;
 using Domain.SharedKernel;
 using Infrastructure.EFCore;
 using Infrastructure.EFCore.Configuration;
@@ -84,11 +85,11 @@ namespace Infrastructure.MultiTenancy
 
         private void ThrowIfMultipleTenants()
         {
-            var ids = (from e in ChangeTracker.Entries()
-                       where e.Entity is Entity
-                       select ((Entity)e.Entity).TenantId)
-                   .Distinct()
-                   .ToList();
+            var ids = ChangeTracker.Entries()
+                    .Where(e => e.Entity is IIdentifiable)
+                    .Select(e => (e.Entity as IIdentifiable).TenantId)
+                    .Distinct()
+                    .ToList();
 
             if (ids.Count == 0)
             {

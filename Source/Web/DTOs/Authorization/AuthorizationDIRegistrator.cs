@@ -11,25 +11,25 @@ namespace WebShared.Authorization
             services.AddAuthorizationCore(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                options.AddPolicy("TeamUser", options =>
+                options.AddPolicy(PolicyConstants.TenantMemberPolicy, options =>
                 {
                     options.RequireClaim(ClaimConstants.TenantIdClaimType);
-                    options.RequireRole("User", "Admin");
+                    options.RequireRole(RoleConstants.User, RoleConstants.Admin);
                 });
-                options.AddPolicy("TeamAdmin", options =>
+                options.AddPolicy(PolicyConstants.TenantAdminPolicy, options =>
                 {
                     options.RequireClaim(ClaimConstants.TenantIdClaimType);
-                    options.RequireRole("Admin");
+                    options.RequireRole(RoleConstants.Admin);
                 });
-                options.AddPolicy("PremiumSubscriptionPlan", options =>
+                options.AddPolicy(PolicyConstants.ProfessionalSubscriptionPlanPolicy, options =>
                 {
-                    options.RequireClaim("TeamSubscriptionPlanType", "Premium");
+                    options.RequireClaim(ClaimConstants.TenantPlanClaimType, SubscriptionPlanConstants.ProfessionalPlan);
                 });
-                options.AddPolicy("EnterpriseSubscriptionPlan", options =>
+                options.AddPolicy(PolicyConstants.EnterpriseSubscriptionPlanPolicy, options =>
                 {
-                    options.RequireClaim("TeamSubscriptionPlanType", "Enterprise");
+                    options.RequireClaim(ClaimConstants.TenantPlanClaimType, SubscriptionPlanConstants.EnterprisePlan);
                 });
-                options.AddPolicy("CreatorPolicy", options =>
+                options.AddPolicy(PolicyConstants.CreatorPolicy, options =>
                 {
                     options.AddRequirements(new CreatorPolicyRequirement());
                 });
