@@ -1,5 +1,4 @@
-﻿using Domain.SharedKernel;
-using System.Threading;
+﻿using Common.Kernel;
 
 namespace Infrastructure.CQRS.DomainEvent
 {

@@ -47,4 +47,11 @@
     <PackageReference Include="Stripe.net" Version="39.93.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\ExceptionHandling\" />
+    <Folder Include="Components\HealthChecks\" />
+    <Folder Include="Components\ModelValidation\" />
+    <Folder Include="Components\Swagger\" />
+  </ItemGroup>
+
 </Project>

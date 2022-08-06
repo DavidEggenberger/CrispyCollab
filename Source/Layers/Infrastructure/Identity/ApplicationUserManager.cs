@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
-namespace Infrastructure.Identity.Services
+namespace Infrastructure.Identity
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -23,10 +23,11 @@ namespace Infrastructure.Identity.Services
         public async Task<ApplicationUser> FindByClaimsPrincipalAsync(ClaimsPrincipal claimsPrincipal)
         {
             ApplicationUser user = await base.GetUserAsync(claimsPrincipal);
-            if(user == null)
+            if (user == null)
             {
                 throw new IdentityOperationException();
             }
+
             await LoadApplicationUserAsync(user);
             return user;
         }
@@ -37,7 +38,7 @@ namespace Infrastructure.Identity.Services
             {
                 applicationUser = await identificationDbContext.Users.SingleAsync(x => x.Id == id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception();
             }
@@ -58,7 +59,7 @@ namespace Infrastructure.Identity.Services
                 await LoadApplicationUserAsync(applicationUser);
                 return applicationUser;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new IdentityOperationException();
             }

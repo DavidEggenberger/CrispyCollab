@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Identity;
-using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 

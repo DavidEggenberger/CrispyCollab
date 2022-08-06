@@ -4,8 +4,6 @@ using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 
 namespace Infrastructure.EFCore
 {
@@ -26,8 +24,7 @@ namespace Infrastructure.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly, 
-                x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly);
             base.OnModelCreating(modelBuilder);
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

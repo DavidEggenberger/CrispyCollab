@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Identity.EFCore.Configuration
+namespace Infrastructure.EFCore.Configuration.TenantAggregate
 {
     //public class TeamConfiguration : IEntityTypeConfiguration<Team>
     //{

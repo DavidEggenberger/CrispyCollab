@@ -1,6 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Common.Kernel;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 
 namespace Infrastructure.CQRS.DomainEvent
 {

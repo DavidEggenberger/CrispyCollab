@@ -1,4 +1,5 @@
-﻿using Domain.SharedKernel;
+﻿using Common.Kernel;
+using Domain.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

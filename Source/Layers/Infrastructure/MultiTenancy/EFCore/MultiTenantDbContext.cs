@@ -1,12 +1,9 @@
 ﻿using Common.Kernel;
-using Domain.Kernel;
-using Domain.SharedKernel;
 using Infrastructure.EFCore;
 using Infrastructure.EFCore.Configuration;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 
 namespace Infrastructure.MultiTenancy
 {
@@ -44,7 +41,7 @@ namespace Infrastructure.MultiTenancy
 
         private void UpdateAutitableEntities()
         {
-            foreach (var entry in ChangeTracker.Entries<Entity>())
+            foreach (var entry in ChangeTracker.Entries<IAuditable>())
             {
                 switch (entry.State)
                 {
@@ -61,11 +58,7 @@ namespace Infrastructure.MultiTenancy
 
         private void UpdateCreatedByUserEntities(Guid userId)
         {
-            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.CreatedByUserId = userId;
-            }
-            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
+            foreach (var entry in ChangeTracker.Entries<IAuditable>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.CreatedByUserId = userId;
             }
@@ -73,11 +66,7 @@ namespace Infrastructure.MultiTenancy
 
         private void SetTenantId(Guid teamId)
         {
-            foreach (var entry in ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added))
-            {
-                entry.Entity.TenantId = teamId;
-            }
-            foreach (var entry in ChangeTracker.Entries<ValueObject>().Where(x => x.State == EntityState.Added))
+            foreach (var entry in ChangeTracker.Entries<IIdentifiable>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.TenantId = teamId;
             }

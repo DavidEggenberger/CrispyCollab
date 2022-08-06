@@ -1,5 +1,4 @@
 ﻿using Identity.Interfaces;
-using Infrastructure.Identity.Services;
 using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -13,6 +12,7 @@ using Common.Constants;
 using System.Security.Claims;
 using WebServer.Hubs;
 using WebServer.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Infrastructure.Identity
 {
@@ -82,9 +82,9 @@ namespace Infrastructure.Identity
                 options.LogoutPath = "/Identity/User/Logout";
                 options.AccessDeniedPath = "/Identity/Forbidden";
                 options.SlidingExpiration = true;
-                options.Events.OnValidatePrincipal = context =>
+                options.Events = new CookieAuthenticationEvents
                 {
-                    return SecurityStampValidator.ValidatePrincipalAsync(context);
+                    OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync
                 };
             });
             authenticationBuilder.AddTwoFactorUserIdCookie().Configure(options =>

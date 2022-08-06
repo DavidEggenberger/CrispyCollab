@@ -1,11 +1,11 @@
-﻿namespace Infrastructure.Identity.EFCore.Configuration
+﻿namespace Infrastructure.EFCore.Configuration.TenantAggregate
 {
     //public class ApplicationUserTeamConfiguration : IEntityTypeConfiguration<ApplicationUserTeam>
     //{
     //    public void Configure(EntityTypeBuilder<ApplicationUserTeam> builder)
     //    {
     //        builder.HasKey(x => new { x.UserId, x.TeamId });
-            
+
     //        builder.HasOne(x => x.Team)
     //            .WithMany(x => x.Members)
     //            .HasForeignKey(x => x.TeamId)

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Identity.Services;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Common.Constants;
 using System.Security.Claims;
 

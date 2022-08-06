@@ -10,12 +10,12 @@ namespace WebServer.Controllers.Identity
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class UserController : ControllerBase
+    public class BFFAuthenticationController : ControllerBase
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ApplicationUserManager applicationUserManager;
         private readonly IMapper mapper;
-        public UserController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager applicationUserManager, IMapper mapper)
+        public BFFAuthenticationController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager applicationUserManager, IMapper mapper)
         {
             this.signInManager = signInManager;
             this.applicationUserManager = applicationUserManager;
