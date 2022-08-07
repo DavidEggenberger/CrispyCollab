@@ -7,7 +7,10 @@ namespace Infrastructure.SignalR
     {
         public static IServiceCollection RegisterSignalR(this IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddSingleton<IUserIdProvider, UserIdProvider>();
+            services.AddScoped<ISignalRHub, NotificationHub>();
 
             return services;
         }

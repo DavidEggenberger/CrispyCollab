@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Infrastructure.SignalR
 {
     [Authorize]
-    public class NotificationHub : Hub
+    public class NotificationHub : Hub, ISignalRHub
     {
         private ApplicationUserManager applicationUserManager;
         private IdentificationDbContext identificationDbContext;

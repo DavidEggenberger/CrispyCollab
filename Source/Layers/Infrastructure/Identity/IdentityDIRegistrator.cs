@@ -1,5 +1,4 @@
-﻿using Identity.Interfaces;
-using Infrastructure.Identity.Types.Overrides;
+﻿using Infrastructure.Identity.Types.Overrides;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Common.Constants;
 using System.Security.Claims;
-using WebServer.Hubs;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -22,7 +20,6 @@ namespace Infrastructure.Identity
         {
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             services.AddScoped<IUserResolver, UserResolver>();
-            services.AddScoped<IIdentityUINotifierService, IdentityUINotifierService>();
 
             services.Configure<SecurityStampValidatorOptions>(options =>
             {

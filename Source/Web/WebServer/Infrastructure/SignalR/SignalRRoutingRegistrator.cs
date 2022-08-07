@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Common.Constants;
 
 namespace Infrastructure.SignalR
 {

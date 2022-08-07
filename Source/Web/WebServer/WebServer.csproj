@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>f6c6fa58-c628-405d-ba03-853741db9b77</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
@@ -48,10 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\ExceptionHandling\" />
-    <Folder Include="Components\HealthChecks\" />
-    <Folder Include="Components\ModelValidation\" />
-    <Folder Include="Components\Swagger\" />
+    <Folder Include="Modules\HealthChecks\" />
+    <Folder Include="Modules\Swagger\" />
   </ItemGroup>
 
 </Project>

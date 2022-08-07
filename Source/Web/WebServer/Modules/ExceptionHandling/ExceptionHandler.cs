@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace WebServer.Controllers
+namespace WebServer.Modules.ExceptionHandling
 {
     [Route("[controller]")]
     [AllowAnonymous]

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Identity\EFCore\Migrations\" />
+    <Folder Include="Stripe\Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,7 +42,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.csproj" />
-    <ProjectReference Include="..\..\Web\DTOs\WebShared.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

@@ -15,6 +15,8 @@ using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using Infrastructure.SignalR;
 using System.Reflection;
+using WebServer.Modules.ExceptionHandling;
+using WebServer.Modules.ModelValidation;
 
 namespace WebServer
 {
@@ -47,38 +49,19 @@ namespace WebServer
                 //AuthorizeFilterBehaviour
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             })
-            .AddApplicationPart(typeof(Infrastructure.IAssemblyMarker).Assembly)
-            .AddFluentValidation(options =>
-            {
-                options.DisableDataAnnotationsValidation = true;
-                options.RegisterValidatorsFromAssembly(typeof(IAssemblyMarker).Assembly);
-            }).AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            });
-
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = context =>
+                .AddFluentValidation(options =>
                 {
-                    var problemDetails = new ValidationProblemDetails(context.ModelState)
+                    options.DisableDataAnnotationsValidation = true;
+                    options.RegisterValidatorsFromAssembly(typeof(IAssemblyMarker).Assembly);
+                })
+                    .AddJsonOptions(options =>
                     {
-                        Instance = context.HttpContext.Request.Path,
-                        Status = StatusCodes.Status400BadRequest,
-                        Type = $"https://httpstatuses.com/400",
-                        Detail = "ApiConstants.Messages.ModelStateValidation"
-                    };
-                    return new BadRequestObjectResult(problemDetails)
-                    {
-                        ContentTypes =
-                        {
-                            "ApiConstants.ContentTypes.ProblemJson",
-                            "ApiConstants.ContentTypes.ProblemXml"
-                        }
-                    };
-                };
-            });
-            services.AddSignalR();
+                        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    });
+
+            services.RegisterModelValidation();
+            services.RegisterAutoMapper();
+
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -86,7 +69,7 @@ namespace WebServer
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
-            services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
+            
             #endregion
             #region Infrastructure
             services.RegisterCQRS();
@@ -96,7 +79,7 @@ namespace WebServer
             services.RegisterIdentity(Configuration);
             services.RegisterSignalR();
             services.RegisterAuthorization();
-            services.RegisterMultiTenancy();    
+            services.RegisterMultiTenancy();   
             #endregion
         }
 
@@ -108,9 +91,9 @@ namespace WebServer
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseExceptionHandler("/exceptionHandler");
-
             app.UseRouting();
+
+            app.UseExceptionHandling();
 
             app.UseAuthentication();
             app.UseAuthorization();

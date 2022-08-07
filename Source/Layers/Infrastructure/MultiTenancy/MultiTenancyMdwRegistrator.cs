@@ -2,7 +2,7 @@
 
 namespace Infrastructure.MultiTenancy
 {
-    public static class MultiTenancyMiddlewareRegistrator
+    public static class MultiTenancyMdwRegistrator
     {
         public static IApplicationBuilder UseMultiTenancyMiddleware(this IApplicationBuilder applicationBuilder)
         {
