@@ -7,14 +7,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Stripe;
 using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using Infrastructure.SignalR;
-using System.Reflection;
 using WebServer.Modules.ExceptionHandling;
 using WebServer.Modules.ModelValidation;
 
@@ -62,24 +60,20 @@ namespace WebServer
             services.RegisterModelValidation();
             services.RegisterAutoMapper();
 
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "X-XSRF-TOKEN";
-                options.Cookie.Name = "__Host-X-XSRF-TOKEN";
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            });
+            
             
             #endregion
             #region Infrastructure
             services.RegisterCQRS();
             services.RegisterEmailSender(Configuration);
             services.RegisterEFCore(Configuration);
+            services.RegisterMultiTenancy();
+
+            services.RegisterAuthorization();
+
             services.RegisterStripe(Configuration);
             services.RegisterIdentity(Configuration);
             services.RegisterSignalR();
-            services.RegisterAuthorization();
-            services.RegisterMultiTenancy();   
             #endregion
         }
 
@@ -93,6 +87,7 @@ namespace WebServer
 
             app.UseRouting();
 
+            app.UseSecurityHeaders();
             app.UseExceptionHandling();
 
             app.UseAuthentication();
