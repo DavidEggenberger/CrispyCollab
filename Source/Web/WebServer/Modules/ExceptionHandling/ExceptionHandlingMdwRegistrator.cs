@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace WebServer.Modules.ExceptionHandling
+namespace WebServer.Modules.HostingInformation
 {
     public static class ExceptionHandlingMdwRegistrator
     {

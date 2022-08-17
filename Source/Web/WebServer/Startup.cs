@@ -13,8 +13,9 @@ using Infrastructure.Stripe;
 using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using Infrastructure.SignalR;
-using WebServer.Modules.ExceptionHandling;
 using WebServer.Modules.ModelValidation;
+using WebServer.Modules.HostingInformation;
+using Infrastructure.RedisCache;
 
 namespace WebServer
 {
@@ -59,7 +60,7 @@ namespace WebServer
 
             services.RegisterModelValidation();
             services.RegisterAutoMapper();
-
+            services.RegisterServerInformationProvider();
             
             
             #endregion
@@ -68,6 +69,7 @@ namespace WebServer
             services.RegisterEmailSender(Configuration);
             services.RegisterEFCore(Configuration);
             services.RegisterMultiTenancy();
+            services.RegisterRedisCache(Configuration);
 
             services.RegisterAuthorization();
 

@@ -58,6 +58,7 @@ CrispyCollab uses <a href="https://stripe.com/docs/payments/checkout">Stripe Che
 ### Docker
 When running through Docker the appsettings are read from the appsettings.docker.json file. You can run CrispyCollab by running these commands from the root folder (where CrispyCollab.sln file is located):
 ```
+docker-compose --profile crispycollab up
 docker-compose build
 docker-compose up
 ```

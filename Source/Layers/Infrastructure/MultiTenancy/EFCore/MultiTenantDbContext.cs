@@ -27,6 +27,8 @@ namespace Infrastructure.MultiTenancy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
+
             modelBuilder.ApplyBaseEntityConfiguration(tenantResolver.ResolveTenantId());
         }
 
@@ -66,7 +68,7 @@ namespace Infrastructure.MultiTenancy
 
         private void SetTenantId(Guid teamId)
         {
-            foreach (var entry in ChangeTracker.Entries<IIdentifiable>().Where(x => x.State == EntityState.Added))
+            foreach (var entry in ChangeTracker.Entries<ITenantIdentifiable>().Where(x => x.State == EntityState.Added))
             {
                 entry.Entity.TenantId = teamId;
             }
@@ -75,8 +77,8 @@ namespace Infrastructure.MultiTenancy
         private void ThrowIfMultipleTenants()
         {
             var ids = ChangeTracker.Entries()
-                    .Where(e => e.Entity is IIdentifiable)
-                    .Select(e => (e.Entity as IIdentifiable).TenantId)
+                    .Where(e => e.Entity is ITenantIdentifiable)
+                    .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
                     .Distinct()
                     .ToList();
 
@@ -93,6 +95,17 @@ namespace Infrastructure.MultiTenancy
             if (ids.First() != tenantId)
             {
                 throw new CrossTenantUpdateException(ids);
+            }
+        }
+
+        private void ThrowIfDbSetEntityNotTenantIdentifiable(ModelBuilder modelBuilder)
+        {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                if(entityType is not ITenantIdentifiable)
+                {
+                    throw new Exception();
+                }
             }
         }
     }

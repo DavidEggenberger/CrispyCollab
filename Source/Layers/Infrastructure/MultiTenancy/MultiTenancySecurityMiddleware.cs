@@ -2,6 +2,7 @@
 using Common.Kernel;
 using Infrastructure.EFCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.MultiTenancy
@@ -15,39 +16,47 @@ namespace Infrastructure.MultiTenancy
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            string tenantIdClaimValue;
-            if((tenantIdClaimValue = context.User.GetTenantIdAsString()) != null)
-            {
-                await requestDelegate(context);
-                ApplicationDbContext applicationDbContext = context.RequestServices.GetRequiredService<ApplicationDbContext>();
-                Guid currentTenantId = context.User.GetTenantIdAsGuid();
+            await requestDelegate(context);
 
-                var ids = applicationDbContext.ChangeTracker.Entries()
-                    .Where(e => e.Entity is IIdentifiable)
-                    .Select(e => (e.Entity as IIdentifiable).TenantId)
-                    .Distinct()
-                    .ToList();
+            //IEnumerable<EntityEntry> changeTrackerEntries;
+            //if((changeTrackerEntries = context.RequestServices.GetRequiredService<ApplicationDbContext>().ChangeTracker.Entries()).Count() > 0)
+            //{
+            //    var ids = changeTrackerEntries.Where(e => e.Entity is ITenantIdentifiable)
+            //        .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
+            //        .Distinct()
+            //        .ToList();
 
-                if (ids.Count == 0)
-                {
-                    return;
-                }
+            //    if(ids.Count == 0)
+            //    {
+            //        return;
+            //    }
 
-                if (ids.Count > 1)
-                {
-                    throw new CrossTenantUpdateException(ids);
-                }
+            //}
+            //if (context.User.HasTenantIdClaim())
+            //{
+            //    var entries = applicationDbContext.ChangeTracker.Entries();
+            //    if(entries.Count() == 0)
+            //    {
+            //        return;
+            //    }
 
-                if (ids.First() != currentTenantId)
-                {
-                    throw new CrossTenantUpdateException(ids);
-                }
+            //    Guid currentTenantId = context.User.GetTenantIdAsGuid();
+            //    var ids = entries.Where(e => e.Entity is ITenantIdentifiable)
+            //        .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
+            //        .Distinct()
+            //        .ToList();
 
-            }
-            else
-            {
-                await requestDelegate(context);
-            }
+
+            //    if (ids.Count > 1)
+            //    {
+            //        throw new CrossTenantUpdateException(ids);
+            //    }
+
+            //    if (ids.First() != currentTenantId)
+            //    {
+            //        throw new CrossTenantUpdateException(ids);
+            //    }
+            //}
         }
     }
 }

@@ -1,15 +1,17 @@
-﻿using Infrastructure.Identity;
-using Infrastructure.Identity.Entities;
-using Infrastructure.Identity.Types.Enums;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Stripe;
-using Stripe.Checkout;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿//using Infrastructure.Identity;
+//using Infrastructure.Identity.Entities;
+//using Infrastructure.Identity.Types.Enums;
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using Stripe;
+//using Stripe.Checkout;
+//using System.Collections.Generic;
+//using System.IO;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using WebServer.Modules.HostingInformation;
+//using WebShared.Misc.Attributes;
 
 //namespace WebServer.Controllers.Identity
 //{
@@ -18,40 +20,26 @@ using System.Threading.Tasks;
 //    [AuthorizeTeamAdmin]
 //    public class StripeController : ControllerBase
 //    {
-//        //private readonly AdminNotificationManager adminNotificationManager;
 //        private readonly ApplicationUserManager applicationUserManager;
 //        private readonly IdentificationDbContext identificationDbContext;
-//        //private readonly SubscriptionPlanManager subscriptionPlanManager;
-//        //private readonly SubscriptionManager subscriptionManager;
-//        //private readonly TeamManager teamManager;
-//        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, SubscriptionPlanManager subscriptionPlanManager, TeamManager teamManager, SubscriptionManager subscriptionManager, AdminNotificationManager adminNotificationManager)
+//        private readonly string domain;
+//        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, IServerInformationProvider serverInformationProvider)
 //        {
 //            this.applicationUserManager = applicationUserManager;
 //            this.identificationDbContext = identificationDbContext;
-//            this.subscriptionPlanManager = subscriptionPlanManager;
-//            this.teamManager = teamManager;
-//            this.subscriptionManager = subscriptionManager;
-//            this.adminNotificationManager = adminNotificationManager;
+//            domain = serverInformationProvider.BaseURI.ToString();
 //        }
 
 //        public async Task<IActionResult> CancelSubscription()
 //        {
 //            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-//            await subscriptionManager.CancelSubscriptionAsync(applicationUser.SelectedTeam.Subscription);
 //            return Ok();
 //        }
-        
+
 //        [HttpPost("Subscribe/Premium")]
 //        public async Task<ActionResult> RedirectToStripePremiumSubscription()
 //        {
 //            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-//            Team selectedTeam = applicationUser.SelectedTeam;
-//            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Premium);
-//            if(selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Premium)
-//            {
-//                return LocalRedirect("/ManageTeam");
-//            }
-//            var domain = "https://localhost:44333";
 
 //            var options = new SessionCreateOptions
 //            {
@@ -91,13 +79,6 @@ using System.Threading.Tasks;
 //        public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
 //        {
 //            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-//            Team selectedTeam = applicationUser.SelectedTeam;
-//            SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByPlanType(SubscriptionPlanType.Enterprise);
-//            if (selectedTeam.Subscription.SubscriptionPlan.PlanType == SubscriptionPlanType.Enterprise)
-//            {
-//                return LocalRedirect("/ManageTeam");
-//            }
-//            var domain = "https://localhost:44333";
 
 //            var options = new SessionCreateOptions
 //            {
@@ -128,70 +109,9 @@ using System.Threading.Tasks;
 //            };
 //            var service = new SessionService();
 //            Session session = service.Create(options);
-            
+
 //            Response.Headers.Add("Location", session.Url);
 //            return new StatusCodeResult(303);
-//        }
-
-//        [HttpPost("webhooks")]
-//        [IgnoreAntiforgeryToken]
-//        [AllowAnonymous]
-//        public async Task<IActionResult> Index()
-//        {
-//            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-//            const string endpointSecret = "";
-//            try
-//            {
-//                var stripeEvent = EventUtility.ParseEvent(json);
-//                var signatureHeader = Request.Headers["Stripe-Signature"];
-//                stripeEvent = EventUtility.ConstructEvent(json,
-//                        signatureHeader, endpointSecret);
-
-//                if (stripeEvent.Type == Events.CustomerSubscriptionCreated)
-//                {
-//                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-//                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-//                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-//                    if(team.Subscription is not null && team.Subscription.SubscriptionPlan.PlanType != SubscriptionPlanType.Free)
-//                    {
-//                        await subscriptionManager.CancelSubscriptionAsync(team.Subscription);
-//                    }
-//                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
-//                    team.Subscription = subscriptionManager.CreateSubscription(subscriptionPlan, subscription.CurrentPeriodEnd, subscription.Id);
-//                    await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionCreated, applicationUser, $"{applicationUser.UserName} created the {team.Subscription.SubscriptionPlan.PlanType} subscription");
-//                    await identificationDbContext.SaveChangesAsync();
-//                }
-//                else if (stripeEvent.Type == Events.CustomerSubscriptionUpdated)
-//                {
-//                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-//                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-//                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-//                    SubscriptionService subscriptionService = new SubscriptionService();
-//                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
-//                    Infrastructure.Identity.Entities.Subscription _subscription = await subscriptionManager.FindSubscriptionByStripeSubscriptionId(subscription.Id);
-//                    await identificationDbContext.SaveChangesAsync();
-//                }  
-//                else if (stripeEvent.Type == Events.CustomerSubscriptionDeleted)
-//                {
-//                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-//                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-//                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-//                    await adminNotificationManager.CreateNotification(team, AdminNotificationType.SubscriptionDeleted, applicationUser, $"{applicationUser.UserName} canceled the {team.Subscription.SubscriptionPlan.PlanType} subscription");
-//                }
-//                else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
-//                {
-//                    var subscription = stripeEvent.Data.Object as Stripe.Subscription;
-//                    ApplicationUser applicationUser = await applicationUserManager.FindUserByStripeCustomerId(subscription.CustomerId);
-//                    Team team = await teamManager.FindByIdAsync(subscription.Metadata["TeamId"]);
-//                    SubscriptionService subscriptionService = new SubscriptionService();
-//                    SubscriptionPlan subscriptionPlan = await subscriptionPlanManager.FindByStripePriceId(subscription.Items.First().Price.Id);
-//                }
-//                return Ok();
-//            }
-//            catch (StripeException e)
-//            {
-//                return BadRequest();
-//            }
 //        }
 
 //        [Route("create-portal-session")]

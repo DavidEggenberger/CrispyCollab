@@ -1,14 +1,7 @@
 version: '3.4'
+name: "CrispyCollab"
 
 services:
-  crispycollab:
-    container_name: CrispyCollab
-    image: ${DOCKER_REGISTRY-}crispycollab
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - "sqlserver"
   sqlserver:
     container_name: SQLServer
     image: mcr.microsoft.com/azure-sql-edge
@@ -17,3 +10,23 @@ services:
     environment:
       - SA_PASSWORD=@someThingComplicated1234
       - ACCEPT_EULA=Y
+  redis:
+    container_name: RedisCache
+    image: redis
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=@someThingComplicated1234
+  crispycollab:
+    container_name: CrispyCollab
+    image: ${DOCKER_REGISTRY-}crispycollab
+    profiles: ["crispycollab"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+     - "sqlserver"
+     - "redis"
+volumes: 
+  sqlserver:
+  redis:

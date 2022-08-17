@@ -2,6 +2,7 @@
 using Domain.Aggregates.TenantAggregate;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
+using Infrastructure.Identity;
 using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,8 +18,6 @@ namespace Infrastructure.EFCore
 
         public DbSet<Channel> Channels { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
-
-
 
 
 

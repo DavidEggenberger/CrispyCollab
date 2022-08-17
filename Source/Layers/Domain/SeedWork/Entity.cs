@@ -3,7 +3,7 @@ using Common.Kernel;
 
 namespace Domain.SharedKernel
 {
-    public abstract class Entity : IAuditable, IIdentifiable
+    public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable
     {
         public Guid Id { get; set; }
         public Guid TenantId { get; set; }
@@ -14,6 +14,9 @@ namespace Domain.SharedKernel
         public DateTimeOffset LastUpdated { get; set; }
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+        public bool IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         protected void AddDomainEvent(IDomainEvent eventItem)
         {
             _domainEvents.Add(eventItem);
