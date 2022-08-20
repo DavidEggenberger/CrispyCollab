@@ -57,26 +57,26 @@ namespace WebServer
                     {
                         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                     });
+            #endregion
 
+            #region Modules
             services.RegisterModelValidation();
             services.RegisterAutoMapper();
             services.RegisterServerInformationProvider();
-            
-            
             #endregion
+
             #region Infrastructure
             services.RegisterCQRS();
             services.RegisterEmailSender(Configuration);
             services.RegisterEFCore(Configuration);
             services.RegisterMultiTenancy();
             services.RegisterRedisCache(Configuration);
-
-            services.RegisterAuthorization();
-
             services.RegisterStripe(Configuration);
             services.RegisterIdentity(Configuration);
             services.RegisterSignalR();
             #endregion
+
+            services.RegisterAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,9 +99,9 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapSignalR();
-                endpoints.MapControllers();
-                endpoints.MapRazorPages();
+                endpoints.MapSignalR().RequireAuthorization();
+                endpoints.MapControllers().RequireAuthorization();
+                endpoints.MapRazorPages().RequireAuthorization();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

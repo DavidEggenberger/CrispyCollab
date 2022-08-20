@@ -11,6 +11,5 @@ namespace Common.Constants
         public const string TenantIdClaimType = "TenantId";
         public const string TenantRoleClaimType = "TenantRole";
         public const string TenantPlanClaimType = "TenantPlan";
-
     }
 }

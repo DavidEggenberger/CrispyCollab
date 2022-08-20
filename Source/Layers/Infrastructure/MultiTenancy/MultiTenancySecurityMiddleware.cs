@@ -1,6 +1,7 @@
 ﻿using Common.Exstensions;
 using Common.Kernel;
 using Infrastructure.EFCore;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,45 +19,33 @@ namespace Infrastructure.MultiTenancy
         {
             await requestDelegate(context);
 
-            //IEnumerable<EntityEntry> changeTrackerEntries;
-            //if((changeTrackerEntries = context.RequestServices.GetRequiredService<ApplicationDbContext>().ChangeTracker.Entries()).Count() > 0)
-            //{
-            //    var ids = changeTrackerEntries.Where(e => e.Entity is ITenantIdentifiable)
-            //        .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
-            //        .Distinct()
-            //        .ToList();
+            IEnumerable<EntityEntry> changeTrackerEntries;
+            if ((changeTrackerEntries = context.RequestServices.GetRequiredService<ApplicationDbContext>().ChangeTracker.Entries()).Count() > 0)
+            {
+                var ids = changeTrackerEntries.Where(e => e.Entity is ITenantIdentifiable)
+                    .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
+                    .Distinct()
+                    .ToList();
 
-            //    if(ids.Count == 0)
-            //    {
-            //        return;
-            //    }
+                if (ids.Count == 0)
+                {
+                    return;
+                }
 
-            //}
-            //if (context.User.HasTenantIdClaim())
-            //{
-            //    var entries = applicationDbContext.ChangeTracker.Entries();
-            //    if(entries.Count() == 0)
-            //    {
-            //        return;
-            //    }
+                if (context.User.HasTenantIdClaim())
+                {
+                    if (ids.Count > 1)
+                    {
+                        throw new CrossTenantUpdateException(ids);
+                    }
 
-            //    Guid currentTenantId = context.User.GetTenantIdAsGuid();
-            //    var ids = entries.Where(e => e.Entity is ITenantIdentifiable)
-            //        .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
-            //        .Distinct()
-            //        .ToList();
+                    if (ids.First() != context.RequestServices.GetRequiredService<ITenantResolver>().ResolveTenantId())
+                    {
+                        throw new CrossTenantUpdateException(ids);
+                    }
+                }
 
-
-            //    if (ids.Count > 1)
-            //    {
-            //        throw new CrossTenantUpdateException(ids);
-            //    }
-
-            //    if (ids.First() != currentTenantId)
-            //    {
-            //        throw new CrossTenantUpdateException(ids);
-            //    }
-            //}
+            }
         }
     }
 }

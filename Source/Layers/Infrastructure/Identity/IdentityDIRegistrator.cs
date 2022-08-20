@@ -36,8 +36,8 @@ namespace Infrastructure.Identity
 
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                options.DefaultScheme = AuthenticationSchemeConstants.ApplicationScheme;
+                options.DefaultSignInScheme = AuthenticationSchemeConstants.ExternalScheme;
             })
                 .AddLinkedIn(options =>
                 {
@@ -61,42 +61,45 @@ namespace Infrastructure.Identity
                         return Task.CompletedTask;
                     };
                 });
-            authenticationBuilder.AddExternalCookie().Configure(options =>
+            authenticationBuilder.AddIdentityCookies(options =>
             {
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Name = "ExternalAuthenticationCookie";
-            });
-            authenticationBuilder.AddApplicationCookie().Configure(options =>
-            {
-                options.ExpireTimeSpan = new TimeSpan(6, 0, 0);
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Name = "AuthenticationCookie";
-                options.LoginPath = "/Identity/Login";
-                options.LogoutPath = "/Identity/User/Logout";
-                options.AccessDeniedPath = "/Identity/Forbidden";
-                options.SlidingExpiration = true;
-                options.Events = new CookieAuthenticationEvents
+                options.ApplicationCookie.Configure(options =>
                 {
-                    OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync
-                };
-            });
-            authenticationBuilder.AddTwoFactorUserIdCookie().Configure(options =>
-            {
-                options.Cookie.Name = "TwoFAUserIdCookie";
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            });
-            authenticationBuilder.AddTwoFactorRememberMeCookie().Configure(options =>
-            {
-                options.Cookie.Name = "TwoFARememberMeCookie";
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.ExpireTimeSpan = new TimeSpan(6, 0, 0);
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.Name = "AuthenticationCookie";
+                    options.LoginPath = "/Identity/Login";
+                    options.LogoutPath = "/Identity/User/Logout";
+                    options.AccessDeniedPath = "/Identity/Forbidden";
+                    options.SlidingExpiration = true;
+                    options.Events = new CookieAuthenticationEvents
+                    {
+                        OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync
+                    };
+                });
+                options.ExternalCookie.Configure(options =>
+                {
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.Name = "ExternalAuthenticationCookie";
+                });
+                options.TwoFactorRememberMeCookie.Configure(options =>
+                {
+                    options.Cookie.Name = "TwoFARememberMeCookie";
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                });
+                options.TwoFactorUserIdCookie.Configure(options =>
+                {
+                    options.Cookie.Name = "TwoFAUserIdCookie";
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                });
             });
             var identityService = services.AddIdentityCore<ApplicationUser>(options =>
             {

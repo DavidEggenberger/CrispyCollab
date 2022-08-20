@@ -3,7 +3,7 @@ using Common.Kernel;
 
 namespace Domain.SharedKernel
 {
-    public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable
+    public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {
         public Guid Id { get; set; }
         public Guid TenantId { get; set; }

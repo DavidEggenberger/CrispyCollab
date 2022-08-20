@@ -1,14 +1,50 @@
-﻿using Common.Kernel;
-
-namespace Domain.Kernel
+﻿namespace Domain.Kernel
 {
-    public class ValueObject :  IAuditable, IIdentifiable, ITenantIdentifiable
+    public abstract class ValueObject
     {
-        public Guid Id { get; set; }
-        public Guid TenantId { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public DateTimeOffset Created { get; set; }
-        public DateTimeOffset LastUpdated { get; set; }
-        public bool IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        protected static bool EqualOperator(ValueObject left, ValueObject right)
+        {
+            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+            {
+                return false;
+            }
+            return ReferenceEquals(left, right) || left.Equals(right);
+        }
+
+        protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+        {
+            return !(EqualOperator(left, right));
+        }
+
+        protected abstract IEnumerable<object> GetEqualityComponents();
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            var other = (ValueObject)obj;
+
+            return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+        }
+
+        public override int GetHashCode()
+        {
+            return GetEqualityComponents()
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
+        }
+
+        public static bool operator ==(ValueObject one, ValueObject two)
+        {
+            return EqualOperator(one, two);
+        }
+
+        public static bool operator !=(ValueObject one, ValueObject two)
+        {
+            return NotEqualOperator(one, two);
+        }
     }
 }

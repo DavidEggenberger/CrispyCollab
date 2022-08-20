@@ -11,7 +11,7 @@ namespace Infrastructure.MultiTenancy
     {
         private readonly ITenantResolver tenantResolver;
         private readonly IUserResolver userResolver;
-        protected readonly Guid tenantId;
+        private readonly Guid tenantId;
 
         public MultiTenantDbContext(DbContextOptions<T> dbContextOptions, IServiceProvider serviceProvider) : base(dbContextOptions)
         {
@@ -28,7 +28,7 @@ namespace Infrastructure.MultiTenancy
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
-
+            
             modelBuilder.ApplyBaseEntityConfiguration(tenantResolver.ResolveTenantId());
         }
 
@@ -36,7 +36,7 @@ namespace Infrastructure.MultiTenancy
         {
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
-            SetTenantId(tenantResolver.ResolveTenantId());
+            SetTenantId();
             UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
             return await base.SaveChangesAsync(cancellationToken);
         }
@@ -66,11 +66,11 @@ namespace Infrastructure.MultiTenancy
             }
         }
 
-        private void SetTenantId(Guid teamId)
+        private void SetTenantId()
         {
             foreach (var entry in ChangeTracker.Entries<ITenantIdentifiable>().Where(x => x.State == EntityState.Added))
             {
-                entry.Entity.TenantId = teamId;
+                entry.Entity.TenantId = tenantId;
             }
         }
 
