@@ -36,8 +36,8 @@ namespace Infrastructure.Identity
 
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
-                options.DefaultScheme = AuthenticationSchemeConstants.ApplicationScheme;
-                options.DefaultSignInScheme = AuthenticationSchemeConstants.ExternalScheme;
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
                 .AddLinkedIn(options =>
                 {

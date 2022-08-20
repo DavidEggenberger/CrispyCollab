@@ -16,6 +16,7 @@ using Infrastructure.SignalR;
 using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
 using Infrastructure.RedisCache;
+using WebServer.Modules.Swagger;
 
 namespace WebServer
 {
@@ -36,6 +37,7 @@ namespace WebServer
             {
                 options.Conventions.AuthorizeFolder("/Identity/TeamManagement", "TeamAdmin");
                 options.Conventions.AuthorizeFolder("/Identity");
+                options.Conventions.AllowAnonymousToFolder("/LandingPages");
                 options.Conventions.AllowAnonymousToFolder("/Identity/Stripe");
                 options.Conventions.AllowAnonymousToPage("/Identity/Login");
                 options.Conventions.AllowAnonymousToPage("/Identity/SignUp");
@@ -63,6 +65,8 @@ namespace WebServer
             services.RegisterModelValidation();
             services.RegisterAutoMapper();
             services.RegisterServerInformationProvider();
+            services.RegisterSwagger();
+            services.RegisterApiVersioning();
             #endregion
 
             #region Infrastructure
@@ -95,13 +99,16 @@ namespace WebServer
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSwaggerModule();
+            app.UseApiVersioningModule();
+
             app.UseMultiTenancyMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapSignalR().RequireAuthorization();
                 endpoints.MapControllers().RequireAuthorization();
-                endpoints.MapRazorPages().RequireAuthorization();
+                endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

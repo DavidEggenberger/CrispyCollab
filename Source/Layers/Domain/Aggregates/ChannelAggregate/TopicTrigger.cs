@@ -12,5 +12,10 @@ namespace Domain.Aggregates.ChannelAggregate
     {
         public decimal NeccessaryVotePercentage { get; set; }
         public int NeccessaryVoteAbsolute { get; set; }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

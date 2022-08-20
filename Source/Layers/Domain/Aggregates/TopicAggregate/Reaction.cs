@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.TopicAggregate
 {
-    public class Reaction : ValueObject
+    public class Reaction : Entity
     {
         public ReactionType Type { get; set; }
     }
