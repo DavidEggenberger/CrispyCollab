@@ -106,8 +106,8 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapSignalR().RequireAuthorization();
-                endpoints.MapControllers().RequireAuthorization();
+                endpoints.MapSignalR();
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");
             });

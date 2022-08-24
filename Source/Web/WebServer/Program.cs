@@ -56,7 +56,7 @@ namespace WebServer
                 .UseSerilog((hostBuilderContext, configuration) =>
                 {
                     configuration.WriteTo.Console();
-                    configuration.MinimumLevel.Warning();
+                    configuration.MinimumLevel.Information();
                 })
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {

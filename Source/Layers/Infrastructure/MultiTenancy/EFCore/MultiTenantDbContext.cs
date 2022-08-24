@@ -27,7 +27,7 @@ namespace Infrastructure.MultiTenancy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
+            //ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
             
             modelBuilder.ApplyBaseEntityConfiguration(tenantResolver.ResolveTenantId());
         }

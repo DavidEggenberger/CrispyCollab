@@ -20,7 +20,7 @@ namespace Infrastructure.MultiTenancy
             await requestDelegate(context);
 
             IEnumerable<EntityEntry> changeTrackerEntries;
-            if ((changeTrackerEntries = context.RequestServices.GetRequiredService<ApplicationDbContext>().ChangeTracker.Entries()).Count() > 0)
+            if (context.User.HasTenantIdClaim() && (changeTrackerEntries = context.RequestServices.GetRequiredService<ApplicationDbContext>().ChangeTracker.Entries()).Count() > 0)
             {
                 var ids = changeTrackerEntries.Where(e => e.Entity is ITenantIdentifiable)
                     .Select(e => (e.Entity as ITenantIdentifiable).TenantId)
@@ -32,19 +32,15 @@ namespace Infrastructure.MultiTenancy
                     return;
                 }
 
-                if (context.User.HasTenantIdClaim())
+                if (ids.Count > 1)
                 {
-                    if (ids.Count > 1)
-                    {
-                        throw new CrossTenantUpdateException(ids);
-                    }
-
-                    if (ids.First() != context.RequestServices.GetRequiredService<ITenantResolver>().ResolveTenantId())
-                    {
-                        throw new CrossTenantUpdateException(ids);
-                    }
+                    throw new CrossTenantUpdateException(ids);
                 }
 
+                if (ids.First() != context.RequestServices.GetRequiredService<ITenantResolver>().ResolveTenantId())
+                {
+                    throw new CrossTenantUpdateException(ids);
+                }
             }
         }
     }
