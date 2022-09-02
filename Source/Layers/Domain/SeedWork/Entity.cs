@@ -6,7 +6,7 @@ namespace Domain.SharedKernel
     public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {
         public Guid Id { get; set; }
-        public Guid TenantId { get; set; }
+        public virtual Guid TenantId { get; set; }
         public Guid CreatedByUserId { get; set; }
         public bool IsSoftDeleted { get; set; }
         public byte[] RowVersion { get; set; }

@@ -1,0 +1,10 @@
+version: '3.4'
+name: "CrispyCollab"
+
+services:
+  crispycollab:
+    container_name: CrispyCollab
+    image: ${DOCKER_REGISTRY-}crispycollab
+    build:
+      context: .
+      dockerfile: Dockerfile

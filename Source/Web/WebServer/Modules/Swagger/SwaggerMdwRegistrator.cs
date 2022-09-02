@@ -4,7 +4,7 @@ namespace WebServer.Modules.Swagger
 {
     public static class SwaggerMdwRegistrator
     {
-        public static IApplicationBuilder UseSwaggerModule(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder UseSwaggerMiddleware(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseSwagger();
             applicationBuilder.UseSwaggerUI(options =>

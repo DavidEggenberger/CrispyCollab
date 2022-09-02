@@ -7,7 +7,7 @@
 
 
   <ItemGroup>
-    <Folder Include="TenantAggregate\" />
+    <Folder Include="TenantAggregate\Commands\" />
     <Folder Include="TopicAggregate\EventHandlers\" />
   </ItemGroup>
 

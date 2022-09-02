@@ -1,5 +1,4 @@
-﻿using Infrastructure.Identity.Types.Overrides;
-using Infrastructure.Interfaces;
+﻿using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
@@ -7,12 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Common.Constants;
 using System.Security.Claims;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Infrastructure.Identity;
 
-namespace Infrastructure.Identity
+namespace WebServer.Identity
 {
     public static class IdentityDIRegistrator
     {

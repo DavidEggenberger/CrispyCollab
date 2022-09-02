@@ -5,11 +5,9 @@ using Infrastructure.Identity;
 using Infrastructure.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.Stripe;
 using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using Infrastructure.SignalR;
@@ -17,6 +15,8 @@ using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
 using Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
+using Infrastructure.StripePayments;
+using WebServer.Identity;
 
 namespace WebServer
 {
@@ -99,8 +99,8 @@ namespace WebServer
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseSwaggerModule();
-            app.UseApiVersioningModule();
+            app.UseSwaggerMiddleware();
+            app.UseApiVersioningMiddleware();
 
             app.UseMultiTenancyMiddleware();
 

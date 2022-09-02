@@ -1,5 +1,5 @@
 version: '3.4'
-name: "CrispyCollab"
+name: "Infrastructure"
 
 services:
   sqlserver:
@@ -17,16 +17,6 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=@someThingComplicated1234
-  crispycollab:
-    container_name: CrispyCollab
-    image: ${DOCKER_REGISTRY-}crispycollab
-    profiles: ["crispycollab"]
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-     - "sqlserver"
-     - "redis"
 volumes: 
   sqlserver:
   redis:

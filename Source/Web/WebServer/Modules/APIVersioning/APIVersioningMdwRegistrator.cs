@@ -4,7 +4,7 @@ namespace WebServer.Modules.Swagger
 {
     public static class APIVersioningMdwRegistrator
     {
-        public static IApplicationBuilder UseApiVersioningModule(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder UseApiVersioningMiddleware(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseApiVersioning();
 
