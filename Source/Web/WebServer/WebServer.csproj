@@ -19,7 +19,6 @@
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.4" />
     <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.4" />
-    <PackageReference Include="AuthPermissions.AspNetCore" Version="2.2.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.1" />
     <PackageReference Include="Azure.Identity" Version="1.5.0" />
@@ -44,12 +43,17 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
     <PackageReference Include="SendGrid" Version="9.25.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
-    <PackageReference Include="Stripe.net" Version="39.93.0" />
+    <PackageReference Include="Stripe.net" Version="40.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\TenantIdentifiableAggregates\" />
     <Folder Include="Modules\HealthChecks\" />
+    <Folder Include="Modules\FeatureFlags\" />
+    <Folder Include="Modules\CORS\" />
+    <Folder Include="Modules\ServerLifetimeEvents\" />
+    <Folder Include="Modules\RateLimiting\" />
   </ItemGroup>
 
 </Project>
