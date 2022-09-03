@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.TenantAggregate.Queries
 {
-    public class GetTenantByIdQuery : IQuery<Tenant>
+    public class GetAllTenantMembershipsOfUser : IQuery<List<TenantMembership>>
     {
-        public Guid TenantId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

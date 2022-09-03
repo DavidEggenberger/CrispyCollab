@@ -57,7 +57,7 @@ namespace WebWasmClient.Authentication
                     var identity = new ClaimsIdentity(
                         nameof(HostAuthenticationStateProvider),
                         ClaimConstants.UserNameClaimType,
-                        ClaimConstants.TenantRoleClaimType);
+                        ClaimConstants.UserRoleInTenantClaimType);
 
                     foreach (var claim in bffUserInfoDTO.Claims)
                     {

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebServer.Controllers
+namespace WebServer.Controllers.Aggregates
 {
     [Route("api/[controller]")]
     [ApiController]

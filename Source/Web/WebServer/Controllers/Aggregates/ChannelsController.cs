@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
-namespace WebServer.Controllers
+namespace WebServer.Controllers.Aggregates
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,6 @@
-﻿using Stripe.Checkout;
+﻿using Infrastructure.Identity;
+using Infrastructure.StripePayments.Models;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,6 @@ namespace Infrastructure.StripePayments.Services.Interfaces
 {
     public interface IStripeSubscriptionService
     {
-        List<SessionLineItemOptions> CreateSessionLineItemOptionsForSubscription();
+        StripeSubscription GetSubscriptionFromPlanType(SubscriptionPlanType subscriptionPlanType);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.StripePayments.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Stripe;
-using Stripe.Checkout;
 using WebServer.Modules.HostingInformation;
 using WebShared.Misc.Attributes;
 
@@ -14,15 +11,13 @@ namespace WebServer.Controllers.Identity
     [AuthorizeTeamAdmin]
     public class StripeController : AuthorizedBaseController
     {
-        private readonly ApplicationUserManager applicationUserManager;
-        private readonly IdentificationDbContext identificationDbContext;
         private readonly IStripeSessionService stripeSessionService;
+        private readonly IStripeSubscriptionService stripeSubscriptionService;
         private readonly string returnUrl;
-        public StripeController(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext, IStripeSessionService stripeSessionService, IServerInformationProvider serverInformationProvider)
+        public StripeController(IStripeSessionService stripeSessionService, IServerInformationProvider serverInformationProvider, IStripeSubscriptionService stripeSubscriptionService)
         {
-            this.applicationUserManager = applicationUserManager;
-            this.identificationDbContext = identificationDbContext;
             this.stripeSessionService = stripeSessionService;
+            this.stripeSubscriptionService = stripeSubscriptionService;
             returnUrl = serverInformationProvider.BaseURI.AbsoluteUri;
         }
 
@@ -34,7 +29,8 @@ namespace WebServer.Controllers.Identity
         [HttpPost("Subscribe/Premium")]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
-            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id , null);         
+            var premiumSubscription = stripeSubscriptionService.GetSubscriptionFromPlanType(SubscriptionPlanType.Premium);
+            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id , premiumSubscription);         
 
             Response.Headers.Add("Location", checkoutSession.Url);
             return new StatusCodeResult(303);
@@ -43,7 +39,8 @@ namespace WebServer.Controllers.Identity
         [HttpPost("Subscribe/Enterprise")]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
-            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id, null);
+            var enterpriseSubscription = stripeSubscriptionService.GetSubscriptionFromPlanType(SubscriptionPlanType.Enterprise);
+            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id, enterpriseSubscription);
 
             Response.Headers.Add("Location", checkoutSession.Url);
             return new StatusCodeResult(303);

@@ -9,7 +9,7 @@ namespace Common.Constants
         public const string EmailClaimType = ClaimTypes.Email;
         public const string PictureClaimType = ClaimTypes.Email;
         public const string TenantIdClaimType = "TenantId";
-        public const string TenantRoleClaimType = "TenantRole";
+        public const string UserRoleInTenantClaimType = "UserRoleInTenant";
         public const string TenantPlanClaimType = "TenantPlan";
         public const string TenantNameClaimType = "TenantPlan";
     }

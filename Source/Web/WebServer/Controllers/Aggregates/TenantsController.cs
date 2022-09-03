@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebServer.Mappings;
+using MapsterMapper;
 
 //namespace WebServer.Controllers.Identity.TeamControllers
 //{
@@ -57,6 +58,15 @@ using WebServer.Mappings;
 //            teamAdminInfoDTO.Metrics = mapper.Map<TeamMetricsDTO>(teamMetrics);
 //            return teamAdminInfoDTO;
 //        }
+
+
+//[HttpGet("allTeams")]
+//public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
+//{
+//    ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
+//    List<Team> teamMemberships = applicationUserManager.GetAllTeamsWhereUserIsMember(applicationUser);
+//    return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
+//}
 
 //        [HttpPost("invite")]
 //        public async Task<ActionResult> InviteUsers(InviteMembersDTO inviteUserToGroupDTO)

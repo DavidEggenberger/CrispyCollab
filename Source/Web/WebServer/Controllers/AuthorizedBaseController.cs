@@ -14,8 +14,8 @@ namespace WebServer.Controllers
         private readonly IQueryDispatcher queryDispatcher;
         public AuthorizedBaseController()
         {
-            this.applicationUserManager = HttpContext.RequestServices.GetRequiredService<ApplicationUserManager>();
-            this.queryDispatcher = HttpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
+            applicationUserManager = HttpContext.RequestServices.GetRequiredService<ApplicationUserManager>();
+            queryDispatcher = HttpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
         }
 
         protected ApplicationUser ApplicationUser { get; set; }
@@ -26,8 +26,8 @@ namespace WebServer.Controllers
         public override async void OnActionExecuting(ActionExecutingContext context)
         {
             ApplicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(context.HttpContext.User);
-            var tenantByIdQuery = new GetTenantByIdQuery() { TenantId = ApplicationUser.SelectedTenantId.Value };
-            Tenant = await queryDispatcher.DispatchAsync<GetTenantByIdQuery, Tenant>(tenantByIdQuery);
+            var tenantByIdQuery = new GetTenantByQuery() { TenantId = ApplicationUser.SelectedTenantId };
+            Tenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
         }
     }
 }

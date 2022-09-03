@@ -28,21 +28,21 @@ namespace WebServer.Identity
                 new Claim(ClaimConstants.PictureClaimType, applicationUser.PictureUri)
             };
 
-            if (applicationUser.SelectedTenantId.HasValue)
+            var tenantByIdQuery = new GetTenantByQuery() { TenantId = applicationUser.SelectedTenantId };
+            Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
+
+            var tenantMembershipQuery = new GetTenantMembershipQuery { TenantId = applicationUser.SelectedTenantId, UserId = applicationUser.Id };
+            TenantMembership tenantMembership = await queryDispatcher.DispatchAsync<GetTenantMembershipQuery, TenantMembership>(tenantMembershipQuery);
+
+            claims.AddRange(new List<Claim>
             {
-                var tenantByIdQuery = new GetTenantByIdQuery() { TenantId = applicationUser.SelectedTenantId.Value };
-                Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByIdQuery, Tenant>(tenantByIdQuery);
+                new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.SUbscriptionPlan.ToString()),
+                new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
+                new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id.ToString()),
+                new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
+            });
 
-                claims.AddRange(new List<Claim>
-                {
-                    new Claim(ClaimConstants.TenantPlanClaimType, ""),
-                    new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
-                    new Claim(ClaimConstants.TenantRoleClaimType, ""),
-                    //new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id)
-                });
-            }
-
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimConstants.UserNameClaimType, ClaimConstants.TenantRoleClaimType);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme, nameType: ClaimConstants.UserNameClaimType, ClaimConstants.UserRoleInTenantClaimType);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             
             return claimsPrincipal;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Stripe;
 
-namespace WebServer.Controllers.Identity
+namespace WebServer.Infrastructure.Identity.Controllers
 {
     [Route("api/[controller]")]
     [AllowAnonymous]

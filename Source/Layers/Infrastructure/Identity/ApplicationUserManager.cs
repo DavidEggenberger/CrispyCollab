@@ -51,5 +51,10 @@ namespace Infrastructure.Identity
                 throw new IdentityOperationException();
             }
         }
+        public async Task SetTenantAsSelected(ApplicationUser applicationUser, Guid tenantId)
+        {
+            applicationUser.SelectedTenantId = tenantId;
+            await identificationDbContext.SaveChangesAsync();
+        }
     }
 }
