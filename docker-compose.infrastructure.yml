@@ -1,5 +1,5 @@
 version: '3.4'
-name: "Infrastructure"
+name: CrispyCollab-Infrastructure
 
 services:
   sqlserver:
@@ -10,6 +10,8 @@ services:
     environment:
       - SA_PASSWORD=@someThingComplicated1234
       - ACCEPT_EULA=Y
+    volumes:
+      - sqlserver:/sqlserver
   redis:
     container_name: RedisCache
     image: redis
@@ -17,6 +19,8 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=@someThingComplicated1234
+    volumes:
+      - redis:/redis
 volumes: 
   sqlserver:
   redis:
