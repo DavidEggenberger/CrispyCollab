@@ -7,8 +7,9 @@
 
 
   <ItemGroup>
-    <Folder Include="TenantAggregate\Commands\" />
-    <Folder Include="TopicAggregate\EventHandlers\" />
+    <Folder Include="Aggregates\TenantAggregate\Commands\" />
+    <Folder Include="Aggregates\TopicAggregate\EventHandlers\" />
+    <Folder Include="Infrastructure\StripePayments\" />
   </ItemGroup>
 
 

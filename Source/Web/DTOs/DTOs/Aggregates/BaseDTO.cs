@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebShared.Features
+namespace WebShared.DTOs.Aggregates
 {
     public class BaseDTO
     {

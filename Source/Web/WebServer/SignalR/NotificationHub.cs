@@ -1,8 +1,9 @@
 ﻿using Infrastructure.Identity;
+using Infrastructure.SignalR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Infrastructure.SignalR
+namespace WebServer.SignalR
 {
     [Authorize]
     public class NotificationHub : Hub, ISignalRHub

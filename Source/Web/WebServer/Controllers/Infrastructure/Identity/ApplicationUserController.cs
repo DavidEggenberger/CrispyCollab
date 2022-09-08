@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using WebShared.DTOs.Aggregates.Tenant;
 
-namespace WebServer.Infrastructure.Identity.Controllers
+namespace WebServer.Controllers.Infrastructure.Identity
 {
     [Route("api/[controller]")]
     [ApiController]

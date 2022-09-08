@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Infrastructure.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.SignalR
+namespace WebServer.SignalR
 {
     public static class SignalRDIRegistrator
     {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Stripe;
 
-namespace WebServer.Infrastructure.Identity.Controllers
+namespace WebServer.Controllers.Infrastructure.Identity
 {
     [Route("api/[controller]")]
     [AllowAnonymous]
@@ -26,6 +26,8 @@ namespace WebServer.Infrastructure.Identity.Controllers
             var info = await signInManager.GetExternalLoginInfoAsync();
             var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
+
+
             if (info is not null && user is null)
             {
                 ApplicationUser _user = new ApplicationUser
@@ -41,6 +43,10 @@ namespace WebServer.Infrastructure.Identity.Controllers
                 {
                     result = await userManager.AddLoginAsync(_user, info);
                     await signInManager.SignInAsync(_user, isPersistent: false, info.LoginProvider);
+
+
+
+
 
                     var stripeCustomer = await new CustomerService().CreateAsync(new CustomerCreateOptions { Email = _user.Email });
                     _user.StripeCustomerId = stripeCustomer.Id;

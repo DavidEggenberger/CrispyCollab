@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using WebShared.DTOs.Aggregates.Tenant;
 
-namespace WebServer.Infrastructure.Identity.Controllers
+namespace WebServer.Controllers.Infrastructure.Identity
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -35,7 +35,7 @@ namespace WebServer.Infrastructure.Identity.Controllers
             var tenantMembershipsOfUserQuery = new GetAllTenantMembershipsOfUser() { UserId = applicationUser.Id };
             var tenantMemberships = await queryDispatcher.DispatchAsync<GetAllTenantMembershipsOfUser, List<TenantMembership>>(tenantMembershipsOfUserQuery);
 
-            if(tenantMemberships.Select(t => t.Tenant.Id).Contains(tenantId))
+            if (tenantMemberships.Select(t => t.Tenant.Id).Contains(tenantId))
             {
                 await applicationUserManager.SetTenantAsSelected(applicationUser, tenantId);
                 await signInManager.RefreshSignInAsync(applicationUser);
@@ -44,7 +44,7 @@ namespace WebServer.Infrastructure.Identity.Controllers
             {
                 throw new Exception();
             }
-            
+
             return LocalRedirect(redirectUri ?? "/");
         }
 

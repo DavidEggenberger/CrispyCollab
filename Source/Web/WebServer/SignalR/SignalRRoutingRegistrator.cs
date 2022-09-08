@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Infrastructure.SignalR
+namespace WebServer.SignalR
 {
     public static class SignalRRoutingRegistrator
     {

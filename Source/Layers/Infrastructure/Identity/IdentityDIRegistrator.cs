@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Infrastructure.Identity;
+using Common.Constants;
 
-namespace WebServer.Identity
+namespace Infrastructure.Identity
 {
     public static class IdentityDIRegistrator
     {
