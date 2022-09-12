@@ -12,14 +12,14 @@ namespace WebServer.Services
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public bool CheckIfRequestHasTenant()
+        public bool CanResolveTenant()
         {
-            return httpContextAccessor.HttpContext.User.HasTenantIdClaim();
+            return httpContextAccessor?.HttpContext?.User?.HasTenantIdClaim() == true;
         }
 
         public Guid ResolveTenantId()
         {
-            return httpContextAccessor.HttpContext.User.GetTenantIdAsGuid();
+            return httpContextAccessor.HttpContext.User.GetTenantId<Guid>();
         }
     }
 }

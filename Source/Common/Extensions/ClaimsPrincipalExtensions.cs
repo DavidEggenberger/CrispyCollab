@@ -1,4 +1,5 @@
 ﻿using Common.Constants;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace Common.Exstensions
@@ -10,19 +11,10 @@ namespace Common.Exstensions
             return claimsPrincipal.HasClaim(c => c.Type == ClaimConstants.UserIdClaimType);
         }
 
-        public static Guid GetUserIdAsGuid(this ClaimsPrincipal claimsPrincipal)
+        public static T GetUserId<T>(this ClaimsPrincipal claimsPrincipal)
         {
-            string userIdClaimValue;
-            if((userIdClaimValue = claimsPrincipal.FindFirst(ClaimConstants.UserIdClaimType).Value) is not null)
-            {
-                return new Guid(claimsPrincipal.FindFirst(ClaimConstants.UserIdClaimType).Value);
-            }
-            throw new Exception();
-        }
-
-        public static string GetUserIdAsString(this ClaimsPrincipal claimsPrincipal)
-        {
-            return claimsPrincipal.FindFirst(ClaimConstants.UserIdClaimType).Value;
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+            return (T)converter.ConvertFrom(claimsPrincipal?.FindFirst(ClaimConstants.UserIdClaimType).Value);
         }
 
         public static bool HasTenantIdClaim(this ClaimsPrincipal claimsPrincipal)
@@ -30,14 +22,15 @@ namespace Common.Exstensions
             return claimsPrincipal.HasClaim(c => c.Type == ClaimConstants.TenantIdClaimType);
         }
 
-        public static Guid GetTenantIdAsGuid(this ClaimsPrincipal claimsPrincipal)
+        public static T GetTenantId<T>(this ClaimsPrincipal claimsPrincipal)
         {
-            return new Guid(claimsPrincipal.FindFirst(ClaimConstants.TenantIdClaimType).Value);
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+            return (T)converter.ConvertFrom(claimsPrincipal?.FindFirst(ClaimConstants.TenantPlanClaimType).Value);
         }
 
-        public static string GetTenantIdAsString(this ClaimsPrincipal claimsPrincipal)
+        public static string GetNullableClaimValue(this ClaimsPrincipal claimsPrincipal, string claimType)
         {
-            return claimsPrincipal.FindFirst(ClaimConstants.TenantIdClaimType).Value;
+            return claimsPrincipal.FindFirst(claimType)?.Value;
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using WebShared.DTOs.Aggregates.Tenant;
 
-namespace WebServer.Controllers.Infrastructure.Identity
+namespace WebServer.Controllers.Identity
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -25,6 +25,20 @@ namespace WebServer.Controllers.Infrastructure.Identity
             this.signInManager = signInManager;
             this.applicationUserManager = applicationUserManager;
             this.mapper = mapper;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult<BFFUserInfoDTO> GetClaimsOfCurrentUser()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return BFFUserInfoDTO.Anonymous;
+            }
+            return new BFFUserInfoDTO()
+            {
+                Claims = User.Claims.Select(claim => new ClaimValueDTO { Type = claim.Type, Value = claim.Value }).ToList()
+            };
         }
 
         [HttpGet("selectTenant/{TeamId}")]

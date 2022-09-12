@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Aggregates\TenantAggregate\Commands\" />
     <Folder Include="Aggregates\TopicAggregate\EventHandlers\" />
-    <Folder Include="Infrastructure\StripePayments\" />
   </ItemGroup>
 
 

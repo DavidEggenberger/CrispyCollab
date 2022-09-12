@@ -7,7 +7,7 @@ namespace Infrastructure.SignalR
     {
         public virtual string GetUserId(HubConnectionContext connection)
         {
-            return connection.User.GetUserIdAsString();
+            return connection.User.GetUserId<string>();
         }
     }
 }

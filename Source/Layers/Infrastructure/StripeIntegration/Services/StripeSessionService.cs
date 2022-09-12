@@ -1,15 +1,15 @@
 ﻿using Infrastructure.Identity.Entities;
 using Infrastructure.Identity;
-using Infrastructure.StripePayments.Models;
-using Infrastructure.StripePayments.Services.Interfaces;
+using Infrastructure.StripeIntegration.Services.Interfaces;
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.StripeIntegration.Configuration;
 
-namespace Infrastructure.StripePayments.Services
+namespace Infrastructure.StripeIntegration.Services
 {
     public class StripeSessionService : IStripeSessionService
     {
@@ -24,7 +24,7 @@ namespace Infrastructure.StripePayments.Services
             return service.Create(options);
         }
 
-        public Stripe.Checkout.Session CreateCheckoutSession(string redirectBaseUrl, string stripeCustomerId, Guid tenantId, StripeSubscription stripeSubscription)
+        public Stripe.Checkout.Session CreateCheckoutSession(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription)
         {
             var options = new SessionCreateOptions
             {
@@ -32,7 +32,9 @@ namespace Infrastructure.StripePayments.Services
                 {
                   "card",
                 },
-                Customer = stripeCustomerId,
+                Customer = user.StripeCustomerId,
+                CustomerEmail = user.Email,
+                ClientReferenceId = user.Id.ToString(),
                 LineItems = new List<SessionLineItemOptions>
                 {
                     new SessionLineItemOptions

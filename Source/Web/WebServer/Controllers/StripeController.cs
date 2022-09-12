@@ -1,10 +1,10 @@
 ﻿using Infrastructure.Identity;
-using Infrastructure.StripePayments.Services.Interfaces;
+using Infrastructure.StripeIntegration.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebServer.Modules.HostingInformation;
 using WebShared.Misc.Attributes;
 
-namespace WebServer.Controllers.Identity
+namespace WebServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -29,8 +29,8 @@ namespace WebServer.Controllers.Identity
         [HttpPost("Subscribe/Premium")]
         public async Task<ActionResult> RedirectToStripePremiumSubscription()
         {
-            var premiumSubscription = stripeSubscriptionService.GetSubscriptionFromPlanType(SubscriptionPlanType.Premium);
-            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id , premiumSubscription);         
+            var premiumSubscription = stripeSubscriptionService.GetSubscriptionType(SubscriptionPlanType.Premium);
+            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser, Tenant.Id, premiumSubscription);
 
             Response.Headers.Add("Location", checkoutSession.Url);
             return new StatusCodeResult(303);
@@ -39,8 +39,8 @@ namespace WebServer.Controllers.Identity
         [HttpPost("Subscribe/Enterprise")]
         public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
         {
-            var enterpriseSubscription = stripeSubscriptionService.GetSubscriptionFromPlanType(SubscriptionPlanType.Enterprise);
-            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser.StripeCustomerId, Tenant.Id, enterpriseSubscription);
+            var enterpriseSubscription = stripeSubscriptionService.GetSubscriptionType(SubscriptionPlanType.Enterprise);
+            var checkoutSession = stripeSessionService.CreateCheckoutSession(returnUrl, ApplicationUser, Tenant.Id, enterpriseSubscription);
 
             Response.Headers.Add("Location", checkoutSession.Url);
             return new StatusCodeResult(303);

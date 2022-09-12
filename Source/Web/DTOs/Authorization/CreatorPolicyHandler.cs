@@ -7,7 +7,7 @@ namespace WebServer.Authorization
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorPolicyRequirement requirement, IAuditable resource)
         {
-            if(context.User.GetUserIdAsGuid() == resource.CreatedByUserId)
+            if(context.User.GetUserId<Guid>() == resource.CreatedByUserId)
             {
                 context.Succeed(requirement);
             }

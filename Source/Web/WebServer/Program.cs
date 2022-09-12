@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.EFCore;
+using Infrastructure.EFCore.Migrations;
 
 namespace WebServer
 {
@@ -14,6 +16,7 @@ namespace WebServer
             {
                 using IHost host = CreateHostBuilder(args).Build();
                 using IServiceScope serviceScope = host.Services.CreateScope();
+
                 host.Run();
             }
             catch (Exception ex)

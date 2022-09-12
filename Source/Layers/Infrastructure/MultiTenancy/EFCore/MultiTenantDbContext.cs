@@ -1,9 +1,14 @@
 ﻿using Common.Kernel;
+using Domain.SharedKernel.Attributes;
 using Infrastructure.EFCore;
 using Infrastructure.EFCore.Configuration;
+using Infrastructure.Identity;
 using Infrastructure.Interfaces;
+using Infrastructure.MultiTenancy.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Infrastructure.MultiTenancy
 {
@@ -17,7 +22,7 @@ namespace Infrastructure.MultiTenancy
         {
             tenantResolver = serviceProvider.GetRequiredService<ITenantResolver>();
             userResolver = serviceProvider.GetRequiredService<IUserResolver>();
-            tenantId = tenantResolver.ResolveTenantId();
+            tenantId = tenantResolver.CanResolveTenant() is true ? tenantResolver.ResolveTenantId() : Guid.NewGuid();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,9 +32,10 @@ namespace Infrastructure.MultiTenancy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
-            
-            modelBuilder.ApplyBaseEntityConfiguration(tenantResolver.ResolveTenantId());
+            ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly,
+                x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
+            modelBuilder.ApplyBaseEntityConfiguration(tenantId);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -100,11 +106,11 @@ namespace Infrastructure.MultiTenancy
 
         private void ThrowIfDbSetEntityNotTenantIdentifiable(ModelBuilder modelBuilder)
         {
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(t => t.ClrType.GetCustomAttribute<AggregateRootAttribute>() is not null))
             {
-                if(entityType is not ITenantIdentifiable)
+                if(typeof(ITenantIdentifiable).IsAssignableFrom(entityType.ClrType) is false)
                 {
-                    throw new Exception();
+                    throw new EntityNotTenantIdentifiableException(entityType.ClrType.Name);
                 }
             }
         }

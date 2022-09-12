@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.StripePayments.Configuration
+namespace Infrastructure.StripeIntegration
 {
-    public class StripeOptions
+    public class StripeIntegrationException : Exception
     {
-        public string EndpointSecret { get; set; }
+
     }
 }

@@ -14,7 +14,7 @@ using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
 using Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
-using Infrastructure.StripePayments;
+using Infrastructure.StripeIntegration;
 using WebServer.SignalR;
 
 namespace WebServer

@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Identity;
-using Infrastructure.StripePayments.Models;
+using Infrastructure.StripeIntegration.Configuration;
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.StripePayments.Services.Interfaces
+namespace Infrastructure.StripeIntegration.Services.Interfaces
 {
     public interface IStripeSubscriptionService
     {
-        StripeSubscription GetSubscriptionFromPlanType(SubscriptionPlanType subscriptionPlanType);
+        StripeSubscriptionType GetSubscriptionType(SubscriptionPlanType subscriptionPlanType);
     }
 }

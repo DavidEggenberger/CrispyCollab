@@ -1,12 +1,12 @@
 ﻿using Infrastructure.EmailSender;
-using Infrastructure.StripePayments.Configuration;
-using Infrastructure.StripePayments.Services;
-using Infrastructure.StripePayments.Services.Interfaces;
+using Infrastructure.StripeIntegration.Configuration;
+using Infrastructure.StripeIntegration.Services;
+using Infrastructure.StripeIntegration.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stripe;
 
-namespace Infrastructure.StripePayments
+namespace Infrastructure.StripeIntegration
 {
     public static class StripeDIRegistrator
     {
@@ -14,7 +14,7 @@ namespace Infrastructure.StripePayments
         {
             StripeConfiguration.ApiKey = configuration["Stripe:StripeKey"];
             services.Configure<StripeOptions>(configuration);
-            services.AddScoped<IStripeSubscriptionService, StripeSubscriptionService>();
+            services.AddScoped<IStripeSubscriptionService, StripeSubscriptionTypeService>();
 
             return services;
         }

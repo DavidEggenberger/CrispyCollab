@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs.Identity;
 using WebShared.DTOs.Aggregates.Tenant;
 
-namespace WebServer.Controllers.Infrastructure.Identity
+namespace WebServer.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -27,19 +27,7 @@ namespace WebServer.Controllers.Infrastructure.Identity
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult<BFFUserInfoDTO> GetCurrentUser()
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return BFFUserInfoDTO.Anonymous;
-            }
-            return new BFFUserInfoDTO()
-            {
-                Claims = User.Claims.Select(claim => new ClaimValueDTO { Type = claim.Type, Value = claim.Value }).ToList()
-            };
-        }
+
 
         [HttpGet("selectedTeam")]
         public async Task<TenantDTO> GetSelectedTeamForUser()
