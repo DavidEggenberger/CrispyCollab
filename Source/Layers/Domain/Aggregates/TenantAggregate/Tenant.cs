@@ -9,7 +9,8 @@ namespace Domain.Aggregates.TenantAggregate
     {
         public override Guid TenantId { get => base.TenantId; }
         public string Name { get; set; }
-        public SubscriptionPlanType SUbscriptionPlan { get; set; }
-        public List<TenantMembership> Memberships { get; set; }
+        public SubscriptionPlanType SubscriptionPlan { get; set; }
+        public IReadOnlyCollection<TenantMembership> Memberships => memberships.AsReadOnly();
+        private List<TenantMembership> memberships = new List<TenantMembership>();
     }
 }

@@ -1,6 +1,4 @@
-﻿using Infrastructure.EFCore.Migrations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.EFCore
@@ -9,15 +7,7 @@ namespace Infrastructure.EFCore
     {
         public static IServiceCollection RegisterEFCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnection"), sqlServerOptions =>
-                {
-                    sqlServerOptions.EnableRetryOnFailure(5);
-                    sqlServerOptions.MigrationsHistoryTable("EFCore_MigrationHistory");
-                    sqlServerOptions.MigrationsAssembly("Infrastructure/EFCore/Migrations");
-                });
-            });
+            services.AddDbContext<ApplicationDbContext>();
 
             return services;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ChannelAggregate
 {
-    public class Vote : Entity
+    public class Reaction : Entity
     {
         public bool Yes { get; set; }
     }

@@ -30,17 +30,13 @@ namespace Domain.Aggregates.ChannelAggregate
             messages.Remove(messages.Single(m => m.Id == message.Id));
             AddDomainEvent(new ChannelMessagesUpdatedEvent());
         }
-        public void AddMessageVote(Message message, Vote vote)
+        public void AddMessageVote(Message message, Reaction vote)
         {
             messages.Single(m => m.Id == message.Id).AddVote(vote);
         }
-        public void RemoveMessageVote(Message message, Vote vote)
+        public void RemoveMessageVote(Message message, Reaction vote)
         {
             messages.Single(m => m.Id == message.Id).RemoveVote(vote);
-        }
-        public void SetTopicTrigger(TopicTrigger topicTrigger)
-        {
-            AddDomainEvent(new TopicTriggerUpdatedEvent());
         }
     }
 }

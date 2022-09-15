@@ -4,13 +4,14 @@ using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.EFCore
 {
     public class ApplicationDbContext : MultiTenantDbContext<ApplicationDbContext>
     {
         private readonly IDomainEventDispatcher domainEventDispatcher;
-        public ApplicationDbContext(IDomainEventDispatcher domainEventDispatcher, DbContextOptions<ApplicationDbContext> dbContextOptions, IServiceProvider serviceProvider) : base(dbContextOptions, serviceProvider)
+        public ApplicationDbContext(IDomainEventDispatcher domainEventDispatcher, DbContextOptions<ApplicationDbContext> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions, serviceProvider, configuration)
         {
             this.domainEventDispatcher = domainEventDispatcher;
         }

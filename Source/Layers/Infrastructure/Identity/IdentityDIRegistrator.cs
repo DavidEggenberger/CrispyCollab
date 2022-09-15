@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
@@ -25,13 +24,7 @@ namespace Infrastructure.Identity
                 options.ValidationInterval = TimeSpan.FromSeconds(0);
             });
 
-            services.AddDbContext<IdentificationDbContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("IdentityDbLocalConnectionString"), sqlServerOptions =>
-                {
-                    sqlServerOptions.EnableRetryOnFailure(5);
-                });
-            });
+            services.AddDbContext<IdentityDbContext>();
 
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
@@ -111,7 +104,7 @@ namespace Infrastructure.Identity
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
                 .AddUserManager<ApplicationUserManager>()
-                .AddEntityFrameworkStores<IdentificationDbContext>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddSignInManager();
 
             return services;

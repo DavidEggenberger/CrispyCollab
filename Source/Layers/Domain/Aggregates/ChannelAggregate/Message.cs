@@ -20,9 +20,9 @@ namespace Domain.Aggregates.ChannelAggregate
         public string DerivedTopicId { get; set; }
         public bool Votable { get; set; }
 
-        private List<Vote> votes = new List<Vote>();
-        public List<Vote> MakeMessageTopicVotes => votes;
-        internal void AddVote(Vote vote)
+        private List<Reaction> votes = new List<Reaction>();
+        public List<Reaction> MakeMessageTopicVotes => votes;
+        internal void AddVote(Reaction vote)
         {
             if(votes.Any(v => v.CreatedByUserId == vote.CreatedByUserId) is false)
             {
@@ -30,7 +30,7 @@ namespace Domain.Aggregates.ChannelAggregate
                 AddDomainEvent(new MessageVotesUpdatedEvent());
             }
         }
-        internal void RemoveVote(Vote vote)
+        internal void RemoveVote(Reaction vote)
         {
             votes.Remove(votes.FirstOrDefault(v => v.CreatedByUserId == vote.CreatedByUserId));
             AddDomainEvent(new MessageVotesUpdatedEvent());

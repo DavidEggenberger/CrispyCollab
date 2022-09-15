@@ -2,11 +2,10 @@
 using Domain.SharedKernel.Attributes;
 using Infrastructure.EFCore;
 using Infrastructure.EFCore.Configuration;
-using Infrastructure.Identity;
 using Infrastructure.Interfaces;
 using Infrastructure.MultiTenancy.Exceptions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,24 +16,33 @@ namespace Infrastructure.MultiTenancy
         private readonly ITenantResolver tenantResolver;
         private readonly IUserResolver userResolver;
         private readonly Guid tenantId;
-
-        public MultiTenantDbContext(DbContextOptions<T> dbContextOptions, IServiceProvider serviceProvider) : base(dbContextOptions)
+        private readonly IConfiguration configuration;
+        public MultiTenantDbContext(DbContextOptions<T> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions)
         {
             tenantResolver = serviceProvider.GetRequiredService<ITenantResolver>();
             userResolver = serviceProvider.GetRequiredService<IUserResolver>();
             tenantId = tenantResolver.CanResolveTenant() is true ? tenantResolver.ResolveTenantId() : Guid.NewGuid();
+            this.configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected sealed override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            if(optionsBuilder.IsConfigured is false)
+            {
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnection"), options =>
+                {
+                    options.MigrationsAssembly(typeof(IAssemblyMarker).GetTypeInfo().Assembly.GetName().Name);
+                    options.EnableRetryOnFailure(5);
+                    options.MigrationsHistoryTable("EFCore_MigrationHistory");
+                });
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly,
-                x => x.Namespace == "Infrastructure.EFCore.Configuration.ChannelAggregate");
+                x => x.Namespace.Contains(typeof(T).Namespace));
             modelBuilder.ApplyBaseEntityConfiguration(tenantId);
         }
 

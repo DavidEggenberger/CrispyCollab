@@ -9,8 +9,8 @@ namespace WebServer.SignalR
     public class NotificationHub : Hub, ISignalRHub
     {
         private ApplicationUserManager applicationUserManager;
-        private IdentificationDbContext identificationDbContext;
-        public NotificationHub(ApplicationUserManager applicationUserManager, IdentificationDbContext identificationDbContext)
+        private IdentityDbContext identificationDbContext;
+        public NotificationHub(ApplicationUserManager applicationUserManager, IdentityDbContext identificationDbContext)
         {
             this.applicationUserManager = applicationUserManager;
             this.identificationDbContext = identificationDbContext;

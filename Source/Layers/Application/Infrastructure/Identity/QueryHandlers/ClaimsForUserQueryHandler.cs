@@ -33,7 +33,7 @@ namespace Application.Infrastructure.Identity.QueryHandlers
 
             claims.AddRange(new List<Claim>
             {
-                new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.SUbscriptionPlan.ToString()),
+                new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.SubscriptionPlan.ToString()),
                 new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
                 new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id.ToString()),
                 new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
