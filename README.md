@@ -14,7 +14,7 @@ This repository is a **reference application** for building monolithic SaaS solu
 
 ## Architecture
 
-CrsipyCollab is a web application. The backend, ASP.NET Core, is consumed by the Blazor WebAssembly client. DTO's, constants and shared authorization logic resides in the WebShared class library. To simplifiy deployment/hosting the ASP.NET Core backend references the WebAssembly client. The whole application (excluding SQL Server) subsequently runs in one process. CrsipyCollab follows the paradigms of clean architecture. The application layer loads the specified data by the controllers (Queries), facilitates applying the desired changes (Commands) and reacts to subsequently invoked events (EventHandlers). To do so services defined in the infrastucture layer are used.              
+CrsipyCollab is a web application. The backend, ASP.NET Core, is consumed by the Blazor WebAssembly client. DTO's, constants and shared authorization logic resides in the WebShared class library. To simplifiy deployment/hosting the ASP.NET Core backend references the WebAssembly client. The whole application (excluding an SQL Server and Redis instance) subsequently runs in one process. CrsipyCollab follows the paradigms of clean architecture. The application layer loads the specified data by the controllers (Queries), facilitates applying the desired changes (Commands) and reacts to subsequently invoked events (EventHandlers). To do so services defined in the infrastucture layer are used.              
 
 <img src="https://raw.githubusercontent.com/DavidEggenberger/CrispyCollab/main/Img/ProjectDependencies.png" height=350/>
 
@@ -55,19 +55,24 @@ Multitenancy denotes the application simultaniously serving multiple tenants. A 
 CrispyCollab uses <a href="https://stripe.com/docs/payments/checkout">Stripe Checkout</a>. Through Stripe's dashboard the subscription plans can be created. Each one is identifiable through an Id. The<a href="https://github.com/DavidEggenberger/CrispyCollab/blob/main/Source/Infrastructure/Identity/IdentityDbSeeder.cs"> IdentityDbSeeder</a> then stores the according subscriptions in the database. 
 
 ## Running CrispyCollab
-### Docker
-When running through Docker the appsettings are read from the appsettings.docker.json file. You can run CrispyCollab by running these commands from the root folder (where CrispyCollab.sln file is located):
+### Infrastructure
+The most convient way to run a Redis and SQLServer instance is through Docker. To do so run this command from the root folder 
+(where CrispyCollab.sln file is located):
 ```
-docker-compose --profile crispycollab up
-docker-compose build
-docker-compose up
+docker-compose -f docker-compose.infrastructure.yml up
 ```
 
-### Local
-When running CrispyCollab locally SQL Server must be installed. The connection string must be added into appsettings.json. From the package manager console you can run the following commands:
+The SQL Server must be setup before CrispyCollab can be started. Open the Package Manager Console inside Visual Studio and execute the following commands:
+
 ```
-add-migration initialApplication -context ApplicationDbContext
-add-migration initialIdentity -context IdentityDbContext
 update-database -context ApplicationDbContext
 update-database -context IdentityDbContext
+```
+These commands will create two seperate databases on the same server (the configuration strings are read from Web/WebServer/appsettings). The identity database storeas all the users informations and the application database all the other data.    
+
+### Web
+The WebServer (it serves also the Blazor WebAssembly client) can either be started through Visual Studio (e.g. for debugging) or by running this command from the root folder 
+(where CrispyCollab.sln file is located):
+```
+docker-compose -f docker-compose.web.yml up
 ```
