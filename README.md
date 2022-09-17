@@ -24,8 +24,8 @@ CrsipyCollab is a web application. The backend, ASP.NET Core, is consumed by the
 **WebCommon**: DTOs, Constants, shared authorization logic \
 **WebServer**: API, SignalR Hubs, Razor Pages (Identity, Landing Pages) \
 **Application**: Application Logic (Queries, Commands, Events) \
-**Infrastructure**: Infrastructure Services (e.g. Database access) \
-**Domain**: Entities (Rich domain model, DDD)
+**Infrastructure**: Infrastructure Services (e.g. Database access, Caching, Stripe Integration) \
+**Domain**: Entities (rich domain model, DDD)
 
 ### Architectural Concepts
 #### Clean Architecture
@@ -55,15 +55,16 @@ Multitenancy denotes the application simultaniously serving multiple tenants. A 
 CrispyCollab uses <a href="https://stripe.com/docs/payments/checkout">Stripe Checkout</a>. Through Stripe's dashboard the subscription plans can be created. Each one is identifiable through an Id. The<a href="https://github.com/DavidEggenberger/CrispyCollab/blob/main/Source/Infrastructure/Identity/IdentityDbSeeder.cs"> IdentityDbSeeder</a> then stores the according subscriptions in the database. 
 
 ## Running CrispyCollab
+CrispyCollab's WebServer (it also serves the Blazor WebAssembly client) relies on a Redis instance to store cached values and on a SQL Server to store the application's data. Running CrispyCollab therefore requires these two Infrastructure components to be running as well.  
+
 ### Infrastructure
-The most convient way to run a Redis and SQLServer instance is through Docker. To do so run this command from the root folder 
+The most convient way to run a Redis and SQL Server instance is through Docker. To do so run this command from the root folder 
 (where CrispyCollab.sln file is located):
 ```
 docker-compose -f docker-compose.infrastructure.yml up
 ```
 
 The SQL Server must be setup before CrispyCollab can be started. Open the Package Manager Console inside Visual Studio and execute the following commands:
-
 ```
 update-database -context ApplicationDbContext
 update-database -context IdentityDbContext
@@ -71,7 +72,21 @@ update-database -context IdentityDbContext
 These commands will create two seperate databases on the same server (the configuration strings are read from Web/WebServer/appsettings). The identity database storeas all the users informations and the application database all the other data.    
 
 ### Web
-The WebServer (it serves also the Blazor WebAssembly client) can either be started through Visual Studio (e.g. for debugging) or by running this command from the root folder 
+Before running the WebServer (it serves also the Blazor WebAssembly client) configuration values must be set. They are then accessible through the IConfiguration interface for which ASP.NET Core automatically registers an implementation in the inversion-of-control (DI) container (assuming the configuration resides in appsettings.json or secrets.json). Especially the Infrastructure layer relies on the configuration values (e.g. database connection strings, Stripe API Key). It is highly recommended to keep the following secrets out of source control. For local development right click on the WebServer project and then click on manage user secrets. The opened secrets.json file should then updated to hold the following configuration (the values can be retrieved by following the respective links):
+
+```json
+{
+  "StripeKey": "to register a stripe account and retrieve the API Key visit: https://dashboard.stripe.com/login",
+  "SocialLogins": {
+    "Google": {
+      "ClientId": "https://chsakell.com/2019/07/28/asp-net-core-identity-series-external-provider-authentication-registration-strategy",
+      "ClientSecret": ""
+    }
+  }
+}
+```
+
+With the configuration set, the WebServer can either be started through Visual Studio (e.g. for debugging) or by running this command from the root folder 
 (where CrispyCollab.sln file is located):
 ```
 docker-compose -f docker-compose.web.yml up
