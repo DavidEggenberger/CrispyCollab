@@ -10,7 +10,7 @@ namespace Infrastructure.CQRS.DomainEvent
         {
             this.serviceProvider = serviceProvider;
         }
-        public async Task DispatchAsync<TDomainEvent>(TDomainEvent command, CancellationToken cancellation = default) where TDomainEvent : IDomainEvent
+        public async Task RaiseAsync<TDomainEvent>(TDomainEvent command, CancellationToken cancellation = default) where TDomainEvent : IDomainEvent
         {
             var eventHandlers = serviceProvider.GetServices<IDomainEventHandler<TDomainEvent>>();
             foreach (var eventHandler in eventHandlers)

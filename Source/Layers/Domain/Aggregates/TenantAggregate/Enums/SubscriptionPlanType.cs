@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Identity
+﻿namespace Domain.Aggregates.TenantAggregate.Enums
 {
     public enum SubscriptionPlanType
     {

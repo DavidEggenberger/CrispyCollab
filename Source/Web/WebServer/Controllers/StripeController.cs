@@ -1,4 +1,5 @@
-﻿using Infrastructure.Identity;
+﻿using Domain.Aggregates.TenantAggregate.Enums;
+using Infrastructure.Identity;
 using Infrastructure.StripeIntegration.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebServer.Modules.HostingInformation;

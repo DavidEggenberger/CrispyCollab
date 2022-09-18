@@ -61,7 +61,7 @@ namespace WebServer.Webhooks
             }
             catch (StripeException e)
             {
-                throw new StripeIntegrationException();
+                throw new StripeIntegrationException(e.Message);
             }
         }
     }

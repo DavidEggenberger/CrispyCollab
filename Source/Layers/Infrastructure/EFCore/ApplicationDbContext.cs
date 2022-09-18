@@ -40,7 +40,7 @@ namespace Infrastructure.EFCore
                 entity.ClearDomainEvents();
                 foreach (var domainEvent in events)
                 {
-                    await domainEventDispatcher.DispatchAsync(domainEvent, cancellationToken).ConfigureAwait(false);
+                    await domainEventDispatcher.RaiseAsync(domainEvent, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

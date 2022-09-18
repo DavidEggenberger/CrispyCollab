@@ -1,4 +1,4 @@
-﻿using Infrastructure.Identity;
+﻿using Domain.Aggregates.TenantAggregate.Enums;
 using Infrastructure.StripeIntegration.Configuration;
 using Infrastructure.StripeIntegration.Services.Interfaces;
 

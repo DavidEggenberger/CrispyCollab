@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Infrastructure.CQRS.Command;
+using Infrastructure.StripeIntegration.Commands;
+using System.Threading;
 
 namespace Application.Infrastructure.StripePayments.CommandHandlers
 {
-    internal class CreateSubscriptionCommandHandler
+    public class CreateSubscriptionCommandHandler : ICommandHandler<CreateSubscriptionCommand>
     {
+        public Task HandleAsync(CreateSubscriptionCommand command, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

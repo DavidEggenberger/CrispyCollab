@@ -1,5 +1,5 @@
 ﻿using Domain.Aggregates.TenantAggregate;
-using Infrastructure.Identity;
+using Domain.Aggregates.TenantAggregate.Enums;
 using Stripe;
 using System;
 using System.Collections.Generic;

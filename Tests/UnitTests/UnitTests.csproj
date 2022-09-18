@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Aggregates\TopicAggregate\**" />
+    <Compile Remove="Application\**" />
+    <EmbeddedResource Remove="Aggregates\TopicAggregate\**" />
+    <EmbeddedResource Remove="Application\**" />
+    <None Remove="Aggregates\TopicAggregate\**" />
+    <None Remove="Application\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.5.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -23,13 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Common\Common.csproj" />
     <ProjectReference Include="..\..\Source\Layers\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\ChannelAggregate\" />
-    <Folder Include="Application\TopicAggregate\" />
-    <Folder Include="Domain\TopicAggregate\" />
-    <Folder Include="Infrastructure\Identity\" />
   </ItemGroup>
 
 </Project>
