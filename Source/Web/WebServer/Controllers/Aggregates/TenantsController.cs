@@ -118,7 +118,6 @@ using MapsterMapper;
 
 using AutoMapper;
 using WebShared.Identity.Subscription;
-using Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

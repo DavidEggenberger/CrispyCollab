@@ -2,12 +2,7 @@
 using Infrastructure.CQRS.Query;
 using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.ChannelAggregate.Queries
 {
@@ -15,16 +10,12 @@ namespace Application.ChannelAggregate.Queries
     {
         public Guid Id { get; set; }
     }
-    public class GetChannelQueryHandler : IQueryHandler<ChannelByIdQuery, Channel>
+    public class GetChannelQueryHandler : BaseQueryHandler<Channel>, IQueryHandler<ChannelByIdQuery, Channel>
     {
-        private readonly ApplicationDbContext applicationDbContext;
-        public GetChannelQueryHandler(ApplicationDbContext applicationDbContext)
-        {
-            this.applicationDbContext = applicationDbContext;
-        }
+        public GetChannelQueryHandler(ApplicationDbContext applicationDbContext) : base(applicationDbContext) { }
         public Task<Channel> HandleAsync(ChannelByIdQuery query, CancellationToken cancellation)
         {
-            return applicationDbContext.Channels.SingleAsync(c => c.Id == query.Id);
+            return dbSet.SingleAsync(c => c.Id == query.Id);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Infrastructure.MultiTenancy
         {
             tenantResolver = serviceProvider.GetRequiredService<ITenantResolver>();
             userResolver = serviceProvider.GetRequiredService<IUserResolver>();
-            tenantId = tenantResolver.CanResolveTenant() is true ? tenantResolver.ResolveTenantId() : Guid.NewGuid();
+            tenantId = tenantResolver.CanResolveTenant() is true ? tenantResolver.ResolveTenantId() : Guid.NewGuid();// Ensure Guid for EF Core Migrations
             this.configuration = configuration;
         }
 

@@ -34,8 +34,8 @@ namespace WebServer.Controllers.Identity
                 ApplicationUser _user = new ApplicationUser
                 {
                     UserName = info.Principal.Identity.Name,
-                    Email = info.Principal.GetNullableClaimValue(ClaimConstants.EmailClaimType),
-                    PictureUri = info.Principal.GetNullableClaimValue(ClaimConstants.PictureClaimType)
+                    Email = info.Principal.GetClaimValue(ClaimConstants.EmailClaimType),
+                    PictureUri = info.Principal.GetClaimValue(ClaimConstants.PictureClaimType)
                 };
 
                 var createUserCommand = new CreateUserCommand { User = _user };

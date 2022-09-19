@@ -9,6 +9,8 @@ using System.Security.Claims;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Common.Constants;
+using Domain.Shared.DomainServices;
+using Infrastructure.Identity.Services;
 
 namespace Infrastructure.Identity
 {
@@ -106,6 +108,8 @@ namespace Infrastructure.Identity
                 .AddUserManager<ApplicationUserManager>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddSignInManager();
+
+            services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
 
             return services;
         }

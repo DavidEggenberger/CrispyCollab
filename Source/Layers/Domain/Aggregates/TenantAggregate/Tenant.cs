@@ -1,5 +1,6 @@
 ﻿using Domain.Aggregates.TenantAggregate.Enums;
 using Domain.Aggregates.TenantAggregate.Exceptions;
+using Domain.Shared.DomainServices;
 using Domain.SharedKernel;
 using Domain.SharedKernel.Attributes;
 
@@ -17,6 +18,7 @@ namespace Domain.Aggregates.TenantAggregate
         {
             
         }
+        public IUserAuthorizationService TenantAuthorizationService { get; set; }
 
         public override Guid TenantId { get => base.TenantId; }
         public string Name { get; set; }
@@ -32,6 +34,8 @@ namespace Domain.Aggregates.TenantAggregate
 
         public void AddUser(Guid userId, Role role)
         {
+            TenantAuthorizationService.ThrowIfUserIsNotInRole(Role.Admin);
+
             TenantMembership tenantMembership;
             if((tenantMembership = memberships.SingleOrDefault(m => m.UserId == userId)) is not null)
             {
@@ -44,7 +48,9 @@ namespace Domain.Aggregates.TenantAggregate
         }
         public void ChangeRoleOfMember(Guid userId, Role newRole)
         {
-            if(CheckIfMember(userId) is false)
+            TenantAuthorizationService.ThrowIfUserIsNotInRole(Role.Admin);
+
+            if (CheckIfMember(userId) is false)
             {
                 throw new MemberNotFoundException();
             }
@@ -52,6 +58,8 @@ namespace Domain.Aggregates.TenantAggregate
         }
         public void RemoveUser(Guid userId)
         {
+            TenantAuthorizationService.ThrowIfUserIsNotInRole(Role.Admin);
+
             if (CheckIfMember(userId) is false)
             {
                 throw new MemberNotFoundException();
@@ -61,6 +69,8 @@ namespace Domain.Aggregates.TenantAggregate
         }
         public void InviteUserToRole(Guid userId, Role role)
         {
+            TenantAuthorizationService.ThrowIfUserIsNotInRole(Role.Admin);
+
             if (CheckIfMember(userId))
             {
                 throw new UserIsAlreadyMemberException();

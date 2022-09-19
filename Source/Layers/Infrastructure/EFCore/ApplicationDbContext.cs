@@ -1,5 +1,6 @@
 ﻿using Domain.Aggregates.ChannelAggregate;
 using Domain.Aggregates.TenantAggregate;
+using Domain.Shared.DomainServices;
 using Domain.SharedKernel;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.MultiTenancy;
@@ -19,6 +20,7 @@ namespace Infrastructure.EFCore
         public DbSet<Channel> Channels { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
 
+        public IUserAuthorizationService TenantAuthorizationService { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

@@ -1,4 +1,5 @@
 ﻿using Common.Constants;
+using Common.Exceptions.Extensions.ClaimsPrincipal;
 using System.ComponentModel;
 using System.Security.Claims;
 
@@ -28,9 +29,21 @@ namespace Common.Exstensions
             return (T)converter.ConvertFrom(claimsPrincipal?.FindFirst(ClaimConstants.TenantPlanClaimType).Value);
         }
 
-        public static string GetNullableClaimValue(this ClaimsPrincipal claimsPrincipal, string claimType)
+        public static string GetRoleClaim(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.FindFirst(claimType)?.Value;
+            return claimsPrincipal.GetClaimValue(ClaimConstants.UserRoleInTenantClaimType);
+        }
+
+        public static string GetClaimValue(this ClaimsPrincipal claimsPrincipal, string claimType)
+        {
+            try
+            {
+                return claimsPrincipal.FindFirst(claimType)?.Value;
+            }
+            catch(Exception _)
+            {
+                throw new ClaimNotFoundException();
+            }
         }
     }
 }

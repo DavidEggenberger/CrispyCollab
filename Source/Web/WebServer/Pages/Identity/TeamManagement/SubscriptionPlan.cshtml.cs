@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
-using Infrastructure.Identity.Entities;
 using Infrastructure.Identity;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;

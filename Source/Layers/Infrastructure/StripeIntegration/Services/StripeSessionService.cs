@@ -1,5 +1,4 @@
-﻿using Infrastructure.Identity.Entities;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.StripeIntegration.Services.Interfaces;
 using Stripe.Checkout;
 using System;
