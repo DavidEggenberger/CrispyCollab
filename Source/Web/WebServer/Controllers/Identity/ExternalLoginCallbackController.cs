@@ -41,7 +41,7 @@ namespace WebServer.Controllers.Identity
                 var createUserCommand = new CreateUserCommand { User = _user };
                 await commandDispatcher.DispatchAsync(createUserCommand);
             }     
-
+            
             var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
             return signInResult switch
             {

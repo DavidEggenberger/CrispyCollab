@@ -1,29 +1,25 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.StripeIntegration.Services.Interfaces;
 using Stripe.Checkout;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infrastructure.StripeIntegration.Configuration;
 
 namespace Infrastructure.StripeIntegration.Services
 {
     public class StripeSessionService : IStripeSessionService
     {
-        public Stripe.BillingPortal.Session CreateBillingPortalSession(string redirectBaseUrl, string stripeCustomerId)
+        public async Task<Stripe.BillingPortal.Session> CreateBillingPortalSession(string redirectBaseUrl, string stripeCustomerId)
         {
             var options = new Stripe.BillingPortal.SessionCreateOptions
             {
                 Customer = stripeCustomerId,
-                ReturnUrl = redirectBaseUrl,
+                ReturnUrl = redirectBaseUrl
             };
             var service = new Stripe.BillingPortal.SessionService();
-            return service.Create(options);
+            Stripe.BillingPortal.Session session = await service.CreateAsync(options);
+            return session;
         }
 
-        public Stripe.Checkout.Session CreateCheckoutSession(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription)
+        public async Task<Stripe.Checkout.Session> CreateCheckoutSession(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription)
         {
             var options = new SessionCreateOptions
             {
@@ -55,7 +51,13 @@ namespace Infrastructure.StripeIntegration.Services
                 }
             };
             var service = new SessionService();
-            Session session = service.Create(options);
+            Session session = await service.CreateAsync(options);
+            return session;
+        }
+
+        public async Task<Session> GetStripeCheckoutSession(string id)
+        {
+            var session = await new SessionService().GetAsync(id);
             return session;
         }
     }

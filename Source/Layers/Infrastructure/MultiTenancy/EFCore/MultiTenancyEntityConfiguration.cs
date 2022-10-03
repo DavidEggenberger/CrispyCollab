@@ -1,4 +1,4 @@
-﻿using Domain.SharedKernel;
+﻿using Common.Domain;
 using Domain.SharedKernel.Attributes;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

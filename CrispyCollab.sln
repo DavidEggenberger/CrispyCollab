@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Layers\Domain\Domain.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Source\Layers\Domain\Common.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{39CA6719-7F11-4A72-946C-8970E56C4658}"
 EndProject
@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\La
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4071F52-4845-40DB-BF73-9625EB786C64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Layers\Application\Application.csproj", "{9BA3E074-87AE-40D9-B689-7F1B6AC6D7E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules", "Source\Layers\Application\Modules.csproj", "{9BA3E074-87AE-40D9-B689-7F1B6AC6D7E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShared", "Source\Web\DTOs\WebShared.csproj", "{601C36BA-7AAF-456C-9FC5-91A166D9BF5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTOs", "Source\Web\DTOs\DTOs.csproj", "{601C36BA-7AAF-456C-9FC5-91A166D9BF5A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "Source\Web\WebServer\WebServer.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
 EndProject
@@ -26,8 +26,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{8516652E-DAFF-4354-AC22-006CC731EB1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{2E006C34-0AC7-44A7-806B-E4107966C89A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Source\Common\Common.csproj", "{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{18E02F7B-A23D-4EAA-A761-89C2C7C4B51D}"
 EndProject
@@ -73,10 +71,6 @@ Global
 		{2E006C34-0AC7-44A7-806B-E4107966C89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E006C34-0AC7-44A7-806B-E4107966C89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E006C34-0AC7-44A7-806B-E4107966C89A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{281EA770-BE2F-4B3C-AE4C-355202B3A3DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,7 +86,6 @@ Global
 		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
 		{8516652E-DAFF-4354-AC22-006CC731EB1C} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
 		{2E006C34-0AC7-44A7-806B-E4107966C89A} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
-		{281EA770-BE2F-4B3C-AE4C-355202B3A3DC} = {39CA6719-7F11-4A72-946C-8970E56C4658}
 		{18E02F7B-A23D-4EAA-A761-89C2C7C4B51D} = {39CA6719-7F11-4A72-946C-8970E56C4658}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

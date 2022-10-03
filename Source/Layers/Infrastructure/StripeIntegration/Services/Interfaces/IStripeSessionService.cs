@@ -5,7 +5,8 @@ namespace Infrastructure.StripeIntegration.Services.Interfaces
 {
     public interface IStripeSessionService
     {
-        Stripe.BillingPortal.Session CreateBillingPortalSession(string redirectBaseUrl, string stripeCustomerId);
-        Stripe.Checkout.Session CreateCheckoutSession(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription);
+        Task<Stripe.Checkout.Session> GetStripeCheckoutSession(string id);
+        Task<Stripe.BillingPortal.Session> CreateBillingPortalSession(string redirectBaseUrl, string stripeCustomerId);
+        Task<Stripe.Checkout.Session> CreateCheckoutSession(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription);
     }
 }

@@ -1,6 +1,6 @@
-﻿using Common.Exstensions;
-using Domain.Aggregates.TenantAggregate.Enums;
-using Domain.Shared.DomainServices;
+﻿using Common.Authorization.Services;
+using Common.DomainKernel.Tenant;
+using Common.Exstensions;
 using Infrastructure.Identity.Exceptions;
 using Microsoft.AspNetCore.Http;
 
@@ -13,12 +13,12 @@ namespace Infrastructure.Identity.Services
         {
             this.httpContextAccessor = httpContextAccessor;
         }
-        public Role GetRoleOfUserInTenant()
+        public TenantRole GetRoleOfUserInTenant()
         {
-            return (Role)Enum.Parse(typeof(Role), httpContextAccessor.HttpContext.User.GetRoleClaim());
+            return (TenantRole)Enum.Parse(typeof(TenantRole), httpContextAccessor.HttpContext.User.GetRoleClaim());
         }
 
-        public void ThrowIfUserIsNotInRole(Role role)
+        public void ThrowIfUserIsNotInRole(TenantRole role)
         {
             if (httpContextAccessor.HttpContext.User.GetRoleClaim() != role.ToString())
             {

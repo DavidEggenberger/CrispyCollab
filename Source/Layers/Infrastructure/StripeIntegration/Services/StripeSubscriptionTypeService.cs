@@ -1,4 +1,4 @@
-﻿using Domain.Aggregates.TenantAggregate.Enums;
+﻿using Common.DomainKernel.Tenant;
 using Infrastructure.StripeIntegration.Configuration;
 using Infrastructure.StripeIntegration.Services.Interfaces;
 
@@ -13,7 +13,7 @@ namespace Infrastructure.StripeIntegration.Services
             {
                 new StripeSubscriptionType
                 {
-                    Type = SubscriptionPlanType.Premium,
+                    Type = SubscriptionPlanType.Professional,
                     TrialPeriodDays = 7,
                     StripePriceId = "price_1KYcx5EhLcfJYVVFmQGwWRdb"
                 },

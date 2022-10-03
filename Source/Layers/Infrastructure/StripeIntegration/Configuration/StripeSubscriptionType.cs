@@ -1,11 +1,4 @@
-﻿using Domain.Aggregates.TenantAggregate;
-using Domain.Aggregates.TenantAggregate.Enums;
-using Stripe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.DomainKernel.Tenant;
 
 namespace Infrastructure.StripeIntegration.Configuration
 {

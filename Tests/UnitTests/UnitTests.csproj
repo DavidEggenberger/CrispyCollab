@@ -30,8 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Common\Common.csproj" />
-    <ProjectReference Include="..\..\Source\Layers\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Source\Layers\Domain\Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,8 +9,8 @@ using System.Security.Claims;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Common.Constants;
-using Domain.Shared.DomainServices;
 using Infrastructure.Identity.Services;
+using Common.Authorization.Services;
 
 namespace Infrastructure.Identity
 {

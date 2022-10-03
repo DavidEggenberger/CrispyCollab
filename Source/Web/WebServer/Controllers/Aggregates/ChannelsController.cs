@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
+using Modules.ChannelModule.Domain;
 
 namespace WebServer.Controllers.Aggregates
 {

@@ -8,11 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj" />
-    <ProjectReference Include="..\..\Layers\Application\Application.csproj" />
-    <ProjectReference Include="..\..\Layers\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Layers\Application\Modules.csproj" />
+    <ProjectReference Include="..\..\Layers\Domain\Common.csproj" />
     <ProjectReference Include="..\..\Layers\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\DTOs\WebShared.csproj" />
+    <ProjectReference Include="..\DTOs\DTOs.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
 
@@ -48,11 +47,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\HealthChecks\" />
-    <Folder Include="Modules\FeatureFlags\" />
-    <Folder Include="Modules\CORS\" />
-    <Folder Include="Modules\ServerLifetimeEvents\" />
-    <Folder Include="Modules\RateLimiting\" />
+    <Folder Include="BuildingBlocks\HealthChecks\" />
+    <Folder Include="BuildingBlocks\FeatureFlags\" />
+    <Folder Include="BuildingBlocks\CORS\" />
+    <Folder Include="BuildingBlocks\ServerLifetimeEvents\" />
+    <Folder Include="BuildingBlocks\RateLimiting\" />
   </ItemGroup>
 
 </Project>

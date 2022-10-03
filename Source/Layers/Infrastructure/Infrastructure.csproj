@@ -5,17 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="EFCore\Configuration\ApplicationDbContext\**" />
-    <Compile Remove="EFCore\Configuration\IdentificationDbContext\**" />
-    <EmbeddedResource Remove="EFCore\Configuration\ApplicationDbContext\**" />
-    <EmbeddedResource Remove="EFCore\Configuration\IdentificationDbContext\**" />
-    <None Remove="EFCore\Configuration\ApplicationDbContext\**" />
-    <None Remove="EFCore\Configuration\IdentificationDbContext\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="Domain\DomainServices\" />
     <Folder Include="EFCore\Conventions\" />
     <Folder Include="Identity\EFCore\Migrations\" />
+    <Folder Include="Authorization\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,8 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Domain\Common.csproj" />
   </ItemGroup>
 
 

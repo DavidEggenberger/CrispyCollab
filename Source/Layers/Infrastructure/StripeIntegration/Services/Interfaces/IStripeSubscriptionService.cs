@@ -1,11 +1,5 @@
-﻿using Domain.Aggregates.TenantAggregate.Enums;
+﻿using Common.DomainKernel.Tenant;
 using Infrastructure.StripeIntegration.Configuration;
-using Stripe.Checkout;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.StripeIntegration.Services.Interfaces
 {

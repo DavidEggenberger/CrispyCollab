@@ -7,7 +7,6 @@ namespace Infrastructure.EFCore
     {
         public static IServiceCollection RegisterEFCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>();
 
             return services;
         }

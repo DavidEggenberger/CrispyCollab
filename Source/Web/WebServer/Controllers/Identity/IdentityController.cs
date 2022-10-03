@@ -6,6 +6,7 @@ using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Modules.TenantModule.Domain;
 using Shared.DTOs.Identity;
 using WebShared.DTOs.Aggregates.Tenant;
 

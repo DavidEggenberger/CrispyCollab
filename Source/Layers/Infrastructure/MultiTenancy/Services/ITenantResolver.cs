@@ -1,7 +1,4 @@
-﻿using Domain.Aggregates.TenantAggregate;
-using System.Runtime.CompilerServices;
-
-namespace Infrastructure.Interfaces
+﻿namespace Infrastructure.Interfaces
 {
     public interface ITenantResolver
     {

@@ -1,5 +1,4 @@
-﻿using Application.TopicAggregate.Queries;
-using AutoMapper;
+﻿using AutoMapper;
 using WebShared.Features.Topic;
 using WebShared.Features.Topic.Commands;
 using WebShared.Misc.Attributes;

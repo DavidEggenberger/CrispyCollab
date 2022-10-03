@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.CQRS.Query
 {
-    public class BaseQueryHandler<T> where T : class
+    public class BaseQueryHandler<T, U> where T : DbContext where U : class
     {
-        public DbSet<T> dbSet { get; set; }
-        public BaseQueryHandler(ApplicationDbContext applicationDbContext)
+        public DbSet<U> dbSet { get; set; }
+        public BaseQueryHandler(T applicationDbContext)
         {
-            dbSet = applicationDbContext.Set<T>();
+            dbSet = applicationDbContext.Set<U>();
         }
     }
 }
