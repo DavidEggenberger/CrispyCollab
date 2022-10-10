@@ -36,8 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Layers\Domain\Common.csproj" />
-    <ProjectReference Include="..\DTOs\DTOs.csproj" />
+    <ProjectReference Include="..\..\Modules\ChannelModule\Layers\TenantModule\ChannelModule.csproj" />
+    <ProjectReference Include="..\..\Modules\LandingPagesModule\LandingPagesModule\LandingPagesModule.csproj" />
+    <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

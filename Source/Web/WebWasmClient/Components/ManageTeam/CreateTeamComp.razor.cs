@@ -1,5 +1,4 @@
 ﻿using Blazored.Modal;
-using WebShared.Identity.DTOs.TeamDTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -7,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWasmClient.Services;
+using Modules.IdentityModule.Web.DTOs;
 
 namespace WebWasmClient.Components.ManageTeam
 {

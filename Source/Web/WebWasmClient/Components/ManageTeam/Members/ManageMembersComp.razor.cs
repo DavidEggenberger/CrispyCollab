@@ -1,9 +1,5 @@
 ﻿using Blazored.Modal;
-using WebShared.Identity.DTOs.TeamDTOs;
-using WebShared.Identity.Team;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebWasmClient.Components.ManageTeam.Members.Modals;
 
 namespace WebWasmClient.Components.ManageTeam.Members

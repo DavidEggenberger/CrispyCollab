@@ -36,7 +36,6 @@ namespace WebWasmClient
             builder.Services.RegisterAuthorization();
             #endregion
             builder.Services.AddBlazoredModal();
-            builder.Services.AddValidation(typeof(WebShared.IAssemblyMarker).Assembly);
 
             await builder.Build().RunAsync();
         }

@@ -1,5 +1,4 @@
-﻿using WebShared.Features.Channel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 

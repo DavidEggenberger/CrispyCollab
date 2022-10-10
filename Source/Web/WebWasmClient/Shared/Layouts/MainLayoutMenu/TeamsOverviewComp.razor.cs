@@ -1,5 +1,4 @@
-﻿using WebShared.Identity.DTOs.TeamDTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Shared.Layouts.MainLayoutMenu

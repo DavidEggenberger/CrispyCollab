@@ -1,7 +1,4 @@
 ﻿using Blazored.Modal;
-using WebShared.Identity.DTOs.TeamDTOs;
-using WebShared.Identity.Team;
-using WebShared.Identity.Team.AdminManagement;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 

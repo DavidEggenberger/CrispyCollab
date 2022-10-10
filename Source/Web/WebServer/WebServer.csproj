@@ -8,10 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Layers\Application\Modules.csproj" />
-    <ProjectReference Include="..\..\Layers\Domain\Common.csproj" />
-    <ProjectReference Include="..\..\Layers\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\DTOs\DTOs.csproj" />
+    <ProjectReference Include="..\..\Layers\Domain\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Layers\Infrastructure\BaseInfrastructure.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
 

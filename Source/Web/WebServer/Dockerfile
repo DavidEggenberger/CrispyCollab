@@ -11,19 +11,19 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Source/Web/WebServer/WebServer.csproj", "Source/Web/WebServer/"]
-COPY ["Source/Layers/Domain/Domain.csproj", "Source/Layers/Domain/"]
-COPY ["Source/Common/Common.csproj", "Source/Common/"]
 COPY ["Source/Web/WebWasmClient/WebWasmClient.csproj", "Source/Web/WebWasmClient/"]
-COPY ["Source/Web/DTOs/WebShared.csproj", "Source/Web/DTOs/"]
-COPY ["Source/Layers/Application/Application.csproj", "Source/Layers/Application/"]
-COPY ["Source/Layers/Infrastructure/Infrastructure.csproj", "Source/Layers/Infrastructure/"]
+COPY ["Source/Modules/IdentityModule/IdentityModule/IdentityModule.csproj", "Source/Modules/IdentityModule/IdentityModule/"]
+COPY ["Source/Modules/LandingPagesModule/LandingPagesModule/LandingPagesModule.csproj", "Source/Modules/LandingPagesModule/LandingPagesModule/"]
+COPY ["Source/Modules/SubscriptionModule/SubscriptionModule/SubscriptionModule.csproj", "Source/Modules/SubscriptionModule/SubscriptionModule/"]
+COPY ["Source/Modules/TenantModule/TenantModule/TenantModule.csproj", "Source/Modules/TenantModule/TenantModule/"]
+COPY ["Source/SharedKernel/SharedKernel.csproj", "Source/SharedKernel/"]
 RUN dotnet restore "Source/Web/WebServer/WebServer.csproj"
 COPY . .
 WORKDIR "/src/Source/Web/WebServer"
 RUN dotnet build "WebServer.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WebServer.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

@@ -1,8 +1,8 @@
-﻿using WebShared.Identity.Subscription;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebShared.Identity.Subscription;
 using WebWasmClient.Services;
 
 namespace WebWasmClient.Components.ManageTeam.Subscription

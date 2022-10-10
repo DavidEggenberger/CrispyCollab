@@ -1,9 +1,9 @@
-﻿using WebShared.Features.Channel;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Modules.ChannelModule.Web.DTOs;
 
 namespace WebWasmClient.Components.Channels
 {

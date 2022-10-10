@@ -1,5 +1,4 @@
 ﻿using Blazored.Modal;
-using WebShared.Features.Channel.Commands;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 using WebWasmClient.Services;

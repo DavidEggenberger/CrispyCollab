@@ -1,5 +1,4 @@
-﻿using WebShared.Identity.DTOs.TeamDTOs;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Pages

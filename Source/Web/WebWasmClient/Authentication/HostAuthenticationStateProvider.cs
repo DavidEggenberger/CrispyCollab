@@ -1,12 +1,12 @@
 ﻿using WebShared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Shared.DTOs.Identity;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using WebWasmClient.Authentication.Antiforgery;
+using DTOs.IdentityModule;
 
 namespace WebWasmClient.Authentication
 {

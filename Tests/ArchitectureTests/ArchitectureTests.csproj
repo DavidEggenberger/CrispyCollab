@@ -21,10 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Layers\Application\Modules.csproj" />
-    <ProjectReference Include="..\..\Source\Layers\Domain\Common.csproj" />
-    <ProjectReference Include="..\..\Source\Layers\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Source\Web\DTOs\DTOs.csproj" />
+    <ProjectReference Include="..\..\Source\Layers\Domain\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Source\Layers\Infrastructure\BaseInfrastructure.csproj" />
     <ProjectReference Include="..\..\Source\Web\WebServer\WebServer.csproj" />
     <ProjectReference Include="..\..\Source\Web\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>

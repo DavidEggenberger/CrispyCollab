@@ -1,5 +1,4 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using WebShared.Identity.User;
 using WebWasmClient.Diagrams.Ports;
 
 namespace WebWasmClient.Diagrams.Nodes
