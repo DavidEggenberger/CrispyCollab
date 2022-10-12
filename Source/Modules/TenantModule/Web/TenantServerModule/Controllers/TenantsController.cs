@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using Microsoft.AspNetCore.Mvc;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace Controllers
-{
-    public class TenantsController : ControllerBase
-    {
-        [Route("api/[controller]")]
-        [ApiController]
-        //    [AuthorizeTeamAdmin]
-        public class TeamController : ControllerBase
-        {
+//namespace Controllers
+//{
+//    public class TenantsController : ControllerBase
+//    {
+//        [Route("api/[controller]")]
+//        [ApiController]
+//        //    [AuthorizeTeamAdmin]
+//        public class TeamController : ControllerBase
+        //{
         //        private readonly TeamManager teamManager;
         //        private readonly ApplicationUserManager applicationUserManager;
         //        private readonly IdentificationDbContext identificationDbContext;
@@ -105,6 +105,6 @@ namespace Controllers
         //            await teamManager.RemoveMemberAsync(team, applicationUser);
         //        }
         //    }
-        }
-    }
-}
+//        }
+//    }
+//}

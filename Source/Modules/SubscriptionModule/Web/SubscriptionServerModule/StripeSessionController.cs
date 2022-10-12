@@ -1,14 +1,14 @@
-﻿using Common.DomainKernel.Tenant;
-using Microsoft.AspNetCore.Mvc;
-using WebShared.Misc.Attributes;
+﻿//using Common.DomainKernel.Tenant;
+//using Microsoft.AspNetCore.Mvc;
+//using WebShared.Misc.Attributes;
 
-namespace WebServer.Controllers.Stripe
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    [AuthorizeTeamAdmin]
-    public class StripeSessionController : ControllerBase
-    {
+//namespace WebServer.Controllers.Stripe
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    [AuthorizeTeamAdmin]
+//    public class StripeSessionController : ControllerBase
+//    {
         //private readonly IStripeSessionService stripeSessionService;
         //private readonly IStripeSubscriptionService stripeSubscriptionService;
         //private readonly string returnUrl;
@@ -53,5 +53,5 @@ namespace WebServer.Controllers.Stripe
         //    Response.Headers.Add("Location", billingPortalSession.Url);
         //    return new StatusCodeResult(303);
         //}
-    }
-}
+//    }
+//}
