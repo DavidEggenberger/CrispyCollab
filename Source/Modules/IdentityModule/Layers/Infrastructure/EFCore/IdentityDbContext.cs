@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Modules;
-using Modules.Identity.Domain;
+using Modules.IdentityModule.Domain;
 using System.Reflection;
 
 namespace Module.Infrastructure.EFCore

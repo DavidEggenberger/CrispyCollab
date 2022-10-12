@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebShared.Identity.Team.DTOs;
 
 namespace WebWasmClient.Components.ManageTeam.Members.Modals
 {

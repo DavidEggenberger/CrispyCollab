@@ -1,5 +1,4 @@
-﻿using Application.ChannelAggregate.Commands;
-using Modules.TenantModule.Domain;
+﻿using Modules.TenantModule.Domain;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Query;
 using Infrastructure.EFCore;

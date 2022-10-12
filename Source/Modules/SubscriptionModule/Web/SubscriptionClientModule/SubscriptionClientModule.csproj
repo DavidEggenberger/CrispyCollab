@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DTOs\SubscriptionModuleDTOs.csproj" />
+  </ItemGroup>
+
 </Project>

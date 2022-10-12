@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Layers\Domain\Domain.csproj" />
+    <ProjectReference Include="..\DTOs\IdentityModuleDTOs.csproj" />
+  </ItemGroup>
+
 </Project>

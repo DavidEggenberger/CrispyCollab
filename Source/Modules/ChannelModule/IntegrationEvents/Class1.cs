@@ -1,4 +1,4 @@
-﻿namespace IdentityServerModule
+﻿namespace IntegrationEvents
 {
     public class Class1
     {

@@ -1,9 +1,7 @@
-﻿using Application.TenantAggregate.Queries;
-using Common.Constants;
+﻿using Common.Constants;
 using Modules.TenantModule.Domain;
 using Infrastructure.CQRS.Query;
 using Infrastructure.Identity.Queries;
-using Modules.TenantModule.Domain;
 using System.Security.Claims;
 using System.Threading;
 
@@ -26,19 +24,19 @@ namespace Application.Infrastructure.Identity.Queries
                 new Claim(ClaimConstants.PictureClaimType, query.User.PictureUri)
             };
 
-            var tenantByIdQuery = new GetTenantByQuery() { TenantId = query.User.SelectedTenantId };
-            Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
+            //var tenantByIdQuery = new GetTenantByQuery() { TenantId = query.User.SelectedTenantId };
+            //Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
 
-            var tenantMembershipQuery = new GetTenantMembershipQuery { TenantId = query.User.SelectedTenantId, UserId = query.User.Id };
-            TenantMembership tenantMembership = await queryDispatcher.DispatchAsync<GetTenantMembershipQuery, TenantMembership>(tenantMembershipQuery);
+            //var tenantMembershipQuery = new GetTenantMembershipQuery { TenantId = query.User.SelectedTenantId, UserId = query.User.Id };
+            //TenantMembership tenantMembership = await queryDispatcher.DispatchAsync<GetTenantMembershipQuery, TenantMembership>(tenantMembershipQuery);
 
-            claims.AddRange(new List<Claim>
-            {
-                new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.CurrentSubscriptionPlanType.ToString()),
-                new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
-                new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id.ToString()),
-                new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
-            });
+            //claims.AddRange(new List<Claim>
+            //{
+            //    new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.CurrentSubscriptionPlanType.ToString()),
+            //    new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
+            //    new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id.ToString()),
+            //    new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
+            //});
 
             return claims;
         }

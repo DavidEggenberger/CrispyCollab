@@ -1,13 +1,12 @@
-﻿using Application.TenantAggregate.Queries;
-using AutoMapper;
-using DTOs.IdentityModule;
+﻿using AutoMapper;
 using Infrastructure.CQRS.Query;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Module.Infrastructure;
-using Modules.Identity.Domain;
-using Modules.TenantModule.Domain;
+using Modules.IdentityModule.Web.DTOs;
+using ApplicationUserManager = Infrastructure.Identity.ApplicationUserManager;
 
 namespace WebServer.Controllers.Identity
 {
@@ -46,18 +45,18 @@ namespace WebServer.Controllers.Identity
         {
             ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
 
-            var tenantMembershipsOfUserQuery = new GetAllTenantMembershipsOfUser() { UserId = applicationUser.Id };
-            var tenantMemberships = await queryDispatcher.DispatchAsync<GetAllTenantMembershipsOfUser, List<TenantMembership>>(tenantMembershipsOfUserQuery);
+            //var tenantMembershipsOfUserQuery = new GetAllTenantMembershipsOfUser() { UserId = applicationUser.Id };
+            //var tenantMemberships = await queryDispatcher.DispatchAsync<GetAllTenantMembershipsOfUser, List<TenantMembership>>(tenantMembershipsOfUserQuery);
 
-            if (tenantMemberships.Select(t => t.Tenant.Id).Contains(tenantId))
-            {
-                await applicationUserManager.SetTenantAsSelected(applicationUser, tenantId);
-                await signInManager.RefreshSignInAsync(applicationUser);
-            }
-            else
-            {
-                throw new Exception();
-            }
+            //if (tenantMemberships.Select(t => t.Tenant.Id).Contains(tenantId))
+            //{
+            //    await applicationUserManager.SetTenantAsSelected(applicationUser, tenantId);
+            //    await signInManager.RefreshSignInAsync(applicationUser);
+            //}
+            //else
+            //{
+            //    throw new Exception();
+            //}
 
             return LocalRedirect(redirectUri ?? "/");
         }

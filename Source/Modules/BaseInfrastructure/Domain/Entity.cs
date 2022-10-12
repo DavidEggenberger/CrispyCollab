@@ -1,5 +1,5 @@
-﻿using Common.Kernel;
-using Common.Exceptions.Domain;
+﻿using Common.Exceptions.Domain;
+using Common.Kernel;
 
 namespace Common.Domain
 {

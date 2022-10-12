@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.Identity.Domain;
+using Modules.IdentityModule.Domain;
 
 namespace Module.Infrastructure.EFCore
 {

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Infrastructure.CQRS.Command;
-using Common.Exstensions;
-using Modules.Identity.Domain;
 using Module.Infrastructure;
+using Infrastructure.Identity.Commands;
 using Common.Constants;
-using Modules.Identity.Commands;
+using ApplicationUserManager = Infrastructure.Identity.ApplicationUserManager;
+using Common.Exstensions;
 
 namespace WebServer.Controllers.Identity
 {

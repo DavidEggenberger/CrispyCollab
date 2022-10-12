@@ -1,6 +1,7 @@
 ﻿using Blazored.Modal;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using WebShared.Identity.Team.AdminManagement;
 
 namespace WebWasmClient.Components.ManageTeam.Members.Modals
 {

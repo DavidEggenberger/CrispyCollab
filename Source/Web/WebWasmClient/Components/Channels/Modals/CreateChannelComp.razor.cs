@@ -1,5 +1,6 @@
 ﻿using Blazored.Modal;
 using Microsoft.AspNetCore.Components;
+using Modules.ChannelModule.Web.DTOs.Commands;
 using System.Threading.Tasks;
 using WebWasmClient.Services;
 

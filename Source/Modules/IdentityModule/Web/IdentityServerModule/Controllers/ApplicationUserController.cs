@@ -1,16 +1,10 @@
-﻿using Application.TenantAggregate.Queries;
-using AutoMapper;
-using Domain.Aggregates.TenantAggregate;
+﻿using AutoMapper;
 using Infrastructure.CQRS.Query;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Module.Infrastructure;
-using Modules.Identity.Domain;
-using Modules.TenantModule.Domain;
-using WebShared.DTOs.Aggregates.Tenant;
 
 namespace WebServer.Controllers.Identity
 {
@@ -31,15 +25,15 @@ namespace WebServer.Controllers.Identity
 
 
 
-        [HttpGet("selectedTeam")]
-        public async Task<TenantDTO> GetSelectedTeamForUser()
-        {
-            ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
+        //[HttpGet("selectedTeam")]
+        //public async Task<TenantDTO> GetSelectedTeamForUser()
+        //{
+        //    ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
 
-            var tenantByIdQuery = new GetTenantByQuery() { TenantId = applicationUser.SelectedTenantId };
-            Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
+        //    //var tenantByIdQuery = new GetTenantByQuery() { TenantId = applicationUser.SelectedTenantId };
+        //    //Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantByQuery, Tenant>(tenantByIdQuery);
 
-            return mapper.Map<TenantDTO>(currentTenant);
-        }
+        //    return mapper.Map<TenantDTO>(currentTenant);
+        //}
     }
 }

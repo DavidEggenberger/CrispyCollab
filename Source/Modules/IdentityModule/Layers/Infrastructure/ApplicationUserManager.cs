@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Module.Infrastructure.EFCore;
-using Modules.Identity.Domain;
-using Modules.Identity.Domain.Exceptions;
+using Modules.IdentityModule.Domain;
+using Modules.IdentityModule.Domain.Exceptions;
 using System.Security.Claims;
 
 namespace Module.Infrastructure
@@ -40,6 +40,12 @@ namespace Module.Infrastructure
             }
             return applicationUser;
         }
+
+        public Task FindByLoginAsync(string loginProvider, string providerKey)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ApplicationUser> FindUserByStripeCustomerId(string stripeCustomerId)
         {
             ApplicationUser applicationUser;

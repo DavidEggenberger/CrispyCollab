@@ -12,7 +12,7 @@ using Common.Constants;
 using Infrastructure.Identity.Services;
 using Common.Authorization.Services;
 using Module.Infrastructure.EFCore;
-using Modules.Identity.Domain;
+using Modules.IdentityModule.Domain;
 
 namespace Module.Infrastructure
 {

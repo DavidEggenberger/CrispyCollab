@@ -1,4 +1,4 @@
-﻿namespace DTOs
+﻿namespace IntegrationEvents
 {
     public class Class1
     {

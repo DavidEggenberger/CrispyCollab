@@ -3,6 +3,7 @@ using Common.Domain;
 using Common.DomainKernel.Tenant;
 using Domain.Aggregates.TenantAggregate.Enums;
 using Domain.Aggregates.TenantAggregate.Exceptions;
+using Domain.SharedKernel.Attributes;
 
 namespace Modules.TenantModule.Domain
 {

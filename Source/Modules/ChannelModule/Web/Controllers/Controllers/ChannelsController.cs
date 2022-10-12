@@ -1,16 +1,16 @@
-﻿using Application.ChannelAggregate;
-using Application.ChannelAggregate.Commands;
-using Application.ChannelAggregate.Queries;
-using AutoMapper;
-using WebShared.Misc.Attributes;
-using Infrastructure.CQRS.Command;
-using Infrastructure.CQRS.Query;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
-using Modules.ChannelModule.Domain;
 using Modules.ChannelModule.Web.DTOs;
+using Infrastructure.CQRS.Command;
+using Infrastructure.CQRS.Query;
+using AutoMapper;
+using Application.ChannelAggregate;
+using Modules.ChannelModule.Domain;
+using Application.ChannelAggregate.Queries;
+using Application.ChannelAggregate.Commands;
+using WebShared.Misc.Attributes;
 using Common.Constants;
 
 namespace Modules.ChannelModule.Web.Controllers
