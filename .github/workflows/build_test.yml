@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    pull_request:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -23,7 +25,13 @@ jobs:
   
   test:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
     - name: Test
       run: dotnet test --no-build --verbosity normal
