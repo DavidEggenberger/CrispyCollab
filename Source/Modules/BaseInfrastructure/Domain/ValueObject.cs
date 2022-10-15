@@ -1,4 +1,4 @@
-﻿namespace Common.Domain
+﻿namespace BaseInfrastructure.Domain
 {
     public abstract class ValueObject
     {

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\SharedKernel\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\BaseInfrastructure\BaseInfrastructure.csproj" />
+    <ProjectReference Include="..\..\Layers\Application\ChannelModule.Application.csproj" />
+    <ProjectReference Include="..\DTOs\ChannelModule.DTOs.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Domain;
 
-namespace Common.Exceptions.Domain
+namespace BaseInfrastructure.Domain.Exceptions
 {
     public class InvalidEntityDeleteException : DomainException
     {

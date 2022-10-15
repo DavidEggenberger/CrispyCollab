@@ -1,4 +1,4 @@
-﻿namespace Common.Exceptions.Domain
+﻿namespace BaseInfrastructure.Domain.Exceptions
 {
     internal class NotAllowedException : Exception
     {

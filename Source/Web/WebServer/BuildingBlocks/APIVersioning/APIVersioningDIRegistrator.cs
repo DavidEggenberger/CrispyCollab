@@ -11,8 +11,9 @@ namespace WebServer.Modules.Swagger
         {
             serviceCollection.AddApiVersioning(options =>
             {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ApiVersionReader = new HeaderApiVersionReader("ApiVersion");
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
             });
 
             return serviceCollection;

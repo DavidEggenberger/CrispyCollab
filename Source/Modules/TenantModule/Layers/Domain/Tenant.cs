@@ -1,9 +1,9 @@
-﻿using Common.Authorization.Services;
-using Common.Domain;
-using Common.DomainKernel.Tenant;
+﻿using SharedKernel.Authorization.Services;
+using SharedKernel.DomainKernel.Tenant;
 using Domain.Aggregates.TenantAggregate.Enums;
 using Domain.Aggregates.TenantAggregate.Exceptions;
-using Domain.SharedKernel.Attributes;
+using BaseInfrastructure.Domain.Attributes;
+using BaseInfrastructure.Domain;
 
 namespace Modules.TenantModule.Domain
 {

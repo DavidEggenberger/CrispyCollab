@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace SharedKernel
 {
     public interface IAssemblyMarker
     {

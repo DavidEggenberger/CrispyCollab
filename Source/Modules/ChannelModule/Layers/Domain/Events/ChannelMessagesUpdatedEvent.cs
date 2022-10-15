@@ -1,6 +1,6 @@
-﻿using Common.Kernel;
+﻿using SharedKernel.Kernel;
 
-namespace Domain.Aggregates.ChannelAggregate.Events
+namespace Modules.ChannelModule.Domain.Events
 {
     public class ChannelMessagesUpdatedEvent : IDomainEvent
     { 

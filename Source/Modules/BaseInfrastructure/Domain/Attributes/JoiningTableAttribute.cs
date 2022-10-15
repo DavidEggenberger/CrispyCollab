@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.SharedKernel.Attributes
+namespace BaseInfrastructure.Domain.Attributes
 {
     public class JoiningTableAttribute : Attribute
     {

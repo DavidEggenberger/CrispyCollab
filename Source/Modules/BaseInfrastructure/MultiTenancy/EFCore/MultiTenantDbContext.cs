@@ -1,5 +1,4 @@
-﻿using Common.Kernel;
-using Domain.SharedKernel.Attributes;
+﻿using SharedKernel.Kernel;
 using Infrastructure.EFCore;
 using Infrastructure.EFCore.Configuration;
 using Infrastructure.Interfaces;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using BaseInfrastructure.Domain.Attributes;
 
 namespace Infrastructure.MultiTenancy
 {

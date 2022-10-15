@@ -1,12 +1,6 @@
-﻿using Common.Kernel;
-using Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharedKernel.Kernel;
 
-namespace Domain.Aggregates.ChannelAggregate.Events
+namespace Modules.ChannelModule.Domain.Events
 {
     public class TopicTriggerUpdatedEvent : IDomainEvent
     {

@@ -2,7 +2,6 @@
 using Infrastructure.CQRS.Command;
 using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using Modules.ChannelModule.Domain;
 using System;
 using System.Linq;
 using System.Threading;

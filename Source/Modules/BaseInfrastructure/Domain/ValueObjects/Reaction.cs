@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Shared.ValueObjects
+namespace BaseInfrastructure.Domain.ValueObjects
 {
     public class Reaction
     {

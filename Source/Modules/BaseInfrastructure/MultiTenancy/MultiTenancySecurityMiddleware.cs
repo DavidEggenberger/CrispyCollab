@@ -1,5 +1,5 @@
-﻿using Common.Exstensions;
-using Common.Kernel;
+﻿using SharedKernel.Exstensions;
+using SharedKernel.Kernel;
 using Infrastructure.EFCore;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;

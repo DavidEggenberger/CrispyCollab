@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Common.Constants
+namespace SharedKernel.Constants
 {
     public class ClaimConstants
     {

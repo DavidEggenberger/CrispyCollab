@@ -10,7 +10,7 @@ using WebWasmClient.Authentication;
 using WebWasmClient.Authentication.Antiforgery;
 using Blazored.Modal;
 using WebWasmClient.Services;
-using WebShared.Authorization;
+using SharedKernel.BuildingBlocks.Authorization;
 
 namespace WebWasmClient
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Common.Exstensions;
+using SharedKernel.Exstensions;
 
 namespace Infrastructure.SignalR
 {

@@ -12,11 +12,11 @@ namespace WebShared.Identity.Team.DTOs
         public List<string> Emails { get; set; }
     }
 
-    public class InviteMembersDTOValidator : AbstractValidator<InviteMembersDTO>
-    {
-        public InviteMembersDTOValidator()
-        {
-            RuleForEach(x => x.Emails).EmailAddress();
-        }
-    }
+    //public class InviteMembersDTOValidator : AbstractValidator<InviteMembersDTO>
+    //{
+    //    public InviteMembersDTOValidator()
+    //    {
+    //        RuleForEach(x => x.Emails).EmailAddress();
+    //    }
+    //}
 }

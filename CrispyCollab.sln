@@ -31,25 +31,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubscriptionModule", "Subsc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TenantModule", "TenantModule", "{2EAB9402-18B3-494D-AF82-D63E296A012F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Modules\TenantModule\Layers\Domain\Domain.csproj", "{CD16A60B-CCF1-4526-9AD3-86C204173F49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.Domain", "Source\Modules\TenantModule\Layers\Domain\TenantModule.Domain.csproj", "{CD16A60B-CCF1-4526-9AD3-86C204173F49}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Modules\TenantModule\Layers\Infrastructure\Infrastructure.csproj", "{926A7E73-DC0B-4F89-B10C-10A59E870725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.Infrastructure", "Source\Modules\TenantModule\Layers\Infrastructure\TenantModule.Infrastructure.csproj", "{926A7E73-DC0B-4F89-B10C-10A59E870725}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Modules\TenantModule\Layers\Application\Application.csproj", "{C6A2340E-F955-41EE-B846-7E8F3879B73E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.Application", "Source\Modules\TenantModule\Layers\Application\TenantModule.Application.csproj", "{C6A2340E-F955-41EE-B846-7E8F3879B73E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Modules\SubscriptionModule\Layers\Domain\Domain.csproj", "{8BAC0CBA-4807-4523-858F-625597C5D9CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Domain", "Source\Modules\SubscriptionModule\Layers\Domain\SubscriptionModule.Domain.csproj", "{8BAC0CBA-4807-4523-858F-625597C5D9CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Modules\SubscriptionModule\Layers\Application\Application.csproj", "{03AE53E7-13D4-4EEF-9110-8EE41D29D70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Application", "Source\Modules\SubscriptionModule\Layers\Application\SubscriptionModule.Application.csproj", "{03AE53E7-13D4-4EEF-9110-8EE41D29D70F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Modules\SubscriptionModule\Layers\Infrastructure\Infrastructure.csproj", "{F0B185E4-E3EF-420B-BA3B-8118FAD9123D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Infrastructure", "Source\Modules\SubscriptionModule\Layers\Infrastructure\SubscriptionModule.Infrastructure.csproj", "{F0B185E4-E3EF-420B-BA3B-8118FAD9123D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Modules\LandingPagesModule\Domain\Domain.csproj", "{CAE17E0F-6831-4171-BAEB-90D6066224FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LandingPagesModule.Domain", "Source\Modules\LandingPagesModule\Domain\LandingPagesModule.Domain.csproj", "{CAE17E0F-6831-4171-BAEB-90D6066224FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Modules\IdentityModule\Layers\Domain\Domain.csproj", "{35287940-2F8B-46F8-8FA9-48FBC36AB18D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.Domain", "Source\Modules\IdentityModule\Layers\Domain\IdentityModule.Domain.csproj", "{35287940-2F8B-46F8-8FA9-48FBC36AB18D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Modules\IdentityModule\Layers\Application\Application.csproj", "{6DA49FB9-65BD-4B91-A521-EC5377664086}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.Application", "Source\Modules\IdentityModule\Layers\Application\IdentityModule.Application.csproj", "{6DA49FB9-65BD-4B91-A521-EC5377664086}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Modules\IdentityModule\Layers\Infrastructure\Infrastructure.csproj", "{B7647582-8383-4FD7-8464-5F0B46437904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.Infrastructure", "Source\Modules\IdentityModule\Layers\Infrastructure\IdentityModule.Infrastructure.csproj", "{B7647582-8383-4FD7-8464-5F0B46437904}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{57A8F495-C2FE-458D-AC8B-80BCDC22ACFA}"
 EndProject
@@ -59,49 +59,55 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{EAA8C0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{372C7BF8-E3A6-45E0-A530-7950D140876F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Source\Modules\ChannelModule\Layers\Domain\Domain.csproj", "{B0AA67CA-D403-4159-8ADB-751906142546}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Domain", "Source\Modules\ChannelModule\Layers\Domain\ChannelModule.Domain.csproj", "{B0AA67CA-D403-4159-8ADB-751906142546}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Source\Modules\ChannelModule\Layers\Application\Application.csproj", "{16A4440C-CB3A-4EF7-8BB5-2345005E971D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Application", "Source\Modules\ChannelModule\Layers\Application\ChannelModule.Application.csproj", "{16A4440C-CB3A-4EF7-8BB5-2345005E971D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Source\Modules\ChannelModule\Layers\Infrastructure\Infrastructure.csproj", "{FF0A5123-28E9-4E2C-9C70-CACBA3BFCF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Infrastructure", "Source\Modules\ChannelModule\Layers\Infrastructure\ChannelModule.Infrastructure.csproj", "{FF0A5123-28E9-4E2C-9C70-CACBA3BFCF73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9AF86631-FFC8-4440-8ED1-7EB07CF8C1B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModuleDTOs", "Source\Modules\ChannelModule\Web\DTOs\ChannelModuleDTOs.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.DTOs", "Source\Modules\ChannelModule\Web\DTOs\ChannelModule.DTOs.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelClientModule", "Source\Modules\ChannelModule\Web\ChannelContextComponents\ChannelClientModule.csproj", "{33561EDE-5EEA-40E5-832D-F4D85C8E8F9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Client", "Source\Modules\ChannelModule\Web\ChannelContextComponents\ChannelModule.Client.csproj", "{33561EDE-5EEA-40E5-832D-F4D85C8E8F9A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelServerModule", "Source\Modules\ChannelModule\Web\Controllers\ChannelServerModule.csproj", "{7CB64A72-F6F5-4866-B945-FB85015956C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Server", "Source\Modules\ChannelModule\Web\Controllers\ChannelModule.Server.csproj", "{7CB64A72-F6F5-4866-B945-FB85015956C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2D1791AF-5422-4FC9-B51B-CB1E86FA1919}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModuleDTOs", "Source\Modules\IdentityModule\Web\DTOs\IdentityModuleDTOs.csproj", "{6F39355E-36DA-4AEC-A195-4807B38936D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.DTOs", "Source\Modules\IdentityModule\Web\DTOs\IdentityModule.DTOs.csproj", "{6F39355E-36DA-4AEC-A195-4807B38936D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerModule", "Source\Modules\IdentityModule\Web\IdentityServerModule\IdentityServerModule.csproj", "{97A53F03-F092-4FDB-A9C2-F4F873232498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.Server", "Source\Modules\IdentityModule\Web\IdentityServerModule\IdentityModule.Server.csproj", "{97A53F03-F092-4FDB-A9C2-F4F873232498}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityClientModule", "Source\Modules\IdentityModule\Web\IdentityClientModule\IdentityClientModule.csproj", "{49570981-407B-4102-B0DF-6C870CD5D901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule.Client", "Source\Modules\IdentityModule\Web\IdentityClientModule\IdentityModule.Client.csproj", "{49570981-407B-4102-B0DF-6C870CD5D901}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{482A3925-DB00-4CF7-9114-D6645247E27A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{72A10975-E4B4-4948-9205-3DED122B216F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModuleDTOs", "Source\Modules\TenantModule\Web\DTOs\TenantModuleDTOs.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.DTOs", "Source\Modules\TenantModule\Web\DTOs\TenantModule.DTOs.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantServerModule", "Source\Modules\TenantModule\Web\TenantServerModule\TenantServerModule.csproj", "{4C83807E-706F-459F-BE57-E4EE27A60946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.Server", "Source\Modules\TenantModule\Web\TenantServerModule\TenantModule.Server.csproj", "{4C83807E-706F-459F-BE57-E4EE27A60946}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantClientModule", "Source\Modules\TenantModule\Web\TenantClientModule\TenantClientModule.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.Client", "Source\Modules\TenantModule\Web\TenantClientModule\TenantModule.Client.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModuleDTOs", "Source\Modules\SubscriptionModule\Web\DTOs\SubscriptionModuleDTOs.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.DTOs", "Source\Modules\SubscriptionModule\Web\DTOs\SubscriptionModule.DTOs.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionServerModule", "Source\Modules\SubscriptionModule\Web\SubscriptionServerModule\SubscriptionServerModule.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Server", "Source\Modules\SubscriptionModule\Web\SubscriptionServerModule\SubscriptionModule.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionClientModule", "Source\Modules\SubscriptionModule\Web\SubscriptionClientModule\SubscriptionClientModule.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Client", "Source\Modules\SubscriptionModule\Web\SubscriptionClientModule\SubscriptionModule.Client.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEvents", "Source\Modules\ChannelModule\IntegrationEvents\IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.IntegrationEvents", "Source\Modules\ChannelModule\IntegrationEvents\ChannelModule.IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEvents", "Source\Modules\SubscriptionModule\SubscriptionModule\IntegrationEvents\IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.IntegrationEvents", "Source\Modules\SubscriptionModule\SubscriptionModule\IntegrationEvents\SubscriptionModule.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEvents", "Source\Modules\TenantModule\IntegrationEvents\IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantModule.IntegrationEvents", "Source\Modules\TenantModule\IntegrationEvents\TenantModule.IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{812D70A6-72A0-49D7-AA68-7B267BF5296E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7DB3D000-9489-468A-983E-AF1DE6AB9B6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelModule.Domain.Tests", "Source\Modules\ChannelModule\Tests\ChannelModule.Domain.Tests\ChannelModule.Domain.Tests.csproj", "{49A98DBF-7CF7-4306-8A50-97C0139CFB96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -241,6 +247,10 @@ Global
 		{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A98DBF-7CF7-4306-8A50-97C0139CFB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A98DBF-7CF7-4306-8A50-97C0139CFB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A98DBF-7CF7-4306-8A50-97C0139CFB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A98DBF-7CF7-4306-8A50-97C0139CFB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -294,6 +304,9 @@ Global
 		{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
 		{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
 		{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
+		{812D70A6-72A0-49D7-AA68-7B267BF5296E} = {E0B90562-C57B-47C3-9219-8F0DBF17F892}
+		{7DB3D000-9489-468A-983E-AF1DE6AB9B6D} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
+		{49A98DBF-7CF7-4306-8A50-97C0139CFB96} = {7DB3D000-9489-468A-983E-AF1DE6AB9B6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F7E334F-E2EF-47B9-BA58-4BC4C85E01A7}

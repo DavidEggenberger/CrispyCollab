@@ -1,7 +1,7 @@
-﻿using Common.Exceptions.Domain;
-using Common.Kernel;
+﻿using BaseInfrastructure.Domain.Exceptions;
+using SharedKernel.Kernel;
 
-namespace Common.Domain
+namespace BaseInfrastructure.Domain
 {
     public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {

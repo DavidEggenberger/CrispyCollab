@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Infrastructure.CQRS.Command;
 using Module.Infrastructure;
 using Infrastructure.Identity.Commands;
-using Common.Constants;
+using SharedKernel.Constants;
 using ApplicationUserManager = Infrastructure.Identity.ApplicationUserManager;
-using Common.Exstensions;
+using SharedKernel.Exstensions;
 
 namespace WebServer.Controllers.Identity
 {

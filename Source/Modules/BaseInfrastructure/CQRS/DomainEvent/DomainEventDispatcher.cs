@@ -1,4 +1,4 @@
-﻿using Common.Kernel;
+﻿using SharedKernel.Kernel;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.CQRS.DomainEvent

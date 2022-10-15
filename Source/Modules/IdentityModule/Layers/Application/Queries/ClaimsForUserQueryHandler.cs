@@ -1,4 +1,4 @@
-﻿using Common.Constants;
+﻿using SharedKernel.Constants;
 using Modules.TenantModule.Domain;
 using Infrastructure.CQRS.Query;
 using Infrastructure.Identity.Queries;

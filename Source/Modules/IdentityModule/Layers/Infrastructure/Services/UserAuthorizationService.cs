@@ -1,6 +1,6 @@
-﻿using Common.Authorization.Services;
-using Common.DomainKernel.Tenant;
-using Common.Exstensions;
+﻿using SharedKernel.Authorization.Services;
+using SharedKernel.DomainKernel.Tenant;
+using SharedKernel.Exstensions;
 using Infrastructure.Identity.Exceptions;
 using Microsoft.AspNetCore.Http;
 

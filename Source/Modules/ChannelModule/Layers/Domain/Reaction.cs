@@ -1,4 +1,4 @@
-﻿using Common.Domain;
+﻿using BaseInfrastructure.Domain;
 
 namespace Modules.ChannelModule.Domain
 {

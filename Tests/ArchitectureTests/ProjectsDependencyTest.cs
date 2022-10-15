@@ -9,7 +9,9 @@ namespace ArchitectureTests
         [Fact]
         public void AssemblyReferencesMustBeCorrect()
         {
-            //var domainAssembly = typeof(Domain.IAssemblyMarker).Assembly;
+            var sharedKernelAssembly = typeof(SharedKernel.IAssemblyMarker).Assembly;
+
+
             //var infrastructureAssembly = typeof(Infrastructure.IAssemblyMarker).Assembly;
             //var modulesAssembly = typeof(IAssemblyMarker).Assembly;
             //var webAPIAssembly = typeof(WebServer.IAssemblyMarker).Assembly;

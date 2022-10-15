@@ -1,5 +1,6 @@
-﻿using Common.Domain;
-using Domain.Aggregates.ChannelAggregate.Events;
+﻿using BaseInfrastructure.Domain;
+using Domain;
+using Modules.ChannelModule.Domain.Events;
 
 namespace Modules.ChannelModule.Domain
 {

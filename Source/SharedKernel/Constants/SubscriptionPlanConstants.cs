@@ -1,4 +1,4 @@
-﻿namespace Common.Constants
+﻿namespace SharedKernel.Constants
 {
     public class SubscriptionPlanConstants
     {

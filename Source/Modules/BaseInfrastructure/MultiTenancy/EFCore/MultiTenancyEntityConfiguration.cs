@@ -1,7 +1,7 @@
-﻿using Common.Domain;
-using Domain.SharedKernel.Attributes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using BaseInfrastructure.Domain;
+using BaseInfrastructure.Domain.Attributes;
 
 namespace Infrastructure.EFCore.Configuration
 {

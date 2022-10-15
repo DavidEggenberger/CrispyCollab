@@ -11,12 +11,14 @@ using Modules.ChannelModule.Domain;
 using Application.ChannelAggregate.Queries;
 using Application.ChannelAggregate.Commands;
 using WebShared.Misc.Attributes;
-using Common.Constants;
+using SharedKernel.Constants;
+using Domain;
 
 namespace Modules.ChannelModule.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class ChannelsController : ControllerBase
     {
         private readonly IMapper mapper;

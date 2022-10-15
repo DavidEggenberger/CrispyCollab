@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebShared.Authorization;
 using Infrastructure.MultiTenancy;
 using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
@@ -16,6 +15,8 @@ using Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
 using Infrastructure.StripeIntegration;
 using WebServer.SignalR;
+using SharedKernel.BuildingBlocks.Authorization;
+using ChannelServerModule;
 
 namespace WebServer
 {
@@ -78,6 +79,8 @@ namespace WebServer
             services.RegisterIdentity(Configuration);
             services.RegisterSignalR();
             #endregion
+
+            services.RegisterChannelModuleServer();
 
             services.RegisterAuthorization();
         }

@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Common.Constants;
+using SharedKernel.Constants;
 using Infrastructure.Identity.Services;
-using Common.Authorization.Services;
+using SharedKernel.Authorization.Services;
 
 namespace Infrastructure.Identity
 {

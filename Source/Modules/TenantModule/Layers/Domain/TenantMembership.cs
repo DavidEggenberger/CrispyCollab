@@ -1,5 +1,5 @@
-﻿using Common.Domain;
-using Domain.Aggregates.TenantAggregate.Enums;
+﻿using Domain.Aggregates.TenantAggregate.Enums;
+using BaseInfrastructure.Domain;
 
 namespace Modules.TenantModule.Domain
 {

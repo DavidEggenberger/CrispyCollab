@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Exceptions.Extensions.ClaimsPrincipal
+namespace SharedKernel.Exceptions.Extensions.ClaimsPrincipal
 {
     public class ClaimNotFoundException : Exception
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Common.Constants;
+using SharedKernel.Constants;
 using System.Security.Claims;
 using Infrastructure.CQRS.Query;
 using Modules.IdentityModule.Domain;

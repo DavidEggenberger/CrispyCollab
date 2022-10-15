@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using WebWasmClient.Authentication.Antiforgery;
-using Common.Constants;
+using SharedKernel.Constants;
 
 namespace WebWasmClient.Authentication
 {

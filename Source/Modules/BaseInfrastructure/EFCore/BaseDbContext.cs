@@ -1,10 +1,10 @@
-﻿using Common.Authorization.Services;
-using Common.Domain;
+﻿using SharedKernel.Authorization.Services;
 using Infrastructure.CQRS.DomainEvent;
 using Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BaseInfrastructure.Domain;
 
 namespace Infrastructure.EFCore
 {

@@ -1,5 +1,5 @@
-﻿using Domain.Aggregates.ChannelAggregate.Events;
-using Infrastructure.CQRS.DomainEvent;
+﻿using Infrastructure.CQRS.DomainEvent;
+using Modules.ChannelModule.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

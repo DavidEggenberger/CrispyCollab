@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Layers\Domain\IdentityModule.Domain.csproj" />
+    <ProjectReference Include="..\DTOs\IdentityModule.DTOs.csproj" />
+  </ItemGroup>
+
+</Project>

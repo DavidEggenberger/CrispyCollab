@@ -9,10 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\BaseInfrastructure\BaseInfrastructure.csproj" />
-    <ProjectReference Include="..\..\Modules\ChannelModule\Web\ChannelContextComponents\ChannelClientModule.csproj" />
-    <ProjectReference Include="..\..\Modules\IdentityModule\Web\IdentityClientModule\IdentityClientModule.csproj" />
-    <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\SubscriptionClientModule\SubscriptionClientModule.csproj" />
-    <ProjectReference Include="..\..\Modules\TenantModule\Web\TenantClientModule\TenantClientModule.csproj" />
+    <ProjectReference Include="..\..\Modules\ChannelModule\Web\Controllers\ChannelModule.Server.csproj" />
     <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>

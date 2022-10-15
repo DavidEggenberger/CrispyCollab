@@ -1,9 +1,9 @@
-﻿using Common.Constants;
-using Common.Exceptions.Extensions.ClaimsPrincipal;
+﻿using SharedKernel.Constants;
+using SharedKernel.Exceptions.Extensions.ClaimsPrincipal;
 using System.ComponentModel;
 using System.Security.Claims;
 
-namespace Common.Exstensions
+namespace SharedKernel.Exstensions
 {
     public static class ClaimsPrincipalExtensions
     {

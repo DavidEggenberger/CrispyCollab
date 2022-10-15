@@ -2,9 +2,9 @@
 using Infrastructure.CQRS.Query;
 using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using Modules.ChannelModule.Domain;
 using System.Threading;
 using Modules.ChannelModule.Infrastructure.EFCore;
+using Domain;
 
 namespace Application.ChannelAggregate.Queries
 {
