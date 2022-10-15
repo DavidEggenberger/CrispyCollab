@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace SharedKernelTests
 {
     public class UnitTest1

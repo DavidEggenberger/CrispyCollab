@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,33 +21,43 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --output /build
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        dotnet-version: 6.0.x
-        name: build-artifacts
-        path: build/**
-        # Use always() to always run this step to publish test results when there are test failures
-        if: always()
-        retention-days: 1
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Download artifacts from build job
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --verbosity normal
-    - name: Upload test results
+      run: dotnet test --no-build --verbosity normal --results-directory "TestResults"
+    - name: Upload Test Results
       uses: actions/upload-artifact@v3
       with:
-        dotnet-version: 6.0.x
-        name: dotnet-results
+        name: Test-Results
         path: TestResults
         # Use always() to always run this step to publish test results when there are test failures
         if: always()
+        retention-days: 1
+    - name: Publish
+      run: dotnet publish --configuration release --output './published-app' ${{ github.workspace }}/Source/Web/WebServer/WebServer.csproj
+    - name: Upload Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Published-Artifacts
+        path: './published-app'
+  deploy_dev:
+    needs: build_test
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: Published-Artifacts
+        path: './published-app'
+  
+  deploy_production:
+    needs: [build_test, deploy_dev]
+    runs-on: ubuntu-latest
+    environment: production
+
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: Published-Artifacts
+        path: './published-app'
