@@ -21,13 +21,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --output /build
+      run: dotnet build --no-restore
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         dotnet-version: 6.0.x
         name: build-artifacts
-        path: build/**
+        path: ${{ github.workspace }}/CrispyCollab
         # Use always() to always run this step to publish test results when there are test failures
         if: always()
         retention-days: 1
