@@ -27,9 +27,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
         name: build-artifacts
-        path: BuildArtifacts
+        path: crispycollab/**
         # Use always() to always run this step to publish test results when there are test failures
         if: always()
+        retention-days: 1
 
   test:
     runs-on: ubuntu-latest
