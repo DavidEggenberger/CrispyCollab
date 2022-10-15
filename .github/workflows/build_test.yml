@@ -39,6 +39,7 @@ jobs:
       with:
         name: Published-Artifacts
         path: './published-app'
+
   deploy_dev:
     needs: build_test
     runs-on: ubuntu-latest
@@ -56,6 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
+    steps:
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
