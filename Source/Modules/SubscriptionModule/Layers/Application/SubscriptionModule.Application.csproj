@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BaseInfrastructure\BaseInfrastructure.csproj" />
     <ProjectReference Include="..\Infrastructure\SubscriptionModule.Infrastructure.csproj" />
   </ItemGroup>
 

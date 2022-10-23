@@ -10,7 +10,7 @@ namespace ArchitectureTests
         public void AssemblyReferencesMustBeCorrect()
         {
             var sharedKernelAssembly = typeof(SharedKernel.IAssemblyMarker).Assembly;
-
+            sharedKernelAssembly.Should().Reddddads
 
             //var infrastructureAssembly = typeof(Infrastructure.IAssemblyMarker).Assembly;
             //var modulesAssembly = typeof(IAssemblyMarker).Assembly;

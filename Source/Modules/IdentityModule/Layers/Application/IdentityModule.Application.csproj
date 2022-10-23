@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\TenantModule\Layers\Domain\TenantModule.Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\IdentityModule.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

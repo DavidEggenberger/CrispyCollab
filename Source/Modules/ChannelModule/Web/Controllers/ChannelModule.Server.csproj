@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\SharedKernel\SharedKernel.csproj" />
-    <ProjectReference Include="..\..\..\BaseInfrastructure\BaseInfrastructure.csproj" />
     <ProjectReference Include="..\..\Layers\Application\ChannelModule.Application.csproj" />
     <ProjectReference Include="..\DTOs\ChannelModule.DTOs.csproj" />
   </ItemGroup>

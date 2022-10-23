@@ -11,12 +11,22 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Source/Web/WebServer/WebServer.csproj", "Source/Web/WebServer/"]
-COPY ["Source/Web/WebWasmClient/WebWasmClient.csproj", "Source/Web/WebWasmClient/"]
-COPY ["Source/Modules/IdentityModule/IdentityModule/IdentityModule.csproj", "Source/Modules/IdentityModule/IdentityModule/"]
-COPY ["Source/Modules/LandingPagesModule/LandingPagesModule/LandingPagesModule.csproj", "Source/Modules/LandingPagesModule/LandingPagesModule/"]
-COPY ["Source/Modules/SubscriptionModule/SubscriptionModule/SubscriptionModule.csproj", "Source/Modules/SubscriptionModule/SubscriptionModule/"]
-COPY ["Source/Modules/TenantModule/TenantModule/TenantModule.csproj", "Source/Modules/TenantModule/TenantModule/"]
+COPY ["Source/Modules/BaseInfrastructure/BaseInfrastructure.csproj", "Source/Modules/BaseInfrastructure/"]
 COPY ["Source/SharedKernel/SharedKernel.csproj", "Source/SharedKernel/"]
+COPY ["Source/Modules/ChannelModule/Web/Controllers/ChannelModule.Server.csproj", "Source/Modules/ChannelModule/Web/Controllers/"]
+COPY ["Source/Modules/ChannelModule/Layers/Application/ChannelModule.Application.csproj", "Source/Modules/ChannelModule/Layers/Application/"]
+COPY ["Source/Modules/ChannelModule/Layers/Domain/ChannelModule.Domain.csproj", "Source/Modules/ChannelModule/Layers/Domain/"]
+COPY ["Source/Modules/ChannelModule/Layers/Infrastructure/ChannelModule.Infrastructure.csproj", "Source/Modules/ChannelModule/Layers/Infrastructure/"]
+COPY ["Source/Modules/ChannelModule/Web/DTOs/ChannelModule.DTOs.csproj", "Source/Modules/ChannelModule/Web/DTOs/"]
+COPY ["Source/Web/WebWasmClient/WebWasmClient.csproj", "Source/Web/WebWasmClient/"]
+COPY ["Source/Modules/ChannelModule/Web/ChannelContextComponents/ChannelModule.Client.csproj", "Source/Modules/ChannelModule/Web/ChannelContextComponents/"]
+COPY ["Source/Modules/IdentityModule/Web/IdentityClientModule/IdentityModule.Client.csproj", "Source/Modules/IdentityModule/Web/IdentityClientModule/"]
+COPY ["Source/Modules/IdentityModule/Layers/Domain/IdentityModule.Domain.csproj", "Source/Modules/IdentityModule/Layers/Domain/"]
+COPY ["Source/Modules/IdentityModule/Web/DTOs/IdentityModule.DTOs.csproj", "Source/Modules/IdentityModule/Web/DTOs/"]
+COPY ["Source/Modules/SubscriptionModule/Web/SubscriptionClientModule/SubscriptionModule.Client.csproj", "Source/Modules/SubscriptionModule/Web/SubscriptionClientModule/"]
+COPY ["Source/Modules/SubscriptionModule/Web/DTOs/SubscriptionModule.DTOs.csproj", "Source/Modules/SubscriptionModule/Web/DTOs/"]
+COPY ["Source/Modules/TenantModule/Web/TenantClientModule/TenantModule.Client.csproj", "Source/Modules/TenantModule/Web/TenantClientModule/"]
+COPY ["Source/Modules/TenantModule/Web/DTOs/TenantModule.DTOs.csproj", "Source/Modules/TenantModule/Web/DTOs/"]
 RUN dotnet restore "Source/Web/WebServer/WebServer.csproj"
 COPY . .
 WORKDIR "/src/Source/Web/WebServer"

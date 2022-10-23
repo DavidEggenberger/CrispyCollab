@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\SharedKernel\SharedKernel.csproj" />
-    <ProjectReference Include="..\..\..\BaseInfrastructure\BaseInfrastructure.csproj" />
     <ProjectReference Include="..\Domain\SubscriptionModule.Domain.csproj" />
   </ItemGroup>
 

@@ -5,10 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\DomainServices\" />
-    <Folder Include="EFCore\Conventions\" />
-    <Folder Include="Identity\EFCore\Migrations\" />
-    <Folder Include="Authorization\" />
+    <Compile Remove="Authorization\**" />
+    <EmbeddedResource Remove="Authorization\**" />
+    <None Remove="Authorization\**" />
   </ItemGroup>
 
   <ItemGroup>

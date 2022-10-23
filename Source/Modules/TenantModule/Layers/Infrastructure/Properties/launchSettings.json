@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Infrastructure": {
+    "TenantIdentityModule.Infrastructure": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:63612;http://localhost:63614"
+      "applicationUrl": "https://localhost:62286;http://localhost:62287"
     }
   }
 }

@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\..\..\BaseInfrastructure\BaseInfrastructure.csproj" />
-    <ProjectReference Include="..\..\Layers\Application\IdentityModule.Application.csproj" />
     <ProjectReference Include="..\DTOs\IdentityModule.DTOs.csproj" />
   </ItemGroup>
 

@@ -37,9 +37,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\ChannelModule\Web\ChannelContextComponents\ChannelModule.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\IdentityModule\Web\IdentityClientModule\IdentityModule.Client.csproj" />
     <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\SubscriptionClientModule\SubscriptionModule.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\TenantModule\Web\TenantClientModule\TenantModule.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantModule\Web\TenantClientModule\TenantIdentityModule.Client.csproj" />
     <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
