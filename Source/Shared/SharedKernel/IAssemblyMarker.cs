@@ -1,4 +1,4 @@
-﻿namespace SharedKernel
+﻿namespace Shared.SharedKernel
 {
     public interface IAssemblyMarker
     {

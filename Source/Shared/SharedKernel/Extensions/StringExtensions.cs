@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Exstensions
+﻿namespace Shared.SharedKernel.Exstensions
 {
     public static class StringExtensions
     {

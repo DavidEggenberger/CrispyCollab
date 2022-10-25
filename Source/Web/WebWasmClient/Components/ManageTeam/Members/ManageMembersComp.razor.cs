@@ -1,5 +1,6 @@
 ﻿using Blazored.Modal;
 using Microsoft.AspNetCore.Components;
+using Modules.IdentityModule.Web.DTOs;
 using WebWasmClient.Components.ManageTeam.Members.Modals;
 
 namespace WebWasmClient.Components.ManageTeam.Members

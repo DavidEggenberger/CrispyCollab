@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BaseInfrastructure.MVC
+namespace BaseShared.Modules.Layers.Infrastructure.MVC
 {
     public class AuthenticatedBaseController : Controller
     {

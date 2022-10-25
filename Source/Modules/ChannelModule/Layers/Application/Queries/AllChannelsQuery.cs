@@ -1,9 +1,10 @@
-﻿using Infrastructure.CQRS.Query;
+﻿using Shared.Modules.Layers.Application.CQRS.Query;
 using Modules.ChannelModule.Domain;
 using System.Threading;
+using Shared.Modules.Layers.Infrastructure.CQRS.Query;
 using Modules.ChannelModule.Infrastructure.EFCore;
 
-namespace Application.ChannelAggregate
+namespace Modules.ChannelModule.Layers.Application.Queries
 {
     public class AllChannelsQuery : IQuery<List<Channel>> 
     { 

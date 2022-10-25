@@ -1,6 +1,6 @@
-﻿using Infrastructure.Interfaces;
+﻿using Shared.Modules.Layers.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Exstensions;
+using Shared.SharedKernel.Exstensions;
 
 namespace WebServer.Services
 {

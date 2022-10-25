@@ -1,7 +1,7 @@
-﻿//using Infrastructure.CQRS.Command;
-//using Infrastructure.StripeIntegration;
-//using Infrastructure.StripeIntegration.Commands;
-//using Infrastructure.StripeIntegration.Configuration;
+﻿//using Shared.Modules.Layers.Application.CQRS.Command;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration.Commands;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
 //using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;

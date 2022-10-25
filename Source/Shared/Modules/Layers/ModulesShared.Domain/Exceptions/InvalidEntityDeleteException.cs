@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseInfrastructure.Domain.Exceptions
+namespace Shared.Modules.Layers.Domain.Exceptions
 {
     public class InvalidEntityDeleteException : DomainException
     {

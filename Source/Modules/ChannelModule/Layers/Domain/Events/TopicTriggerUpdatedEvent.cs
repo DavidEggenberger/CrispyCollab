@@ -1,4 +1,4 @@
-﻿using SharedKernel.Kernel;
+﻿using Shared.SharedKernel.Interfaces;
 
 namespace Modules.ChannelModule.Domain.Events
 {

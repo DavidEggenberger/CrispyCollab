@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\ModulesShared.Infrastructure\ModulesShared.Infrastructure.csproj" />
     <ProjectReference Include="..\Domain\ChannelModule.Domain.csproj" />
   </ItemGroup>
+
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Modules.IdentityModule.Web.DTOs;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Pages

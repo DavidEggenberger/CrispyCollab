@@ -12,11 +12,11 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Source/Web/WebServer/WebServer.csproj", "Source/Web/WebServer/"]
 COPY ["Source/Web/WebWasmClient/WebWasmClient.csproj", "Source/Web/WebWasmClient/"]
-COPY ["Source/Modules/IdentityModule/IdentityModule/IdentityModule.csproj", "Source/Modules/IdentityModule/IdentityModule/"]
+COPY ["Source/Modules/TenantIdentityModule/TenantIdentityModule/TenantIdentityModule.csproj", "Source/Modules/TenantIdentityModule/TenantIdentityModule/"]
 COPY ["Source/Modules/LandingPagesModule/LandingPagesModule/LandingPagesModule.csproj", "Source/Modules/LandingPagesModule/LandingPagesModule/"]
 COPY ["Source/Modules/SubscriptionModule/SubscriptionModule/SubscriptionModule.csproj", "Source/Modules/SubscriptionModule/SubscriptionModule/"]
-COPY ["Source/Modules/TenantModule/TenantModule/TenantModule.csproj", "Source/Modules/TenantModule/TenantModule/"]
-COPY ["Source/SharedKernel/SharedKernel.csproj", "Source/SharedKernel/"]
+COPY ["Source/Modules/TenantTenantIdentityModule/TenantTenantIdentityModule/TenantTenantIdentityModule.csproj", "Source/Modules/TenantTenantIdentityModule/TenantTenantIdentityModule/"]
+COPY ["Source/Shared.SharedKernel/Shared.SharedKernel.csproj", "Source/Shared.SharedKernel/"]
 RUN dotnet restore "Source/Web/WebServer/WebServer.csproj"
 COPY . .
 WORKDIR "/src/Source/Web/WebServer"

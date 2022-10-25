@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.EmailSender
+namespace Shared.Modules.Layers.Infrastructure.EmailSender
 {
     public static class EmailSenderDIRegistrator
     {
         public static IServiceCollection RegisterEmailSender(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<SendGridEmailOptions>(configuration);
+            //services.Configure<SendGridEmailOptions>(configuration);
             services.AddTransient<IEmailSender, SendGridEmailSender>();
 
             return services;

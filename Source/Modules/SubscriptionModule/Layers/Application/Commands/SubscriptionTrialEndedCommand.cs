@@ -1,7 +1,8 @@
-﻿using Infrastructure.CQRS.Command;
+﻿using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 using Stripe;
 
-namespace Infrastructure.StripeIntegration.Commands
+namespace Shared.Modules.SubscriptionModule.Layers.Application.Commands
 {
     public class SubscriptionTrialEndedCommand : ICommand
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using SharedKernel.Kernel;
-using SharedKernel.Exstensions;
+using Shared.SharedKernel.Exstensions;
+using Shared.SharedKernel.Interfaces;
 
 namespace WebServer.Authorization
 {

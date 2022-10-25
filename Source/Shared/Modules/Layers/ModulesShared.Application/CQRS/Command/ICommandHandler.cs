@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Routing.Template;
+﻿using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 
-namespace Infrastructure.CQRS.Command
+namespace Shared.Modules.Layers.Application.CQRS.Command
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {

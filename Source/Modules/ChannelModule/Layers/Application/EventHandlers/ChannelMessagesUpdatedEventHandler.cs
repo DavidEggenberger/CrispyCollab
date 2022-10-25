@@ -1,4 +1,4 @@
-﻿using Infrastructure.CQRS.DomainEvent;
+﻿using Shared.Modules.Layers.Application.CQRS.DomainEvent;
 using Modules.ChannelModule.Domain.Events;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.ChannelAggregate.EventHandlers
+namespace Modules.ChannelModule.Layers.Application.EventHandlers
 {
     public class ChannelMessagesUpdatedEventHandler : IDomainEventHandler<MessageVotesUpdatedEvent>
     {

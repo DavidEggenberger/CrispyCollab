@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\ModulesShared.Application\ModulesShared.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\TenantIdentityModule.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

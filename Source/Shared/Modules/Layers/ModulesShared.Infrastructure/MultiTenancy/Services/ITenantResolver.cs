@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Interfaces
+﻿namespace Shared.Modules.Layers.Infrastructure.Interfaces
 {
     public interface ITenantResolver
     {

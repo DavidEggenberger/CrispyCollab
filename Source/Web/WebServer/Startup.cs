@@ -1,21 +1,17 @@
 using FluentValidation.AspNetCore;
-using Infrastructure.CQRS;
-using Infrastructure.EmailSender;
-using Infrastructure.Identity;
-using Infrastructure.EFCore;
+using Shared.Modules.Layers.Infrastructure.EmailSender;
+using Shared.Modules.Layers.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.MultiTenancy;
+using Shared.Modules.Layers.Infrastructure.MultiTenancy;
 using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
-using Infrastructure.RedisCache;
+using Shared.Modules.Layers.Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
-using Infrastructure.StripeIntegration;
-using WebServer.SignalR;
-using SharedKernel.BuildingBlocks.Authorization;
+using Shared.SharedKernel.BuildingBlocks.Authorization;
 using ChannelServerModule;
 
 namespace WebServer
@@ -69,15 +65,15 @@ namespace WebServer
             services.RegisterApiVersioning();
             #endregion
 
-            #region Infrastructure
-            services.RegisterCQRS();
+            #region Shared.Modules.Layers.Infrastructure
+            //services.RegisterCQRS();
             services.RegisterEmailSender(Configuration);
             services.RegisterEFCore(Configuration);
             services.RegisterMultiTenancy();
             services.RegisterRedisCache(Configuration);
-            services.RegisterStripe(Configuration);
-            services.RegisterIdentity(Configuration);
-            services.RegisterSignalR();
+            //services.RegisterStripe(Configuration);
+            //services.RegisterIdentity(Configuration);
+            //services.RegisterSignalR();
             #endregion
 
             services.RegisterChannelModuleServer();
@@ -108,7 +104,7 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapSignalR();
+                //endpoints.MapSignalR();
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");

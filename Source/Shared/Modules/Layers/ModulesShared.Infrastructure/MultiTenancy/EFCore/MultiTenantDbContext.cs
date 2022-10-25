@@ -1,26 +1,27 @@
-﻿using SharedKernel.Kernel;
-using Infrastructure.EFCore;
-using Infrastructure.EFCore.Configuration;
-using Infrastructure.Interfaces;
-using Infrastructure.MultiTenancy.Exceptions;
+﻿using Shared.Modules.Layers.Infrastructure.EFCore;
+using Shared.Modules.Layers.Infrastructure.EFCore.Configuration;
+using Shared.Modules.Layers.Infrastructure.Interfaces;
+using Shared.Modules.Layers.Infrastructure.MultiTenancy.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using BaseInfrastructure.Domain.Attributes;
+using Shared.SharedKernel.Interfaces;
+using Shared.Modules.Layers.Domain.Attributes;
+using Shared.SharedKernel.BuildingBlocks;
 
-namespace Infrastructure.MultiTenancy
+namespace Shared.Modules.Layers.Infrastructure.MultiTenancy
 {
     public class MultiTenantDbContext<T> : DbContext where T : DbContext
     {
         private readonly ITenantResolver tenantResolver;
-        private readonly IUserResolver userResolver;
+        private readonly IExecutionContextAccessor userResolver;
         private readonly Guid tenantId;
         private readonly IConfiguration configuration;
         public MultiTenantDbContext(DbContextOptions<T> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions)
         {
             tenantResolver = serviceProvider.GetRequiredService<ITenantResolver>();
-            userResolver = serviceProvider.GetRequiredService<IUserResolver>();
+            userResolver = serviceProvider.GetRequiredService<IExecutionContextAccessor>();
             tenantId = tenantResolver.CanResolveTenant() is true ? tenantResolver.ResolveTenantId() : Guid.NewGuid();// Ensure Guid for EF Core Migrations
             this.configuration = configuration;
         }
@@ -29,19 +30,19 @@ namespace Infrastructure.MultiTenancy
         {
             if(optionsBuilder.IsConfigured is false)
             {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnection"), options =>
-                {
-                    options.MigrationsAssembly(typeof(IAssemblyMarker).GetTypeInfo().Assembly.GetName().Name);
-                    options.EnableRetryOnFailure(5);
-                    options.MigrationsHistoryTable("EFCore_MigrationHistory");
-                });
+                //optionsBuilder.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnection"), options =>
+                //{
+                //    options.MigrationsAssembly(typeof(IAssemblyMarker).GetTypeInfo().Assembly.GetName().Name);
+                //    options.EnableRetryOnFailure(5);
+                //    options.MigrationsHistoryTable("EFCore_MigrationHistory");
+                //});
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyMarker).Assembly,
+            modelBuilder.ApplyConfigurationsFromAssembly(null,
                 x => x.Namespace.Contains(typeof(T).Namespace));
             modelBuilder.ApplyBaseEntityConfiguration(tenantId);
         }
@@ -51,7 +52,7 @@ namespace Infrastructure.MultiTenancy
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
             SetTenantId();
-            UpdateCreatedByUserEntities(userResolver.GetIdOfLoggedInUser());
+            UpdateCreatedByUserEntities(userResolver.UserId);
             return await base.SaveChangesAsync(cancellationToken);
         }
 

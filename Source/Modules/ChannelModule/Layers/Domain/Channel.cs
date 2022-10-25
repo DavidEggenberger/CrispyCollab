@@ -1,6 +1,6 @@
 ﻿using Modules.ChannelModule.Domain.Events;
-using BaseInfrastructure.Domain;
-using BaseInfrastructure.Domain.Attributes;
+using Shared.Modules.Layers.Domain;
+using Shared.Modules.Layers.Domain.Attributes;
 
 namespace Modules.ChannelModule.Domain
 {

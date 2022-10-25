@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseInfrastructure.Domain.Attributes
+namespace Shared.Modules.Layers.Domain.Attributes
 {
     public class ValueObjectAttribute : Attribute
     {

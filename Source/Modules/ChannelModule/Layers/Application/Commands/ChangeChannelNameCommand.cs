@@ -1,17 +1,9 @@
 ﻿using Modules.ChannelModule.Domain;
-using Infrastructure.CQRS.Command;
-using Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
-using Modules.ChannelModule.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 using Modules.ChannelModule.Infrastructure.EFCore;
 
-namespace Application.ChannelAggregate
+namespace Modules.ChannelModule.Layers.Application.Commands
 {
     public class ChangeChannelNameCommand : ICommand
     {

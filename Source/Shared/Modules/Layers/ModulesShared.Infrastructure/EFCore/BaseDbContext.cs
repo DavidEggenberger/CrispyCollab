@@ -1,12 +1,12 @@
-﻿using SharedKernel.Authorization.Services;
-using Infrastructure.CQRS.DomainEvent;
-using Infrastructure.MultiTenancy;
+﻿using Shared.SharedKernel.Authorization.Services;
+using Shared.Modules.Layers.Application.CQRS.DomainEvent;
+using Shared.Modules.Layers.Infrastructure.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BaseInfrastructure.Domain;
+using Shared.Modules.Layers.Domain;
 
-namespace Infrastructure.EFCore
+namespace Shared.Modules.Layers.Infrastructure.EFCore
 {
     public class BaseDbContext<T> : MultiTenantDbContext<T> where T : DbContext
     {

@@ -1,6 +1,6 @@
-﻿using SharedKernel.DomainKernel.Tenant;
+﻿using Shared.SharedKernel.DomainKernel.Tenant;
 
-namespace SharedKernel.Authorization.Services
+namespace Shared.SharedKernel.Authorization.Services
 {
     public interface IUserAuthorizationService
     {

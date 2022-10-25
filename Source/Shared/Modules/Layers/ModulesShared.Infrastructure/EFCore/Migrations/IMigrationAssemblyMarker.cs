@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.EFCore.Migrations
+namespace Shared.Modules.Layers.Infrastructure.EFCore.Migrations
 {
     public interface IMigrationAssemblyMarker
     {

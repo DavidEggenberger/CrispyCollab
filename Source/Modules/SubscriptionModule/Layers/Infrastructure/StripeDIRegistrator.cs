@@ -1,12 +1,12 @@
-﻿//using Infrastructure.EmailSender;
-//using Infrastructure.StripeIntegration.Configuration;
-//using Infrastructure.StripeIntegration.Services;
-//using Infrastructure.StripeIntegration.Services.Interfaces;
+﻿//using Shared.Modules.Layers.Infrastructure.EmailSender;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services;
+//using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces;
 //using Microsoft.Extensions.Configuration;
 //using Microsoft.Extensions.DependencyInjection;
 //using Stripe;
 
-//namespace Infrastructure.StripeIntegration
+//namespace Shared.Modules.Layers.Infrastructure.StripeIntegration
 //{
 //    public static class StripeDIRegistrator
 //    {

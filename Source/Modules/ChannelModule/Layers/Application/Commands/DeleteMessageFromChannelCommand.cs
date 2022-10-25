@@ -1,17 +1,10 @@
-﻿using Modules.ChannelModule.Domain;
-using Infrastructure.CQRS.Command;
-using Infrastructure.EFCore;
+﻿using Shared.Modules.Layers.Application.CQRS.Command;
 using Microsoft.EntityFrameworkCore;
-using Modules.ChannelModule.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 using Modules.ChannelModule.Infrastructure.EFCore;
+using Modules.ChannelModule.Domain;
 
-namespace Application.ChannelAggregate.Commands
+namespace Modules.ChannelModule.Layers.Application.Commands
 {
     public class DeleteMessageFromChannelCommand : ICommand
     {

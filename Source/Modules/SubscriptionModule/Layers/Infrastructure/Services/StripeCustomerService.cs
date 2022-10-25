@@ -1,4 +1,4 @@
-﻿using Infrastructure.StripeIntegration.Services.Interfaces;
+﻿using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces;
 using Stripe;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.StripeIntegration.Services
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Services
 {
     public class StripeCustomerService : IStripeCustomerService
     {

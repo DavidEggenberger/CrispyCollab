@@ -1,6 +1,6 @@
-﻿using BaseInfrastructure.Domain;
-using Domain;
-using Modules.ChannelModule.Domain.Events;
+﻿using Modules.ChannelModule.Domain.Events;
+using Shared.Modules.Layers.Domain;
+using Shared.SharedKernel.Interfaces;
 
 namespace Modules.ChannelModule.Domain
 {

@@ -3,13 +3,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Infrastructure.EmailSender
+namespace Shared.Modules.Layers.Infrastructure.EmailSender
 {
     public class SendGridEmailSender : IEmailSender
     {

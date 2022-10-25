@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,15 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\ChannelModule\Web\Controllers\ChannelModule.Server.csproj" />
-    <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Modules\LandingPagesModule\Web\LandingPagesModule.Server\LandingPagesModule.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\SubscriptionServerModule\SubscriptionModule.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantIdentityModule\Layers\Domain\TenantIdentityModule.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\Modules\Web\ModulesShared.Server\ModulesShared.Server.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.4" />
     <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.4" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.1" />
     <PackageReference Include="Azure.Identity" Version="1.5.0" />
     <PackageReference Include="Blazored.FluentValidation" Version="2.0.3" />

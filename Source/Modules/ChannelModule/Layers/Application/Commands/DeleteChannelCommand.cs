@@ -1,15 +1,16 @@
 ﻿using Modules.ChannelModule.Domain;
-using Infrastructure.CQRS.Command;
-using Infrastructure.EFCore;
-using Infrastructure.Interfaces;
+using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Infrastructure.EFCore;
+using Shared.Modules.Layers.Infrastructure.Interfaces;
 using Modules.ChannelModule.Domain;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Modules.ChannelModule.Infrastructure.EFCore;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 
-namespace Application.ChannelAggregate
+namespace Modules.ChannelModule.Layers.Application.Commands
 {
     public class DeleteChannelCommand : ICommand
     {

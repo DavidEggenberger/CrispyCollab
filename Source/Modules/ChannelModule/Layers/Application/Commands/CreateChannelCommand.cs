@@ -1,12 +1,13 @@
-﻿using Infrastructure.CQRS.Command;
-using Infrastructure.EFCore;
-using Infrastructure.Interfaces;
+﻿using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Infrastructure.EFCore;
+using Shared.Modules.Layers.Infrastructure.Interfaces;
 using Modules.ChannelModule.Domain;
-using Modules.ChannelModule.Infrastructure.EFCore;
 using System.Threading;
 using System.Threading.Tasks;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
+using Modules.ChannelModule.Infrastructure.EFCore;
 
-namespace Application.ChannelAggregate
+namespace Modules.ChannelModule.Layers.Application.Commands
 {
     public class CreateChannelCommand : ICommand
     {

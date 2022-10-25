@@ -1,4 +1,4 @@
-﻿using Infrastructure.EFCore;
+﻿using Shared.Modules.Layers.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Modules.ChannelModule.Domain;

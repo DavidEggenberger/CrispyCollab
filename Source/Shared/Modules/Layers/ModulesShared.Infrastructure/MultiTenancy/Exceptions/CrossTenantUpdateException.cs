@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Infrastructure.EFCore
+namespace Shared.Modules.Layers.Infrastructure.EFCore
 {
     [Serializable]
     internal class CrossTenantUpdateException : Exception

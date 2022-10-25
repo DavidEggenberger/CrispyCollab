@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.RedisCache
+namespace Shared.Modules.Layers.Infrastructure.RedisCache
 {
     public class RedisCacheConfiguration
     {

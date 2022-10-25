@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.EFCore.Configuration.ChannelAggregate
+namespace Modules.ChannelModule.Infrastructure.EFCore.Configuration
 {
     public class MessageConfiguration : IEntityTypeConfiguration<Message>
     {

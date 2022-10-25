@@ -20,9 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Source\Web\WebServer\WebServer.csproj" />
-    <ProjectReference Include="..\..\Source\Web\WebWasmClient\WebWasmClient.csproj" />
-  </ItemGroup>
-
 </Project>

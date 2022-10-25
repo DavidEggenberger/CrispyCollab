@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.StripeIntegration.Configuration
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration
 {
     public class StripeOptions
     {

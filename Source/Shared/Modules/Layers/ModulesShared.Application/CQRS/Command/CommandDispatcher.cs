@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 
-namespace Infrastructure.CQRS.Command
+namespace Shared.Modules.Layers.Application.CQRS.Command
 {
     public class CommandDispatcher : ICommandDispatcher
     {

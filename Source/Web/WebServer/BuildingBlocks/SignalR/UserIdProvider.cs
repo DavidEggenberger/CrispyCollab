@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using SharedKernel.Exstensions;
+using Shared.SharedKernel.Exstensions;
 
-namespace Infrastructure.SignalR
+namespace Shared.Modules.Layers.Infrastructure.SignalR
 {
     public class UserIdProvider : IUserIdProvider
     {

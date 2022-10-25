@@ -1,17 +1,17 @@
-﻿using Infrastructure.CQRS.Command;
-using Infrastructure.CQRS.DomainEvent;
-using Infrastructure.CQRS.Query;
+﻿using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Application.CQRS.DomainEvent;
+using Shared.Modules.Layers.Application.CQRS.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 
-namespace Infrastructure.CQRS
+namespace Shared.Modules.Layers.Infrastructure.CQRS
 {
     public static class CQRSDIRegistrator
     {
-        public static IServiceCollection RegisterCQRS(this IServiceCollection services)
+        public static IServiceCollection RegisterCQRS(this IServiceCollection services, Assembly assembly)
         {
-            Assembly[] assemblies = new Assembly[] { typeof(IAssemblyMarker).Assembly };
+            Assembly[] assemblies = new Assembly[] { assembly };
 
             services.TryAddScoped<ICommandDispatcher, CommandDispatcher>();
             services.TryAddScoped<IQueryDispatcher, QueryDispatcher>();

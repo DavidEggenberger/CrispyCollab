@@ -1,12 +1,13 @@
 ﻿using Modules.ChannelModule.Domain;
-using Infrastructure.CQRS.Query;
-using Infrastructure.EFCore;
+using Shared.Modules.Layers.Application.CQRS.Query;
+using Shared.Modules.Layers.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
-using Modules.ChannelModule.Infrastructure.EFCore;
 using Domain;
+using Shared.Modules.Layers.Infrastructure.CQRS.Query;
+using Modules.ChannelModule.Infrastructure.EFCore;
 
-namespace Application.ChannelAggregate.Queries
+namespace Modules.ChannelModule.Layers.Application.Queries
 {
     public class ChannelByIdQuery : IQuery<Channel> 
     {

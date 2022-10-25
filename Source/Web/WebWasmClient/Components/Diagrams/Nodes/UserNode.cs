@@ -1,4 +1,5 @@
 ﻿using Blazor.Diagrams.Core.Models;
+using Modules.IdentityModule.Web.DTOs;
 using WebWasmClient.Diagrams.Ports;
 
 namespace WebWasmClient.Diagrams.Nodes

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.StripeIntegration.Services.Interfaces
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces
 {
     public interface IStripeCustomerService
     {

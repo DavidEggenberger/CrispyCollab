@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Constants
+﻿namespace Shared.SharedKernel.Constants
 {
     public class PolicyConstants
     {

@@ -1,14 +1,15 @@
 ﻿using Modules.ChannelModule.Domain;
-using Infrastructure.CQRS.Command;
-using Infrastructure.EFCore;
+using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Modules.Layers.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 using Modules.ChannelModule.Infrastructure.EFCore;
 
-namespace Application.ChannelAggregate.Commands
+namespace Modules.ChannelModule.Layers.Application.Commands
 {
     public class AddMessageToChannelCommand : ICommand
     {

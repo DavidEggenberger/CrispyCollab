@@ -1,7 +1,7 @@
-﻿using BaseInfrastructure.Domain.Exceptions;
-using SharedKernel.Kernel;
+﻿using Shared.Modules.Layers.Domain.Exceptions;
+using Shared.SharedKernel.Interfaces;
 
-namespace BaseInfrastructure.Domain
+namespace Shared.Modules.Layers.Domain
 {
     public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {

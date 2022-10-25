@@ -1,0 +1,13 @@
+﻿@page
+@model WebServer.Pages.Identity.Account.IndexModel
+@{
+}
+
+<h3>Change your UserName and Profile Picture</h3>
+<partial name="Shared/_StatusMessage" model="Model.StatusMessage" />
+
+<label>Your UserName: @Model.CurrentUser.UserName</label>
+<form method="post" asp-page-handler="ChangeUserName">
+    <input asp-for="@Model.NewUserName"/>
+    <button>Update UserName</button>
+</form>

@@ -4,4 +4,3 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
 global using Modules.ChannelModule.Web.DTOs;
-global using Modules.IdentityModule.Web.DTOs;

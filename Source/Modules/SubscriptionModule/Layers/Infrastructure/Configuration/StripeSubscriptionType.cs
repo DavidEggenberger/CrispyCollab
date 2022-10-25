@@ -1,6 +1,6 @@
-﻿using SharedKernel.DomainKernel.Tenant;
+﻿using Shared.SharedKernel.DomainKernel.Tenant;
 
-namespace Infrastructure.StripeIntegration.Configuration
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration
 {
     public class StripeSubscriptionType
     {

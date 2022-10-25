@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.Modules.Layers.Infrastructure.CQRS.Query;
 
-namespace Infrastructure.CQRS.Query
+namespace Shared.Modules.Layers.Application.CQRS.Query
 {
     public class QueryDispatcher : IQueryDispatcher
     {

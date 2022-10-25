@@ -1,8 +1,8 @@
-﻿using SharedKernel.DomainKernel.Tenant;
-using Infrastructure.StripeIntegration.Configuration;
-using Infrastructure.StripeIntegration.Services.Interfaces;
+﻿using Shared.SharedKernel.DomainKernel.Tenant;
+using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
+using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces;
 
-namespace Infrastructure.StripeIntegration.Services
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Services
 {
     public class StripeSubscriptionTypeService : IStripeSubscriptionService
     {

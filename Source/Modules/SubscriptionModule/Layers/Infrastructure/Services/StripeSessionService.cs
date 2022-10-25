@@ -1,9 +1,8 @@
-﻿using Infrastructure.Identity;
-using Infrastructure.StripeIntegration.Services.Interfaces;
+﻿using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces;
 using Stripe.Checkout;
-using Infrastructure.StripeIntegration.Configuration;
+using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
 
-namespace Infrastructure.StripeIntegration.Services
+namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Services
 {
     public class StripeSessionService : IStripeSessionService
     {
@@ -19,7 +18,7 @@ namespace Infrastructure.StripeIntegration.Services
             return session;
         }
 
-        public async Task<Stripe.Checkout.Session> CreateCheckoutSessionAsync(string redirectBaseUrl, ApplicationUser user, Guid tenantId, StripeSubscriptionType stripeSubscription)
+        public async Task<Stripe.Checkout.Session> CreateCheckoutSessionAsync(string redirectBaseUrl, string user, Guid tenantId, StripeSubscriptionType stripeSubscription)
         {
             var options = new SessionCreateOptions
             {
@@ -27,9 +26,9 @@ namespace Infrastructure.StripeIntegration.Services
                 {
                   "card",
                 },
-                Customer = user.StripeCustomerId,
-                CustomerEmail = user.Email,
-                ClientReferenceId = user.Id.ToString(),
+                //Customer = user.StripeCustomerId,
+                //CustomerEmail = user.Email,
+                //ClientReferenceId = user.Id.ToString(),
                 LineItems = new List<SessionLineItemOptions>
                 {
                     new SessionLineItemOptions

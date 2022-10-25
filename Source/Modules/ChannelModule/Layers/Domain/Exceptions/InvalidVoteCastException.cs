@@ -1,4 +1,4 @@
-﻿using BaseInfrastructure.Domain;
+﻿using Shared.Modules.Layers.Domain;
 
 namespace Modules.ChannelModule.Domain.Exceptions
 {
