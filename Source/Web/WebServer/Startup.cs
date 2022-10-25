@@ -12,7 +12,6 @@ using WebServer.Modules.HostingInformation;
 using Shared.Modules.Layers.Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
 using Shared.SharedKernel.BuildingBlocks.Authorization;
-using ChannelServerModule;
 
 namespace WebServer
 {
@@ -76,7 +75,7 @@ namespace WebServer
             //services.RegisterSignalR();
             #endregion
 
-            services.RegisterChannelModuleServer();
+            //services.RegisterChannelModuleServer();
 
             services.RegisterAuthorization();
         }

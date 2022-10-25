@@ -6,7 +6,8 @@ namespace WebServer.Modules.ModelValidation
     {
         public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
         {
-            return services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
+            return services;
+            //return services.AddAutoMapper(typeof(IAssemblyMarker).Assembly);
         }
     }
 }
