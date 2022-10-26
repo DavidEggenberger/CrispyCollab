@@ -3,16 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using Modules.ChannelModule.Web.DTOs;
-using Infrastructure.CQRS.Command;
-using Infrastructure.CQRS.Query;
 using AutoMapper;
-using Application.ChannelAggregate;
 using Modules.ChannelModule.Domain;
-using Application.ChannelAggregate.Queries;
-using Application.ChannelAggregate.Commands;
 using WebShared.Misc.Attributes;
-using SharedKernel.Constants;
-using Domain;
+using Shared.Modules.Layers.Application.CQRS.Query;
+using Shared.Modules.Layers.Application.CQRS.Command;
+using Modules.ChannelModule.Layers.Application.Queries;
+using Modules.ChannelModule.Layers.Application.Commands;
+using Shared.SharedKernel.Constants;
 
 namespace Modules.ChannelModule.Web.Controllers
 {
