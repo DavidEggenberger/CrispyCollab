@@ -89,21 +89,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2980C8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{7B6CE538-C86C-4DAD-950A-671397963308}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Domain", "Source\Shared\Modules\Layers\ModulesShared.Domain\ModulesShared.Domain.csproj", "{808FE48D-D2DC-4F28-886A-D479D2EF39EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Domain", "Source\Shared\Modules\Layers\Domain\ModulesShared.Domain.csproj", "{808FE48D-D2DC-4F28-886A-D479D2EF39EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Infrastructure", "Source\Shared\Modules\Layers\ModulesShared.Infrastructure\ModulesShared.Infrastructure.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Infrastructure", "Source\Shared\Modules\Layers\Infrastructure\ModulesShared.Infrastructure.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Application", "Source\Shared\Modules\Layers\ModulesShared.Application\ModulesShared.Application.csproj", "{BE36E562-FB06-488B-88A4-D1A5CFB9EC72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Application", "Source\Shared\Modules\Layers\Application\ModulesShared.Application.csproj", "{BE36E562-FB06-488B-88A4-D1A5CFB9EC72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{2FB4F8A7-A46E-4C2C-9485-6DA118EA1342}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9E7087C6-E2C1-466B-95C0-56A897BC3D09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Server", "Source\Shared\Modules\Web\ModulesShared.Server\ModulesShared.Server.csproj", "{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Server", "Source\Shared\Modules\Web\Server\ModulesShared.Server.csproj", "{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Client", "Source\Shared\Modules\Web\ModulesShared.Client\ModulesShared.Client.csproj", "{38E5E460-A844-4827-8869-CEBA73D8C9AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.Client", "Source\Shared\Modules\Web\Client\ModulesShared.Client.csproj", "{38E5E460-A844-4827-8869-CEBA73D8C9AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.DTOs", "Source\Shared\Modules\Web\ModulesShared.DTOs\ModulesShared.DTOs.csproj", "{1E769AF9-7D2C-4853-9F99-F3FF96BA3932}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModulesShared.DTOs", "Source\Shared\Modules\Web\DTOs\ModulesShared.DTOs.csproj", "{1E769AF9-7D2C-4853-9F99-F3FF96BA3932}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LandingPagesModule.Server", "Source\Modules\LandingPagesModule\Web\Server\LandingPagesModule.Server.csproj", "{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}"
 EndProject

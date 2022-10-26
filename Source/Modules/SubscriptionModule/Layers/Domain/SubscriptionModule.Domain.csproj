@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\ModulesShared.Domain\ModulesShared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\Domain\ModulesShared.Domain.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 

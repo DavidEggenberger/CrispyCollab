@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\ModulesShared.Application\ModulesShared.Application.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\..\Layers\Application\ChannelModule.Application.csproj" />
     <ProjectReference Include="..\DTOs\ChannelModule.DTOs.csproj" />

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\ModulesShared.Infrastructure\ModulesShared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Modules\Layers\Infrastructure\ModulesShared.Infrastructure.csproj" />
     <ProjectReference Include="..\Domain\TenantIdentityModule.Domain.csproj" />
   </ItemGroup>
 
