@@ -1,12 +1,6 @@
 ﻿using Modules.ChannelModule.Domain;
 using Shared.Modules.Layers.Application.CQRS.Command;
-using Shared.Modules.Layers.Infrastructure.EFCore;
 using Shared.Modules.Layers.Infrastructure.Interfaces;
-using Modules.ChannelModule.Domain;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Modules.ChannelModule.Infrastructure.EFCore;
 using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 

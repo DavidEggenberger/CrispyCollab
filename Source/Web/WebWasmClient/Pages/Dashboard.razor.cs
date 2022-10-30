@@ -4,8 +4,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using WebWasmClient.Services;
 using Modules.IdentityModule.Web.DTOs;
+using Shared.Web.Client.Services;
 
 namespace WebWasmClient.Components.Dashboard.Pages
 {

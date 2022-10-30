@@ -1,5 +1,6 @@
 ﻿@page "/ManageTeam"
 @attribute [AuthorizeTeamAdmin]
+@inherits ManageTeamBase
 
 <div class="ManageTeamPageContainer">
     <div class="ManageTeamGrid">
@@ -7,16 +8,16 @@
         {
             <CascadingValue Value="teamAdminInfo">
                  <div class="ManageMembersCompContainer">
-                    <ManageMembersComp Members="teamAdminInfo.Members"/>
+                    <ManageMembersComponent Members="teamAdminInfo.Members"/>
                 </div>
                 <div class="ManageSubscriptionCompContainer">
-                    <ManageSubscriptionComp CurrentSubscription="teamAdminInfo.Subscription"/>
+                    <TenantIdentityModule.Client.Components.Subscription.ManageSubscriptionComponent CurrentSubscription="teamAdminInfo.Subscription"/>
                 </div>
                 <div class="MetricsCompContainer">
-                    <MetricsComp TeamMetrics="teamAdminInfo.Metrics"/>
+                    <TenantIdentityModule.Client.Components.Metrics.TenantMetricsComponent TeamMetrics="teamAdminInfo.Metrics"/>
                 </div>
                 <div class="AdminNotificationsCompContainer">
-                    <AdminNotificationsComp AdminNotifications="teamAdminInfo.AdminNotifications"/>
+                    <TenantIdentityModule.Client.Components.Notifications.AdminNotificationsComponent AdminNotifications="teamAdminInfo.AdminNotifications"/>
                 </div>
             </CascadingValue>      
         }       

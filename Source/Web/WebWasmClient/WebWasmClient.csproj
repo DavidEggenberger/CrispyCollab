@@ -7,14 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Dashboard\**" />
     <Compile Remove="Components\Notifications\**" />
     <Compile Remove="Components\Pipelines\**" />
+    <Compile Remove="Components\Topics\**" />
+    <Content Remove="Components\Dashboard\**" />
     <Content Remove="Components\Notifications\**" />
     <Content Remove="Components\Pipelines\**" />
+    <Content Remove="Components\Topics\**" />
+    <EmbeddedResource Remove="Components\Dashboard\**" />
     <EmbeddedResource Remove="Components\Notifications\**" />
     <EmbeddedResource Remove="Components\Pipelines\**" />
+    <EmbeddedResource Remove="Components\Topics\**" />
+    <None Remove="Components\Dashboard\**" />
     <None Remove="Components\Notifications\**" />
     <None Remove="Components\Pipelines\**" />
+    <None Remove="Components\Topics\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,11 +37,6 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
     <PackageReference Include="Z.Blazor.Diagrams" Version="2.1.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Dashboard\" />
-    <Folder Include="Components\Topics\" />
   </ItemGroup>
 
   <ItemGroup>

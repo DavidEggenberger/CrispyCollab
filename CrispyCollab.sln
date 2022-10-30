@@ -109,7 +109,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LandingPagesModule.Server",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Server", "Source\Modules\ChannelModule\Web\Server\ChannelModule.Server.csproj", "{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelModule.Client", "Source\Modules\ChannelModule\Web\Client\ChannelModule.Client.csproj", "{4D55F442-C753-48AD-A496-071A0AA4A53E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Client", "Source\Modules\ChannelModule\Web\Client\ChannelModule.Client.csproj", "{4D55F442-C753-48AD-A496-071A0AA4A53E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

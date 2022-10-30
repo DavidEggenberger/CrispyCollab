@@ -1,9 +1,6 @@
 ﻿using Shared.Modules.Layers.Application.CQRS.Command;
-using Shared.Modules.Layers.Infrastructure.EFCore;
 using Shared.Modules.Layers.Infrastructure.Interfaces;
 using Modules.ChannelModule.Domain;
-using System.Threading;
-using System.Threading.Tasks;
 using Shared.Modules.Layers.Infrastructure.CQRS.Command;
 using Modules.ChannelModule.Infrastructure.EFCore;
 
@@ -25,9 +22,8 @@ namespace Modules.ChannelModule.Layers.Application.Commands
         }
         public async Task HandleAsync(CreateChannelCommand command, CancellationToken cancellationToken)
         {
-            //applicationDbContext.Channels.Add(new Channel(command.Name, command.Goal, false));
-            //await applicationDbContext.SaveChangesAsync(cancellationToken);
-            //await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTenant());
+            applicationDbContext.Channels.Add(new Channel(command.Name, command.Goal, false));
+            await applicationDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

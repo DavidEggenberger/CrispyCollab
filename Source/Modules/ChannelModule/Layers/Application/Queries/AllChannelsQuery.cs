@@ -1,6 +1,5 @@
 ﻿using Shared.Modules.Layers.Application.CQRS.Query;
 using Modules.ChannelModule.Domain;
-using System.Threading;
 using Shared.Modules.Layers.Infrastructure.CQRS.Query;
 using Modules.ChannelModule.Infrastructure.EFCore;
 

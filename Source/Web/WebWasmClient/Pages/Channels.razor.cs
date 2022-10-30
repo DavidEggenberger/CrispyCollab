@@ -2,28 +2,30 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Modules.ChannelModule.Web.DTOs;
+using Shared.Web.Client;
+using Shared.Web.Client.Services;
 
 namespace WebWasmClient.Pages
 {
-    public partial class Channels
+    public partial class ChannelsBase : BaseComponent
     {
-        private bool loading = true;
-        private List<ChannelDTO> channels;
-        private string channelName;
+        protected bool loading = true;
+        protected List<ChannelDTO> channels;
+        string channelName;
         protected override async Task OnInitializedAsync()
         {
-            HubConnection.On("UpdateChannels", async () =>
-            {
-                channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
-                StateHasChanged();
-            });
+            //HubConnection.On("UpdateChannels", async () =>
+            //{
+            //    channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
+            //    StateHasChanged();
+            //});
             
             channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
 
             loading = false;
         }
 
-        private async Task CreateChannel(string name)
+        protected async Task CreateChannel(string name)
         {
             var createChannel = new CreateChannelCommandDTO
             {
@@ -33,7 +35,7 @@ namespace WebWasmClient.Pages
             channelName = string.Empty;
         }
 
-        private async Task ChangeChannelName(string name)
+        protected async Task ChangeChannelName(string name)
         {
             var changeChannelName = new ChangeChannelNameDTO
             {

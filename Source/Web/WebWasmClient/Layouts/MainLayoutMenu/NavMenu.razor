@@ -1,4 +1,6 @@
-﻿<div class="NavMenuContainer">
+﻿@inherits BaseComponent
+
+<div class="NavMenuContainer">
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
@@ -18,9 +20,9 @@
         </NavLink>
     }
     <div class="NavElement NoUnderline">
-        <TeamsOverviewComp/>
+        <TeamsOverviewComponent/>
     </div>
     <div class="NavElement">
-        <h5 @onclick="() => Modal.Show<CreateTeamComp>()">Create New Team</h5>
+        <h5 @onclick="() => Modal.Show<CreateChannelModal>()">Create New Team</h5>
     </div>
 </div>

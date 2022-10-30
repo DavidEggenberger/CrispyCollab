@@ -1,4 +1,6 @@
-﻿<div class="CurrentTenantDisplayComponent">
+﻿@inherits BaseComponent
+
+<div class="CurrentTenantDisplayComponent">
     <div class="LogoNameSection">
         @if(User.IsInRole(RoleConstants.User))
         {

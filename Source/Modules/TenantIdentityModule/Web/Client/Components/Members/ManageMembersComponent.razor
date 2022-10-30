@@ -1,0 +1,44 @@
+﻿@using Modules.IdentityModule.Web.DTOs
+@inherits ManageMembersComponentBase
+
+<h5>Manage the Users</h5>
+
+<table>
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Members)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>@user.Status</td>
+                <td>
+                    @if(user.Id == Guid.NewGuid())
+                    {
+                        <button>YourSelf</button>
+                    }
+                    else if(user.Status == MembershipStatusDTO.Invited)
+                    {
+                        <button @onclick="() => ShowInvitationRevokeModal(user)">Revoke Invitation</button>
+                    }
+                    else
+                    {
+                        <button @onclick="() => Modal.Show<ChangeRoleOfMemberComp>()">Change Role</button>
+                        <button @onclick="() => Modal.Show<RemoveMemberComp>()">Remove Member</button>
+                    }     
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button @onclick="() => Modal.Show<InviteMemberComp>()">Invite Users to Team</button>

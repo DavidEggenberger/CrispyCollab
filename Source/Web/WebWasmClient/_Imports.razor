@@ -24,7 +24,6 @@
 @using WebWasmClient.Components
 @using WebWasmClient.Components.ManageTeam.Members
 @using WebWasmClient.Layouts.MainLayoutMenu
-@using WebWasmClient.Services
 @using WebWasmClient.Components.ManageTeam
 @using FluentValidation
 @using WebWasmClient.Components.ManageTeam.Members.Modals
@@ -33,10 +32,7 @@
 @using WebShared.Misc.Attributes
 @using Microsoft.AspNetCore.SignalR.Client
 @using WebShared.Identity.Subscription
-@using WebWasmClient.Components.ManageTeam.Subscription
 @using WebShared.Identity.Team
-@using WebWasmClient.Components.ManageTeam.Notifications
-@using WebWasmClient.Components.ManageTeam.Metrics
 @using WebShared.Identity.Team.AdminManagement
 @using Blazor.Diagrams.Components.Renderers
 @using Blazor.Diagrams.Core
@@ -44,9 +40,10 @@
 @using Blazor.Diagrams.Components
 @using Blazor.Diagrams.Core.Geometry
 @using WebWasmClient.Layouts
-@using WebWasmClient.Components.Channels
-@using WebWasmClient.Components.Channels.Modals
 @using WebWasmClient.Wrappers
 @using Shared.SharedKernel.Authorization
 @using Shared.SharedKernel.BuildingBlocks
-@inherits BaseComponent
+@using TenantIdentityModule.Client.Components.Members
+@using Shared.Web.Client
+@using Web.Client.Pages
+@using ChannelModule.Client.Modals

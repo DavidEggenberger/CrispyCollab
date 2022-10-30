@@ -1,11 +1,12 @@
 ﻿@page "/channels"
 @attribute [AuthorizeTeamUser]
+@inherits ChannelsBase
 
 <div class="ChannelsContainer">
     <div class="ChannelHeader">
         <h2>Engage with your colleagues from @TenantName</h2>
         <div class="CreateChannelContainer">
-            <button @onclick="() => Modal.Show<CreateChannelComp>()">Create a new Channel</button>
+            <button @onclick="() => Modal.Show<CreateChannelModal>()">Create a new Channel</button>
         </div>
     </div>
     <div class="ChannelMain">
@@ -17,7 +18,7 @@
                     @foreach(var channel in channels)
                     {
                         <div class="ChannelCompContainer">
-                            <ChannelComp Channel="channel"/>
+                            <ChannelModule.Client.Components.ChannelComponent Channel="channel"/>
                         </div>
                     }
                 </div>       

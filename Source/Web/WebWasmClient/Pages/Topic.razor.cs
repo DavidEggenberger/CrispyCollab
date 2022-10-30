@@ -3,12 +3,13 @@ using Blazor.Diagrams.Core.Geometry;
 using Blazor.Diagrams.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Shared.Web.Client;
 using System;
 using System.Threading.Tasks;
 
 namespace WebWasmClient.Pages
 {
-    public partial class Topic
+    public partial class TopicBase : BaseComponent
     {
         [Parameter] public Guid TopicId { get; set; }
 

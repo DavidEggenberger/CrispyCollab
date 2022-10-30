@@ -1,9 +1,6 @@
 ﻿using Modules.ChannelModule.Domain;
 using Shared.Modules.Layers.Application.CQRS.Query;
-using Shared.Modules.Layers.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using Domain;
 using Shared.Modules.Layers.Infrastructure.CQRS.Query;
 using Modules.ChannelModule.Infrastructure.EFCore;
 

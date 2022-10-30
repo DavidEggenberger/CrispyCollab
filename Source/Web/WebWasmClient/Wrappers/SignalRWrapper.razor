@@ -1,9 +1,11 @@
-﻿<CascadingValue Value="HubConnection">
+﻿@inherits BaseComponent
+
+@*<CascadingValue Value="HubConnection">
     @if(HubConnection != null)
     {
         @ChildContent
     }
-</CascadingValue>
+</CascadingValue>*@
 
 @code{
     [Parameter]
@@ -11,9 +13,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        HubConnection = new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri(SignalRConstants.NotificationEndpoint))
-            .Build();
-        await HubConnection.StartAsync();
+        //new HubConnectionBuilder()
+        //    .WithUrl(NavigationManager.ToAbsoluteUri(SignalRConstants.NotificationEndpoint))
+        //    .Build();
+        //await HubConnection.StartAsync();
     }
 }

@@ -1,0 +1,12 @@
+﻿@using WebWasmClient.Components.ManageTeam.Members.Modals
+@inherits RevokeInvitationCompBase
+
+<div class="RevokeInvitationContainer">
+    <h5>Do you want to revoke the invitation for <bold>@Member.Name</bold>?</h5>
+    <div class="centerChildren">
+        <div class="RevokeButtonDisplay">
+            <button @onclick="RevokeInvitation">YES</button>
+            <button @onclick="CloseModal">NO</button>
+        </div>   
+    </div>
+</div>

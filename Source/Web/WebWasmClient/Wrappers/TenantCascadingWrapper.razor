@@ -1,4 +1,6 @@
-﻿@attribute [Authorize(Policy = RoleConstants.User)]
+﻿@inherits BaseComponent
+
+@attribute [Authorize(Policy = RoleConstants.User)]
 <CascadingValue Value="tenantName">
     @ChildContent
 </CascadingValue>
