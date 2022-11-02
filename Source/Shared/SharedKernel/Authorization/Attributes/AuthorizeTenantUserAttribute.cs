@@ -3,8 +3,8 @@ using System;
 
 namespace WebShared.Misc.Attributes
 {
-    [Authorize(Policy = "TeamUser")]
-    public class AuthorizeTeamUserAttribute : Attribute
+    [Authorize(Policy = "TenantUser")]
+    public class AuthorizeTenantUserAttribute : Attribute
     {
 
     }

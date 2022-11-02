@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.Modules.Layers.Domain.Interfaces;
 using Shared.SharedKernel.Interfaces;
 
 namespace Shared.Modules.Layers.Application.CQRS.DomainEvent

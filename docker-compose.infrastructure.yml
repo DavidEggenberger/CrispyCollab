@@ -21,6 +21,15 @@ services:
       - REDIS_PASSWORD=@someThingComplicated1234
     volumes:
       - redis:/redis
+  rabbitmq:
+    container_name: RabbitMQ
+    image: rabbitmq:3-management-alpine
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+     - rabbitmq:/rabbitmq
 volumes: 
   sqlserver:
   redis:
+  rabbitmq:

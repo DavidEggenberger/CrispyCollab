@@ -1,6 +1,6 @@
-﻿using Shared.SharedKernel.DomainKernel.Tenant;
-using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
+﻿using Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration;
 using Shared.Modules.Layers.Infrastructure.StripeIntegration.Services.Interfaces;
+using SharedKernel.DomainKernel;
 
 namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Services
 {

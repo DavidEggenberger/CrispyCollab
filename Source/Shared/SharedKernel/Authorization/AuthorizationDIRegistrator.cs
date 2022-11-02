@@ -15,12 +15,12 @@ namespace Shared.SharedKernel.BuildingBlocks.Authorization
                 options.AddPolicy(PolicyConstants.TenantMemberPolicy, options =>
                 {
                     options.RequireClaim(ClaimConstants.TenantIdClaimType);
-                    options.RequireRole(RoleConstants.User, RoleConstants.Admin);
+                    options.RequireRole(TenantRoleConstants.User, TenantRoleConstants.Admin);
                 });
                 options.AddPolicy(PolicyConstants.TenantAdminPolicy, options =>
                 {
                     options.RequireClaim(ClaimConstants.TenantIdClaimType);
-                    options.RequireRole(RoleConstants.Admin);
+                    options.RequireRole(TenantRoleConstants.Admin);
                 });
                 options.AddPolicy(PolicyConstants.ProfessionalSubscriptionPlanPolicy, options =>
                 {

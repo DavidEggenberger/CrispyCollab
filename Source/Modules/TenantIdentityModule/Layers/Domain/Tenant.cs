@@ -3,7 +3,7 @@ using Domain.Aggregates.TenantAggregate.Exceptions;
 using Shared.Modules.Layers.Domain;
 using Shared.Modules.Layers.Domain.Attributes;
 using Shared.SharedKernel.Authorization.Services;
-using Shared.SharedKernel.DomainKernel.Tenant;
+using SharedKernel.DomainKernel;
 
 namespace Modules.TenantIdentityModule.Domain
 {

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Kernel\" />
+  </ItemGroup>
+
 </Project>

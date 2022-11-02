@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Shared.SharedKernel.Interfaces;
 using Shared.Modules.Layers.Domain.Attributes;
-using Shared.SharedKernel.BuildingBlocks;
+using SharedKernel.Interfaces;
 
 namespace Shared.Modules.Layers.Infrastructure.MultiTenancy
 {

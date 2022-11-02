@@ -1,4 +1,4 @@
-﻿using Shared.SharedKernel.DomainKernel.Tenant;
+﻿using SharedKernel.DomainKernel;
 
 namespace Shared.Modules.Layers.Infrastructure.StripeIntegration.Configuration
 {

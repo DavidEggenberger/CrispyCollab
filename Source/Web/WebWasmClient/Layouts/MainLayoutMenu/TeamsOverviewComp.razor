@@ -23,7 +23,7 @@
             {
                 foreach(var tenant in teams)
                 {
-                    if (User.IsInRole(RoleConstants.User))
+                    if (User.IsInRole(TenantRoleConstants.User))
                     {
                         if(tenant.Id == new Guid(TenantName))
                         {

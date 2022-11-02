@@ -4,7 +4,7 @@
     <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
         <h5>Dashboard</h5>
     </NavLink>
-    @if(User.IsInRole(RoleConstants.User))
+    @if(User.IsInRole(TenantRoleConstants.User))
     {
         <NavLink href="/Channels" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Channels</h5>
@@ -13,7 +13,7 @@
             <h5>Topics</h5>
         </NavLink>
     }
-    @if(User.IsInRole(RoleConstants.Admin))
+    @if(User.IsInRole(TenantRoleConstants.Admin))
     {
         <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
             <h5>Manage @TenantName</h5>

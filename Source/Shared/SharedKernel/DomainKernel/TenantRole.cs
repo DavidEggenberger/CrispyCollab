@@ -1,4 +1,4 @@
-﻿namespace Shared.SharedKernel.DomainKernel.Tenant
+﻿namespace SharedKernel.DomainKernel
 {
     public enum TenantRole
     {

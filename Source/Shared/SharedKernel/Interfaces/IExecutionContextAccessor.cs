@@ -1,6 +1,6 @@
-﻿using Shared.SharedKernel.DomainKernel.Tenant;
+﻿using SharedKernel.DomainKernel;
 
-namespace Shared.SharedKernel.BuildingBlocks
+namespace SharedKernel.Interfaces
 {
     public interface IExecutionContextAccessor
     {

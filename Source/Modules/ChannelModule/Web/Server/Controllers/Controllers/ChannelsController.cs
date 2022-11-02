@@ -47,7 +47,7 @@ namespace Modules.ChannelModule.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        [AuthorizeTeamAdmin]
+        [AuthorizeTenantAdmin]
         public async Task ChangeChannelName([FromBody] ChangeChannelNameDTO changeChannelNameDTO, CancellationToken cancellationToken)
         {
             ChangeChannelNameCommand updateChannelCommand = mapper.Map<ChangeChannelNameCommand>(changeChannelNameDTO);
@@ -85,7 +85,7 @@ namespace Modules.ChannelModule.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        [AuthorizeTeamAdmin]
+        [AuthorizeTenantAdmin]
         public async Task<ActionResult> DeleteChannel([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             Channel channel = await queryDispatcher.DispatchAsync<ChannelByIdQuery, Channel>(new ChannelByIdQuery { Id = id }, cancellationToken);

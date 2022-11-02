@@ -1,8 +1,8 @@
 ﻿using Shared.SharedKernel.Authorization.Services;
-using Shared.SharedKernel.DomainKernel.Tenant;
 using Shared.SharedKernel.Exstensions;
 using Microsoft.AspNetCore.Http;
 using Modules.IdentityModule.Domain.Exceptions;
+using SharedKernel.DomainKernel;
 
 namespace Shared.Modules.Layers.Infrastructure.Identity.Services
 {
