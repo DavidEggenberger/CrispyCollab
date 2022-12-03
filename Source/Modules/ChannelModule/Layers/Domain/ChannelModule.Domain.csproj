@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\ModulesShared.Domain\Shared.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\Shared\Modules\ModulesShared.Domain\ModulesShared.Domain.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\SharedKernel\Shared.Kernel.csproj" />
   </ItemGroup>
 

@@ -44,6 +44,7 @@
     <ProjectReference Include="..\..\Modules\ChannelModule\Web\DTOs\ChannelModule.DTOs.csproj" />
     <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Client\SubscriptionModule.Client.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Client\TenantIdentityModule.Client.csproj" />
+    <ProjectReference Include="..\..\Shared\SharedKernel\Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Web\Client\Shared.Client.csproj" />
   </ItemGroup>
 
