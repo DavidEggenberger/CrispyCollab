@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,11 +15,13 @@
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Scrutor.AspNetCore" Version="3.3.0" />
     <PackageReference Include="SendGrid" Version="9.25.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\ModulesShared.Domain.csproj" />
+    <ProjectReference Include="..\SharedKernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\ModulesShared.Domain\Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>

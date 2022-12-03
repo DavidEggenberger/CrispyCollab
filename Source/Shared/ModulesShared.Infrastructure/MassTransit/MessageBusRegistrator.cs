@@ -4,15 +4,17 @@ using System.Reflection;
 
 namespace ModulesShared.Infrastructure.EventBus
 {
-    public static class EventBusRegistrator
+    public static class MessageBusRegistrator
     {
         public static IServiceCollection RegisterEventBus(this IServiceCollection serviceCollection, Type consumerAssemblyMarkerType)
         {
             serviceCollection.AddMassTransit(options =>
             {
                 options.AddConsumersFromNamespaceContaining(consumerAssemblyMarkerType);
-                options.UsingRabbitMq((a, e) =>
+                options.UsingRabbitMq((context, cfg) =>
                 {
+                    cfg.Lazy = true;
+
                     
                 });
             });

@@ -11,7 +11,7 @@
     <ProjectReference Include="..\..\Modules\ChannelModule\Web\Server\ChannelModule.Server.csproj" />
     <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Server\SubscriptionModule.Server.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Server\TenantIdentityModule.Server.csproj" />
-    <ProjectReference Include="..\..\Shared\Modules\Web\Server\ModulesShared.Server.csproj" />
+    <ProjectReference Include="..\..\Shared\Web\Server\Shared.Server.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
 
