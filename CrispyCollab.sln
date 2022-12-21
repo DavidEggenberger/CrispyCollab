@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Kernel", "Source\Shared\SharedKernel\Shared.Kernel.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Kernel", "Source\Shared\Shared.Kernel\Shared.Kernel.csproj", "{D4A2F719-073B-4CC4-A28C-B7BCDF97F65B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{39CA6719-7F11-4A72-946C-8970E56C4658}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "Source\Web\WebServer\WebServer.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebWasmClient", "Source\Web\WebWasmClient\WebWasmClient.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests", "Tests\ArchitectureTests\ArchitectureTests.csproj", "{592A64E3-3D1A-4B58-B57E-7CB02224CA4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}"
 EndProject
@@ -87,7 +85,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Domain.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2980C86A-0185-482C-8547-B157CAE9AF2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "Source\Shared\ModulesShared.Infrastructure\Shared.Infrastructure.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "Source\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9E7087C6-E2C1-466B-95C0-56A897BC3D09}"
 EndProject
@@ -103,7 +101,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Server", "Sou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Client", "Source\Modules\ChannelModule\Web\Client\ChannelModule.Client.csproj", "{4D55F442-C753-48AD-A496-071A0AA4A53E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Domain", "Source\Shared\ModulesShared.Domain\Shared.Domain.csproj", "{5F11447B-1F7D-476D-A1E1-4C370024A9CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Domain", "Source\Shared\Shared.Domain\Shared.Domain.csproj", "{5F11447B-1F7D-476D-A1E1-4C370024A9CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "Tests\ArchitectureTests\ArchitectureTests.csproj", "{C65F4897-3909-4666-B8FB-7C546C625365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,10 +123,6 @@ Global
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD16A60B-CCF1-4526-9AD3-86C204173F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD16A60B-CCF1-4526-9AD3-86C204173F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD16A60B-CCF1-4526-9AD3-86C204173F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -243,6 +239,10 @@ Global
 		{5F11447B-1F7D-476D-A1E1-4C370024A9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F11447B-1F7D-476D-A1E1-4C370024A9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F11447B-1F7D-476D-A1E1-4C370024A9CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65F4897-3909-4666-B8FB-7C546C625365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65F4897-3909-4666-B8FB-7C546C625365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65F4897-3909-4666-B8FB-7C546C625365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65F4897-3909-4666-B8FB-7C546C625365}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,7 +252,6 @@ Global
 		{C4071F52-4845-40DB-BF73-9625EB786C64} = {39CA6719-7F11-4A72-946C-8970E56C4658}
 		{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4} = {C4071F52-4845-40DB-BF73-9625EB786C64}
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96} = {C4071F52-4845-40DB-BF73-9625EB786C64}
-		{592A64E3-3D1A-4B58-B57E-7CB02224CA4A} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
 		{FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3} = {39CA6719-7F11-4A72-946C-8970E56C4658}
 		{1E39B7E5-98E3-4299-8213-9339D0353A03} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
 		{E0B90562-C57B-47C3-9219-8F0DBF17F892} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
@@ -297,6 +296,7 @@ Global
 		{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802} = {9AF86631-FFC8-4440-8ED1-7EB07CF8C1B0}
 		{4D55F442-C753-48AD-A496-071A0AA4A53E} = {9AF86631-FFC8-4440-8ED1-7EB07CF8C1B0}
 		{5F11447B-1F7D-476D-A1E1-4C370024A9CB} = {2980C86A-0185-482C-8547-B157CAE9AF2F}
+		{C65F4897-3909-4666-B8FB-7C546C625365} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F7E334F-E2EF-47B9-BA58-4BC4C85E01A7}

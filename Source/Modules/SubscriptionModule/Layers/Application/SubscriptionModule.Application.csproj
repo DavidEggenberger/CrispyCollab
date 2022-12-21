@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\ModulesShared.Infrastructure\Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\..\Shared\Modules\ModulesShared.Infrastructure\ModulesShared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Infrastructure\Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Infrastructure\SubscriptionModule.Infrastructure.csproj" />
   </ItemGroup>
 

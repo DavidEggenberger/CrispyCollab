@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modules.TenantIdentityModule.Domain;
-using WebShared.Misc.Attributes;
 
 namespace Controllers
 {

@@ -1,5 +1,4 @@
-﻿using Shared.Modules.Layers.Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Modules.TenantIdentityModule.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

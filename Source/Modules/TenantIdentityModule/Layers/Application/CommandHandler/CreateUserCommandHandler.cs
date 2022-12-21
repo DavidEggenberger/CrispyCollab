@@ -1,5 +1,4 @@
-﻿using Shared.Modules.Layers.Application.CQRS.Command;
-using Shared.Modules.Layers.Infrastructure.Identity.Commands;
+﻿using Shared.Modules.Layers.Infrastructure.Identity.Commands;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using Modules.IdentityModule.Domain;

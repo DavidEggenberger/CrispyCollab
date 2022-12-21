@@ -11,6 +11,8 @@
     <ProjectReference Include="..\..\Modules\ChannelModule\Web\Server\ChannelModule.Server.csproj" />
     <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Server\SubscriptionModule.Server.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Server\TenantIdentityModule.Server.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Web\Server\Shared.Server.csproj" />
     <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
   </ItemGroup>
@@ -46,11 +48,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BuildingBlocks\HealthChecks\" />
-    <Folder Include="BuildingBlocks\FeatureFlags\" />
-    <Folder Include="BuildingBlocks\CORS\" />
-    <Folder Include="BuildingBlocks\ServerLifetimeEvents\" />
-    <Folder Include="BuildingBlocks\RateLimiting\" />
+    <Folder Include="ServerModules\HealthChecks\" />
+    <Folder Include="ServerModules\FeatureFlags\" />
+    <Folder Include="ServerModules\CORS\" />
+    <Folder Include="ServerModules\ServerLifetimeEvents\" />
+    <Folder Include="ServerModules\RateLimiting\" />
   </ItemGroup>
 
 </Project>

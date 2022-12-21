@@ -9,8 +9,8 @@ using System.Net.Http;
 using WebWasmClient.Authentication;
 using WebWasmClient.Authentication.Antiforgery;
 using Blazored.Modal;
-using Shared.SharedKernel.BuildingBlocks.Authorization;
 using Shared.Web.Client.Services;
+using Shared.SharedKernel.BuildingBlocks.Authorization;
 
 namespace WebWasmClient
 {

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace ModulesShared.Infrastructure.EventBus
 {
-    public static class MessageBusRegistrator
+    public static class MassTransitRegistrator
     {
         public static IServiceCollection RegisterEventBus(this IServiceCollection serviceCollection, Type consumerAssemblyMarkerType)
         {

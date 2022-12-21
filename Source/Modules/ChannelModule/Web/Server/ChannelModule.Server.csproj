@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,8 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\ModulesShared.Infrastructure\Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\..\Shared\SharedKernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Infrastructure\Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\Layers\Application\ChannelModule.Application.csproj" />
     <ProjectReference Include="..\DTOs\ChannelModule.DTOs.csproj" />
   </ItemGroup>
