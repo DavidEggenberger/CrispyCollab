@@ -1,7 +1,7 @@
-﻿using Shared.Modules.Layers.Infrastructure.EFCore;
+﻿using Shared.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Shared.Modules.Layers.Application.CQRS.Query
+namespace Shared.Infrastructure.CQRS.Query
 {
     public class BaseQueryHandler<T, U> where T : DbContext where U : class
     {

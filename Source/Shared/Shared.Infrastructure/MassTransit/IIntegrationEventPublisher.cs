@@ -1,4 +1,4 @@
-﻿namespace ModulesShared.Infrastructure.EventBus
+﻿namespace Shared.Infrastructure.MassTransit
 {
     public interface IIntegrationEventPublisher
     {

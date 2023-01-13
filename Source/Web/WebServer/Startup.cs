@@ -1,17 +1,17 @@
 using FluentValidation.AspNetCore;
-using Shared.Modules.Layers.Infrastructure.EmailSender;
-using Shared.Modules.Layers.Infrastructure.EFCore;
+using Shared.Infrastructure.EmailSender;
+using Shared.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Modules.Layers.Infrastructure.MultiTenancy;
 using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
-using Shared.Modules.Layers.Infrastructure.RedisCache;
+using Shared.Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
 using Shared.SharedKernel.BuildingBlocks.Authorization;
+using Shared.Infrastructure.MultiTenancy;
 
 namespace WebServer
 {

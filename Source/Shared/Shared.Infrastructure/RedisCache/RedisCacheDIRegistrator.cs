@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shared.Modules.Layers.Infrastructure.RedisCache
+namespace Shared.Infrastructure.RedisCache
 {
     public static class RedisCacheDIRegistrator
     {

@@ -1,4 +1,4 @@
-﻿namespace Shared.Modules.Layers.Domain.Interfaces
+﻿namespace Shared.Domain.Interfaces
 {
     public interface IIntegrationEvent
     {

@@ -1,8 +1,7 @@
-﻿using Shared.Modules.Layers.Infrastructure.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using WebServer.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.Infrastructure.MultiTenancy.Services;
 
-namespace Shared.Modules.Layers.Infrastructure.MultiTenancy
+namespace Shared.Infrastructure.MultiTenancy
 {
     public static class MultiTenancyDIRegistrator
     {

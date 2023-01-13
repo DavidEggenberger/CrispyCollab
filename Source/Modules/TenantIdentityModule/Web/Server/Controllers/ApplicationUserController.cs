@@ -1,5 +1,5 @@
 ﻿//using AutoMapper;
-//using Shared.Modules.Layers.Application.CQRS.Query;
+//using Shared.Infrastructure.CQRS.Query;
 //using Shared.Modules.Layers.Infrastructure.Identity;
 //using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Http;

@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace ModulesShared.Infrastructure.EventBus
+namespace Shared.Infrastructure.MassTransit
 {
     public class IntegrationEventMassTransitProducer : IIntegrationEventPublisher
     {

@@ -1,4 +1,4 @@
-﻿namespace Shared.Modules.Layers.Domain.Exceptions
+﻿namespace Shared.Domain.Exceptions
 {
     internal class NotAllowedException : Exception
     {

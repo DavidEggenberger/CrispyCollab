@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Shared.Modules.Layers.Domain;
-using Shared.Modules.Layers.Domain.Attributes;
+using Shared.Domain;
+using Shared.Domain.Attributes;
 
-namespace Shared.Modules.Layers.Infrastructure.EFCore.Configuration
+namespace Shared.Infrastructure.MultiTenancy.EFCore
 {
     public static class MultiTenancyEntityConfiguration
     {

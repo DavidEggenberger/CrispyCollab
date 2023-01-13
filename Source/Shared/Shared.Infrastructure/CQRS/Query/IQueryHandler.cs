@@ -1,6 +1,4 @@
-﻿using Shared.Modules.Layers.Infrastructure.CQRS.Query;
-
-namespace Shared.Modules.Layers.Application.CQRS.Query
+﻿namespace Shared.Infrastructure.CQRS.Query
 {
     public interface IQueryHandler<in TQuery, TQueryResult> where TQuery : IQuery<TQueryResult>
     {

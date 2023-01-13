@@ -3,8 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Modules.Layers.Infrastructure.EFCore;
-using Shared.Modules.Layers.Infrastructure.EFCore.Migrations;
+using Shared.Infrastructure.EFCore;
+using Shared.Infrastructure.EFCore.Migrations;
 
 namespace WebServer
 {

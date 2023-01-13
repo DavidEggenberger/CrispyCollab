@@ -1,10 +1,10 @@
-﻿using Domain.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Shared.Infrastructure.EmailSender.Configuration;
 
-namespace Shared.Modules.Layers.Infrastructure.EmailSender
+namespace Shared.Infrastructure.EmailSender.Services
 {
     public class SendGridEmailSender : IEmailSender
     {

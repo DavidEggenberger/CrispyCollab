@@ -1,14 +1,8 @@
-﻿using Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shared.Infrastructure.EmailSender.Services;
 
-namespace Shared.Modules.Layers.Infrastructure.EmailSender
+namespace Shared.Infrastructure.EmailSender
 {
     public static class EmailSenderDIRegistrator
     {

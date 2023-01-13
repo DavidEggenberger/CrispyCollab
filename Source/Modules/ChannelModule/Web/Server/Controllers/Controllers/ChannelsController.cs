@@ -6,11 +6,11 @@ using Modules.ChannelModule.Web.DTOs;
 using AutoMapper;
 using Modules.ChannelModule.Domain;
 using WebShared.Misc.Attributes;
-using Shared.Modules.Layers.Application.CQRS.Query;
-using Shared.Modules.Layers.Application.CQRS.Command;
+using Shared.Infrastructure.CQRS.Query;
 using Modules.ChannelModule.Layers.Application.Queries;
 using Modules.ChannelModule.Layers.Application.Commands;
 using Shared.SharedKernel.Constants;
+using Shared.Infrastructure.CQRS.Command;
 
 namespace Modules.ChannelModule.Web.Controllers
 {

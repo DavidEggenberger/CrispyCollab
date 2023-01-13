@@ -1,8 +1,7 @@
-﻿using Shared.Modules.Layers.Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Shared.SharedKernel.Exstensions;
 
-namespace WebServer.Services
+namespace Shared.Infrastructure.MultiTenancy.Services
 {
     public class TenantResolver : ITenantResolver
     {

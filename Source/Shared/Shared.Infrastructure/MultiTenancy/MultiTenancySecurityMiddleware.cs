@@ -1,11 +1,10 @@
 ﻿using Shared.SharedKernel.Exstensions;
-using Shared.Modules.Layers.Infrastructure.EFCore;
-using Shared.Modules.Layers.Infrastructure.Interfaces;
+using Shared.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shared.Modules.Layers.Infrastructure.MultiTenancy
+namespace Shared.Infrastructure.MultiTenancy
 {
     public class MultiTenancySecurityMiddleware
     {

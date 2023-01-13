@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Modules.Layers.Domain
+namespace Shared.Domain
 {
     public class DomainException : Exception
     {

@@ -18,7 +18,6 @@
     <ProjectReference Include="..\..\..\..\Shared\Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
-    <ProjectReference Include="..\Domain\TenantIdentityModule.Domain.csproj" />
   </ItemGroup>
 
 

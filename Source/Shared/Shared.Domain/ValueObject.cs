@@ -1,4 +1,4 @@
-﻿namespace Shared.Modules.Layers.Domain
+﻿namespace Shared.Domain
 {
     public abstract class ValueObject
     {

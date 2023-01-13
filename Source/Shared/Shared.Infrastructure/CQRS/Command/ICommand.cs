@@ -1,4 +1,4 @@
-﻿namespace Shared.Modules.Layers.Infrastructure.CQRS.Command
+﻿namespace Shared.Infrastructure.CQRS.Command
 {
     public interface ICommand
     {

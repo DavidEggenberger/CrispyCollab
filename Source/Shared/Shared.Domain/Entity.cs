@@ -1,8 +1,8 @@
-﻿using Shared.Modules.Layers.Domain.Exceptions;
-using Shared.Modules.Layers.Domain.Interfaces;
+﻿using Shared.Domain.Exceptions;
+using Shared.Domain.Interfaces;
 using Shared.SharedKernel.Interfaces;
 
-namespace Shared.Modules.Layers.Domain
+namespace Shared.Domain
 {
     public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {

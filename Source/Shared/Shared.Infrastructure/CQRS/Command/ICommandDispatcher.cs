@@ -1,6 +1,4 @@
-﻿using Shared.Modules.Layers.Infrastructure.CQRS.Command;
-
-namespace Shared.Modules.Layers.Application.CQRS.Command
+﻿namespace Shared.Infrastructure.CQRS.Command
 {
     public interface ICommandDispatcher
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared.Modules.Layers.Infrastructure.EmailSender
+﻿namespace Shared.Infrastructure.EmailSender.Configuration
 {
     public class SendGridEmailOptions
     {
