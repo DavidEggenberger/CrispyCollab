@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChannelModule.Server.Features.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.ChannelModule.Domain;
 
 namespace Modules.ChannelModule.Infrastructure.EFCore.Configuration
 {

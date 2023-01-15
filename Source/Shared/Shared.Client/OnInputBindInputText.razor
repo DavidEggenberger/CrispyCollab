@@ -1,0 +1,22 @@
+﻿@inherits InputText
+
+<input @attributes="AdditionalAttributes"
+       class="@CssClass" 
+       @bind="CurrentValueAsString"
+       @bind:event="oninput"
+       @onkeydown="OnKeyDown"/>
+
+@code{
+    [Parameter]
+    public EventCallback<string> EnterClicked { get; set; }
+    public async Task OnKeyDown(KeyboardEventArgs changeEventArgs)
+    {
+        if(changeEventArgs.Key == "enter")
+        {
+            if (EnterClicked.HasDelegate)
+            {
+                await EnterClicked.InvokeAsync(CurrentValueAsString);
+            }
+        }
+    }
+}

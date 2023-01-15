@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Shared.Client\Shared.Client.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Web\Client\Shared.Client.csproj" />
     <ProjectReference Include="..\DTOs\ChannelModule.DTOs.csproj" />
   </ItemGroup>

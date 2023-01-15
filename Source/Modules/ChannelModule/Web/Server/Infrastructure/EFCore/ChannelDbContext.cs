@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChannelModule.Server.Features.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Modules.ChannelModule.Domain;
 using Shared.Infrastructure.EFCore;
 
 namespace Modules.ChannelModule.Infrastructure.EFCore

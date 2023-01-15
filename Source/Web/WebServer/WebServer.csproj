@@ -43,11 +43,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ServerModules\HealthChecks\" />
-    <Folder Include="ServerModules\FeatureFlags\" />
-    <Folder Include="ServerModules\CORS\" />
-    <Folder Include="ServerModules\ServerLifetimeEvents\" />
-    <Folder Include="ServerModules\RateLimiting\" />
+    <Folder Include="BuildingBlocks\HealthChecks\" />
+    <Folder Include="BuildingBlocks\FeatureFlags\" />
+    <Folder Include="BuildingBlocks\CORS\" />
+    <Folder Include="BuildingBlocks\ServerLifetimeEvents\" />
+    <Folder Include="BuildingBlocks\RateLimiting\" />
   </ItemGroup>
 
 </Project>
