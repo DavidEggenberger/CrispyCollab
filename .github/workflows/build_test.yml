@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    pull_request:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -44,18 +42,6 @@ jobs:
     needs: build_test
     runs-on: ubuntu-latest
     environment: dev
-
-    steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: Published-Artifacts
-        path: './published-app'
-  
-  deploy_production:
-    needs: [build_test, deploy_dev]
-    runs-on: ubuntu-latest
-    environment: production
 
     steps:
     - name: Download artifact

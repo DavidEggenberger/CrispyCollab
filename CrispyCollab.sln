@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C4046A49
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4071F52-4845-40DB-BF73-9625EB786C64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "Source\Web\WebServer\WebServer.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Server", "Source\Web\WebServer\Web.Server.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebWasmClient", "Source\Web\WebWasmClient\WebWasmClient.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Client", "Source\Web\WebWasmClient\Web.Client.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}"
 EndProject
@@ -25,41 +25,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubscriptionModule", "Subsc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TenantIdentityModule", "TenantIdentityModule", "{2EAB9402-18B3-494D-AF82-D63E296A012F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.DTOs", "Source\Modules\ChannelModule\Web\DTOs\ChannelModule.DTOs.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channel.Web.Shared", "Source\Modules\ChannelModule\Web\DTOs\Modules.Channel.Web.Shared.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantIdentityModule.DTOs", "Source\Modules\TenantIdentityModule\Web\DTOs\TenantIdentityModule.DTOs.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Shared", "Source\Modules\TenantIdentityModule\Web\DTOs\Modules.TenantIdentity.Web.Shared.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantIdentityModule.Server", "Source\Modules\TenantIdentityModule\Web\Server\TenantIdentityModule.Server.csproj", "{4C83807E-706F-459F-BE57-E4EE27A60946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Server", "Source\Modules\TenantIdentityModule\Web\Server\Modules.TenantIdentity.Web.Server.csproj", "{4C83807E-706F-459F-BE57-E4EE27A60946}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantIdentityModule.Client", "Source\Modules\TenantIdentityModule\Web\Client\TenantIdentityModule.Client.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Client", "Source\Modules\TenantIdentityModule\Web\Client\Modules.TenantIdentity.Web.Client.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.DTOs", "Source\Modules\SubscriptionModule\Web\DTOs\SubscriptionModule.DTOs.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscription.Web.Shared", "Source\Modules\SubscriptionModule\Web\DTOs\Modules.Subscription.Web.Shared.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Server", "Source\Modules\SubscriptionModule\Web\Server\SubscriptionModule.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscription.Web.Server", "Source\Modules\SubscriptionModule\Web\Server\Modules.Subscription.Web.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.Client", "Source\Modules\SubscriptionModule\Web\Client\SubscriptionModule.Client.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscription.Web.Client", "Source\Modules\SubscriptionModule\Web\Client\Modules.Subscription.Web.Client.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.IntegrationEvents", "Source\Modules\ChannelModule\IntegrationEvents\ChannelModule.IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channel.IntegrationEvents", "Source\Modules\ChannelModule\IntegrationEvents\Modules.Channel.IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionModule.IntegrationEvents", "Source\Modules\SubscriptionModule\SubscriptionModule\IntegrationEvents\SubscriptionModule.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscription.IntegrationEvents", "Source\Modules\SubscriptionModule\SubscriptionModule\IntegrationEvents\Modules.Subscription.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantIdentityModule.IntegrationEvents", "Source\Modules\TenantIdentityModule\IntegrationEvents\TenantIdentityModule.IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.IntegrationEvents", "Source\Modules\TenantIdentityModule\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2980C86A-0185-482C-8547-B157CAE9AF2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Infrastructure", "Source\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.DomainFeatures", "Source\Shared\Shared.Infrastructure\Shared.DomainFeatures.csproj", "{63541174-DD9C-4969-8576-17866923ECFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Server", "Source\Shared\Shared.Server\Shared.Server.csproj", "{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.LandingPages.Server", "Source\Modules\LandingPagesModule\Web\Server\Modules.LandingPages.Server.csproj", "{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Client", "Source\Shared\Shared.Client\Shared.Client.csproj", "{38E5E460-A844-4827-8869-CEBA73D8C9AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channel.Web.Server", "Source\Modules\ChannelModule\Web\Server\Modules.Channel.Web.Server.csproj", "{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LandingPagesModule.Server", "Source\Modules\LandingPagesModule\Web\Server\LandingPagesModule.Server.csproj", "{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Server", "Source\Modules\ChannelModule\Web\Server\ChannelModule.Server.csproj", "{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelModule.Client", "Source\Modules\ChannelModule\Web\Client\ChannelModule.Client.csproj", "{4D55F442-C753-48AD-A496-071A0AA4A53E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channel.Web.Client", "Source\Modules\ChannelModule\Web\Client\Modules.Channel.Web.Client.csproj", "{4D55F442-C753-48AD-A496-071A0AA4A53E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests", "Tests\ArchitectureTests\ArchitectureTests.csproj", "{C65F4897-3909-4666-B8FB-7C546C625365}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{349B99D4-4381-4B8D-A638-D73E9FFB4BF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2F6AB579-E4CA-447F-B459-265436839538}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,14 +125,6 @@ Global
 		{63541174-DD9C-4969-8576-17866923ECFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63541174-DD9C-4969-8576-17866923ECFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63541174-DD9C-4969-8576-17866923ECFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38E5E460-A844-4827-8869-CEBA73D8C9AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38E5E460-A844-4827-8869-CEBA73D8C9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38E5E460-A844-4827-8869-CEBA73D8C9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38E5E460-A844-4827-8869-CEBA73D8C9AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9143285-4FC3-4D87-BAE0-7FF8C8D63228}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -161,24 +155,25 @@ Global
 		{E0B90562-C57B-47C3-9219-8F0DBF17F892} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
 		{13F35C45-6601-4F92-9CB9-9F5DAD2146F4} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
 		{2EAB9402-18B3-494D-AF82-D63E296A012F} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
-		{4C83807E-706F-459F-BE57-E4EE27A60946} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
-		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
-		{39685BEE-EF76-4342-A745-5144E1F412F8} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
-		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
-		{3F9C319D-287D-489A-972E-00FD18C2F011} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
+		{88AD44BF-5583-403F-AC86-6DA7958A15C1} = {2F6AB579-E4CA-447F-B459-265436839538}
+		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF} = {8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}
+		{4C83807E-706F-459F-BE57-E4EE27A60946} = {8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}
+		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80} = {8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}
+		{39685BEE-EF76-4342-A745-5144E1F412F8} = {349B99D4-4381-4B8D-A638-D73E9FFB4BF8}
+		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C} = {349B99D4-4381-4B8D-A638-D73E9FFB4BF8}
+		{3F9C319D-287D-489A-972E-00FD18C2F011} = {349B99D4-4381-4B8D-A638-D73E9FFB4BF8}
 		{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
 		{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
 		{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
 		{2980C86A-0185-482C-8547-B157CAE9AF2F} = {39CA6719-7F11-4A72-946C-8970E56C4658}
 		{63541174-DD9C-4969-8576-17866923ECFD} = {2980C86A-0185-482C-8547-B157CAE9AF2F}
-		{0E15A2E6-767A-4F3A-B938-D8DFF80A8F74} = {2980C86A-0185-482C-8547-B157CAE9AF2F}
-		{38E5E460-A844-4827-8869-CEBA73D8C9AA} = {2980C86A-0185-482C-8547-B157CAE9AF2F}
 		{E9143285-4FC3-4D87-BAE0-7FF8C8D63228} = {E0B90562-C57B-47C3-9219-8F0DBF17F892}
-		{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
-		{4D55F442-C753-48AD-A496-071A0AA4A53E} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
+		{92C1F7D6-FCBD-46FE-A3B5-6303DF0FA802} = {2F6AB579-E4CA-447F-B459-265436839538}
+		{4D55F442-C753-48AD-A496-071A0AA4A53E} = {2F6AB579-E4CA-447F-B459-265436839538}
 		{C65F4897-3909-4666-B8FB-7C546C625365} = {C4046A49-D1FA-400C-B7D7-5414868DDCE8}
+		{349B99D4-4381-4B8D-A638-D73E9FFB4BF8} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
+		{8602DFB4-8FE1-4434-BEB7-258CDCAE98F3} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
+		{2F6AB579-E4CA-447F-B459-265436839538} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F7E334F-E2EF-47B9-BA58-4BC4C85E01A7}

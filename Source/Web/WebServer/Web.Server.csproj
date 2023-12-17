@@ -8,13 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\ChannelModule\Web\Server\ChannelModule.Server.csproj" />
-    <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Server\SubscriptionModule.Server.csproj" />
-    <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Server\TenantIdentityModule.Server.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\ChannelModule\Web\Server\Modules.Channel.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Server\Modules.Subscription.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Server\Modules.TenantIdentity.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.DomainFeatures.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
-    <ProjectReference Include="..\..\Shared\Web\Server\Shared.Server.csproj" />
-    <ProjectReference Include="..\WebWasmClient\WebWasmClient.csproj" />
+    <ProjectReference Include="..\WebWasmClient\Web.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

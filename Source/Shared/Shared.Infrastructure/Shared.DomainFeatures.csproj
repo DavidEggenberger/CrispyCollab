@@ -21,8 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.Kernel\Shared.Kernel.csproj" />
-    <ProjectReference Include="..\Shared.Server\Shared.Server.csproj" />
-    <ProjectReference Include="..\Web\Server\Shared.Server.csproj" />
   </ItemGroup>
 
 </Project>

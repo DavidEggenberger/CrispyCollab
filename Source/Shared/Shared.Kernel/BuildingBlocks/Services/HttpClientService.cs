@@ -1,8 +1,9 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
+using System.Net.Http;
 
-namespace Shared.Web.Client.Services
+namespace Shared.Kernel.BuildingBlocks.Services
 {
     public class HttpClientService
     {

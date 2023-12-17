@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTOs\SubscriptionModule.DTOs.csproj" />
+    <ProjectReference Include="..\DTOs\Modules.Subscription.Web.Shared.csproj" />
   </ItemGroup>
 
 </Project>

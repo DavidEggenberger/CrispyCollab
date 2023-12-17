@@ -2,8 +2,8 @@
 using Domain.Aggregates.TenantAggregate.Exceptions;
 using Shared.Domain;
 using Shared.Domain.Attributes;
-using Shared.SharedKernel.Authorization.Services;
-using SharedKernel.DomainKernel;
+using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using System;
 
 namespace Modules.TenantIdentityModule.Domain

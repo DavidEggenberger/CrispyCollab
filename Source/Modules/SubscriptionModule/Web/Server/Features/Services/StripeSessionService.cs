@@ -26,7 +26,7 @@ namespace SubscriptionModule.Server.Features.Services
                 {
                   "card",
                 },
-                //Customer = user.StripeCustomerId,
+                Customer = user.StripeCustomerId,
                 //CustomerEmail = user.Email,
                 //ClientReferenceId = user.Id.ToString(),
                 LineItems = new List<SessionLineItemOptions>

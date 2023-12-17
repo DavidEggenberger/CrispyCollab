@@ -10,8 +10,8 @@ using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
 using Shared.Infrastructure.RedisCache;
 using WebServer.Modules.Swagger;
-using Shared.SharedKernel.BuildingBlocks.Authorization;
 using Shared.Infrastructure.MultiTenancy;
+using Shared.Kernel.BuildingBlocks.Authorization;
 
 namespace WebServer
 {

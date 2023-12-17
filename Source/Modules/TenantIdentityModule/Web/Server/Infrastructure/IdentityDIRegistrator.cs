@@ -10,10 +10,10 @@ using WebServer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Shared.SharedKernel.Constants;
 using Shared.Modules.Layers.Infrastructure.Identity.Services;
-using Shared.SharedKernel.Authorization.Services;
 using Modules.IdentityModule.Domain;
 using Modules.TenantIdentityModule.Infrastructure.EFCore;
 using Modules.TenantIdentityModule.Domain;
+using Shared.Kernel.BuildingBlocks.Authorization.Services;
 
 namespace Modules.TenantIdentityModule.Layers.Infrastructure
 {

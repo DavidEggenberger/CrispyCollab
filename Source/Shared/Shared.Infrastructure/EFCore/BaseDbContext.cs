@@ -1,11 +1,11 @@
-﻿using Shared.SharedKernel.Authorization.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Domain;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Infrastructure.MultiTenancy.EFCore;
 using Shared.Infrastructure.CQRS.DomainEvent;
+using Shared.Kernel.BuildingBlocks.Authorization.Services;
 
 namespace Shared.Infrastructure.EFCore
 {

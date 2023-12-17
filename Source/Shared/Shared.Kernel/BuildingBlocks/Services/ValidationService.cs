@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using static FluentValidation.AssemblyScanner;
 
-namespace Shared.Web.Client.Services
+namespace Shared.Kernel.BuildingBlocks.Services
 {
     public class ValidationService
     {

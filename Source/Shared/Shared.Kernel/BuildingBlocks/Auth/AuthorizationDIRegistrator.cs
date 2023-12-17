@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
-using WebServer.Authorization;
 using Shared.SharedKernel.Constants;
 
-namespace Shared.SharedKernel.BuildingBlocks.Authorization
+namespace Shared.Kernel.BuildingBlocks.Authorization
 {
     public static class AuthorizationDIRegistrator
     {

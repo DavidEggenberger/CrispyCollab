@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.IdentityModule.Domain;
 using Modules.TenantIdentityModule.Layers.Infrastructure;
+using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using Shared.Modules.Layers.Infrastructure.Identity.Services;
 using Shared.Modules.Layers.Infrastructure.Interfaces;
-using Shared.SharedKernel.Authorization.Services;
 using Shared.SharedKernel.Constants;
 using System.Security.Claims;
 

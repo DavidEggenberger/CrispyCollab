@@ -1,4 +1,4 @@
-﻿using SharedKernel.DomainKernel;
+﻿using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 
 namespace SubscriptionModule.Server.Infrastructure.Configuration
 {
