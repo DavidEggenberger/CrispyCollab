@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Shared.Modules.Layers.Infrastructure.SignalR
+namespace Shared.Modules.Layers.Features.SignalR
 {
     public interface ISignalRHub
     {

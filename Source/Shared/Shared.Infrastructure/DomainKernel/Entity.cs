@@ -1,8 +1,8 @@
-﻿using Shared.Domain.Exceptions;
-using Shared.Domain.Interfaces;
+﻿using Shared.Features.DomainKernel.Exceptions;
+using Shared.Features.DomainKernel.Interfaces;
 using Shared.SharedKernel.Interfaces;
 
-namespace Shared.Domain
+namespace Shared.Features.DomainKernel
 {
     public abstract class Entity : IAuditable, IIdentifiable, ITenantIdentifiable, IConcurrent
     {
@@ -22,11 +22,11 @@ namespace Shared.Domain
         {
             _domainEvents.Add(eventItem);
         }
-        protected void RemoveDomainEvent(IDomainEvent eventItem)
+        protected void RemoveEvent(IDomainEvent eventItem)
         {
             _domainEvents?.Remove(eventItem);
         }
-        public void ClearDomainEvents()
+        public void ClearEvents()
         {
             _domainEvents?.Clear();
         }

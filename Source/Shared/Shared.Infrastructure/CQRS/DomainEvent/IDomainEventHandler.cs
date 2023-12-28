@@ -1,6 +1,6 @@
-﻿using Shared.Domain.Interfaces;
+﻿using Shared.Features.DomainKernel.Interfaces;
 
-namespace Shared.Infrastructure.CQRS.DomainEvent
+namespace Shared.Features.CQRS.Features.DomainKernelEvent
 {
     public interface IDomainEventHandler<in TDomainEvent> where TDomainEvent : IDomainEvent
     {

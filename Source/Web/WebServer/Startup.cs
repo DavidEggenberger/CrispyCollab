@@ -1,6 +1,5 @@
-using FluentValidation.AspNetCore;
-using Shared.Infrastructure.EmailSender;
-using Shared.Infrastructure.EFCore;
+using Shared.Features.EmailSender;
+using Shared.Features.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebServer.Modules.ModelValidation;
 using WebServer.Modules.HostingInformation;
-using Shared.Infrastructure.RedisCache;
+using Shared.Features.RedisCache;
 using WebServer.Modules.Swagger;
-using Shared.Infrastructure.MultiTenancy;
+using Shared.Features.MultiTenancy;
 using Shared.Kernel.BuildingBlocks.Authorization;
 
 namespace WebServer
@@ -64,7 +63,7 @@ namespace WebServer
             services.RegisterApiVersioning();
             #endregion
 
-            #region Shared.Modules.Layers.Infrastructure
+            #region Shared.Modules.Layers.Features
             //services.RegisterCQRS();
             services.RegisterEmailSender(Configuration);
             services.RegisterEFCore(Configuration);

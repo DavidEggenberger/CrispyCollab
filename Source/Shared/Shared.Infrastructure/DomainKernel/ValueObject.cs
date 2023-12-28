@@ -1,4 +1,4 @@
-﻿namespace Shared.Domain
+﻿namespace Shared.Features.DomainKernel
 {
     public abstract class ValueObject
     {

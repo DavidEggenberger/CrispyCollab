@@ -3,12 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Shared.SharedKernel.Interfaces;
-using Shared.Domain.Attributes;
+using Shared.Features.DomainKernel.Attributes;
 using SharedKernel.Interfaces;
-using Shared.Infrastructure.MultiTenancy.Services;
-using Shared.Infrastructure.MultiTenancy.Exceptions;
+using Shared.Features.MultiTenancy.Services;
+using Shared.Features.MultiTenancy.Exceptions;
 
-namespace Shared.Infrastructure.MultiTenancy.EFCore
+namespace Shared.Features.MultiTenancy.EFCore
 {
     public class MultiTenantDbContext<T> : DbContext where T : DbContext
     {

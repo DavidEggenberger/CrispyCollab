@@ -1,7 +1,7 @@
-﻿using Shared.Infrastructure.EFCore;
+﻿using Shared.Features.EFCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Shared.Infrastructure.CQRS.Query
+namespace Shared.Features.CQRS.Query
 {
     public class BaseQueryHandler<T, U> where T : DbContext where U : class
     {

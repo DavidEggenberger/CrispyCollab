@@ -1,4 +1,4 @@
-﻿namespace Shared.Domain.Exceptions
+﻿namespace Shared.Features.DomainKernel.Exceptions
 {
     internal class NotAllowedException : Exception
     {

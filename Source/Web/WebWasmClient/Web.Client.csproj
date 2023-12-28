@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="6.0.1" />
-    <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
@@ -40,10 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\ChannelModule\Web\Client\Modules.Channel.Web.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\ChannelModule\Web\DTOs\Modules.Channel.Web.Shared.csproj" />
-    <ProjectReference Include="..\..\Modules\SubscriptionModule\Web\Client\Modules.Subscription.Web.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\TenantIdentityModule\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Channel\Web\Client\Modules.Channel.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscription.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
   </ItemGroup>
 

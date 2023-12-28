@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Domain;
+using Shared.Features.DomainKernel;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Shared.Infrastructure.MultiTenancy.EFCore;
-using Shared.Infrastructure.CQRS.DomainEvent;
+using Shared.Features.MultiTenancy.EFCore;
+using Shared.Features.CQRS.Features.DomainKernelEvent;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
 
-namespace Shared.Infrastructure.EFCore
+namespace Shared.Features.EFCore
 {
     public class BaseDbContext<T> : MultiTenantDbContext<T> where T : DbContext
     {
-        private readonly IDomainEventDispatcher domainEventDispatcher;
+        private readonly IDomainEventDispatcher _domainEventDispatcher;
         public BaseDbContext(DbContextOptions<T> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions, serviceProvider, configuration)
         {
-            this.domainEventDispatcher = serviceProvider.GetRequiredService<IDomainEventDispatcher>();
+            this._domainEventDispatcher = serviceProvider.GetRequiredService<IDomainEventDispatcher>();
         }
 
         public IUserAuthorizationService TenantAuthorizationService { get; set; }
@@ -27,19 +27,19 @@ namespace Shared.Infrastructure.EFCore
         }
         private async Task DispatchEventsAsync(CancellationToken cancellationToken)
         {
-            var domainEntities = ChangeTracker
+            var domainKernelEntities = ChangeTracker
                 .Entries<Entity>()
                 .Select(x => x.Entity)
                 .Where(x => x.DomainEvents.Any())
                 .ToList();
 
-            foreach (var entity in domainEntities)
+            foreach (var entity in domainKernelEntities)
             {
                 var events = entity.DomainEvents.ToArray();
-                entity.ClearDomainEvents();
+                entity.ClearEvents();
                 foreach (var domainEvent in events)
                 {
-                    await domainEventDispatcher.RaiseAsync(domainEvent, cancellationToken).ConfigureAwait(false);
+                    await _domainEventDispatcher.RaiseAsync(domainEvent, cancellationToken).ConfigureAwait(false);
                 }
             }
         }
