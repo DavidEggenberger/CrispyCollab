@@ -1,12 +1,5 @@
 ﻿using WebShared.Identity.Subscription;
-using WebShared.Identity.Team;
 using WebShared.Identity.Team.AdminManagement;
-using WebShared.Identity.Team.DTOs.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Modules.IdentityModule.Web.DTOs
 {

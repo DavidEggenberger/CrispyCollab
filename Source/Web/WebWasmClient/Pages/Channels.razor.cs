@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
-using Modules.ChannelModule.Web.DTOs;
-using Shared.Web.Client;
-using Shared.Web.Client.Services;
+﻿using Shared.Web.Client;
 
 namespace WebWasmClient.Pages
 {

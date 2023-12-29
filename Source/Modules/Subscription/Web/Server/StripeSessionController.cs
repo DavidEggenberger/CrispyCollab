@@ -1,8 +1,4 @@
-﻿using Common.DomainKernel.Tenant;
-using Microsoft.AspNetCore.Mvc;
-using WebShared.Misc.Attributes;
-
-namespace WebServer.Controllers.Stripe
+﻿namespace WebServer.Controllers.Stripe
 {
     [Route("api/[controller]")]
     [ApiController]

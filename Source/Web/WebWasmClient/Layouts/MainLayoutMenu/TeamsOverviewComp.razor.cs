@@ -1,8 +1,5 @@
 ﻿using Modules.IdentityModule.Web.DTOs;
 using Shared.Web.Client;
-using Shared.Web.Client.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace WebWasmClient.Layouts.MainLayoutMenu
 {

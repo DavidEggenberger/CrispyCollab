@@ -1,5 +1,4 @@
-﻿using WebShared;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net;
 using System.Net.Http;

@@ -6,11 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Modules.IdentityModule.Domain;
-using Modules.TenantIdentity.Layers.Features;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
-using Shared.Modules.Layers.Features.Identity.Services;
-using Shared.Modules.Layers.Features.Interfaces;
 using Shared.SharedKernel.Constants;
 using System.Security.Claims;
 

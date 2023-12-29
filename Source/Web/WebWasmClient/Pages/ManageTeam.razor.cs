@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
-using Modules.IdentityModule.Web.DTOs;
+﻿using Modules.IdentityModule.Web.DTOs;
 using Shared.Web.Client;
-using Shared.Web.Client.Services;
-using System.Threading.Tasks;
 
 namespace Web.Client.Pages
-{ 
+{
     public partial class ManageTeamBase : BaseComponent
     {
         protected bool loading = true;

@@ -1,8 +1,5 @@
-﻿using Shared.SharedKernel.Exstensions;
-using Shared.Features.EFCore;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Shared.Features.MultiTenancy
 {

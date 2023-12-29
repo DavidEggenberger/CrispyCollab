@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using WebWasmClient.Authentication;
 using WebWasmClient.Authentication.Antiforgery;
 using Blazored.Modal;
-using Shared.Web.Client.Services;
 using Shared.Kernel.BuildingBlocks.Authorization;
 
 namespace WebWasmClient

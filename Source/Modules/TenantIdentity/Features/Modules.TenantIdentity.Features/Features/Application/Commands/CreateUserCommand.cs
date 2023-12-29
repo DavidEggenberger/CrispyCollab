@@ -1,0 +1,10 @@
+﻿using Modules.TenantIdentity.Domain;
+
+namespace Shared.Modules.Layers.Features.Identity.Commands
+{
+    public class CreateUserCommand : ICommand
+    {
+        public ApplicationUser User { get; set; }
+        public ExternalLoginInfo LoginInfo { get; set; }
+    }
+}

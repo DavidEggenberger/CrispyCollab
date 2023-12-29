@@ -1,5 +1,4 @@
-﻿using Shared.Features.EFCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Shared.Features.CQRS.Query
 {

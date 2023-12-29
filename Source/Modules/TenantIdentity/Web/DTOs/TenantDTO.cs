@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TenantIdentity.Web.DTOs
+﻿namespace TenantIdentity.Web.DTOs
 {
     public class TenantDTO
     {

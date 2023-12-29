@@ -39,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Channel\Web\Client\Modules.Channel.Web.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscription.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Channel\Web\Client\Modules.Channels.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscriptions.Web.Client.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
   </ItemGroup>

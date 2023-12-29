@@ -1,11 +1,4 @@
-﻿using Shared.Modules.Layers.Features.EmailSender;
-using Shared.Modules.Layers.Features.StripeIntegration.Configuration;
-using Shared.Modules.Layers.Features.StripeIntegration.Services;
-using Shared.Modules.Layers.Features.StripeIntegration.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Stripe;
-using SubscriptionModule.Server.Features.Configuration;
+﻿using Stripe;
 
 namespace Shared.Modules.Layers.Features.StripeIntegration
 {

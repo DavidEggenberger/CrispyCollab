@@ -1,7 +1,4 @@
-﻿using Microsoft.JSInterop;
-using System.Threading.Tasks;
-
-namespace WebWasmClient.Layouts
+﻿namespace WebWasmClient.Layouts
 {
     public partial class MainLayout
     {

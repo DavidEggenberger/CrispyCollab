@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Channel\Web\Server\Modules.Channel.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\Channel\Web\Server\Modules.Channelss.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\LandingPages\Web\Server\Modules.LandingPages.Server.csproj" />
-    <ProjectReference Include="..\..\Modules\Subscription\Web\Server\Modules.Subscription.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\Subscription\Web\Server\Modules.Subscriptions.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Server\Modules.TenantIdentity.Web.Server.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Features.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />

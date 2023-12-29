@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Modules.IdentityModule.Web.DTOs;
-using Shared.Web.Client.Services;
 
 namespace WebWasmClient.Components.Dashboard.Pages
 {

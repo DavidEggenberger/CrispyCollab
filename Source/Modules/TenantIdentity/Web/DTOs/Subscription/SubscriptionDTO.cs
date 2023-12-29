@@ -1,9 +1,4 @@
 ﻿using WebShared.Identity.Team.DTOs.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Modules.TenantIdentity.Web.DTOs.Enums;
 
 namespace WebShared.Identity.Subscription

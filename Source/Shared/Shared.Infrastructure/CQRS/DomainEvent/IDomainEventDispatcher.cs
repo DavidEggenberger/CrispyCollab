@@ -1,5 +1,4 @@
 ﻿using Shared.Features.DomainKernel.Interfaces;
-using Shared.SharedKernel.Interfaces;
 
 namespace Shared.Features.CQRS.Features.DomainKernelEvent
 {
