@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 using Shared.Features.CQRS.Command;
-using Shared.Features.CQRS.Features.DomainKernelEvent;
 
 namespace Shared.Features.CQRS
 {

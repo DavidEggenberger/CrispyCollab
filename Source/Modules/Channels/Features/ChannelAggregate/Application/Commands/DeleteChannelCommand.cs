@@ -10,9 +10,9 @@ namespace Modules.Channels.Features.ChannelAggregate.Application.Commands
     }
     public class DeleteChannelCommandCommandHandler : ICommandHandler<DeleteChannelCommand>
     {
-        private readonly ChannelDbContext applicationDbContext;
+        private readonly ChannelsDbContext applicationDbContext;
         private readonly ITenantResolver teamResolver;
-        public DeleteChannelCommandCommandHandler(ChannelDbContext applicationDbContext, ITenantResolver teamResolver)
+        public DeleteChannelCommandCommandHandler(ChannelsDbContext applicationDbContext, ITenantResolver teamResolver)
         {
             this.applicationDbContext = applicationDbContext;
             this.teamResolver = teamResolver;

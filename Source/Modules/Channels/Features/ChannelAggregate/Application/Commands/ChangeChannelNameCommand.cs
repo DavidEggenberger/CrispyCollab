@@ -11,8 +11,8 @@ namespace Modules.Channels.Features.ChannelAggregate.Application.Commands
 
     public class ChangeChannelNameCommandHandler : ICommandHandler<ChangeChannelNameCommand>
     {
-        private readonly ChannelDbContext applicationDbContext;
-        public ChangeChannelNameCommandHandler(ChannelDbContext applicationDbContext)
+        private readonly ChannelsDbContext applicationDbContext;
+        public ChangeChannelNameCommandHandler(ChannelsDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }

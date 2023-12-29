@@ -11,8 +11,8 @@ namespace Modules.Channels.Features.ChannelAggregate.Application.Commands
     }
     public class AddMessageToChannelCommandHandler : ICommandHandler<AddMessageToChannelCommand>
     {
-        private readonly ChannelDbContext applicationDbContext;
-        public AddMessageToChannelCommandHandler(ChannelDbContext applicationDbContext)
+        private readonly ChannelsDbContext applicationDbContext;
+        public AddMessageToChannelCommandHandler(ChannelsDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }

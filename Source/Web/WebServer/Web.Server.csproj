@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Channel\Web\Server\Modules.Channelss.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Modules\Channels\Web\Server\Modules.Channels.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\LandingPages\Web\Server\Modules.LandingPages.Server.csproj" />
     <ProjectReference Include="..\..\Modules\Subscription\Web\Server\Modules.Subscriptions.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Server\Modules.TenantIdentity.Web.Server.csproj" />

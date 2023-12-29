@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Shared.Features\Shared.Features.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Shared.Infrastructure\Shared.Features.csproj" />
     <ProjectReference Include="..\DTOs\Modules.TenantIdentity.Web.Shared.csproj" />
   </ItemGroup>

@@ -4,9 +4,9 @@ using Shared.Features.EFCore;
 
 namespace Modules.Channels.Features.Infrastructure.EFCore
 {
-    public class ChannelDbContext : BaseDbContext<ChannelDbContext>
+    public class ChannelsDbContext : BaseDbContext<ChannelsDbContext>
     {
-        public ChannelDbContext(DbContextOptions<ChannelDbContext> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions, serviceProvider, configuration)
+        public ChannelsDbContext(DbContextOptions<ChannelsDbContext> dbContextOptions, IServiceProvider serviceProvider, IConfiguration configuration) : base(dbContextOptions, serviceProvider, configuration)
         {
 
         }

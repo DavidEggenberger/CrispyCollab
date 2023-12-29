@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Features.DomainKernel;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared.Features.MultiTenancy.EFCore;
-using Shared.Features.CQRS.Features.DomainKernelEvent;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
 
 namespace Shared.Features.EFCore

@@ -1,22 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Shared.Features.Modules;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using Shared.SharedKernel.Constants;
+using System.Reflection;
 using System.Security.Claims;
 
 
-namespace Shared.Modules.Layers.Features.Identity
+namespace Modules.TenantIdentity.Web.Server
 {
-    public static class TenantIdentityRegistrator
+    public class TenantIdentityModuleStartup : IModuleStartup
     {
-        public static IServiceCollection RegisterIdentity(this IServiceCollection services, IConfiguration configuration)
+        public Assembly FeaturesAssembly { get; } = typeof(TenantIdentityModuleStartup).Assembly;
+        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers().AddApplicationPart(typeof(TenantIdentityModuleStartup).Assembly);
+            services.AddSignalR();
+
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             //services.AddScoped<IUserResolver, UserResolver>();
 
@@ -109,8 +117,11 @@ namespace Shared.Modules.Layers.Features.Identity
                 .AddSignInManager();
 
             services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
+        }
 
-            return services;
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
+        {
+
         }
     }
 }

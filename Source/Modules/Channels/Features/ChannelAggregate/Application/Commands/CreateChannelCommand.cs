@@ -11,9 +11,9 @@ namespace Modules.Channels.Features.ChannelAggregate.Application.Commands
     }
     public class CreateChannelCommandHandler : ICommandHandler<CreateChannelCommand>
     {
-        private readonly ChannelDbContext applicationDbContext;
+        private readonly ChannelsDbContext applicationDbContext;
         private readonly ITenantResolver teamResolver;
-        public CreateChannelCommandHandler(ChannelDbContext applicationDbContext, ITenantResolver teamResolver)
+        public CreateChannelCommandHandler(ChannelsDbContext applicationDbContext, ITenantResolver teamResolver)
         {
             this.applicationDbContext = applicationDbContext;
             this.teamResolver = teamResolver;

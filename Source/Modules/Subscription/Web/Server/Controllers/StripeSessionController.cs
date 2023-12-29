@@ -1,4 +1,4 @@
-﻿namespace WebServer.Controllers.Stripe
+﻿namespace Modules.Subscriptions.Web.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,5 +1,4 @@
 using Shared.Features.EmailSender;
-using Shared.Features.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,57 +25,7 @@ namespace WebServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Framework
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AuthorizeFolder("/Identity/TeamManagement", "TeamAdmin");
-                options.Conventions.AuthorizeFolder("/Identity");
-                options.Conventions.AllowAnonymousToFolder("/LandingPages");
-                options.Conventions.AllowAnonymousToFolder("/Identity/Stripe");
-                options.Conventions.AllowAnonymousToPage("/Identity/Login");
-                options.Conventions.AllowAnonymousToPage("/Identity/SignUp");
-                options.Conventions.AllowAnonymousToPage("/Identity/TwoFactorLogin");
-                options.Conventions.AllowAnonymousToPage("/Identity/LoginWithRecoveryCode");
-            });
-
-            services.AddControllers(options =>
-            {
-                //AuthorizeFilterBehaviour
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            })
-                .AddFluentValidation(options =>
-                {
-                    options.DisableDataAnnotationsValidation = true;
-                    options.RegisterValidatorsFromAssembly(typeof(IAssemblyMarker).Assembly);
-                })
-                    .AddJsonOptions(options =>
-                    {
-                        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                    });
-            #endregion
-
-            #region Modules
-            services.RegisterModelValidation();
-            services.RegisterAutoMapper();
-            services.RegisterServerInformationProvider();
-            services.RegisterSwagger();
-            services.RegisterApiVersioning();
-            #endregion
-
-            #region Shared.Modules.Layers.Features
-            //services.RegisterCQRS();
-            services.RegisterEmailSender(Configuration);
-            services.RegisterEFCore(Configuration);
-            services.RegisterMultiTenancy();
-            services.RegisterRedisCache(Configuration);
-            //services.RegisterStripe(Configuration);
-            //services.RegisterIdentity(Configuration);
-            //services.RegisterSignalR();
-            #endregion
-
-            //services.RegisterChannelModuleServer();
-
-            services.RegisterAuthorization();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
