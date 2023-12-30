@@ -1,6 +1,4 @@
-﻿using Shared.Features.DomainKernel;
-
-namespace Modules.Channels.Features.Aggregates.ChannelAggregate
+﻿namespace Modules.Channels.Features.Aggregates.ChannelAggregate
 {
     public class Reaction : Entity
     {

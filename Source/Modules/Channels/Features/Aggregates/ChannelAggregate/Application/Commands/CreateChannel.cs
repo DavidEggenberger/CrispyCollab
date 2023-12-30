@@ -1,6 +1,5 @@
 ﻿using Modules.Channels.Features.Infrastructure.EFCore;
 using Shared.Features.CQRS.Command;
-using Shared.Features.MultiTenancy.Services;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands
 {
@@ -12,11 +11,9 @@ namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Comm
     public class CreateChannelCommandHandler : ICommandHandler<CreateChannel>
     {
         private readonly ChannelsDbContext applicationDbContext;
-        private readonly ITenantResolver teamResolver;
-        public CreateChannelCommandHandler(ChannelsDbContext applicationDbContext, ITenantResolver teamResolver)
+        public CreateChannelCommandHandler(ChannelsDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
-            this.teamResolver = teamResolver;
         }
         public async Task HandleAsync(CreateChannel command, CancellationToken cancellationToken)
         {

@@ -1,5 +1,4 @@
-﻿using Modules.Channels.Features.Aggregates.ChannelAggregate;
-using Modules.Channels.Features.Infrastructure.EFCore;
+﻿using Modules.Channels.Features.Infrastructure.EFCore;
 using Shared.Features.CQRS.Command;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands

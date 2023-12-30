@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Shared.Features.CQRS.Query;
-using Shared.SharedKernel.Constants;
 using Shared.Features.CQRS.Command;
 using Modules.Channels.Web.Shared;
-using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
 using Modules.Channels.Features.Aggregates.ChannelAggregate;
 using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands;
 using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries;
+using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
+using Shared.Kernel.Constants;
 
 namespace Modules.Channels.Web.Server.Controllers
 {

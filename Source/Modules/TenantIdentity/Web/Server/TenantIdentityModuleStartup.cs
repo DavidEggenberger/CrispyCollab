@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modules.TenantIdentity.Layers.Features;
 using Shared.Features.Modules;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using Shared.SharedKernel.Constants;

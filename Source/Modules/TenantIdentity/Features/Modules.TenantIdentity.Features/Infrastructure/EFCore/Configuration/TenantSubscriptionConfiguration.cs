@@ -1,4 +1,4 @@
-﻿using Modules.TenantIdentity.Domain;
+﻿using Modules.TenantIdentity.Features.Aggregates.TenantAggregate;
 
 namespace Modules.TenantIdentity.Features.EFCore.Configuration
 {

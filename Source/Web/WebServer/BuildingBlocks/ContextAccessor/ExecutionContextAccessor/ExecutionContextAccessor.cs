@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Shared.Features.DomainKernel;
-using Shared.Kernel.BuildingBlocks.Auth;
-using Shared.Kernel.Extensions.ClaimsPrincipal;
 using System;
 
 namespace Web.Server.BuildingBlocks.ContextAccessor.ExecutionContextAccessor

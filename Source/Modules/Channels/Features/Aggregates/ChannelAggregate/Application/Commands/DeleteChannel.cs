@@ -1,7 +1,5 @@
-﻿using Modules.Channels.Features.Aggregates.ChannelAggregate;
-using Modules.Channels.Features.Infrastructure.EFCore;
+﻿using Modules.Channels.Features.Infrastructure.EFCore;
 using Shared.Features.CQRS.Command;
-using Shared.Features.MultiTenancy.Services;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands
 {
@@ -12,11 +10,9 @@ namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Comm
     public class DeleteChannelCommandCommandHandler : ICommandHandler<DeleteChannel>
     {
         private readonly ChannelsDbContext applicationDbContext;
-        private readonly ITenantResolver teamResolver;
-        public DeleteChannelCommandCommandHandler(ChannelsDbContext applicationDbContext, ITenantResolver teamResolver)
+        public DeleteChannelCommandCommandHandler(ChannelsDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
-            this.teamResolver = teamResolver;
         }
         public async Task HandleAsync(DeleteChannel command, CancellationToken cancellationToken)
         {

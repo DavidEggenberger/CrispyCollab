@@ -1,6 +1,4 @@
-﻿using Shared.Features.CQRS.Command;
-
-namespace SubscriptionModule.Server.Features.Commands
+﻿namespace SubscriptionModule.Server.Features.Commands
 {
     public class CreateSubscriptionCommand : ICommand
     {

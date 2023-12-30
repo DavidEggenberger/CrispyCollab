@@ -1,12 +1,8 @@
-using Shared.Features.EmailSender;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.RedisCache;
 using Shared.Features.MultiTenancy;
-using Shared.Kernel.BuildingBlocks.Authorization;
 using Shared.Features.Modules;
 using Modules.Channels.Web.Server;
 using Modules.LandingPages.Server;
@@ -55,7 +51,6 @@ namespace WebServer
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapSignalR();
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToPage("/_Host");

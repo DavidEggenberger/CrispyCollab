@@ -1,5 +1,4 @@
-﻿using Modules.Channels.Features.Aggregates.ChannelAggregate;
-using Shared.Features.CQRS.Query;
+﻿using Shared.Features.CQRS.Query;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries
 {

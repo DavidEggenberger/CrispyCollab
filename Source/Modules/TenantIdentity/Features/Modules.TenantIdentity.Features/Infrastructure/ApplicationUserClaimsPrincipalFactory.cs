@@ -1,25 +1,34 @@
-﻿using System.Security.Claims;
-using Modules.TenantIdentity.Domain;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+using Modules.TenantIdentity.Features.Aggregates.UserAggregate.Application.Queries;
+using Shared.Features.CQRS.Query;
+using Shared.SharedKernel.Constants;
 
 namespace Modules.TenantIdentity.Layers.Features
 {
     public class ApplicationUserClaimsPrincipalFactory<User> : IUserClaimsPrincipalFactory<User> where User : ApplicationUser
     {
-        private readonly ApplicationUserManager applicationUserManager;
         private readonly IQueryDispatcher queryDispatcher;
-        public ApplicationUserClaimsPrincipalFactory(ApplicationUserManager applicationUserManager, IQueryDispatcher queryDispatcher)
+
+        public ApplicationUserClaimsPrincipalFactory(IQueryDispatcher queryDispatcher)
         {
-            this.applicationUserManager = applicationUserManager;
             this.queryDispatcher = queryDispatcher;
         }
+
         public async Task<ClaimsPrincipal> CreateAsync(User user)
         {
+            var getUserById = new GetUserById
+            {
+
+            };
+
             ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(user.Id);
 
-            //var claimsForUserQuery = new ClaimsForUserQuery { User = applicationUser };
-            //var claimsForUserQuery = new ClaimsForUserQuery();
-            //var claimsForUser = await queryDispatcher.DispatchAsync<ClaimsForUserQuery, IEnumerable<Claim>>(claimsForUserQuery);
-            var claimsForUser = await applicationUserManager.GetClaimsAsync(applicationUser);
+            var claimsForUserQuery = new GetClaimsForUser { User = applicationUser };
+            var claimsForUser = await queryDispatcher.DispatchAsync<GetClaimsForUser, IEnumerable<Claim>>(claimsForUserQuery);
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claimsForUser, IdentityConstants.ApplicationScheme, nameType: ClaimConstants.UserNameClaimType, ClaimConstants.UserRoleInTenantClaimType);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             

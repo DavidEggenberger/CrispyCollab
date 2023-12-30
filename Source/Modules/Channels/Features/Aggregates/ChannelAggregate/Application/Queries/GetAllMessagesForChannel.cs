@@ -1,6 +1,4 @@
-﻿using Modules.Channels.Features.Aggregates.ChannelAggregate;
-using Modules.Channels.Features.Infrastructure.EFCore;
-using Shared.Features.CQRS.Query;
+﻿using Modules.Channels.Features.Infrastructure.EFCore;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries
 {

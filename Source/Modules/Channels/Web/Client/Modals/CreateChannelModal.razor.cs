@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.Kernel.BuildingBlocks.Services;
-using Shared.Web.Client;
 
 namespace Modules.Channels.Web.Client.Modals
 {

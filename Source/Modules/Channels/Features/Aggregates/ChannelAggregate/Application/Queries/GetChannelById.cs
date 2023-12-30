@@ -1,7 +1,6 @@
-﻿using Shared.Features.CQRS.Query;
-using Microsoft.EntityFrameworkCore;
-using Modules.Channels.Features.Aggregates.ChannelAggregate;
+﻿using Microsoft.EntityFrameworkCore;
 using Modules.Channels.Features.Infrastructure.EFCore;
+using Shared.Features.CQRS.Query;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries
 {

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
+    <ProjectReference Include="..\..\Features\Modules.TenantIdentity.Features\Modules.TenantIdentity.Features.csproj" />
     <ProjectReference Include="..\DTOs\Modules.TenantIdentity.Web.Shared.csproj" />
   </ItemGroup>
 

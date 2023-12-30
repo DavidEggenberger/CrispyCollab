@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Kernel.BuildingBlocks.ModelValidation;
 
 namespace Web.Server.BuildingBlocks.ModelValidation
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.RateLimiting;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.Server.BuildingBlocks.RateLimiting
 {
