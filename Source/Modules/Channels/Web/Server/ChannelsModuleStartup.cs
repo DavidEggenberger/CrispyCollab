@@ -14,10 +14,10 @@ namespace Modules.Channels.Web.Server
         public Assembly FeaturesAssembly { get; } = typeof(ChannelsModuleStartup).Assembly;
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers().AddApplicationPart(typeof(ChannelsModuleStartup).Assembly);
-            services.AddSignalR();
+            services.AddControllers()
+                .AddApplicationPart(typeof(ChannelsModuleStartup).Assembly);
 
-            services.RegisterDbContext<ChannelsDbContext>("Contacts");
+            services.RegisterDbContext<ChannelsDbContext>("Channels");
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

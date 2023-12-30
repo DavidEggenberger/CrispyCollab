@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 
-namespace WebServer.Modules.Swagger
+namespace Web.Server.BuildingBlocks.Swagger
 {
     public static class SwaggerDIDIRegistrator
     {

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace WebServer.Modules.ModelValidation
 {
@@ -7,13 +6,14 @@ namespace WebServer.Modules.ModelValidation
     {
         public static IServiceCollection RegisterAntiforgeryToken(this IServiceCollection services)
         {
-            return services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "X-XSRF-TOKEN";
-                options.Cookie.Name = "__Host-X-XSRF-TOKEN";
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            });
+            return services;
+            //return services.AddAntiforgery(options =>
+            //{
+            //    options.HeaderName = "X-XSRF-TOKEN";
+            //    options.Cookie.Name = "__Host-X-XSRF-TOKEN";
+            //    options.Cookie.SameSite = SameSiteMode.Strict;
+            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            //});
         }
     }
 }

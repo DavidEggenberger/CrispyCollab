@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebServer.Modules.ModelValidation;
-using WebServer.Modules.HostingInformation;
 using Shared.Features.RedisCache;
-using WebServer.Modules.Swagger;
 using Shared.Features.MultiTenancy;
 using Shared.Kernel.BuildingBlocks.Authorization;
+using Shared.Features.Modules;
+using Modules.Channels.Web.Server;
+using Modules.LandingPages.Server;
+using Modules.Subscriptions.Web.Server;
+using Modules.TenantIdentity.Web.Server;
+using Web.Server.BuildingBlocks;
 
 namespace WebServer
 {
@@ -25,7 +28,12 @@ namespace WebServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddBuildingBlocks();
+
+            services.AddModule<ChannelsModuleStartup>(Configuration);
+            services.AddModule<LandingPagesModuleStartup>(Configuration);
+            services.AddModule<SubscriptionsModuleStartup>(Configuration);
+            services.AddModule<TenantIdentityModuleStartup>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,14 +46,10 @@ namespace WebServer
 
             app.UseRouting();
 
-            app.UseSecurityHeaders();
-            app.UseExceptionHandling();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseSwaggerMiddleware();
-            app.UseApiVersioningMiddleware();
+            app.UseBuildingBlocks();
 
             app.UseMultiTenancyMiddleware();
 

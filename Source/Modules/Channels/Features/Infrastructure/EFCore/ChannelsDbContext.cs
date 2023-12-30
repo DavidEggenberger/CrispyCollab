@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Modules.Channels.Features.Aggregates.ChannelAggregate;
 using Shared.Features.EFCore;
 
 namespace Modules.Channels.Features.Infrastructure.EFCore
@@ -11,6 +12,6 @@ namespace Modules.Channels.Features.Infrastructure.EFCore
 
         }
 
-        public DbSet<ChannelAggregate.Channel> Channels { get; set; }
+        public DbSet<Channel> Channels { get; set; }
     }
 }

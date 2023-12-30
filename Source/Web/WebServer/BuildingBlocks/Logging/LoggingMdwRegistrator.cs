@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace WebServer.Modules.Logging
+namespace Web.Server.BuildingBlocks.Logging
 {
     public static class LoggingMdwRegistrator
     {
-        public static IApplicationBuilder UseLoggingModule(this IApplicationBuilder application)
+        public static IApplicationBuilder RegisterLogging(this IApplicationBuilder application)
         {
             return application.UseHttpLogging();
         }

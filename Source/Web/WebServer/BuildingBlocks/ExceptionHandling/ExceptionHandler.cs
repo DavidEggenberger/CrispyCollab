@@ -3,8 +3,13 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shared.Features.DomainKernel.Exceptions;
+using Shared.Kernel.BuildingBlocks.Auth.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace WebServer.Modules.ExceptionHandling
+namespace Web.Server.BuildingBlocks.ExceptionHandling
 {
     [Route("[controller]")]
     [AllowAnonymous]
@@ -18,7 +23,8 @@ namespace WebServer.Modules.ExceptionHandling
             this.logger = logger;
             exceptionHandlers = new Dictionary<Type, Func<Exception, Task<ActionResult>>>
             {
-                [typeof(IdentityOperationException)] = HandleIdentityOperationExceptionAsync,
+                [typeof(NotFoundException)] = HandleNotFoundException,
+                [typeof(UnauthorizedException)] = HandleUnauthorizedException
             };
         }
 
@@ -39,14 +45,23 @@ namespace WebServer.Modules.ExceptionHandling
             }
         }
 
-        private async Task<ActionResult> HandleIdentityOperationExceptionAsync(Exception exception)
+        private async Task<ActionResult> HandleNotFoundException(Exception exception)
         {
             ProblemDetails problemDetails = new ProblemDetails
             {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = "An internal server error ocurred"
+                Status = StatusCodes.Status404NotFound,
+                Title = exception.Message
             };
-            return Problem(exception.Message);
+            return new ObjectResult(problemDetails);
+        }
+        private async Task<ActionResult> HandleUnauthorizedException(Exception exception)
+        {
+            ProblemDetails problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status401Unauthorized,
+                Title = exception.Message
+            };
+            return new ObjectResult(exception.Message);
         }
         private async Task<ActionResult> HandleUnknownExceptionAsync(Exception exception)
         {
@@ -55,7 +70,7 @@ namespace WebServer.Modules.ExceptionHandling
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An internal server error ocurred"
             };
-            return Problem();
+            return new ObjectResult(exception);
         }
     }
 }

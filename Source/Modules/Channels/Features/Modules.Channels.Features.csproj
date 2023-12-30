@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\..\Shared\Shared.Infrastructure\Shared.Features.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Root\" />
-  </ItemGroup>
-
 </Project>

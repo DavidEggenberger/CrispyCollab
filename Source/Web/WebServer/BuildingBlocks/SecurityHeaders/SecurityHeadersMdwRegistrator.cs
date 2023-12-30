@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace WebServer.Modules.ModelValidation
+namespace Web.Server.BuildingBlocks.ModelValidation
 {
     public static class SecurityHeadersMdwRegistrator
     {
-        public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder RegisterSecurityHeaders(this IApplicationBuilder applicationBuilder)
         {
             return applicationBuilder.Use((context, next) =>
             {
                 context.Response.Headers.Remove("X-Powered-By");
-                context.Response.Headers.Add("X-Xss-Protection", "1");
                 context.Response.Headers.Add("X-Frame-Options", "DENY");
                 context.Response.Headers.Add("Referrer-Policy", "no-referrer");
                 context.Response.Headers.Add("X-Content-Type-Options", "nosniff");

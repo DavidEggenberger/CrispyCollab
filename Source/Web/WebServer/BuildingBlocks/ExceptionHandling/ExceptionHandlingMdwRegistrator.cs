@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace WebServer.Modules.HostingInformation
+namespace Web.Server.BuildingBlocks.HostingInformation
 {
     public static class ExceptionHandlingMdwRegistrator
     {
-        public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder RegisterExceptionHandling(this IApplicationBuilder applicationBuilder)
         {
             return applicationBuilder.UseExceptionHandler("/exceptionHandler");
         }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WebServer.Modules.Swagger
+namespace Web.Server.BuildingBlocks.Swagger
 {
     public static class APIVersioningDIRegistrator
     {

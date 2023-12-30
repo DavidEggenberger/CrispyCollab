@@ -8,12 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BuildingBlocks\CORS\**" />
+    <Compile Remove="BuildingBlocks\FeatureFlags\**" />
+    <Compile Remove="BuildingBlocks\HealthChecks\**" />
+    <Compile Remove="BuildingBlocks\ServerLifetimeEvents\**" />
+    <Content Remove="BuildingBlocks\CORS\**" />
+    <Content Remove="BuildingBlocks\FeatureFlags\**" />
+    <Content Remove="BuildingBlocks\HealthChecks\**" />
+    <Content Remove="BuildingBlocks\ServerLifetimeEvents\**" />
+    <EmbeddedResource Remove="BuildingBlocks\CORS\**" />
+    <EmbeddedResource Remove="BuildingBlocks\FeatureFlags\**" />
+    <EmbeddedResource Remove="BuildingBlocks\HealthChecks\**" />
+    <EmbeddedResource Remove="BuildingBlocks\ServerLifetimeEvents\**" />
+    <None Remove="BuildingBlocks\CORS\**" />
+    <None Remove="BuildingBlocks\FeatureFlags\**" />
+    <None Remove="BuildingBlocks\HealthChecks\**" />
+    <None Remove="BuildingBlocks\ServerLifetimeEvents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Modules\Channels\Web\Server\Modules.Channels.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\LandingPages\Web\Server\Modules.LandingPages.Server.csproj" />
     <ProjectReference Include="..\..\Modules\Subscription\Web\Server\Modules.Subscriptions.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Server\Modules.TenantIdentity.Web.Server.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Features.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\Shared\Features\Shared.Features.csproj" />
     <ProjectReference Include="..\WebWasmClient\Web.Client.csproj" />
   </ItemGroup>
 
@@ -41,11 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BuildingBlocks\HealthChecks\" />
-    <Folder Include="BuildingBlocks\FeatureFlags\" />
-    <Folder Include="BuildingBlocks\CORS\" />
-    <Folder Include="BuildingBlocks\ServerLifetimeEvents\" />
-    <Folder Include="BuildingBlocks\RateLimiting\" />
+    <Folder Include="BuildingBlocks\" />
   </ItemGroup>
 
 </Project>
