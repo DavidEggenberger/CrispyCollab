@@ -10,20 +10,20 @@ namespace Shared.Features.MultiTenancy.EFCore
         static void ConfigureAggregateRoot<TAggregateRoot>(ModelBuilder modelBuilder, Guid teamId)
            where TAggregateRoot : Entity
         {
-            modelBuilder.Entity<TAggregateRoot>(builder =>
+            modelBuilder.Entity<TAggregateRoot>((Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<TAggregateRoot>>)(builder =>
             {
-                builder.HasQueryFilter(x => x.TenantId == teamId);
-            });
+                builder.HasQueryFilter((TAggregateRoot x) => x.TenantId == teamId);
+            }));
         }
 
         static void ConfigureEntity<TEntity, T>(ModelBuilder modelBuilder)
             where TEntity : Entity
         {
-            modelBuilder.Entity<TEntity>(builder =>
+            modelBuilder.Entity<TEntity>((Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<TEntity>>)(builder =>
             {
-                builder.HasKey(x => x.Id);
-                builder.Property(e => e.RowVersion).IsConcurrencyToken();
-            });
+                builder.HasKey((System.Linq.Expressions.Expression<Func<TEntity, object?>>)(x => x.TenantId));
+                builder.Property<byte[]>(e => e.RowVersion).IsConcurrencyToken();
+            }));
         }
 
         public static ModelBuilder ApplyBaseEntityConfiguration(this ModelBuilder modelBuilder, Guid teamId)

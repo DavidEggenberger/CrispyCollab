@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared.Features.Modules;
 using System.Reflection;
+using Blazored.Modal;
 
 namespace Modules.LandingPages.Server
 {
@@ -12,8 +13,7 @@ namespace Modules.LandingPages.Server
         public Assembly FeaturesAssembly { get; } = typeof(LandingPagesModuleStartup).Assembly;
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddRazorPages()
-                .AddApplicationPart(typeof(LandingPagesModuleStartup).Assembly);
+            services.AddBlazoredModal();
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

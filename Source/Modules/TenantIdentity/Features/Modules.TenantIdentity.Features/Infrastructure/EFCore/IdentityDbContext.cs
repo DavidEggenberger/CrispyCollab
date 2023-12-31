@@ -1,4 +1,6 @@
-﻿using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+﻿using Microsoft.AspNetCore.Identity;
+using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+using System;
 
 namespace Modules.TenantIdentity.Features.EFCore
 {

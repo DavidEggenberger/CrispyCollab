@@ -1,9 +1,9 @@
 ﻿using Modules.Channels.Features.Aggregates.ChannelAggregate.Events;
+using Shared.Features.DomainKernel;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate
 {
-    [AggregateRoot]
-    public class Channel : Entity
+    public class Channel : AggregateRoot
     {
         public string Name { get; set; }
         public string Goal { get; set; }

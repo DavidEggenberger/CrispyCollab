@@ -42,7 +42,7 @@ namespace Modules.TenantIdentity.Features.Aggregates.UserAggregate.Application.Q
             {
                 new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.CurrentSubscriptionPlanType.ToString()),
                 new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
-                new Claim(ClaimConstants.TenantIdClaimType, currentTenant.Id.ToString()),
+                new Claim(ClaimConstants.TenantIdClaimType, currentTenant.TenantId.ToString()),
                 new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
             });
 

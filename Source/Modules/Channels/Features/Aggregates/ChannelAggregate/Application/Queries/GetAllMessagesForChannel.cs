@@ -1,4 +1,5 @@
 ﻿using Modules.Channels.Features.Infrastructure.EFCore;
+using Shared.Features.CQRS.Query;
 
 namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries
 {
