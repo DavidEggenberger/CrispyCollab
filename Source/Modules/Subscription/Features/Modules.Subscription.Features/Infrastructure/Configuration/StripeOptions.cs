@@ -1,4 +1,4 @@
-﻿namespace SubscriptionModule.Server.Features.Configuration
+﻿namespace Modules.Subscriptions.Features.Configuration
 {
     public class StripeOptions
     {

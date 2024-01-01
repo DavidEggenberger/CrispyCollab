@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Features.CQRS.Command;
 using Shared.Features.CQRS.Query;
+using Shared.Kernel.BuildingBlocks;
+using Shared.Kernel.BuildingBlocks.ModelValidation;
 using SharedKernel.Interfaces;
 
 namespace Shared.Features.Server

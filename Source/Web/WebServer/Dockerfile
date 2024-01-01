@@ -20,7 +20,7 @@ COPY ["Source/Shared/Modules/Layers/Domain/ModulesShared.Domain.csproj", "Source
 COPY ["Source/Modules/ChannelModule/Layers/Features/ChannelModule.Features.csproj", "Source/Modules/ChannelModule/Layers/Features/"]
 COPY ["Source/Modules/ChannelModule/Layers/Domain/ChannelModule.Domain.csproj", "Source/Modules/ChannelModule/Layers/Domain/"]
 COPY ["Source/Modules/ChannelModule/Web/DTOs/ChannelModule.DTOs.csproj", "Source/Modules/ChannelModule/Web/DTOs/"]
-COPY ["Source/Modules/SubscriptionModule/Web/Server/SubscriptionModule.Server.csproj", "Source/Modules/SubscriptionModule/Web/Server/"]
+COPY ["Source/Modules/SubscriptionModule/Web/Server/Modules.Subscriptions.csproj", "Source/Modules/SubscriptionModule/Web/Server/"]
 COPY ["Source/Modules/SubscriptionModule/Layers/Application/SubscriptionModule.Application.csproj", "Source/Modules/SubscriptionModule/Layers/Application/"]
 COPY ["Source/Modules/SubscriptionModule/Layers/Features/SubscriptionModule.Features.csproj", "Source/Modules/SubscriptionModule/Layers/Features/"]
 COPY ["Source/Modules/SubscriptionModule/Layers/Domain/SubscriptionModule.Domain.csproj", "Source/Modules/SubscriptionModule/Layers/Domain/"]

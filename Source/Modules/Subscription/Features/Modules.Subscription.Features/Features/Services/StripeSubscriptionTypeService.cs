@@ -1,7 +1,8 @@
-﻿using SubscriptionModule.Server.Features.Services.Interfaces;
-using SubscriptionModule.Server.Features.Configuration;
+﻿using Modules.Subscriptions.Features.Services.Interfaces;
+using Modules.Subscriptions.Features.Configuration;
+using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 
-namespace SubscriptionModule.Server.Features.Services
+namespace Modules.Subscriptions.Features.Services
 {
     public class StripeSubscriptionTypeService : IStripeSubscriptionService
     {

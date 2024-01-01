@@ -1,29 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 using Shared.Features.DomainKernel;
 using Shared.Features.DomainKernel.Attributes;
+using System.Reflection;
 
-namespace Shared.Features.MultiTenancy.EFCore
+namespace Shared.Features.EFCore.MultiTenancy
 {
     public static class MultiTenancyEntityConfiguration
     {
         static void ConfigureAggregateRoot<TAggregateRoot>(ModelBuilder modelBuilder, Guid teamId)
-           where TAggregateRoot : Entity
+           where TAggregateRoot : AggregateRoot
         {
-            modelBuilder.Entity<TAggregateRoot>((Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<TAggregateRoot>>)(builder =>
+            modelBuilder.Entity<TAggregateRoot>(builder =>
             {
-                builder.HasQueryFilter((TAggregateRoot x) => x.TenantId == teamId);
-            }));
+                builder.HasQueryFilter(x => x.TenantId == teamId);
+            });
         }
 
         static void ConfigureEntity<TEntity, T>(ModelBuilder modelBuilder)
             where TEntity : Entity
         {
-            modelBuilder.Entity<TEntity>((Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<TEntity>>)(builder =>
+            modelBuilder.Entity<TEntity>(builder =>
             {
-                builder.HasKey((System.Linq.Expressions.Expression<Func<TEntity, object?>>)(x => x.TenantId));
-                builder.Property<byte[]>(e => e.RowVersion).IsConcurrencyToken();
-            }));
+                builder.HasKey(x => x.Id);
+                builder.Property(e => e.RowVersion).IsConcurrencyToken();
+            });
         }
 
         public static ModelBuilder ApplyBaseEntityConfiguration(this ModelBuilder modelBuilder, Guid teamId)
@@ -34,7 +34,7 @@ namespace Shared.Features.MultiTenancy.EFCore
                 .Single(m => m.Name == nameof(ConfigureEntity));
 
 
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(x => x.GetType().GetCustomAttribute(typeof(AggregateRootAttribute)) != null))
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(x => x is AggregateRoot))
             {
                 configureAggregateRootMethod.MakeGenericMethod(entityType.ClrType, entityType.GetType()).Invoke(null, new object[] { modelBuilder, teamId });
             }

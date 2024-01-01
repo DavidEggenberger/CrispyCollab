@@ -1,4 +1,6 @@
-﻿namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Exceptions
+﻿using Shared.Features.DomainKernel;
+
+namespace Modules.Channels.Features.Aggregates.ChannelAggregate.Exceptions
 {
     public class InvalidVoteCastException : DomainException
     {

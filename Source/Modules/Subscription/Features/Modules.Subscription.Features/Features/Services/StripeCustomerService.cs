@@ -1,6 +1,6 @@
-﻿using SubscriptionModule.Server.Features.Services.Interfaces;
+﻿using Modules.Subscriptions.Features.Services.Interfaces;
 
-namespace SubscriptionModule.Server.Features.Services
+namespace Modules.Subscriptions.Features.Services
 {
     public class StripeCustomerService : IStripeCustomerService
     {

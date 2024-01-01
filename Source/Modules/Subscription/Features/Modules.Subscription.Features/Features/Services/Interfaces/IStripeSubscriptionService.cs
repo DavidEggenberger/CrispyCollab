@@ -1,6 +1,6 @@
-﻿using SubscriptionModule.Server.Features.Configuration;
+﻿using Modules.Subscriptions.Features.Configuration;
 
-namespace SubscriptionModule.Server.Features.Services.Interfaces
+namespace Modules.Subscriptions.Features.Services.Interfaces
 {
     public interface IStripeSubscriptionService
     {

@@ -1,7 +1,7 @@
-﻿using SubscriptionModule.Server.Features.Services.Interfaces;
-using SubscriptionModule.Server.Features.Configuration;
+﻿using Modules.Subscriptions.Features.Services.Interfaces;
+using Modules.Subscriptions.Features.Configuration;
 
-namespace SubscriptionModule.Server.Features.Services
+namespace Modules.Subscriptions.Features.Services
 {
     public class StripeSessionService : IStripeSessionService
     {

@@ -1,4 +1,4 @@
-﻿namespace SubscriptionModule.Server.Features.Services.Interfaces
+﻿namespace Modules.Subscriptions.Features.Services.Interfaces
 {
     public interface IStripeCustomerService
     {
