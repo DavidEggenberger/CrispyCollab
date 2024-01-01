@@ -21,14 +21,12 @@ namespace Shared.Features.DomainKernel
         {
             _domainEvents.Add(eventItem);
         }
-        protected void RemoveEvent(IDomainEvent eventItem)
-        {
-            _domainEvents?.Remove(eventItem);
-        }
-        public void ClearEvents()
+
+        public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
         }
+
         public void SoftDelete()
         {
             if (IsSoftDeleted is true)

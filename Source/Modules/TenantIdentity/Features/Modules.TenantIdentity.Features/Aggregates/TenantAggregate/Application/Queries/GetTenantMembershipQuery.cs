@@ -1,5 +1,5 @@
 ﻿using Modules.TenantIdentity.Features.Aggregates.TenantAggregate;
-using Modules.TenantIdentity.Features.EFCore;
+using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 using Shared.Features.CQRS.Query;
 using System;
 using System.Linq;

@@ -1,4 +1,6 @@
-﻿namespace Modules.Subscriptions.Features.Configuration
+﻿using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+
+namespace Modules.Subscriptions.Features.Configuration
 {
     public class StripeSubscriptionType
     {

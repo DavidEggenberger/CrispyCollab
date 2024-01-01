@@ -1,48 +1,50 @@
-﻿using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 using Shared.Features.CQRS.Query;
 using Shared.SharedKernel.Constants;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Threading;
-using Modules.TenantIdentity.Features.Aggregates.TenantAggregate.Application.Queries;
-using Modules.TenantIdentity.Features.Aggregates.TenantAggregate;
+using System.Threading.Tasks;
 
 namespace Modules.TenantIdentity.Features.Aggregates.UserAggregate.Application.Queries
 {
     public class GetClaimsForUser : IQuery<IEnumerable<Claim>>
     {
-        public ApplicationUser User { get; set; }
+        public Guid UserId { get; set; }
     }
 
-    public class GetClaimsForUserQueryHandler : IQueryHandler<GetClaimsForUser, IEnumerable<Claim>>
+    public class ClaimsForUserQueryHandler : IQueryHandler<GetClaimsForUser, IEnumerable<Claim>>
     {
         private readonly IQueryDispatcher queryDispatcher;
-        public GetClaimsForUserQueryHandler(IQueryDispatcher queryDispatcher)
+        private readonly TenantIdentityDbContext tenantIdentityDbContext;
+
+        public ClaimsForUserQueryHandler(IQueryDispatcher queryDispatcher, TenantIdentityDbContext tenantIdentityDbContext)
         {
             this.queryDispatcher = queryDispatcher;
+            this.tenantIdentityDbContext = tenantIdentityDbContext;
         }
         public async Task<IEnumerable<Claim>> HandleAsync(GetClaimsForUser query, CancellationToken cancellation)
         {
+            var user = await tenantIdentityDbContext.GetUserByIdAsync(query.UserId);
+
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimConstants.UserNameClaimType, query.User.UserName),
-                new Claim(ClaimConstants.UserIdClaimType, query.User.Id.ToString()),
-                new Claim(ClaimConstants.EmailClaimType, query.User.Email),
-                new Claim(ClaimConstants.PictureClaimType, query.User.PictureUri)
+                new Claim(ClaimConstants.UserNameClaimType, user.UserName),
+                new Claim(ClaimConstants.UserIdClaimType, user.Id.ToString()),
+                new Claim(ClaimConstants.EmailClaimType, user.Email),
+                new Claim(ClaimConstants.PictureClaimType, user.PictureUri)
             };
 
-            var tenantByIdQuery = new GetTenantById() { TenantId = query.User.SelectedTenantId };
-            Tenant currentTenant = await queryDispatcher.DispatchAsync<GetTenantById, Tenant>(tenantByIdQuery);
-
-            var tenantMembershipQuery = new GetTenantMembershipQuery { TenantId = query.User.SelectedTenantId, UserId = query.User.Id };
-            TenantMembership tenantMembership = await queryDispatcher.DispatchAsync<GetTenantMembershipQuery, TenantMembership>(tenantMembershipQuery);
+            var tenant = await tenantIdentityDbContext.GetTenantExtendedByIdAsync(user.SelectedTenantId);
+            var tenantMembership = tenant.Memberships.Single(m => m.UserId == user.Id);
 
             claims.AddRange(new List<Claim>
             {
-                new Claim(ClaimConstants.TenantPlanClaimType, currentTenant.CurrentSubscriptionPlanType.ToString()),
-                new Claim(ClaimConstants.TenantNameClaimType, currentTenant.Name),
-                new Claim(ClaimConstants.TenantIdClaimType, currentTenant.TenantId.ToString()),
+                new Claim(ClaimConstants.TenantPlanClaimType, tenant.CurrentSubscriptionPlanType.ToString()),
+                new Claim(ClaimConstants.TenantNameClaimType, tenant.Name),
+                new Claim(ClaimConstants.TenantIdClaimType, tenant.Id.ToString()),
                 new Claim(ClaimConstants.UserRoleInTenantClaimType, tenantMembership.Role.ToString()),
             });
 

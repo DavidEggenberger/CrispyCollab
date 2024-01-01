@@ -7,8 +7,7 @@ using System.Linq;
 
 namespace Modules.TenantIdentity.Features.Aggregates.TenantAggregate
 {
-    [AggregateRoot]
-    public class Tenant : Entity
+    public class Tenant : AggregateRoot
     {
         private Tenant() { }
         public Tenant(string name)
@@ -20,7 +19,6 @@ namespace Modules.TenantIdentity.Features.Aggregates.TenantAggregate
 
         }
 
-        public override Guid TenantId { get => base.TenantId; }
         public string Name { get; set; }
         public TenantStyling Styling { get; set; }
         public TenantSettings Settings { get; set; }
@@ -46,7 +44,7 @@ namespace Modules.TenantIdentity.Features.Aggregates.TenantAggregate
                 memberships.Add(new TenantMembership(userId, role));
             }
         }
-        public void ChangeRoleOfMember(Guid userId, Role newRole)
+        public void ChangeRoleOfMember(Guid userId, TenantRole newRole)
         {
             TenantAuthorizationService.ThrowIfUserIsNotInRole(TenantRole.Admin);
 
@@ -67,7 +65,7 @@ namespace Modules.TenantIdentity.Features.Aggregates.TenantAggregate
 
             memberships.Remove(memberships.Single(m => m.UserId == userId));
         }
-        public void InviteUserToRole(Guid userId, Role role)
+        public void InviteUserToRole(Guid userId, TenantRole role)
         {
             TenantAuthorizationService.ThrowIfUserIsNotInRole(TenantRole.Admin);
 
