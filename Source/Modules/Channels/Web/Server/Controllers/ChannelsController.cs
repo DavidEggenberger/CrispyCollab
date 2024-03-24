@@ -9,7 +9,7 @@ using Modules.Channels.Features.Aggregates.ChannelAggregate;
 using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands;
 using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries;
 using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
-using Shared.Kernel.Constants;
+using Shared.Kernel.BuildingBlocks.Auth.Constants;
 
 namespace Modules.Channels.Web.Server.Controllers
 {

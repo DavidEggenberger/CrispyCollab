@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.DomainKernel.Interfaces;
+using Shared.Features.Domain;
+using Shared.Kernel.BuildingBlocks;
 
 namespace Shared.Features.CQRS.DomainEvent
 {

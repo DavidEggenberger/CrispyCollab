@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.DomainKernel.Interfaces;
+using Shared.Kernel.BuildingBlocks;
 
 namespace Shared.Features.CQRS.IntegrationEvent
 {

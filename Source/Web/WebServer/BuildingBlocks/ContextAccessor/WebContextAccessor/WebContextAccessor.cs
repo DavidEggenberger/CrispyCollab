@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Web.Server.BuildingBlocks.ContextAccessor.WebContextAccessor
 {
-    public class WebContextAccessor : IWebContextAccessor
+    public class WebContextAccessor : IExecutionContext
     {
         public Uri BaseURI { get; set; }
         public WebContextAccessor(IServiceProvider serviceProvider)

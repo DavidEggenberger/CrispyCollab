@@ -5,7 +5,7 @@ using Modules.TenantIdentity.Features.Aggregates.UserAggregate.Application.Queri
 using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Shared.SharedKernel.Constants;
+using Shared.Kernel.BuildingBlocks.Auth.Constants;
 
 namespace Modules.TenantIdentity.Features.Infrastructure
 {

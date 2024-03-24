@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared.Features.Domain;
 using Shared.Features.DomainKernel;
 using Shared.Features.DomainKernel.Attributes;
 using System.Reflection;

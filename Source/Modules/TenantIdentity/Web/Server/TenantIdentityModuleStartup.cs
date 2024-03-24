@@ -10,8 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.TenantIdentity.Layers.Features;
 using Shared.Features.Modules;
+using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
-using Shared.SharedKernel.Constants;
 using System.Reflection;
 using System.Security.Claims;
 

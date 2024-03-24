@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net.Http;
-using WebWasmClient.Authentication;
-using WebWasmClient.Authentication.Antiforgery;
 using Blazored.Modal;
 using Shared.Kernel.BuildingBlocks.Authorization;
+using Web.Client.BuildingBlocks.Authentication;
+using Web.Client.BuildingBlocks.Authentication.Antiforgery;
 
 namespace WebWasmClient
 {

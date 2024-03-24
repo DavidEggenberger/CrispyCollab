@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Modules.Layers.Application.CQRS.Command;
 using Module.Shared.Modules.Layers.Features;
 using Shared.Modules.Layers.Features.Identity.Commands;
-using Shared.SharedKernel.Constants;
 using ApplicationUserManager = Shared.Modules.Layers.Features.Identity.ApplicationUserManager;
 using Shared.SharedKernel.Exstensions;
+using Shared.Kernel.BuildingBlocks.Auth.Constants;
 
 namespace WebServer.Controllers.Identity
 {

@@ -7,7 +7,7 @@ namespace Web.Server.BuildingBlocks.ContextAccessor.WebContextAccessor
     {
         public static IServiceCollection RegisterWebContextAccessor(this IServiceCollection serviceCollection)
         {
-            return serviceCollection.AddSingleton<IWebContextAccessor, WebContextAccessor>();
+            return serviceCollection.AddSingleton<IExecutionContext, WebContextAccessor>();
         }
     }
 }
