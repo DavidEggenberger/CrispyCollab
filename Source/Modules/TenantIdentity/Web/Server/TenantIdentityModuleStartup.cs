@@ -116,7 +116,7 @@ namespace Modules.TenantIdentity.Web.Server
                 options.ClaimsIdentity.UserNameClaimType = ClaimConstants.UserNameClaimType;
             })
                 .AddDefaultTokenProviders()
-                .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser>>()
                 .AddEntityFrameworkStores<TenantIdentityDbContext>()
                 .AddSignInManager();
         }
