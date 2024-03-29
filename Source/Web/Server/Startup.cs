@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.MultiTenancy;
 using Shared.Features.Modules;
 using Modules.Channels.Web.Server;
 using Modules.LandingPages.Server;
@@ -46,8 +45,6 @@ namespace WebServer
             app.UseAuthorization();
 
             app.UseBuildingBlocks();
-
-            app.UseMultiTenancyMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
