@@ -11,10 +11,11 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Client\Shared.Client.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Kernel\Shared.Kernel.csproj" />
     <ProjectReference Include="..\DTOs\Modules.Channels.Web.Shared.csproj" />
   </ItemGroup>

@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 
 namespace WebServer.Pages.Identity.Account
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationUserManager applicationUserManager;
+        private readonly UserManager<ApplicationUser> applicationUserManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public IndexModel(
-            ApplicationUserManager applicationUserManager,
+            UserManager<ApplicationUser> applicationUserManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.applicationUserManager = applicationUserManager;

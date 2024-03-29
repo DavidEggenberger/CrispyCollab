@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Shared.Features.CQRS.Query;
 using Shared.Features.CQRS.Command;
-using Modules.Channels.Web.Shared;
-using Modules.Channels.Features.Aggregates.ChannelAggregate;
-using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Commands;
-using Modules.Channels.Features.Aggregates.ChannelAggregate.Application.Queries;
+using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
+using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Commands;
+using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Queries;
 using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
+using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 
 namespace Modules.Channels.Web.Server.Controllers
 {
@@ -60,28 +60,28 @@ namespace Modules.Channels.Web.Server.Controllers
             await commandDispatcher.DispatchAsync(updateChannelCommand, cancellationToken);
         }
 
-        [HttpPost("createMessage")]
-        public async Task AddMessageToChannel([FromBody] AddMessageToChannelDTO addMessageToChannelDTO, CancellationToken cancellationToken)
-        {
-            AddMessageToChannel addMessageToChannelCommand = mapper.Map<AddMessageToChannel>(addMessageToChannelDTO);
-            await commandDispatcher.DispatchAsync(addMessageToChannelCommand, cancellationToken);
-        }
+        //[HttpPost("createMessage")]
+        //public async Task AddMessageToChannel([FromBody] AddMessageToChannelDTO addMessageToChannelDTO, CancellationToken cancellationToken)
+        //{
+        //    AddMessageToChannel addMessageToChannelCommand = mapper.Map<AddMessageToChannel>(addMessageToChannelDTO);
+        //    await commandDispatcher.DispatchAsync(addMessageToChannelCommand, cancellationToken);
+        //}
 
-        [HttpDelete("message/{id}")]
-        public async Task<ActionResult> DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
-        {
-            DeleteMessageFromChannel deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannel>(deleteMessageFromChannedDTO);
-            Message message = await queryDispatcher.DispatchAsync<GetMessageById, Message>(new GetMessageById() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
-            if ((await authorizationService.AuthorizeAsync(HttpContext.User, message, PolicyConstants.CreatorPolicy)).Succeeded)
-            {
-                await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
-                return Ok();
-            }
-            else
-            {
-                return Forbid();
-            }
-        }
+        //[HttpDelete("message/{id}")]
+        //public async Task<ActionResult> DeleteMessageFromChannel([FromBody] DeleteMessageFromChannedDTO deleteMessageFromChannedDTO, CancellationToken cancellationToken)
+        //{
+        //    DeleteMessageFromChannel deleteMessageFromChannelCommand = mapper.Map<DeleteMessageFromChannel>(deleteMessageFromChannedDTO);
+        //    Message message = await queryDispatcher.DispatchAsync<GetMessageById, Message>(new GetMessageById() { Id = deleteMessageFromChannelCommand.MessageId }, cancellationToken);
+        //    if ((await authorizationService.AuthorizeAsync(HttpContext.User, message, PolicyConstants.CreatorPolicy)).Succeeded)
+        //    {
+        //        await commandDispatcher.DispatchAsync(deleteMessageFromChannelCommand, cancellationToken);
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return Forbid();
+        //    }
+        //}
 
         [HttpDelete("{id}")]
         [AuthorizeTenantAdmin]

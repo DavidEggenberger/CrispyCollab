@@ -1,29 +1,27 @@
-﻿using Shared.Modules.Layers.Features.Identity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Modules.Layers.Application.CQRS.Command;
-using Module.Shared.Modules.Layers.Features;
-using Shared.Modules.Layers.Features.Identity.Commands;
-using ApplicationUserManager = Shared.Modules.Layers.Features.Identity.ApplicationUserManager;
 using Shared.SharedKernel.Exstensions;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Shared.Kernel.Extensions.ClaimsPrincipal;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate.Application.Commands;
+using Shared.Features.Server;
 
 namespace WebServer.Controllers.Identity
 {
     [Route("api/[controller]")]
     [AllowAnonymous]
     [ApiController]
-    public class ExternalLoginCallbackController : ControllerBase
+    public class ExternalLoginCallbackController : BaseController
     {
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly ApplicationUserManager userManager;
-        private readonly ICommandDispatcher commandDispatcher;
-        public ExternalLoginCallbackController(SignInManager<ApplicationUser> signInManager, ApplicationUserManager userManager, ICommandDispatcher commandDispatcher)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public ExternalLoginCallbackController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IServiceProvider services) : base(services)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.commandDispatcher = commandDispatcher;
         }
 
         [HttpGet("ExternalLoginCallback")]
@@ -41,7 +39,7 @@ namespace WebServer.Controllers.Identity
                     PictureUri = info.Principal.GetClaimValue(ClaimConstants.PictureClaimType)
                 };
 
-                var createUserCommand = new CreateUserCommand { User = _user };
+                var createUserCommand = new CreateNewUser { User = _user };
                 await commandDispatcher.DispatchAsync(createUserCommand);
             }
 

@@ -1,7 +1,9 @@
-﻿namespace Shared.Kernel.BuildingBlocks.Services.ModelValidation
+﻿using FluentValidation.Results;
+
+namespace Shared.Kernel.BuildingBlocks.Services.ModelValidation
 {
     public interface IValidationService
     {
-        void Validate<T>(T model);
+        ValidationResult Validate<T>(T model);
     }
 }

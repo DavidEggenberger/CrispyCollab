@@ -1,0 +1,27 @@
+﻿@using global::Client.Components
+@inherits BaseComponent
+
+
+@* <CustomErrorBoundary @ref="errorBoundary">
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+    <ErrorContent Context="Exception">
+        <div class="alert alert-primary">
+            <h3>@Exception.GetType()</h3>
+            <h3>@Exception.Message</h3>
+            <button class="btn btn-info" @onclick="() => errorBoundary.Recover()">Clear</button>
+        </div>
+    </ErrorContent>
+</CustomErrorBoundary>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private CustomErrorBoundary errorBoundary;
+    protected override async Task OnInitializedAsync()
+    {
+        errorBoundary = new CustomErrorBoundary();
+    }
+} *@

@@ -1,6 +1,8 @@
-﻿namespace Shared.Features.EFCore.Configuration
+﻿using Shared.Features.Modules.Configuration;
+
+namespace Shared.Features.EFCore.Configuration
 {
-    public class EFCoreConfiguration
+    public class EFCoreConfiguration : IModuleConfiguration
     {
         public string SQLServerConnectionString { get; set; }
     }

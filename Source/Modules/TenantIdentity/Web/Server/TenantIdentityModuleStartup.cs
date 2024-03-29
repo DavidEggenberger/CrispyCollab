@@ -8,13 +8,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Modules.TenantIdentity.Layers.Features;
+using Modules.TenantIdentity.Features.Infrastructure.Configuration;
 using Shared.Features.Modules;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using System.Reflection;
 using System.Security.Claims;
-
+using Shared.Features.Modules.Configuration;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 
 namespace Modules.TenantIdentity.Web.Server
 {
@@ -26,6 +28,8 @@ namespace Modules.TenantIdentity.Web.Server
             services.AddControllers().AddApplicationPart(typeof(TenantIdentityModuleStartup).Assembly);
             services.AddSignalR();
 
+            services.RegisterModuleConfiguration<TenantIdentityConfiguration, TenantIdentityConfigurationValidator>(configuration);
+
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             //services.AddScoped<IUserResolver, UserResolver>();
 
@@ -34,7 +38,7 @@ namespace Modules.TenantIdentity.Web.Server
                 options.ValidationInterval = TimeSpan.FromSeconds(0);
             });
 
-            services.AddDbContext<IdentityDbContext>();
+            services.AddDbContext<TenantIdentityDbContext>();
 
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
@@ -113,11 +117,8 @@ namespace Modules.TenantIdentity.Web.Server
             })
                 .AddDefaultTokenProviders()
                 .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory<ApplicationUser>>()
-                .AddUserManager<ApplicationUserManager>()
-                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddEntityFrameworkStores<TenantIdentityDbContext>()
                 .AddSignInManager();
-
-            services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

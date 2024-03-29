@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 
 namespace Modules.TenantIdentity.Features.Infrastructure.EFCore.Configuration.UserAggregate
 {

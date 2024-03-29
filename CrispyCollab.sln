@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C4046A49
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4071F52-4845-40DB-BF73-9625EB786C64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Server", "Source\Web\WebServer\Web.Server.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Server", "Source\Web\Server\Web.Server.csproj", "{C14DC1DC-EB41-45A9-A27B-7DA3A94BF2C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Client", "Source\Web\WebWasmClient\Web.Client.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Client", "Source\Web\Client\Web.Client.csproj", "{46232C37-B89E-45C1-9ACB-E0707FC9CF96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}"
 EndProject
@@ -68,6 +68,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Features", "Source\Modules\Subscription\Features\Modules.Subscription.Features\Modules.Subscriptions.Features.csproj", "{64C9BBFD-D05B-43CD-8213-AD3C4414D54C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Features", "Source\Modules\Channels\Features\Modules.Channels.Features.csproj", "{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Client", "Source\Shared\Client\Shared.Client.csproj", "{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +161,10 @@ Global
 		{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +201,7 @@ Global
 		{4A908204-B4FC-4A9F-AF7A-8C85A134CC9D} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
 		{64C9BBFD-D05B-43CD-8213-AD3C4414D54C} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
 		{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
+		{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB} = {2980C86A-0185-482C-8547-B157CAE9AF2F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F7E334F-E2EF-47B9-BA58-4BC4C85E01A7}

@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 
 namespace WebServer.Pages.Identity.Account
 {
     public class TwoFactorAuthenticationModel : PageModel
     {
-        private readonly ApplicationUserManager applicationUserManager;
+        private readonly UserManager<ApplicationUser> applicationUserManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public TwoFactorAuthenticationModel(ApplicationUserManager applicationUserManager, SignInManager<ApplicationUser> signInManager)
+        public TwoFactorAuthenticationModel(UserManager<ApplicationUser> applicationUserManager, SignInManager<ApplicationUser> signInManager)
         {
             this.applicationUserManager = applicationUserManager;
             this.signInManager = signInManager;

@@ -16,18 +16,15 @@ namespace Shared.Kernel.BuildingBlocks.Services.ModelValidation
             this.serviceProvider = serviceProvider;
         }
 
-        public void Validate<T>(T model)
+        public ValidationResult Validate<T>(T model)
         {
             var validator = GetValidatorForModel(model, typeof(T));
             if (validator == null)
             {
                 throw new NoValidatorFoundException();
             }
-            ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
-            if (validationResult.IsValid is false)
-            {
-                throw new Exception();
-            }
+            FluentValidation.Results.ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
+            return validationResult;
         }
 
         private IValidator GetValidatorForModel(object model, Type modelType)

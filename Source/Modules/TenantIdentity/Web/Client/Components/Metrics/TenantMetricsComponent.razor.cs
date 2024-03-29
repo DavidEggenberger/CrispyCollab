@@ -1,5 +1,6 @@
 ﻿using WebShared.Identity.Team.AdminManagement;
 using Microsoft.AspNetCore.Components;
+using Shared.Client;
 
 namespace Modules.TenantIdentity.Web.Client.Components
 {

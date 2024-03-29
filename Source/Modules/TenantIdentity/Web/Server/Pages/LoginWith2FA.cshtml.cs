@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 
 namespace WebServer.Pages.Identity
 {

@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\TenantAggregate\Application\Commands\" />
+    <Folder Include="DomainFeatures\TenantAggregate\Application\Commands\" />
   </ItemGroup>
 
 </Project>

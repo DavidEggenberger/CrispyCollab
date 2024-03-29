@@ -1,0 +1,30 @@
+﻿@using Modules.Channels.Web.Client.Modals
+@using Shared.Kernel.BuildingBlocks.Auth.Constants
+@inherits BaseComponent
+
+@* <div class="NavMenuContainer">
+    <NavLink href="/" Match="NavLinkMatch.All" class="NavElement">
+        <h5>Dashboard</h5>
+    </NavLink>
+    @if(User.IsInRole(TenantRoleConstants.User))
+    {
+        <NavLink href="/Channels" Match="NavLinkMatch.Prefix" class="NavElement">
+            <h5>Channels</h5>
+        </NavLink>
+        <NavLink href="/Topics" Match="NavLinkMatch.Prefix" class="NavElement">
+            <h5>Topics</h5>
+        </NavLink>
+    }
+    @if(User.IsInRole(TenantRoleConstants.Admin))
+    {
+        <NavLink href="/ManageTeam" Match="NavLinkMatch.Prefix" class="NavElement">
+            <h5>Manage @TenantName</h5>
+        </NavLink>
+    }
+    <div class="NavElement NoUnderline">
+        <TeamsOverviewComponent/>
+    </div>
+    <div class="NavElement">
+        <h5 @onclick="() => Modal.Show<CreateChannelModal>()">Create New Team</h5>
+    </div>
+</div> *@

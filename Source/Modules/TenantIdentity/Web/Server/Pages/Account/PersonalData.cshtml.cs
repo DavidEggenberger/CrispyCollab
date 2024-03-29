@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 using System.Text.Json;
 
 namespace WebServer.Pages.Identity.Account
 {
     public class PersonalDataModel : PageModel
     {
-        private readonly ApplicationUserManager applicationUserManager;
+        private readonly UserManager<ApplicationUser> applicationUserManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public PersonalDataModel(
-            ApplicationUserManager applicationUserManager,
+            UserManager<ApplicationUser> applicationUserManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.applicationUserManager = applicationUserManager;

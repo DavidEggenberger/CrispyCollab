@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Components;
 using Modules.IdentityModule.Web.DTOs;
+using Shared.Client;
+using Shared.Kernel.BuildingBlocks.Services.ModelValidation;
 
 namespace Modules.TenantIdentity.Web.Client.Components
 {
@@ -7,7 +11,7 @@ namespace Modules.TenantIdentity.Web.Client.Components
     {
         [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
         protected TeamDTO team = new TeamDTO();
-        protected ValidationServiceResult validationServiceResult;
+        protected ValidationResult validationServiceResult;
         private string currentName = string.Empty;
         public string CurrentName
         {

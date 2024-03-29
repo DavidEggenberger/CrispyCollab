@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Components\Dashboard\**" />
+    <Compile Remove="Components\Notifications\**" />
+    <Compile Remove="Components\Pipelines\**" />
+    <Compile Remove="Components\Topics\**" />
+    <Content Remove="Components\Dashboard\**" />
+    <Content Remove="Components\Notifications\**" />
+    <Content Remove="Components\Pipelines\**" />
+    <Content Remove="Components\Topics\**" />
+    <EmbeddedResource Remove="Components\Dashboard\**" />
+    <EmbeddedResource Remove="Components\Notifications\**" />
+    <EmbeddedResource Remove="Components\Pipelines\**" />
+    <EmbeddedResource Remove="Components\Topics\**" />
+    <None Remove="Components\Dashboard\**" />
+    <None Remove="Components\Notifications\**" />
+    <None Remove="Components\Pipelines\**" />
+    <None Remove="Components\Topics\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Z.Blazor.Diagrams" Version="2.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Channels\Web\Client\Modules.Channels.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscriptions.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Shared\Kernel\Shared.Kernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="BuildingBlocks\Layouts\MainLayout.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
+</Project>

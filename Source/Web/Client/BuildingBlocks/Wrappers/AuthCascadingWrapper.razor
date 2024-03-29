@@ -1,0 +1,22 @@
+﻿@attribute [Authorize]
+@inherits BaseComponent
+<CascadingValue Value="User">
+    @if(User != null)
+    {
+        @ChildContent
+    }
+</CascadingValue>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] 
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    public ClaimsPrincipal User { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        User = (await AuthenticationState).User;
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.Channels.Features.Aggregates.ChannelAggregate;
+using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
 
 namespace Modules.Channels.Features.Infrastructure.EFCore.Configuration
 {

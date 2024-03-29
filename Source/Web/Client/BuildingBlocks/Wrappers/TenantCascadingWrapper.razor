@@ -1,0 +1,19 @@
+﻿@using Shared.Kernel.BuildingBlocks.Auth.Constants
+@inherits BaseComponent
+
+@attribute [Authorize(Policy = TenantRoleConstants.User)]
+<CascadingValue Value="tenantName">
+    @ChildContent
+</CascadingValue>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] 
+    public ClaimsPrincipal User { get; set; }
+    private string tenantName;
+    protected override async Task OnParametersSetAsync()
+    {
+        tenantName = "";
+    }
+}

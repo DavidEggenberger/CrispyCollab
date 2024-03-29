@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using Microsoft.AspNetCore.Components;
 using Modules.IdentityModule.Web.DTOs;
+using Shared.Client;
 using WebShared.Identity.Team.AdminManagement;
 
-namespace WebWasmClient.Components.ManageTeam.Members.Modals
+namespace Client.Components.ManageTeam.Members.Modals
 {
     public partial class RevokeInvitationCompBase : BaseComponent
     {

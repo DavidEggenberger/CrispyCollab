@@ -1,0 +1,26 @@
+﻿@page "/ManageTeam"
+@using Shared.Kernel.BuildingBlocks.Authorization.Attributes
+@attribute [AuthorizeTenantAdmin]
+@inherits ManageTeamBase
+
+<div class="ManageTeamPageContainer">
+    <div class="ManageTeamGrid">
+        @if(loading is false)
+        {
+            <CascadingValue Value="teamAdminInfo">
+                 <div class="ManageMembersCompContainer">
+                    <Modules.TenantIdentity.Web.Client.Components.Members.ManageMembersComponent Members="teamAdminInfo.Members"/>
+                </div>
+                <div class="ManageSubscriptionCompContainer">
+                    <Modules.TenantIdentity.Web.Client.Components.Subscription.ManageSubscriptionComponent CurrentSubscription="teamAdminInfo.Subscription"/>
+                </div>
+                <div class="MetricsCompContainer">
+                    <Modules.TenantIdentity.Web.Client.Components.Metrics.TenantMetricsComponent TeamMetrics="teamAdminInfo.Metrics"/>
+                </div>
+                <div class="AdminNotificationsCompContainer">
+                    <Modules.TenantIdentity.Web.Client.Components.Notifications.AdminNotificationsComponent AdminNotifications="teamAdminInfo.AdminNotifications"/>
+                </div>
+            </CascadingValue>      
+        }       
+    </div>
+</div>

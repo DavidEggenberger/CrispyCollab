@@ -1,0 +1,4 @@
+﻿@using Web.Client.BuildingBlocks.Authentication
+@inject HostAuthenticationStateProvider hostAuthenticationProvider
+
+<h3 class="LoginButton" @onclick='() => hostAuthenticationProvider.SignIn("/dashboard")'>LogIn</h3>

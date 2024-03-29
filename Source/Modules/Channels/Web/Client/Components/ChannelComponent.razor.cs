@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
+using Shared.Client;
 
 namespace Modules.Channels.Web.Client.Components
 {
-    public partial class ChannelComponentBase : ComponentBase
+    public partial class ChannelComponent
     {
         [Parameter] public ChannelDTO Channel { get; set; }
         protected override async Task OnInitializedAsync()

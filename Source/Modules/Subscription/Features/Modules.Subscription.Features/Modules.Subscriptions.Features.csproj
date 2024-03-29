@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="43.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
+    <ProjectReference Include="..\..\..\TenantIdentity\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

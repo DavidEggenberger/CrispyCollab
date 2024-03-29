@@ -1,0 +1,59 @@
+﻿@* @inherits TeamsOverviewComponentBase
+
+<div class="GroupExpander" style="height: @(expanded ? "auto;" : "26.39px")">
+    <div class="ExpanderTitle">
+        <h5>Select Team</h5>
+        @if (expanded)
+        {
+            <img class="ExpanderIcon Up" @onclick="() => Click()" src="/icons/angle-down.png"/>
+        }
+        else
+        {
+            <img class="ExpanderIcon" @onclick="() => Click()" src="/icons/angle-down.png"/>
+        }
+    </div>
+    <div class="GroupOverview">
+        @if (expanded)
+        {
+            if(teams == null)
+            {
+                <h5>Loading...</h5>
+            }
+            else if(teams.Count() > 0)
+            {
+                foreach(var tenant in teams)
+                {
+                    if (User.IsInRole(TenantRoleConstants.User))
+                    {
+                        if(tenant.Id == new Guid(TenantName))
+                        {
+                            <div class="Group Selected">
+                                <h6 @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>@tenant.Name</h6>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="Group">
+                                <h6>@tenant.Name</h6>
+                                <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>Select</button>
+                            </div>
+                        }       
+                    }
+                    else
+                    {
+                        <div class="Group">
+                            <h6>@tenant.Name</h6>
+                            <button class="SelectTeamButton" @onclick='() => NavigationManager.NavigateTo($"/api/user/selectTeam/{tenant.Id}", true)'>Select</button>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="Group">
+                    <h6>You are in no teams</h6>
+                </div>
+            }
+        }
+    </div>
+</div> *@

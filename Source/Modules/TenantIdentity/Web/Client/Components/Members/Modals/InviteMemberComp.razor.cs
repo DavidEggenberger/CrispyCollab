@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Shared.Client;
 using WebShared.Identity.Team.DTOs;
 
 namespace Modules.TenantIdentity.Web.Client.Components

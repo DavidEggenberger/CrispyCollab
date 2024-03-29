@@ -1,4 +1,4 @@
-﻿namespace WebWasmClient.Components.ManageTeam.Members.Modals
+﻿namespace Client.Components.ManageTeam.Members.Modals
 {
     public partial class ChangeRoleOfMemberComp
     {

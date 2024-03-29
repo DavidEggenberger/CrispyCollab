@@ -6,11 +6,11 @@ using Shared.Features.DomainKernel.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared.Features.EFCore.Configuration;
-using Modules.TenantIdentity.Features.Aggregates.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Modules.TenantIdentity.Features.Aggregates.TenantAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.TenantAggregate;
 using System.Linq;
 using SendGrid.Helpers.Errors.Model;
 
@@ -71,10 +71,9 @@ namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
 
         public async Task<IEnumerable<Tenant>> GetAllTenantsForUser(Guid userId)
         {
-            return await Users.Where(u => u.Id == userId)
-                .Include(t => t.TenantMemberships)
-                .ThenInclude(tm => tm.Tenant)
-                .SelectMany(u => u.TenantMemberships.Select(tm => tm.Tenant))
+            return await Tenants
+                .Include(t => t.Memberships)
+                .Where(u => u.Memberships.Any(t => t.UserId == userId))
                 .ToListAsync();
         }
 

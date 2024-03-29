@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using Microsoft.AspNetCore.Components;
 using Modules.IdentityModule.Web.DTOs;
+using Shared.Client;
 
 namespace Modules.TenantIdentity.Web.Client.Components
 {

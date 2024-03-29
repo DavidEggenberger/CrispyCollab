@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Kernel.BuildingBlocks
 {
-    public class IIntegrationEvent
+    public interface IIntegrationEvent
     {
     }
 }

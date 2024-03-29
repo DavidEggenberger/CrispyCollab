@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stripe.net" Version="39.93.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
     <ProjectReference Include="..\..\Features\Modules.Subscription.Features\Modules.Subscriptions.Features.csproj" />
   </ItemGroup>
