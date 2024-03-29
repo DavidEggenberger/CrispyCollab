@@ -31,7 +31,7 @@ jobs:
         if: always()
         retention-days: 1
     - name: Publish
-      run: dotnet publish --configuration release --output './published-app' ${{ github.workspace }}/Source/Web/WebServer/WebServer.csproj
+      run: dotnet publish --configuration release --output './published-app' ${{ github.workspace }}/Source/Web/Server/Web.Server.csproj
     - name: Upload Publish Artifact
       uses: actions/upload-artifact@v2
       with:
