@@ -21,8 +21,8 @@ namespace Web.Server.BuildingBlocks.ExceptionHandling
             this.logger = logger;
             exceptionHandlers = new Dictionary<Type, Func<Exception, Task<ActionResult>>>
             {
-                [typeof(NotFoundException)] = HandleNotFoundException,
-                [typeof(UnauthorizedException)] = HandleUnauthorizedException
+                //[typeof(NotFoundException)] = HandleNotFoundException,
+                //[typeof(UnauthorizedException)] = HandleUnauthorizedException
             };
         }
 
