@@ -18,7 +18,7 @@ namespace Modules.TenantIdentity.Web.Client.Components
             set
             {
                 _currentMail = value;
-                valid = ValidationService.Validate(new InviteMembersDTO { Emails = new List<string> { _currentMail } }).IsValid;
+                valid = validationService.Validate(new InviteMembersDTO { Emails = new List<string> { _currentMail } }).IsValid;
             }
         }
         protected override async Task OnInitializedAsync()
@@ -41,7 +41,7 @@ namespace Modules.TenantIdentity.Web.Client.Components
             {
                 Emails = emailAddresses
             };
-            await HttpClientService.PostToAPIAsync("/teamadmin/invite", inviteUserToTeamDTO);
+            await httpClientService.PostToAPIAsync("/teamadmin/invite", inviteUserToTeamDTO);
             await ModalInstance.CloseAsync();
         }
     }

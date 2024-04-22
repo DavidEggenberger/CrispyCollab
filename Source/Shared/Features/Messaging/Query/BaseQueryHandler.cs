@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Shared.Features.CQRS.Query
+namespace Shared.Features.Messaging.Query
 {
     public class BaseQueryHandler<T, U> where T : DbContext where U : class
     {

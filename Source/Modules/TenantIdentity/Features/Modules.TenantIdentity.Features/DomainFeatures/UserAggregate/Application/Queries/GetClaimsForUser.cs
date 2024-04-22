@@ -1,5 +1,5 @@
 ﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
-using Shared.Features.CQRS.Query;
+using Shared.Features.Messaging.Query;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using System;
 using System.Collections.Generic;

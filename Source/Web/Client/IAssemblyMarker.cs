@@ -1,4 +1,4 @@
-﻿namespace Client.Misc
+﻿namespace Web.Client.Misc
 {
     public interface IAssemblyMarker
     {

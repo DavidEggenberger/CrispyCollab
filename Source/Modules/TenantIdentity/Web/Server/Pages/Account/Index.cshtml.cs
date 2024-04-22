@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 
-namespace WebServer.Pages.Identity.Account
+namespace Web.Server.Pages.Identity.Account
 {
     public class IndexModel : PageModel
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebServer.Pages.Identity.Shared
+namespace Web.Server.Pages.Identity.Shared
 {
     public class _LogInSignUpSwitchModel : PageModel
     {

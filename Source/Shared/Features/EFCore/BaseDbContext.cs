@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shared.Features.CQRS.DomainEvent;
+using Shared.Features.Messaging.DomainEvent;
 using Shared.Features.Domain;
 using Shared.Features.DomainKernel;
 using Shared.Features.EFCore.Configuration;

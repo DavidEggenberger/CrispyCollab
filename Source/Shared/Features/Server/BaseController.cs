@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.CQRS.Command;
-using Shared.Features.CQRS.Query;
+using Shared.Features.Messaging.Command;
+using Shared.Features.Messaging.Query;
 using Shared.Kernel.BuildingBlocks;
 using Shared.Kernel.BuildingBlocks.Services.ModelValidation;
 using SharedKernel.Interfaces;

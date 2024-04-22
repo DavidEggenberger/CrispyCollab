@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Shared.Client;
 
-namespace Client.Pages
+namespace Web.Client.Pages
 {
-    public partial class Topic : BaseComponent
+    public partial class Topic
     {
         [Parameter] public Guid TopicId { get; set; }
 
@@ -37,7 +37,7 @@ namespace Client.Pages
 
         public void OnDrop(DragEventArgs e)
         {
-            //var position = diagram.GetRelativeMousePoint(e.ClientX, e.ClientY);
+            //var position = diagram.GetRelativeMousePoint(e.Web.ClientX, e.Web.ClientY);
             //Point point = new Point(position.X, position.Y);
             //NodeModel nodeModel = draggedLearningRessource.LearningRessourceType switch
             //{

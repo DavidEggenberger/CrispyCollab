@@ -5,10 +5,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using Modules.IdentityModule.Web.DTOs;
-using Web.Client.BuildingBlocks.Authentication.Antiforgery;
+using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
 
-namespace Web.Client.BuildingBlocks.Authentication
+namespace Web.Web.Client.BuildingBlocks.Authentication
 {
     public class HostAuthenticationStateProvider : AuthenticationStateProvider
     {

@@ -1,4 +1,4 @@
-﻿using Shared.Features.CQRS.Query;
+﻿using Shared.Features.Messaging.Query;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptionAggregate.Application.Queries
 {

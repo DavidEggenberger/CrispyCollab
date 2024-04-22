@@ -1,5 +1,5 @@
 ﻿using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Events;
-using Shared.Features.CQRS.DomainEvent;
+using Shared.Features.Messaging.DomainEvent;
 
 namespace Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.EventHandlers
 {

@@ -21,7 +21,7 @@
     //            applicationUser.IsOnline = true;
     //            applicationUser.TabsOpen = 1;
     //            await applicationUserManager.UpdateAsync(applicationUser);
-    //            await Clients.All.SendAsync("UpdateOnlineUsers");
+    //            await Web.Clients.All.SendAsync("UpdateOnlineUsers");
     //            return;
     //        }
     //        if (applicationUser.IsOnline)
@@ -46,7 +46,7 @@
     //            //ApplicationUserTeam applicationUserTeam = await applicationUserManager.GetCurrentTeamMembership(applicationUser);
     //            //await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}{applicationUserTeam.Role}");
     //            //await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"{applicationUserTeam.TeamId}");
-    //            await Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
+    //            await Web.Clients.AllExcept(appUser.Id.ToString()).SendAsync("UpdateOnlineUsers");
     //        }
     //    }
     //}

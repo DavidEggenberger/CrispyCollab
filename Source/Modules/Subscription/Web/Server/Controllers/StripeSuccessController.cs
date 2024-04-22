@@ -2,7 +2,7 @@
 //using Microsoft.AspNetCore.Mvc;
 
 
-//namespace WebServer.Controllers.Stripe
+//namespace Web.Server.Controllers.Stripe
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]

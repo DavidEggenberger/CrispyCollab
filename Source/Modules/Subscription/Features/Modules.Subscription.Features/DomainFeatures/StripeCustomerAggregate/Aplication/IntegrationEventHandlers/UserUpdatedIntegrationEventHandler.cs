@@ -1,5 +1,5 @@
 ﻿using Modules.TenantIdentity.IntegrationEvents;
-using Shared.Features.CQRS.IntegrationEvent;
+using Shared.Features.Messaging.IntegrationEvent;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate.Aplication.IntegrationEventHandlers
 {

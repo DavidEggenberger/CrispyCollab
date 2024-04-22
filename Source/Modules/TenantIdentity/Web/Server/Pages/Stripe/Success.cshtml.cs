@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebServer.Pages.Identity.Stripe
+namespace Web.Server.Pages.Identity.Stripe
 {
     public class SuccessModel : PageModel
     {

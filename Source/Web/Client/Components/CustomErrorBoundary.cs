@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace Client.Components
+namespace Web.Client.Components
 {
     public class CustomErrorBoundary : ErrorBoundary
     {

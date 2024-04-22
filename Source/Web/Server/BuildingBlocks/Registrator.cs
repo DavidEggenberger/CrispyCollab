@@ -5,7 +5,7 @@ using Web.Server.BuildingBlocks.Logging;
 using Web.Server.BuildingBlocks.ModelValidation;
 using Web.Server.BuildingBlocks.SecurityHeaders;
 using Web.Server.BuildingBlocks.Swagger;
-using WebServer.Modules.ModelValidation;
+using Web.Server.Modules.ModelValidation;
 
 namespace Web.Server.BuildingBlocks
 {

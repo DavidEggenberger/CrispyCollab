@@ -1,21 +1,28 @@
-﻿using Shared.Features.CQRS.Query;
+﻿using Shared.Features.Messaging.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
-using Shared.Features.CQRS.Command;
-using Shared.Features.CQRS.DomainEvent;
-using Shared.Features.CQRS.IntegrationEvent;
+using Shared.Features.Messaging.Command;
+using Shared.Features.Messaging.DomainEvent;
+using Shared.Features.Messaging.IntegrationEvent;
 
-namespace Shared.Features.CQRS
+namespace Shared.Features.Messaging
 {
     public static class Registrator
     {
-        public static IServiceCollection RegisterCQRS(this IServiceCollection services, Assembly[] assemblies)
+        public static IServiceCollection AddMessaging(this IServiceCollection services)
         {
             services.TryAddScoped<ICommandDispatcher, CommandDispatcher>();
             services.TryAddScoped<IQueryDispatcher, QueryDispatcher>();
-            services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.TryAddScoped<IIntegrationEventDispatcher, IntegrationEventDispatcher>();
+            services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddMessagingForModule(this IServiceCollection services, Type moduleType)
+        {
+            var assemblies = new Assembly[] { moduleType.Assembly };
 
             // INFO: Using https://www.nuget.org/packages/Scrutor for registering all Query and Command handlers by convention
             services.Scan(selector =>
@@ -34,6 +41,14 @@ namespace Shared.Features.CQRS
                         .AddClasses(filter =>
                         {
                             filter.AssignableTo(typeof(ICommandHandler<>));
+                        })
+                        .AsImplementedInterfaces()
+                        .WithScopedLifetime();
+
+                selector.FromAssemblies(assemblies)
+                        .AddClasses(filter =>
+                        {
+                            filter.AssignableTo(typeof(ICommandHandler<,>));
                         })
                         .AsImplementedInterfaces()
                         .WithScopedLifetime();
@@ -58,6 +73,7 @@ namespace Shared.Features.CQRS
                         .AsImplementedInterfaces()
                         .WithScopedLifetime();
             });
+
             return services;
         }
     }

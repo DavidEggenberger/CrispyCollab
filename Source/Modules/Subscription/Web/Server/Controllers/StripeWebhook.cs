@@ -1,4 +1,4 @@
-﻿//using Shared.Modules.Layers.Application.CQRS.Command;
+﻿//using Shared.Modules.Layers.Application.Messaging.Command;
 //using Shared.Modules.Layers.Features.StripeIntegration;
 //using Shared.Modules.Layers.Features.StripeIntegration.Commands;
 //using Shared.Modules.Layers.Features.StripeIntegration.Configuration;
@@ -9,7 +9,7 @@
 //using Stripe;
 //using System.IO;
 
-//namespace WebServer.Controllers.Stripe
+//namespace Web.Server.Controllers.Stripe
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]

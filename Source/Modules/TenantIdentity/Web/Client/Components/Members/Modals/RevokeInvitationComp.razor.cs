@@ -4,7 +4,7 @@ using Modules.IdentityModule.Web.DTOs;
 using Shared.Client;
 using WebShared.Identity.Team.AdminManagement;
 
-namespace Client.Components.ManageTeam.Members.Modals
+namespace Web.Client.Components.ManageTeam.Members.Modals
 {
     public partial class RevokeInvitationCompBase : BaseComponent
     {
@@ -13,7 +13,7 @@ namespace Client.Components.ManageTeam.Members.Modals
         [Parameter] public TeamAdminInfoDTO TeamAdminInfo { get; set; }
         public async Task RevokeInvitation()
         {
-            await HttpClientService.PostToAPIAsync("/teamAdmin/invite/revoke", new RevokeInvitationDTO { TeamId = TeamAdminInfo.Id, UserId = Member.Id });
+            await httpClientService.PostToAPIAsync("/teamAdmin/invite/revoke", new RevokeInvitationDTO { TeamId = TeamAdminInfo.Id, UserId = Member.Id });
             await CloseModal();
         }
         public async Task CloseModal()

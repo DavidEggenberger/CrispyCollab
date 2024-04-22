@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.CQRS.Command;
-using Shared.Features.CQRS.DomainEvent;
-using Shared.Features.CQRS.IntegrationEvent;
-using Shared.Features.CQRS.Query;
+using Shared.Features.Messaging.Command;
+using Shared.Features.Messaging.DomainEvent;
+using Shared.Features.Messaging.IntegrationEvent;
+using Shared.Features.Messaging.Query;
 using Shared.Kernel.BuildingBlocks;
 using Shared.Kernel.BuildingBlocks.Services.ModelValidation;
 

@@ -3,7 +3,6 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Components;
 using Modules.IdentityModule.Web.DTOs;
 using Shared.Client;
-using Shared.Kernel.BuildingBlocks.Services.ModelValidation;
 
 namespace Modules.TenantIdentity.Web.Client.Components
 {
@@ -19,14 +18,14 @@ namespace Modules.TenantIdentity.Web.Client.Components
             set
             {
                 currentName = value;
-                validationServiceResult = ValidationService.Validate(new TeamDTO { Name = currentName });
+                validationServiceResult = validationService.Validate(new TeamDTO { Name = currentName });
             }
         }
         private async Task CreateGroupAsync()
         {
-            await HttpClientService.PostToAPIAsync("/team", new TeamDTO { Name = currentName });
+            await httpClientService.PostToAPIAsync("/team", new TeamDTO { Name = currentName });
             await ModalInstance.CloseAsync();
-            NavigationManager.NavigateTo("/", true);
+            navigationManager.NavigateTo("/", true);
         }
     }
 }

@@ -1,12 +1,12 @@
-@using global::Client
-@using global::Client.Layouts
+@using global::Web.Client
+@using global::Web.Client.Layouts
 
 
-<Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+<Web.Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
     <CascadingAuthenticationState>
-        <Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
-            <Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>
-                    <Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>
+        <Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
+            <Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>
+                    <Web.Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>
                         <CascadingBlazoredModal>
                             <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
                                 <Found Context="routeData">
@@ -30,10 +30,10 @@
                                 </NotFound>
                             </Router>
                         </CascadingBlazoredModal>  
-                    </Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>         
-            </Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>    
-        </Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
+                    </Web.Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>         
+            </Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>    
+        </Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
     </CascadingAuthenticationState>
-</Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+</Web.Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
 
 

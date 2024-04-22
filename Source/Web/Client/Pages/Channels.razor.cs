@@ -1,7 +1,7 @@
 ﻿using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 using Shared.Client;
 
-namespace Client.Pages
+namespace Web.Client.Pages
 {
     public partial class ChannelsBase : BaseComponent
     {
@@ -12,11 +12,11 @@ namespace Client.Pages
         {
             //HubConnection.On("UpdateChannels", async () =>
             //{
-            //    channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
+            //    channels = await HttpWeb.ClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
             //    StateHasChanged();
             //});
             
-            channels = await HttpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
+            channels = await httpClientService.GetFromAPIAsync<List<ChannelDTO>>("/channel");
 
             loading = false;
         }
@@ -27,7 +27,7 @@ namespace Client.Pages
             {
                 Name = name
             };
-            await HttpClientService.PostToAPIAsync<ChannelDTO>("/channel", createChannel);
+            await httpClientService.PostToAPIAsync<ChannelDTO>("/channel", createChannel);
             channelName = string.Empty;
         }
 
@@ -37,7 +37,7 @@ namespace Client.Pages
             {
                 Name = name
             };
-            await HttpClientService.PostToAPIAsync<ChannelDTO>("/channel", changeChannelName);
+            await httpClientService.PostToAPIAsync<ChannelDTO>("/channel", changeChannelName);
         }
 
         private async Task SendMessage(string message)

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Shared.Features.CQRS.Query;
-using Shared.Features.CQRS.Command;
+using Shared.Features.Messaging.Query;
+using Shared.Features.Messaging.Command;
 using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
 using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Commands;
 using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Queries;

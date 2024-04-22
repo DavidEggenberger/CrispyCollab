@@ -1,5 +1,5 @@
 ﻿using Modules.Channels.Features.Infrastructure.EFCore;
-using Shared.Features.CQRS.Command;
+using Shared.Features.Messaging.Command;
 
 namespace Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Commands
 {

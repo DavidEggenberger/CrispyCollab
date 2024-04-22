@@ -1,4 +1,4 @@
-﻿namespace Client.Components.ManageTeam.Members.Modals
+﻿namespace Web.Client.Components.ManageTeam.Members.Modals
 {
     public partial class RemoveMemberComp
     {

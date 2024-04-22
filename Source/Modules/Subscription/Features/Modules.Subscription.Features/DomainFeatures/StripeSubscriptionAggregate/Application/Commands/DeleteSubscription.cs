@@ -1,4 +1,4 @@
-﻿using Shared.Features.CQRS.Command;
+﻿using Shared.Features.Messaging.Command;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptionAggregate.Application.Commands
 {

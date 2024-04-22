@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
 using System.Text.Json;
 
-namespace WebServer.Pages.Identity.Account
+namespace Web.Server.Pages.Identity.Account
 {
     public class PersonalDataModel : PageModel
     {

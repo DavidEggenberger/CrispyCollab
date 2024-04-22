@@ -2,7 +2,7 @@
 using Shared.Features.Domain;
 using Shared.Kernel.BuildingBlocks;
 
-namespace Shared.Features.CQRS.DomainEvent
+namespace Shared.Features.Messaging.DomainEvent
 {
     public class DomainEventDispatcher : IDomainEventDispatcher
     {

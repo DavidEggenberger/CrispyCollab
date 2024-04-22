@@ -9,7 +9,7 @@ using Modules.Subscriptions.Web.Server;
 using Modules.TenantIdentity.Web.Server;
 using Web.Server.BuildingBlocks;
 
-namespace WebServer
+namespace Web.Server
 {
     public class Startup
     {

@@ -1,5 +1,5 @@
 ﻿using Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate;
-using Shared.Features.CQRS.Query;
+using Shared.Features.Messaging.Query;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate.Aplication.Queries
 {

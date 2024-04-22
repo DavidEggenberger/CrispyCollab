@@ -1,6 +1,6 @@
 ﻿@page "/channels"
 @using Shared.Kernel.BuildingBlocks.Authorization.Attributes
-@using global::Client.Pages
+@using global::Web.Client.Pages
 @attribute [AuthorizeTenantUser]
 @inherits ChannelsBase
 
@@ -20,7 +20,7 @@
                     @foreach(var channel in channels)
                     {
                         <div class="ChannelCompContainer">
-                            <Modules.Channels.Web.Client.Components.ChannelComponent Channel="channel"/>
+                            <Modules.Channels.Web.Web.Client.Components.ChannelComponent Channel="channel"/>
                         </div>
                     }
                 </div>       

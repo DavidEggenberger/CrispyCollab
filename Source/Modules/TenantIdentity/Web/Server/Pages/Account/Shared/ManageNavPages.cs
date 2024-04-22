@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebServer.Pages.Identity.Account.Shared
+namespace Web.Server.Pages.Identity.Account.Shared
 {
     public static class ManageNavPages
     {

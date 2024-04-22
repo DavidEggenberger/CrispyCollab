@@ -1,7 +1,7 @@
 ﻿using Modules.IdentityModule.Web.DTOs;
 using Shared.Client;
 
-namespace Web.Client.Pages
+namespace Web.Web.Client.Pages
 {
     public partial class ManageTeamBase : BaseComponent
     {
@@ -9,12 +9,12 @@ namespace Web.Client.Pages
         protected TeamAdminInfoDTO teamAdminInfo;
         protected override async Task OnInitializedAsync()
         {
-            teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
+            teamAdminInfo = await httpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
             loading = false;
 
             //HubConnection.On("UpdateAdminInformation", async () =>
             //{
-            //    teamAdminInfo = await HttpClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
+            //    teamAdminInfo = await HttpWeb.ClientService.GetFromAPIAsync<TeamAdminInfoDTO>("/team");
             //    StateHasChanged();
             //});
         }

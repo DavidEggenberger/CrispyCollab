@@ -12,12 +12,12 @@ namespace Shared.Client
     public partial class BaseComponent : ComponentBase
     {
         [Inject]
-        public HttpClientService HttpClientService { get; set; }
+        protected HttpClientService httpClientService { get; set; }
 
         [Inject]
-        public ValidationService ValidationService { get; set; }
+        protected ValidationService validationService { get; set; }
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        protected NavigationManager navigationManager { get; set; }
     }
 }

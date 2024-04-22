@@ -11,7 +11,7 @@ namespace Modules.TenantIdentity.Web.Client.Components
         protected List<SubscriptionPlanDTO> subscriptionPlans = new List<SubscriptionPlanDTO>();
         protected override async Task OnInitializedAsync()
         {
-            subscriptionPlans = await HttpClientService.GetFromAPIAsync<List<SubscriptionPlanDTO>>("/subscriptionplan/all");
+            subscriptionPlans = await httpClientService.GetFromAPIAsync<List<SubscriptionPlanDTO>>("/subscriptionplan/all");
         }
     }
 }

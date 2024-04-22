@@ -57,8 +57,8 @@ namespace Modules.TenantIdentity.Web.Server
                 })
                 .AddGoogle(options =>
                 {
-                    options.ClientId = configuration["SocialLogins:Google:ClientId"];
-                    options.ClientSecret = configuration["SocialLogins:Google:ClientSecret"];
+                    options.ClientId = configuration["SocialLogins:Google:Web.ClientId"];
+                    options.ClientSecret = configuration["SocialLogins:Google:Web.ClientSecret"];
                     options.Scope.Add("profile");
                     options.Events.OnCreatingTicket = (context) =>
                     {

@@ -8,7 +8,7 @@ using Shared.Kernel.Extensions.ClaimsPrincipal;
 using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate.Application.Commands;
 using Shared.Features.Server;
 
-namespace WebServer.Controllers.Identity
+namespace Web.Server.Controllers.Identity
 {
     [Route("api/[controller]")]
     [AllowAnonymous]

@@ -3,7 +3,7 @@ using Modules.IdentityModule.Web.DTOs;
 using Shared.Client;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 
-namespace Client.Components.Dashboard.Pages
+namespace Web.Client.Components.Dashboard.Pages
 {
     public partial class Dashboard : BaseComponent
     {

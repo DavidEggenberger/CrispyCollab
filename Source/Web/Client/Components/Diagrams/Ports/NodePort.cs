@@ -1,6 +1,6 @@
 ﻿using Blazor.Diagrams.Core.Models;
 
-namespace Client.Diagrams.Ports
+namespace Web.Client.Diagrams.Ports
 {
     public class NodePort : PortModel
     {

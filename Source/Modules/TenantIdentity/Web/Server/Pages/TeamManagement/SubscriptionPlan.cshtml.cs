@@ -1,4 +1,4 @@
-namespace WebServer.Pages.Identity.TeamManagement
+namespace Web.Server.Pages.Identity.TeamManagement
 {
     //public class ManagePlanModel : PageModel
     //{

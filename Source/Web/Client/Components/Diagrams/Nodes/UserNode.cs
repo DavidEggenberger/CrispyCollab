@@ -1,8 +1,8 @@
 ﻿using Blazor.Diagrams.Core.Models;
 using Modules.IdentityModule.Web.DTOs;
-using Client.Diagrams.Ports;
+using Web.Client.Diagrams.Ports;
 
-namespace Client.Diagrams.Nodes
+namespace Web.Client.Diagrams.Nodes
 {
     public class UserNode : NodeModel
     {

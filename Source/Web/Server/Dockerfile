@@ -10,7 +10,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Source/Web/WebServer/WebServer.csproj", "Source/Web/WebServer/"]
+COPY ["Source/Web/Web.Server/Web.Server.csproj", "Source/Web/Web.Server/"]
 COPY ["Source/Modules/ChannelModule/Web/Server/ChannelModule.Server.csproj", "Source/Modules/ChannelModule/Web/Server/"]
 COPY ["Source/Shared/SharedKernel/SharedKernel.csproj", "Source/Shared/SharedKernel/"]
 COPY ["Source/Modules/ChannelModule/Layers/Application/ChannelModule.Application.csproj", "Source/Modules/ChannelModule/Layers/Application/"]
@@ -30,21 +30,21 @@ COPY ["Source/Modules/TenantIdentity/Layers/Features/TenantIdentity.Features.csp
 COPY ["Source/Modules/TenantIdentity/Layers/Domain/TenantIdentity.Domain.csproj", "Source/Modules/TenantIdentity/Layers/Domain/"]
 COPY ["Source/Modules/TenantIdentity/Web/DTOs/TenantIdentity.DTOs.csproj", "Source/Modules/TenantIdentity/Web/DTOs/"]
 COPY ["Source/Shared/Modules/Web/Server/ModulesShared.Server.csproj", "Source/Shared/Modules/Web/Server/"]
-COPY ["Source/Web/Client/Client.csproj", "Source/Web/Client/"]
-COPY ["Source/Modules/ChannelModule/Web/Client/ChannelModule.Client.csproj", "Source/Modules/ChannelModule/Web/Client/"]
-COPY ["Source/Shared/Modules/Web/Client/ModulesShared.Client.csproj", "Source/Shared/Modules/Web/Client/"]
-COPY ["Source/Modules/SubscriptionModule/Web/Client/SubscriptionModule.Client.csproj", "Source/Modules/SubscriptionModule/Web/Client/"]
+COPY ["Source/Web/Web.Client/Web.Client.csproj", "Source/Web/Web.Client/"]
+COPY ["Source/Modules/ChannelModule/Web/Web.Client/ChannelModule.Web.Client.csproj", "Source/Modules/ChannelModule/Web/Web.Client/"]
+COPY ["Source/Shared/Modules/Web/Web.Client/ModulesShared.Web.Client.csproj", "Source/Shared/Modules/Web/Web.Client/"]
+COPY ["Source/Modules/SubscriptionModule/Web/Web.Client/SubscriptionModule.Web.Client.csproj", "Source/Modules/SubscriptionModule/Web/Web.Client/"]
 COPY ["Source/Modules/SubscriptionModule/Web/DTOs/SubscriptionModule.DTOs.csproj", "Source/Modules/SubscriptionModule/Web/DTOs/"]
-COPY ["Source/Modules/TenantIdentity/Web/Client/TenantIdentity.Client.csproj", "Source/Modules/TenantIdentity/Web/Client/"]
-RUN dotnet restore "Source/Web/WebServer/WebServer.csproj"
+COPY ["Source/Modules/TenantIdentity/Web/Web.Client/TenantIdentity.Web.Client.csproj", "Source/Modules/TenantIdentity/Web/Web.Client/"]
+RUN dotnet restore "Source/Web/Web.Server/Web.Server.csproj"
 COPY . .
-WORKDIR "/src/Source/Web/WebServer"
-RUN dotnet build "WebServer.csproj" -c Release -o /app/build
+WORKDIR "/src/Source/Web/Web.Server"
+RUN dotnet build "Web.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WebServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Web.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebServer.dll"]
+ENTRYPOINT ["dotnet", "Web.Server.dll"]

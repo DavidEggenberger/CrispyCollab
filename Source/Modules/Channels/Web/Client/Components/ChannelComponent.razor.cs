@@ -13,7 +13,7 @@ namespace Modules.Channels.Web.Client.Components
             //{
             //    if(Channel.Id == channelId)
             //    {
-            //        Channel = await HttpClientService.GetFromAPIAsync<ChannelDTO>($"/channel/{Channel.Id}");
+            //        Channel = await HttpWeb.ClientService.GetFromAPIAsync<ChannelDTO>($"/channel/{Channel.Id}");
             //        StateHasChanged();
             //    }
             //});
@@ -21,7 +21,7 @@ namespace Modules.Channels.Web.Client.Components
 
         protected async Task DeleteChannel()
         {
-            //await HttpClientService.DeleteFromAPIAsync("/channel", Channel.Id);
+            //await HttpWeb.ClientService.DeleteFromAPIAsync("/channel", Channel.Id);
         }
     }
 }

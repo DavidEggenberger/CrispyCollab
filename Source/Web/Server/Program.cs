@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System;
 
-namespace WebServer
+namespace Web.Server
 {
     public class Program
     {
@@ -64,7 +64,7 @@ namespace WebServer
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
                     //configuration.AddAzureKeyVault(new Uri(""),
-                    //        new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = "b803e77c-0003-4a3a-8d33-861eb2e3ebbf" }));
+                    //        new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityWeb.ClientId = "b803e77c-0003-4a3a-8d33-861eb2e3ebbf" }));
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

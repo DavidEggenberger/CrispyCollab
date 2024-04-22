@@ -5,7 +5,7 @@ using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 using Shared.Client;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 
-namespace Modules.Channels.Web.Client.Modals
+namespace Modules.Channels.Web.Web.Client.Modals
 {
     //public partial class CreateChannelModal : BaseComponent
     //{
@@ -24,7 +24,7 @@ namespace Modules.Channels.Web.Client.Modals
     //    }
     //    private async Task CreateChannelAsync()
     //    {
-    //        //await HttpClientService.PostToAPIAsync("/channel", new ChannelDTO { Name = currentName });
+    //        //await HttpWeb.ClientService.PostToAPIAsync("/channel", new ChannelDTO { Name = currentName });
     //        await ModalInstance.CancelAsync();
     //    }
     //}

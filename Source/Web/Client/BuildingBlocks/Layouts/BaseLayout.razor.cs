@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Client.Layouts
+namespace Web.Client.Layouts
 {
     public partial class BaseLayout : LayoutComponentBase
     {

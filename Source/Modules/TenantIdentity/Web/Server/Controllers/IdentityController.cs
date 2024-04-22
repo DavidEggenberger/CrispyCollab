@@ -1,5 +1,5 @@
 ﻿//using AutoMapper;
-//using Shared.Features.CQRS.Query;
+//using Shared.Features.Messaging.Query;
 //using Shared.Modules.Layers.Features.Identity;
 //using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@
 //using Modules.IdentityModule.Web.DTOs;
 //using ApplicationUserManager = Shared.Modules.Layers.Features.Identity.ApplicationUserManager;
 
-//namespace WebServer.Controllers.Identity
+//namespace Web.Server.Controllers.Identity
 //{
 //    [Route("api/[controller]")]
 //    [Authorize]
