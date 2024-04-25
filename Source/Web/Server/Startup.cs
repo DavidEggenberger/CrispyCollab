@@ -8,6 +8,8 @@ using Modules.LandingPages.Server;
 using Modules.Subscriptions.Web.Server;
 using Modules.TenantIdentity.Web.Server;
 using Web.Server.BuildingBlocks;
+using Modules.Subscriptions.Features;
+using Modules.TenantIdentity.Features;
 
 namespace Web.Server
 {
@@ -27,8 +29,8 @@ namespace Web.Server
 
             services.AddModule<ChannelsModuleStartup>(Configuration);
             services.AddModule<LandingPagesModuleStartup>(Configuration);
-            services.AddModule<SubscriptionsModuleStartup>(Configuration);
-            services.AddModule<TenantIdentityModuleStartup>(Configuration);
+            services.AddModule<SubscriptionsModule, SubscriptionsModuleStartup>(Configuration);
+            services.AddModule<TenantIdentityModule, TenantIdentityModuleStartup>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
