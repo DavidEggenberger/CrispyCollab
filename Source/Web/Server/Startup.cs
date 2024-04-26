@@ -10,6 +10,7 @@ using Modules.TenantIdentity.Web.Server;
 using Web.Server.BuildingBlocks;
 using Modules.Subscriptions.Features;
 using Modules.TenantIdentity.Features;
+using Shared.Features;
 
 namespace Web.Server
 {
@@ -22,9 +23,15 @@ namespace Web.Server
             Configuration = configuration;
             WebHostEnvironment = webHostEnvironment;
         }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+
+            services.AddSharedFeatures();
             services.AddBuildingBlocks();
 
             services.AddModule<ChannelsModuleStartup>(Configuration);
@@ -46,6 +53,7 @@ namespace Web.Server
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSharedFeaturesMiddleware(env);
             app.UseBuildingBlocks();
 
             app.UseEndpoints(endpoints =>

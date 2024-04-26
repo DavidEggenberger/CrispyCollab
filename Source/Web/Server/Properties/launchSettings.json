@@ -23,7 +23,7 @@
       },
       "applicationUrl": "https://localhost:5001",
       "dotnetRunMessages": "true",
-      "launchUrl": "/"
+      "launchUrl": ""
     },
     "Docker": {
       "commandName": "Docker",

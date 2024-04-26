@@ -2,7 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modules.Subscriptions.Features.Infrastructure.Configuration;
+using Modules.Subscriptions.Features.Infrastructure.EFCore;
+using Shared.Features.EFCore;
 using Shared.Features.Modules;
+using Shared.Features.Modules.Configuration;
 using Stripe;
 using System.Reflection;
 
@@ -14,11 +18,9 @@ namespace Modules.Subscriptions.Web.Server
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             StripeConfiguration.ApiKey = configuration["Stripe:StripeKey"];
-            //services.Configure<StripeOptions>(configuration);
-            //services.AddScoped<IStripeSubscriptionService, StripeSubscriptionTypeService>();
 
-            services.AddControllers()
-                .AddApplicationPart(typeof(SubscriptionsModuleStartup).Assembly);
+            services.RegisterDbContext<SubscriptionsDbContext>("subscriptions");
+            services.RegisterModuleConfiguration<SubscriptionsConfiguration, SubscriptionsConfigurationValidator>(configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
