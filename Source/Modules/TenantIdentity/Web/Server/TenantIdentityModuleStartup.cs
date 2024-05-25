@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Modules.TenantIdentity.Features.Infrastructure.Configuration;
 using Shared.Features.Modules;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
-using Shared.Kernel.BuildingBlocks.Authorization.Services;
 using System.Reflection;
 using System.Security.Claims;
 using Shared.Features.Modules.Configuration;
@@ -25,13 +23,10 @@ namespace Modules.TenantIdentity.Web.Server
         public Assembly FeaturesAssembly { get; } = typeof(TenantIdentityModuleStartup).Assembly;
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers().AddApplicationPart(typeof(TenantIdentityModuleStartup).Assembly);
-            services.AddSignalR();
+            services.AddSingleton<OpenIdConnectPostConfigureOptions>();
+            services.AddScoped<UserClaimsPrincipalFactory<ApplicationUser>>();
 
             services.RegisterModuleConfiguration<TenantIdentityConfiguration, TenantIdentityConfigurationValidator>(configuration);
-
-            services.AddSingleton<OpenIdConnectPostConfigureOptions>();
-            //services.AddScoped<IUserResolver, UserResolver>();
 
             services.Configure<SecurityStampValidatorOptions>(options =>
             {
@@ -40,25 +35,27 @@ namespace Modules.TenantIdentity.Web.Server
 
             services.AddDbContext<TenantIdentityDbContext>();
 
+            var tenantIdentityConfiguration = services.BuildServiceProvider().GetRequiredService<TenantIdentityConfiguration>();
+
             AuthenticationBuilder authenticationBuilder = services.AddAuthentication(options =>
             {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                options.DefaultScheme = AuthConstant.ApplicationAuthenticationScheme;
+                options.DefaultSignInScheme = AuthConstant.ApplicationAuthenticationScheme;
             })
                 .AddLinkedIn(options =>
                 {
-                    options.ClientId = "test";
-                    options.ClientSecret = "test";
+                    options.ClientId = tenantIdentityConfiguration.LinkedinClientId;
+                    options.ClientSecret = tenantIdentityConfiguration.LinkedinClientSecret;
                 })
                 .AddMicrosoftAccount(options =>
                 {
-                    options.ClientId = "test";
-                    options.ClientSecret = "test";
+                    options.ClientId = tenantIdentityConfiguration.MicrosoftClientId;
+                    options.ClientSecret = tenantIdentityConfiguration.MicrosoftClientSecret;
                 })
                 .AddGoogle(options =>
                 {
-                    options.ClientId = configuration["SocialLogins:Google:Web.ClientId"];
-                    options.ClientSecret = configuration["SocialLogins:Google:Web.ClientSecret"];
+                    options.ClientId = tenantIdentityConfiguration.GoogleClientId;
+                    options.ClientSecret = tenantIdentityConfiguration.GoogleClientSecret;
                     options.Scope.Add("profile");
                     options.Events.OnCreatingTicket = (context) =>
                     {

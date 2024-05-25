@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Shared.Features.Messaging.DomainEvent;
 using Shared.Features.Domain;
-using Shared.Features.DomainKernel;
 using Shared.Features.EFCore.Configuration;
 using Shared.Features.EFCore.MultiTenancy;
 using Shared.Features.EFCore.MultiTenancy.Exceptions;
-using Shared.Kernel.BuildingBlocks;
 using Shared.SharedKernel.Interfaces;
 using SharedKernel.Interfaces;
 

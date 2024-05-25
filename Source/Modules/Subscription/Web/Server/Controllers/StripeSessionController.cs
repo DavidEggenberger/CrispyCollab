@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Modules.Subscriptions.Web.Server.Controllers
+﻿namespace Modules.Subscriptions.Web.Server.Controllers
 {
     //[Route("api/[controller]")]
     //[ApiController]

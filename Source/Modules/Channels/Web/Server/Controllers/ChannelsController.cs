@@ -8,7 +8,6 @@ using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
 using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Commands;
 using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Queries;
 using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
-using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 
 namespace Modules.Channels.Web.Server.Controllers

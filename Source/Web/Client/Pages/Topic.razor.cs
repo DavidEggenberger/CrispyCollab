@@ -1,7 +1,6 @@
 ﻿using Blazor.Diagrams.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Shared.Client;
 
 namespace Web.Client.Pages
 {

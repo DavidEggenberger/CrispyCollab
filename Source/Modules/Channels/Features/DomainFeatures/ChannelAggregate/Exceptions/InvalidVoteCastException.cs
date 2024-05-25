@@ -1,5 +1,4 @@
 ﻿using Shared.Features.Domain.Exceptions;
-using Shared.Features.DomainKernel;
 
 namespace Modules.Channels.Features.DomainFeatures.ChannelAggregate.Exceptions
 {

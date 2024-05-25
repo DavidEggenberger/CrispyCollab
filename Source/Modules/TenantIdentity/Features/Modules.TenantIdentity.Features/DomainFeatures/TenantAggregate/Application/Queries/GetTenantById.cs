@@ -1,5 +1,4 @@
-﻿using Modules.TenantIdentity.Features.DomainFeatures.TenantAggregate;
-using Shared.Features.Messaging.Query;
+﻿using Shared.Features.Messaging.Query;
 using System;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.TenantAggregate.Application.Queries

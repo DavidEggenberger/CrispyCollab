@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
-using Shared.Client;
 
 namespace Modules.Channels.Web.Client.Components
 {

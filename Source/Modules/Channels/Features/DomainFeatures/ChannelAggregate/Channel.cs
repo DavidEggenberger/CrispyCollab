@@ -1,6 +1,5 @@
 ﻿using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Events;
 using Shared.Features.Domain;
-using Shared.Features.DomainKernel;
 
 namespace Modules.Channels.Features.DomainFeatures.ChannelAggregate
 {

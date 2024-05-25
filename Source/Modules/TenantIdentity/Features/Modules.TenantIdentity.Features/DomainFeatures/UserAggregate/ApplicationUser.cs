@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shared.Features.Domain.Exceptions;
-using Shared.Features.DomainKernel;
 using System;
 using System.Collections.Generic;
 

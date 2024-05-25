@@ -1,5 +1,4 @@
 ﻿using Shared.Features.Domain;
-using Shared.Features.DomainKernel;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate
 {

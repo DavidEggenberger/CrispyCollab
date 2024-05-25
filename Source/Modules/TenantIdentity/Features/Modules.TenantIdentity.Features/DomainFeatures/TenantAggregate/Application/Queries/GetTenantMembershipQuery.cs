@@ -1,5 +1,4 @@
-﻿using Modules.TenantIdentity.Features.DomainFeatures.TenantAggregate;
-using Modules.TenantIdentity.Features.Infrastructure.EFCore;
+﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 using Shared.Features.Messaging.Query;
 using System;
 using System.Linq;

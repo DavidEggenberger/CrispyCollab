@@ -8,25 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BuildingBlocks\CORS\**" />
-    <Compile Remove="BuildingBlocks\FeatureFlags\**" />
-    <Compile Remove="BuildingBlocks\HealthChecks\**" />
-    <Compile Remove="BuildingBlocks\ServerLifetimeEvents\**" />
-    <Content Remove="BuildingBlocks\CORS\**" />
-    <Content Remove="BuildingBlocks\FeatureFlags\**" />
-    <Content Remove="BuildingBlocks\HealthChecks\**" />
-    <Content Remove="BuildingBlocks\ServerLifetimeEvents\**" />
-    <EmbeddedResource Remove="BuildingBlocks\CORS\**" />
-    <EmbeddedResource Remove="BuildingBlocks\FeatureFlags\**" />
-    <EmbeddedResource Remove="BuildingBlocks\HealthChecks\**" />
-    <EmbeddedResource Remove="BuildingBlocks\ServerLifetimeEvents\**" />
-    <None Remove="BuildingBlocks\CORS\**" />
-    <None Remove="BuildingBlocks\FeatureFlags\**" />
-    <None Remove="BuildingBlocks\HealthChecks\**" />
-    <None Remove="BuildingBlocks\ServerLifetimeEvents\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Modules\Channels\Web\Server\Modules.Channels.Web.Server.csproj" />
     <ProjectReference Include="..\..\Modules\LandingPages\Web\Server\Modules.LandingPages.Server.csproj" />
     <ProjectReference Include="..\..\Modules\Subscription\Web\Server\Modules.Subscriptions.Web.Server.csproj" />

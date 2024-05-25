@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shared.Features.Domain;
-using Shared.Kernel.BuildingBlocks;
 
 namespace Shared.Features.Messaging.DomainEvent
 {

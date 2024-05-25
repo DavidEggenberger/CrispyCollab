@@ -1,5 +1,4 @@
-﻿using Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate;
-using Shared.Features.Messaging.Query;
+﻿using Shared.Features.Messaging.Query;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomerAggregate.Aplication.Queries
 {

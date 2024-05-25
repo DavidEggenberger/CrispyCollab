@@ -1,5 +1,4 @@
-﻿using Shared.Kernel.BuildingBlocks.Auth;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+﻿using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 
 namespace Modules.Subscriptions.Features.Infrastructure.StripePayments
 {
