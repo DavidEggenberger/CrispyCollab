@@ -69,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Featu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Features", "Source\Modules\Channels\Features\Modules.Channels.Features.csproj", "{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Client", "Source\Shared\Client\Shared.Client.csproj", "{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Client", "Source\Shared\Client\Shared.Client.csproj", "{EFE72943-FDF2-46C3-A257-5C5EBD55F1DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
