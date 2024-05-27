@@ -16,8 +16,14 @@ This repository builds upon <a href="https://github.com/DavidEggenberger/Modular
 
 Please visit the <a href="https://github.com/DavidEggenberger/ModularMonolith.SaaS.Template">ModularMonolith.SaaS.Template</a> repo for more information. 
 
-## Running CrispyCollab
-CrispyCollab's WebServer (it also serves the Blazor WebAssembly client) relies on a Redis instance to store cached values and on a SQL Server to store the application's data. Running CrispyCollab therefore requires these two Infrastructure components to be running as well.  
+## Using and Running CrispyCollab
+### TailwindCSS
+If you want to start building with the template and adding your own tailwind classes you must run the following commands from the Source directory:
+```
+npm install -D tailwindcss
+npx tailwindcss init
+npx tailwindcss -i ./TailwindSource.css -o ./Web/Server/wwwroot/dist/output.css --watch
+```
 
 ### Infrastructure
 The most convient way to run a Redis and SQL Server instance is through Docker. To do so run this command from the root folder 
