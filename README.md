@@ -39,7 +39,7 @@ update-database -context SubscriptionsDbContext
 These commands will create two seperate shemes with their respective tables on the same database (the configuration string is read from Web/Server/appsettings.Development.json).
 
 ### Web
-Before running the WebServer (it serves also the Blazor WebAssembly client) configuration values must be set. They are then accessible through the IConfiguration interface for which ASP.NET Core automatically registers an implementation in the inversion-of-control (DI) container (assuming the configuration resides in appsettings.json or secrets.json). Especially the Infrastructure layer relies on the configuration values (e.g. database connection strings, Stripe API Key). It is highly recommended to keep the following secrets out of source control. For local development right click on the Web.Server project and then click on manage user secrets. The opened secrets.json file should then updated to hold the following configuration (the values can be retrieved by following the respective links):
+Before running the Web.Server project (its the project to be started because it also serves the Blazor WebAssembly client) the configuration values must be set. It is highly recommended to keep the following secrets out of source control. For local development right click on the Web.Server project and then click on manage user secrets. The opened secrets.json file should then updated to hold the following configuration (the values can be retrieved by following the respective links):
 
 ```json
 {
