@@ -14,9 +14,9 @@ This repository builds upon <a href="https://github.com/DavidEggenberger/Modular
 
 ## Architecture
 
-Please visit the <a href="https://github.com/DavidEggenberger/ModularMonolith.SaaS.Template">ModularMonolith.SaaS.Template</a> repo for more information. 
+Because this repo builts upon the <a href="https://github.com/DavidEggenberger/ModularMonolith.SaaS.Template">ModularMonolith.SaaS.Template</a> repo please visit it for information about the architecture. 
 
-## Using and Running CrispyCollab
+## Running and Using CrispyCollab
 ### TailwindCSS
 If you want to start building with the template and adding your own tailwind classes you must run the following commands from the Source directory:
 ```
@@ -26,8 +26,7 @@ npx tailwindcss -i ./TailwindSource.css -o ./Web/Server/wwwroot/dist/output.css 
 ```
 
 ### Infrastructure
-The most convient way to run a Redis and SQL Server instance is through Docker. To do so run this command from the root folder 
-(where CrispyCollab.sln file is located):
+The most convient way to run an SQL Server instance is through Docker. To do so run this command from the root folder (where CrispyCollab.sln file is located):
 ```
 docker-compose -f docker-compose.infrastructure.yml up
 ```
