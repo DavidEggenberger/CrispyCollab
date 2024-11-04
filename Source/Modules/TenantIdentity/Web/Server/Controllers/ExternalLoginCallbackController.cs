@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using Shared.Kernel.Extensions.ClaimsPrincipal;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate.Application.Commands;
+using Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Commands;
 using Shared.Features.Server;
 
 namespace Modules.TenantIdentity.Web.Server

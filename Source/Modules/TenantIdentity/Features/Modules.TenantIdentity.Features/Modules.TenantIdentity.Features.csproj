@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DomainFeatures\TenantAggregate\Application\Commands\" />
+    <Folder Include="DomainFeatures\Tenants\Application\Commands\" />
   </ItemGroup>
 
 </Project>

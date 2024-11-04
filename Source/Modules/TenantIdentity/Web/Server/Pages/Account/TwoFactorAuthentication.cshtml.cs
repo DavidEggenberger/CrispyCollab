@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 
 namespace Web.Server.Pages.Identity.Account
 {

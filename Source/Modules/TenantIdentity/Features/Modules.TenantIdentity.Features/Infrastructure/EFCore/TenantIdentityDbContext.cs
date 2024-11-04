@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Modules.TenantIdentity.Features.Infrastructure.EFCore.Configuration.UserAggregate;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared.Features.EFCore.Configuration;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Modules.TenantIdentity.Features.DomainFeatures.TenantAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants;
 using System.Linq;
 using SendGrid.Helpers.Errors.Model;
 
@@ -63,7 +62,7 @@ namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration<ApplicationUser>(new UserConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TenantIdentityDbContext).Assembly);
             modelBuilder.HasDefaultSchema("Identity");
             base.OnModelCreating(modelBuilder);
         }

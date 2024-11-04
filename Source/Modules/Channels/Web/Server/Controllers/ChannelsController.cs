@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Shared.Features.Messaging.Query;
 using Shared.Features.Messaging.Command;
-using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
-using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Commands;
-using Modules.Channels.Features.DomainFeatures.ChannelAggregate.Application.Queries;
+using Modules.Channels.Features.DomainFeatures.Channels;
+using Modules.Channels.Features.DomainFeatures.Channels.Application.Commands;
+using Modules.Channels.Features.DomainFeatures.Channels.Application.Queries;
 using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
 using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 

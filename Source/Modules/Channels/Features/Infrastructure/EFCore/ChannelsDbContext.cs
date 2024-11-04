@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Modules.Channels.Features.DomainFeatures.ChannelAggregate;
+using Modules.Channels.Features.DomainFeatures.Channels;
 using Shared.Features.EFCore;
 
 namespace Modules.Channels.Features.Infrastructure.EFCore

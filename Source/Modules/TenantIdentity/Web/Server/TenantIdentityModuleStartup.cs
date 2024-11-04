@@ -13,7 +13,7 @@ using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using System.Reflection;
 using System.Security.Claims;
 using Shared.Features.Modules.Configuration;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 
 namespace Modules.TenantIdentity.Web.Server

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Shared.Features.Messaging.Query;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate.Application.Queries;
-using Modules.TenantIdentity.Features.DomainFeatures.UserAggregate;
+using Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Queries;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
