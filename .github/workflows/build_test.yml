@@ -33,7 +33,7 @@ jobs:
     - name: Publish
       run: dotnet publish --configuration release --output './published-app' ${{ github.workspace }}/Source/Web/Server/Web.Server.csproj
     - name: Upload Publish Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Published-Artifacts
         path: './published-app'
@@ -45,7 +45,7 @@ jobs:
 
     steps:
     - name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: Published-Artifacts
         path: './published-app'
