@@ -1,7 +1,7 @@
 ﻿using Blazored.Modal;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Components;
-using Modules.IdentityModule.Web.DTOs;
+using Modules.IdentityModule.Shared;
 using Shared.Client;
 
 namespace Modules.TenantIdentity.Web.Client.Components

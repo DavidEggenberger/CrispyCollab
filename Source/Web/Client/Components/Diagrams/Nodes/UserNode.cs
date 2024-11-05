@@ -1,5 +1,5 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using Modules.IdentityModule.Web.DTOs;
+using Modules.IdentityModule.Shared;
 using Web.Client.Diagrams.Ports;
 
 namespace Web.Client.Diagrams.Nodes

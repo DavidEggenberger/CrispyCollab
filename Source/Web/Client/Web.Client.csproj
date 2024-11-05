@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Channels\Web\Client\Modules.Channels.Web.Client.csproj" />
     <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscriptions.Web.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\TenantIdentity\Shared\Modules.TenantIdentity.Shared.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Kernel\Shared.Kernel.csproj" />
   </ItemGroup>

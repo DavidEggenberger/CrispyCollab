@@ -5,7 +5,7 @@
 //using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Mvc;
 //using Module.Shared.Modules.Layers.Features;
-//using Modules.IdentityModule.Web.DTOs;
+//using Modules.IdentityModule.Shared;
 //using ApplicationUserManager = Shared.Modules.Layers.Features.Identity.ApplicationUserManager;
 
 //namespace Web.Server.Controllers.Identity

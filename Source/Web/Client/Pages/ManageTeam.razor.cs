@@ -1,4 +1,4 @@
-﻿using Modules.IdentityModule.Web.DTOs;
+﻿using Modules.IdentityModule.Shared;
 using Shared.Client;
 
 namespace Web.Web.Client.Pages

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Modules.IdentityModule.Web.DTOs;
+using Modules.IdentityModule.Shared;
 using Shared.Client;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 

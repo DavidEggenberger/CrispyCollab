@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
     <ProjectReference Include="..\..\Features\Modules.Channels.Features.csproj" />
-    <ProjectReference Include="..\DTOs\Modules.Channels.Web.Shared.csproj" />
+    <ProjectReference Include="..\DTOs\Modules.Channels.Shared.csproj" />
   </ItemGroup>
 
 </Project>
