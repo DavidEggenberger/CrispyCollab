@@ -1,4 +1,4 @@
-﻿using WebShared.Identity.Subscription;
+﻿using Modules.Shared.Subscriptions.Shared.DTOs;
 using WebShared.Identity.Team.AdminManagement;
 
 namespace Modules.IdentityModule.Shared

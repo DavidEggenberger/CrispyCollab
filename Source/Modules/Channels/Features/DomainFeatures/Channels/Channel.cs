@@ -1,4 +1,6 @@
-﻿using Modules.Channels.Features.DomainFeatures.Channels.Events;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using Modules.Channels.Features.DomainFeatures.Channels.Events;
 using Shared.Features.Domain;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels
@@ -35,6 +37,16 @@ namespace Modules.Channels.Features.DomainFeatures.Channels
         public void RemoveMessageVote(Message message, Reaction vote)
         {
             messages.Single(m => m.Id == message.Id).RemoveVote(vote);
+        }
+    }
+
+    public class ChannelConfiguration : IEntityTypeConfiguration<Channel>
+    {
+        public void Configure(EntityTypeBuilder<Channel> builder)
+        {
+            builder.Navigation(b => b.Messages)
+                .HasField("messages")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

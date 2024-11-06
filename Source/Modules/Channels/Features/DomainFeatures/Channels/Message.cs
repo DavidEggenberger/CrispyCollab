@@ -1,4 +1,6 @@
-﻿using Modules.Channels.Features.DomainFeatures.Channels.Events;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using Modules.Channels.Features.DomainFeatures.Channels.Events;
 using Shared.Features.Domain;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels
@@ -27,6 +29,15 @@ namespace Modules.Channels.Features.DomainFeatures.Channels
         {
             votes.Remove(votes.FirstOrDefault(v => v.CreatedByUserId == vote.CreatedByUserId));
             AddDomainEvent(new MessageVotesUpdatedEvent());
+        }
+    }
+
+    public class MessageConfiguration : IEntityTypeConfiguration<Message>
+    {
+        public void Configure(EntityTypeBuilder<Message> builder)
+        {
+            builder.OwnsMany(x => x.MakeMessageTopicVotes)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

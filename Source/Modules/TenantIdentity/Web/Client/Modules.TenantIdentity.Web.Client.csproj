@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Client\Shared.Client.csproj" />
+    <ProjectReference Include="..\..\..\Subscription\Web\DTOs\Modules.Subscriptions.Shared.csproj" />
     <ProjectReference Include="..\..\Shared\Modules.TenantIdentity.Shared.csproj" />
     <ProjectReference Include="..\DTOs\Modules.TenantIdentity.Shared.csproj" />
   </ItemGroup>

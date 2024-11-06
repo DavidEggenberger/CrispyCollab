@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscriptions", "Subscripti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TenantIdentity", "TenantIdentity", "{2EAB9402-18B3-494D-AF82-D63E296A012F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Shared", "Source\Modules\Channels\Web\DTOs\Modules.Channels.Shared.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Shared", "Source\Modules\Channels\Shared\Modules.Channels.Shared.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Shared", "Source\Modules\TenantIdentity\Shared\Modules.TenantIdentity.Shared.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
 EndProject
@@ -33,15 +33,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Client", "Source\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Shared", "Source\Modules\Subscription\Web\DTOs\Modules.Subscriptions.Shared.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Shared", "Source\Modules\Subscriptions\Shared\Modules.Subscriptions.Shared.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Web.Server", "Source\Modules\Subscription\Web\Server\Modules.Subscriptions.Web.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Web.Server", "Source\Modules\Subscriptions\Web\Server\Modules.Subscriptions.Web.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Web.Client", "Source\Modules\Subscription\Web\Client\Modules.Subscriptions.Web.Client.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Web.Client", "Source\Modules\Subscriptions\Web\Client\Modules.Subscriptions.Web.Client.csproj", "{3F9C319D-287D-489A-972E-00FD18C2F011}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.IntegrationEvents", "Source\Modules\Channels\IntegrationEvents\Modules.Channels.IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.IntegrationEvents", "Source\Modules\Subscription\IntegrationEvents\Modules.Subscriptions.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.IntegrationEvents", "Source\Modules\Subscriptions\IntegrationEvents\Modules.Subscriptions.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.IntegrationEvents", "Source\Modules\TenantIdentity\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
 EndProject
@@ -65,7 +65,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2F6AB579-E4C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Features", "Source\Modules\TenantIdentity\Features\Modules.TenantIdentity.Features\Modules.TenantIdentity.Features.csproj", "{4A908204-B4FC-4A9F-AF7A-8C85A134CC9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Features", "Source\Modules\Subscription\Features\Modules.Subscription.Features\Modules.Subscriptions.Features.csproj", "{64C9BBFD-D05B-43CD-8213-AD3C4414D54C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Features", "Source\Modules\Subscriptions\Features\Modules.Subscriptions.Features.csproj", "{64C9BBFD-D05B-43CD-8213-AD3C4414D54C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Features", "Source\Modules\Channels\Features\Modules.Channels.Features.csproj", "{EE30F6EF-BE5E-4BFB-B56B-63C13568FD23}"
 EndProject

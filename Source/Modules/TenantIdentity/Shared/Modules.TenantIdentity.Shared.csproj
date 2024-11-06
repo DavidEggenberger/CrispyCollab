@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Subscription\Web\DTOs\Modules.Subscriptions.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Modules.Shared.Subscriptions.Shared.DTOs;
 using Shared.Client;
-using WebShared.Identity.Subscription;
 
 namespace Modules.TenantIdentity.Web.Client.Components
 {
