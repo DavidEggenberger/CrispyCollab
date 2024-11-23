@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
-    <ProjectReference Include="..\..\Features\Modules.Subscription.Features\Modules.Subscriptions.Features.csproj" />
+    <ProjectReference Include="..\..\Features\Modules.Subscriptions.Features.csproj" />
   </ItemGroup>
 
 </Project>

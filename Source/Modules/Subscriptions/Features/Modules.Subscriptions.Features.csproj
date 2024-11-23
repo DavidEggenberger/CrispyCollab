@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
-    <ProjectReference Include="..\..\..\TenantIdentity\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Features\Shared.Features.csproj" />
+    <ProjectReference Include="..\..\TenantIdentity\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using Modules.Shared.Subscriptions.Shared.DTOs;
-using WebShared.Identity.Team.AdminManagement;
+﻿using WebShared.Identity.Team.AdminManagement;
 
 namespace Modules.IdentityModule.Shared
 {
@@ -11,6 +10,5 @@ namespace Modules.IdentityModule.Shared
         public TeamMetricsDTO Metrics { get; set; }
         public List<MemberDTO> Members { get; set; }
         public List<AdminNotificationDTO> AdminNotifications { get; set; }
-        public SubscriptionDTO Subscription { get; set; }
     }
 }
