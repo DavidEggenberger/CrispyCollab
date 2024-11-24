@@ -9,26 +9,16 @@ using Modules.Channels.Features.DomainFeatures.Channels.Application.Commands;
 using Modules.Channels.Features.DomainFeatures.Channels.Application.Queries;
 using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
 using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
+using Shared.Features.Server;
 
 namespace Modules.Channels.Web.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiVersion("1.0")]
-    public class ChannelsController : ControllerBase
+    [Authorize]
+    public class ChannelsController : BaseController
     {
-        private readonly IMapper mapper;
-        private readonly ICommandDispatcher commandDispatcher;
-        private readonly IQueryDispatcher queryDispatcher;
-        private readonly IAuthorizationService authorizationService;
-
-        public ChannelsController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IMapper mapper, IAuthorizationService authorizationService)
-        {
-            this.commandDispatcher = commandDispatcher;
-            this.queryDispatcher = queryDispatcher;
-            this.mapper = mapper;
-            this.authorizationService = authorizationService;
-        }
+        public ChannelsController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
         [HttpGet]
         public async Task<List<ChannelDTO>> GetChannels(CancellationToken cancellationToken)
@@ -87,15 +77,7 @@ namespace Modules.Channels.Web.Server.Controllers
         public async Task<ActionResult> DeleteChannel([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             Channel channel = await queryDispatcher.DispatchAsync<GetChannelById, Channel>(new GetChannelById { Id = id }, cancellationToken);
-            if ((await authorizationService.AuthorizeAsync(HttpContext.User, channel, "CreatorPolicy")).Succeeded)
-            {
-                await commandDispatcher.DispatchAsync(new DeleteChannel() { ChannelId = id }, cancellationToken);
-                return Ok();
-            }
-            else
-            {
-                return Forbid();
-            }
+
         }
     }
 }

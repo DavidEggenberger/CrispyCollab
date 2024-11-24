@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
-using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using Shared.Kernel.Extensions.ClaimsPrincipal;
-using Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Commands;
 using Shared.Features.Server;
+using System;
+using System.Threading.Tasks;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
+using Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Commands;
 
-namespace Modules.TenantIdentity.Web.Server
+namespace Modules.TenantIdentity.Web.Server.Controllers.IdentityOperations
 {
     [Route("api/[controller]")]
     [AllowAnonymous]
@@ -16,8 +18,7 @@ namespace Modules.TenantIdentity.Web.Server
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-
-        public ExternalLoginCallbackController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IServiceProvider services) : base(services)
+        public ExternalLoginCallbackController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -27,6 +28,7 @@ namespace Modules.TenantIdentity.Web.Server
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
             var info = await signInManager.GetExternalLoginInfoAsync();
+
             var user = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
             if (info is not null && user is null)
