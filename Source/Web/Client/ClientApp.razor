@@ -1,8 +1,9 @@
+@using Microsoft.AspNetCore.Components.Authorization
 @using global::Web.Client
 @using global::Web.Client.Layouts
 
 
-<Web.Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+<Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
     <CascadingAuthenticationState>
         <Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
             <Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>
@@ -34,6 +35,6 @@
             </Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>    
         </Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
     </CascadingAuthenticationState>
-</Web.Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+</Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
 
 

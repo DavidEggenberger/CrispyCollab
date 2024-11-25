@@ -3,7 +3,7 @@ using System;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Queries
 {
-    public class GetTenantById : IQuery<Tenant>
+    public class GetTenantById : Query<Tenant>
     {
         public Guid TenantId { get; set; }
     }

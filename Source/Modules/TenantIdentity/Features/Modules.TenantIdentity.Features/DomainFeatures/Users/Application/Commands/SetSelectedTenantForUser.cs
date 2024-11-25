@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Commands
 {
-    public class SetSelectedTenantForUser : ICommand
+    public class SetSelectedTenantForUser : Command
     {
         public Guid SelectedTenantId { get; set; }
         public Guid UserId { get; set; }

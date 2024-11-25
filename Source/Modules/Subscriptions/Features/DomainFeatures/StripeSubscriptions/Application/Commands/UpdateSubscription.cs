@@ -2,7 +2,7 @@
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptions.Application.Commands
 {
-    public class UpdateSubscription : ICommand
+    public class UpdateSubscription : Command
     {
         public Stripe.Subscription Subscription { get; set; }
     }

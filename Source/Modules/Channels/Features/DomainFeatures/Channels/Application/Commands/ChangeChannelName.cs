@@ -3,7 +3,7 @@ using Shared.Features.Messaging.Command;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
 {
-    public class ChangeChannelName : ICommand
+    public class ChangeChannelName : Command
     {
         public Guid ChannelId { get; set; }
         public string NewName { get; set; }

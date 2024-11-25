@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
 {
-    public class Tenant : AggregateRoot
+    public class Tenant : Entity
     {
         private Tenant() { }
         public Tenant(string name)

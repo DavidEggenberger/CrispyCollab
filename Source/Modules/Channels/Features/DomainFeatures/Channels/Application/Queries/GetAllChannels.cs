@@ -3,7 +3,7 @@ using Shared.Features.Messaging.Query;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries
 {
-    public class GetAllChannels : IQuery<List<Channel>>
+    public class GetAllChannels : Query<List<Channel>>
     {
 
     }

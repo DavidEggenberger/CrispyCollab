@@ -2,7 +2,7 @@
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries
 {
-    public class GetMessageById : IQuery<Message>
+    public class GetMessageById : Query<Message>
     {
         public Guid Id { get; set; }
     }

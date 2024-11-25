@@ -4,7 +4,7 @@ using Shared.Features.Messaging.Command;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
 {
-    public class AddMessageToChannel : ICommand
+    public class AddMessageToChannel : Command
     {
         public Guid ChannelId { get; set; }
         public string Text { get; set; }

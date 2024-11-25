@@ -7,25 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Components\Dashboard\**" />
-    <Compile Remove="Components\Notifications\**" />
-    <Compile Remove="Components\Pipelines\**" />
-    <Compile Remove="Components\Topics\**" />
-    <Content Remove="Components\Dashboard\**" />
-    <Content Remove="Components\Notifications\**" />
-    <Content Remove="Components\Pipelines\**" />
-    <Content Remove="Components\Topics\**" />
-    <EmbeddedResource Remove="Components\Dashboard\**" />
-    <EmbeddedResource Remove="Components\Notifications\**" />
-    <EmbeddedResource Remove="Components\Pipelines\**" />
-    <EmbeddedResource Remove="Components\Topics\**" />
-    <None Remove="Components\Dashboard\**" />
-    <None Remove="Components\Notifications\**" />
-    <None Remove="Components\Pipelines\**" />
-    <None Remove="Components\Topics\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />

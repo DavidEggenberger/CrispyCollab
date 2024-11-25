@@ -1,6 +1,6 @@
 ﻿namespace Shared.Features.Messaging.Command
 {
-    public interface ICommandHandler<in TCommand> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : Command
     {
         Task HandleAsync(TCommand command, CancellationToken cancellationToken);
     }

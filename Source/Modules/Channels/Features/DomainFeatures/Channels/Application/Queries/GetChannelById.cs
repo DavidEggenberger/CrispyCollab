@@ -4,7 +4,7 @@ using Shared.Features.Messaging.Query;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries
 {
-    public class GetChannelById : IQuery<Channel>
+    public class GetChannelById : Query<Channel>
     {
         public Guid Id { get; set; }
     }

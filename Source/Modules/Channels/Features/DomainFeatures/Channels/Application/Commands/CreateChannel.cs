@@ -3,7 +3,7 @@ using Shared.Features.Messaging.Command;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
 {
-    public class CreateChannel : ICommand
+    public class CreateChannel : Command
     {
         public string Name { get; set; }
         public string Goal { get; set; }

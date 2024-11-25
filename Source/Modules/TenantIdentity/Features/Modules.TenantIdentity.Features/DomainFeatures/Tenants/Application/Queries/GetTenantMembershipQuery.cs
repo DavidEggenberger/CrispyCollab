@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Queries
 {
-    public class GetTenantMembershipQuery : IQuery<TenantMembership>
+    public class GetTenantMembershipQuery : Query<TenantMembership>
     {
         public Guid UserId { get; set; }
         public Guid TenantId { get; set; }

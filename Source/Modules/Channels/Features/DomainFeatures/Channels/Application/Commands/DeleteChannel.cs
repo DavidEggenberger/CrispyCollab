@@ -3,7 +3,7 @@ using Shared.Features.Messaging.Command;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
 {
-    public class DeleteChannel : ICommand
+    public class DeleteChannel : Command
     {
         public Guid ChannelId { get; set; }
     }

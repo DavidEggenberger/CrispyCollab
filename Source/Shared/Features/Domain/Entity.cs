@@ -1,45 +1,36 @@
 ﻿using Shared.Features.DomainKernel.Exceptions;
+using Shared.Kernel.BuildingBlocks;
+using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.Errors.Exceptions;
 using Shared.SharedKernel.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shared.Features.Domain
 {
     public abstract class Entity : IAuditable, IIdentifiable, IConcurrent
     {
+        [Key]
         public Guid Id { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public bool IsSoftDeleted { get; set; }
+
+        public virtual Guid TenantId { get; set; }
+
+        [ConcurrencyCheck]
         public byte[] RowVersion { get; set; }
-        public DateTimeOffset Created { get; set; }
-        public DateTimeOffset LastUpdated { get; set; }
-        private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-        public bool IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTimeOffset CreatedAt { get; set; }
 
-        protected void AddDomainEvent(IDomainEvent eventItem)
+        public DateTimeOffset LastUpdatedAt { get; set; }
+
+        [NotMapped]
+        public IExecutionContext ExecutionContext { get; set; }
+
+        public void ThrowIfCallerIsNotInRole(TenantRole role)
         {
-            _domainEvents.Add(eventItem);
-        }
-
-        public void ClearDomainEvents()
-        {
-            _domainEvents?.Clear();
-        }
-
-        public void SoftDelete()
-        {
-            if (IsSoftDeleted is true)
+            if (ExecutionContext.TenantRole != role)
             {
-                throw new InvalidEntityDeleteException("Can't delete an already deleted entity");
+                throw new UnAuthorizedException();
             }
-            else
-            {
-                IsSoftDeleted = true;
-            }
-        }
-        public void UndoSoftDelete()
-        {
-            IsSoftDeleted = false;
         }
     }
 }
