@@ -7,7 +7,7 @@ namespace Shared.Features.EFCore.Configuration
     {
         public override ValidateOptionsResult Validate(string name, EFCoreConfiguration efCoreConfiguration)
         {
-            if (string.IsNullOrEmpty(efCoreConfiguration.SQLServerConnectionString_Dev))
+            if (string.IsNullOrEmpty(efCoreConfiguration.SQLServerConnectionStringDev))
             {
                 return ValidateOptionsResult.Fail("");
             }

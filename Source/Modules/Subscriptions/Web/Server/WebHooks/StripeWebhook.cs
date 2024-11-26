@@ -17,7 +17,6 @@ namespace Web.Server.Controllers.Stripe
     public class StripeWebhook : BaseController
     {
         private readonly StripeOptions stripeOptions;
-        private readonly ICommandDispatcher commandDispatcher;
         public StripeWebhook(IOptions<StripeOptions> stripeOptions, ICommandDispatcher commandDispatcher)
         {
             this.stripeOptions = stripeOptions.Value;

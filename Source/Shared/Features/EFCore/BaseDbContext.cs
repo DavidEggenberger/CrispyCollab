@@ -1,49 +1,51 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Features.Messaging.DomainEvent;
+using Microsoft.Extensions.Hosting;
 using Shared.Features.Domain;
 using Shared.Features.EFCore.Configuration;
 using Shared.Features.EFCore.MultiTenancy;
 using Shared.Features.EFCore.MultiTenancy.Exceptions;
+using Shared.Kernel.BuildingBlocks;
 using Shared.SharedKernel.Interfaces;
-using SharedKernel.Interfaces;
 
 namespace Shared.Features.EFCore
 {
     public class BaseDbContext<T> : DbContext where T : DbContext
     {
         private readonly string schemaName;
-        private readonly IExecutionContextAccessor executionContextAccessor;
-        private readonly EFCoreConfiguration configuration;
-        private readonly IDomainEventDispatcher domainEventDispatcher;
+        private readonly IExecutionContext executionContext;
+        private readonly EFCoreConfiguration efCoreConfiguration;
 
         public BaseDbContext(IServiceProvider serviceProvider, string schemaName, DbContextOptions<T> dbContextOptions) : base(dbContextOptions)
         {
             this.schemaName = schemaName;
-            domainEventDispatcher = serviceProvider.GetService<IDomainEventDispatcher>();
-            executionContextAccessor = serviceProvider.GetService<IExecutionContextAccessor>();
-            configuration = serviceProvider.GetService<EFCoreConfiguration>();
+            executionContext = serviceProvider.GetService<IExecutionContext>();
+            efCoreConfiguration = serviceProvider.GetService<EFCoreConfiguration>();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema(schemaName);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(T).Assembly);
 
             ThrowIfDbSetEntityNotTenantIdentifiable(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(null,
-                x => x.Namespace.Contains(typeof(T).Namespace));
-            modelBuilder.ApplyBaseEntityConfiguration(executionContextAccessor.TenantId);
+            modelBuilder.ApplyBaseEntityConfiguration(executionContext.TenantId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var hostEnvironment = serviceProvider.GetRequiredService<IHostEnvironment>();
+            optionsBuilder.AddInterceptors(new ExecutionContextInterceptor());
+            optionsBuilder.UseSqlServer(
+                executionContext.HostingEnvironment.IsProduction() ? efCoreConfiguration.SQLServerConnectionStringProd : efCoreConfiguration.SQLServerConnectionStringDev,
+                sqlServerOptions =>
+                {
+                    sqlServerOptions.CommandTimeout(15);
+                    sqlServerOptions.MigrationsHistoryTable($"MigrationHistory_{schemaName}");
+                }
+            );
 
-            optionsBuilder.UseSqlServer(configuration.SQLServerConnectionString, sqlServerOptions =>
-            {
-                sqlServerOptions.EnableRetryOnFailure(5);
-            });
+            base.OnConfiguring(optionsBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -51,8 +53,7 @@ namespace Shared.Features.EFCore
             ThrowIfMultipleTenants();
             UpdateAutitableEntities();
             SetTenantId();
-            UpdateCreatedByUserEntities(executionContextAccessor.UserId);
-            await DispatchEventsAsync(cancellationToken);
+            UpdateCreatedByUserEntities(executionContext.UserId);
             return await base.SaveChangesAsync(cancellationToken);
         }
 
@@ -63,11 +64,11 @@ namespace Shared.Features.EFCore
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.CreatedAt = DateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastUpdated = DateTime.Now;
+                        entry.Entity.LastUpdatedAt = DateTime.Now;
                         break;
                 }
             }
@@ -77,7 +78,7 @@ namespace Shared.Features.EFCore
         {
             foreach (var entry in ChangeTracker.Entries<IAuditable>().Where(x => x.State == EntityState.Added))
             {
-                entry.Entity.CreatedByUserId = userId;
+                entry.Entity.UserId = userId;
             }
         }
 
@@ -85,7 +86,7 @@ namespace Shared.Features.EFCore
         {
             foreach (var entry in ChangeTracker.Entries<ITenantIdentifiable>().Where(x => x.State == EntityState.Added))
             {
-                entry.Entity.TenantId = executionContextAccessor.TenantId;
+                entry.Entity.TenantId = executionContext.TenantId;
             }
         }
 
@@ -107,7 +108,7 @@ namespace Shared.Features.EFCore
                 throw new CrossTenantUpdateException(ids);
             }
 
-            if (ids.First() != executionContextAccessor.TenantId)
+            if (ids.First() != executionContext.TenantId)
             {
                 throw new CrossTenantUpdateException(ids);
             }
@@ -115,30 +116,11 @@ namespace Shared.Features.EFCore
 
         private void ThrowIfDbSetEntityNotTenantIdentifiable(ModelBuilder modelBuilder)
         {
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(t => t is AggregateRoot))
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(t => t is Entity))
             {
                 if (typeof(ITenantIdentifiable).IsAssignableFrom(entityType.ClrType) is false)
                 {
                     throw new EntityNotTenantIdentifiableException(entityType.ClrType.Name);
-                }
-            }
-        }
-
-        private async Task DispatchEventsAsync(CancellationToken cancellationToken)
-        {
-            var domainEntities = ChangeTracker
-                .Entries<Entity>()
-                .Select(x => x.Entity)
-                .Where(x => x.DomainEvents.Any())
-                .ToList();
-
-            foreach (var entity in domainEntities)
-            {
-                var events = entity.DomainEvents.ToArray();
-                entity.ClearDomainEvents();
-                foreach (var domainEvent in events)
-                {
-                    await domainEventDispatcher.RaiseAsync(domainEvent, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

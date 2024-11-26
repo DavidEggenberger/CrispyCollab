@@ -1,5 +1,6 @@
 ﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 using Shared.Features.Messaging.Command;
+using Shared.Features.Server;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,17 +12,15 @@ namespace Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Comma
         public Guid SelectedTenantId { get; set; }
         public Guid UserId { get; set; }
     }
-    public class SetSelectedTenantForUserHandler : ICommandHandler<SetSelectedTenantForUser>
+    public class SetSelectedTenantForUserHandler : ServerExecutionBase<TenantIdentityModule>, ICommandHandler<SetSelectedTenantForUser>
     {
-        private readonly TenantIdentityDbContext tenantIdentityDbContext;
-        public SetSelectedTenantForUserHandler(TenantIdentityDbContext tenantIdentityDbContext)
+        public SetSelectedTenantForUserHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            this.tenantIdentityDbContext = tenantIdentityDbContext;
         }
 
         public async Task HandleAsync(SetSelectedTenantForUser command, CancellationToken cancellationToken)
         {
-            var user = await tenantIdentityDbContext.GetUserByIdAsync(command.UserId);
+            var user = await module.TenantIdentityDbContext.GetUserByIdAsync(command.UserId);
 
             if (user.SelectedTenantId == command.SelectedTenantId)
             {
@@ -30,7 +29,7 @@ namespace Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Comma
 
             user.SelectedTenantId = command.SelectedTenantId;
 
-            await tenantIdentityDbContext.SaveChangesAsync(cancellationToken);
+            await module.TenantIdentityDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

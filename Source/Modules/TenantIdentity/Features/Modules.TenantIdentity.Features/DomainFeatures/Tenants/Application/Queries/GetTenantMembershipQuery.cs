@@ -1,5 +1,6 @@
 ﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
 using Shared.Features.Messaging.Query;
+using Shared.Features.Server;
 using System;
 using System.Linq;
 using System.Threading;
@@ -12,12 +13,15 @@ namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Que
         public Guid UserId { get; set; }
         public Guid TenantId { get; set; }
     }
-    public class GetTenantMembershipQueryHandler : BaseQueryHandler<TenantIdentityDbContext, Tenant>, IQueryHandler<GetTenantMembershipQuery, TenantMembership>
+    public class GetTenantMembershipQueryHandler : ServerExecutionBase<TenantIdentityModule>, IQueryHandler<GetTenantMembershipQuery, TenantMembership>
     {
-        public GetTenantMembershipQueryHandler(TenantIdentityDbContext tenantDbContext) : base(tenantDbContext) { }
-        public async Task<TenantMembership> HandleAsync(GetTenantMembershipQuery query, CancellationToken cancellation)
+        public GetTenantMembershipQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            return dbSet.First().Memberships.Single(m => m.UserId == query.UserId);
+        }
+
+        public Task<TenantMembership> HandleAsync(GetTenantMembershipQuery query, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
         }
     }
 }

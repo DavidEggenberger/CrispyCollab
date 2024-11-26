@@ -1,5 +1,7 @@
 ﻿using Modules.Channels.Features.Infrastructure.EFCore;
+using Modules.Subscriptions.Features;
 using Shared.Features.Messaging.Command;
+using Shared.Features.Server;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
 {
@@ -7,18 +9,17 @@ namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Commands
     {
         public Guid ChannelId { get; set; }
     }
-    public class DeleteChannelCommandCommandHandler : ICommandHandler<DeleteChannel>
+    public class DeleteChannelCommandCommandHandler : ServerExecutionBase<ChannelsModule>, ICommandHandler<DeleteChannel>
     {
-        private readonly ChannelsDbContext applicationDbContext;
-        public DeleteChannelCommandCommandHandler(ChannelsDbContext applicationDbContext)
+        public DeleteChannelCommandCommandHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            this.applicationDbContext = applicationDbContext;
         }
+
         public async Task HandleAsync(DeleteChannel command, CancellationToken cancellationToken)
         {
-            Channel channel = applicationDbContext.Channels.Single(c => c.Id == command.ChannelId);
-            applicationDbContext.Channels.Remove(channel);
-            await applicationDbContext.SaveChangesAsync(cancellationToken);
+            Channel channel = module.ChannelsDbContext.Channels.Single(c => c.Id == command.ChannelId);
+            module.ChannelsDbContext.Channels.Remove(channel);
+            await module.ChannelsDbContext.SaveChangesAsync(cancellationToken);
             //await aggregatesUINotifierService.UpdateChannels(teamResolver.ResolveTenant());
         }
     }

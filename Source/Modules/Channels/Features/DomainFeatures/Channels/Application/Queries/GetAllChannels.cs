@@ -1,5 +1,7 @@
 ﻿using Modules.Channels.Features.Infrastructure.EFCore;
+using Modules.Subscriptions.Features;
 using Shared.Features.Messaging.Query;
+using Shared.Features.Server;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries
 {
@@ -7,12 +9,15 @@ namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries
     {
 
     }
-    public class AllChannelsQueryHandler : BaseQueryHandler<ChannelsDbContext, Channel>, IQueryHandler<GetAllChannels, List<Channel>>
+    public class AllChannelsQueryHandler : ServerExecutionBase<ChannelsModule>, IQueryHandler<GetAllChannels, List<Channel>>
     {
-        public AllChannelsQueryHandler(ChannelsDbContext applicationDbContext) : base(applicationDbContext) { }
-        public async Task<List<Channel>> HandleAsync(GetAllChannels query, CancellationToken cancellation)
+        public AllChannelsQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            return dbSet.ToList();
+        }
+
+        public Task<List<Channel>> HandleAsync(GetAllChannels query, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
         }
     }
 }

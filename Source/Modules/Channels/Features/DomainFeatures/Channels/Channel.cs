@@ -5,7 +5,7 @@ using Shared.Features.Domain;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels
 {
-    public class Channel : AggregateRoot
+    public class Channel : Entity
     {
         public string Name { get; set; }
         public string Goal { get; set; }
@@ -23,12 +23,10 @@ namespace Modules.Channels.Features.DomainFeatures.Channels
         public void AddMessage(Message message)
         {
             messages.Add(message);
-            AddDomainEvent(new ChannelMessagesUpdatedEvent());
         }
         public void RemoveMessage(Message message)
         {
             messages.Remove(messages.Single(m => m.Id == message.Id));
-            AddDomainEvent(new ChannelMessagesUpdatedEvent());
         }
         public void AddMessageVote(Message message, Reaction vote)
         {

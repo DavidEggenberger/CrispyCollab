@@ -8,7 +8,7 @@ namespace Shared.Kernel.BuildingBlocks.Authorization
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorPolicyRequirement requirement, IAuditable resource)
         {
-            if (context.User.GetUserId<Guid>() == resource.CreatedByUserId)
+            if (context.User.GetUserId<Guid>() == resource.UserId)
             {
                 context.Succeed(requirement);
             }
