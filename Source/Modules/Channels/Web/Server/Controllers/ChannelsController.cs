@@ -21,23 +21,25 @@ namespace Modules.Channels.Web.Server.Controllers
         public ChannelsController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
         [HttpGet]
-        public async Task<List<ChannelDTO>> GetChannels(CancellationToken cancellationToken)
+        public async Task<ActionResult> GetChannels(CancellationToken cancellationToken)
         {
-            List<Channel> channels = await queryDispatcher.DispatchAsync<GetAllChannels, List<Channel>>(new GetAllChannels(), cancellationToken);
-            return mapper.Map<List<ChannelDTO>>(channels);
+            var channels = await queryDispatcher.DispatchAsync<GetAllChannels, List<Channel>>(new GetAllChannels(), cancellationToken);
+            
+            return Ok(channels);
         }
 
         [HttpGet("{id}")]
-        public async Task<ChannelDTO> GetChannelById([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult> GetChannelById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            Channel channel = await queryDispatcher.DispatchAsync<GetChannelById, Channel>(new GetChannelById() { Id = id }, cancellationToken);
-            return mapper.Map<ChannelDTO>(channel);
+            var channel = await queryDispatcher.DispatchAsync<GetChannelById, Channel>(new GetChannelById() { Id = id }, cancellationToken);
+            
+            return Ok(channel);
         }
 
         [HttpPost]
         public async Task CreateChannel([FromBody] ChannelDTO createChannelDTO, CancellationToken cancellationToken)
         {
-            CreateChannel createChannelCommand = mapper.Map<CreateChannel>(createChannelDTO);
+            var createChannelCommand = mapper.Map<CreateChannel>(createChannelDTO);
             await commandDispatcher.DispatchAsync(createChannelCommand, cancellationToken);
         }
 

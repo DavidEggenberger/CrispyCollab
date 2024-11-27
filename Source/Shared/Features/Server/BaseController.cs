@@ -8,6 +8,16 @@ using SharedKernel.Interfaces;
 
 namespace Shared.Features.Server
 {
+    public class BaseController<TModule> : BaseController
+    {
+        protected readonly TModule module;
+
+        public BaseController(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+            module = serviceProvider.GetService<TModule>();
+        }
+    }
+
     public class BaseController : ControllerBase
     {
         protected readonly ICommandDispatcher commandDispatcher;

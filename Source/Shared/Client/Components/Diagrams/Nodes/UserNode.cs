@@ -1,8 +1,8 @@
 ﻿using Blazor.Diagrams.Core.Models;
 using Modules.IdentityModule.Shared;
-using Web.Client.Diagrams.Ports;
+using Shared.Client.Diagrams.Ports;
 
-namespace Web.Client.Diagrams.Nodes
+namespace Shared.Client.Diagrams.Nodes
 {
     public class UserNode : NodeModel
     {

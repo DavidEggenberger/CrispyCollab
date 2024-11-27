@@ -1,6 +1,7 @@
 ﻿using Blazor.Diagrams.Core.Models;
+using Blazor.Diagrams.Core.Models.Base;
 
-namespace Web.Client.Diagrams.Ports
+namespace Shared.Client.Diagrams.Ports
 {
     public class NodePort : PortModel
     {
@@ -10,7 +11,7 @@ namespace Web.Client.Diagrams.Ports
 
         }
 
-        public override bool CanAttachTo(PortModel port)
+        public override bool CanAttachTo(ILinkable port)
         {
             // Avoid attaching to self port/node
             if (!base.CanAttachTo(port))

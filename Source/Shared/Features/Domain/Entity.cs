@@ -13,6 +13,7 @@ namespace Shared.Features.Domain
         [Key]
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
         public virtual Guid TenantId { get; set; }
 
         [ConcurrencyCheck]

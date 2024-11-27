@@ -8,18 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
-    <PackageReference Include="Z.Blazor.Diagrams" Version="2.1.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Channels\Shared\Modules.Channels.Shared.csproj" />
     <ProjectReference Include="..\..\Modules\Channels\Web\Client\Modules.Channels.Web.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Subscription\Web\Client\Modules.Subscriptions.Web.Client.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Shared\Modules.TenantIdentity.Shared.csproj" />
     <ProjectReference Include="..\..\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Kernel\Shared.Kernel.csproj" />
