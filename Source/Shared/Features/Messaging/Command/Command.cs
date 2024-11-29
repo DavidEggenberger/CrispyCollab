@@ -5,7 +5,7 @@
         public Guid ExecutingUserId { get; set; }
     }
 
-    public class ICommand<IResponse>
+    public class Command<IResponse>
     {
         public Guid ExecutingUserId { get; set; }
     }

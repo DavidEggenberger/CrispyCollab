@@ -11,13 +11,15 @@ using System.Collections.Generic;
 using Modules.TenantIdentity.Features.DomainFeatures.Tenants;
 using System.Linq;
 using SendGrid.Helpers.Errors.Model;
+using Shared.Features.EFCore;
+using Shared.Kernel.BuildingBlocks;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
 
 namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
 {
     public class TenantIdentityDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         private readonly IServiceProvider serviceProvider;
-        private readonly EFCoreConfiguration configuration;
 
         public TenantIdentityDbContext()
         {
@@ -26,7 +28,6 @@ namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
         public TenantIdentityDbContext(IServiceProvider serviceProvider, DbContextOptions<TenantIdentityDbContext> dbContextOptions) : base(dbContextOptions)
         {
             this.serviceProvider = serviceProvider;
-            configuration = serviceProvider.GetService<EFCoreConfiguration>();
         }
 
         public override DbSet<ApplicationUser> Users { get; set; }
@@ -40,22 +41,18 @@ namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var hostEnvironment = serviceProvider.GetRequiredService<IHostEnvironment>();
+            var executionContext = serviceProvider.GetRequiredService<IExecutionContext>();
+            var efCoreConfiguration = serviceProvider.GetRequiredService<EFCoreConfiguration>();
 
-            if (hostEnvironment.IsDevelopment())
-            {
-                optionsBuilder.UseSqlServer(configuration.SQLServerConnectionString, sqlServerOptions =>
+            optionsBuilder.AddInterceptors(new ExecutionContextInterceptor());
+            optionsBuilder.UseSqlServer(
+                executionContext.HostingEnvironment.IsProduction() ? efCoreConfiguration.SQLServerConnectionString_Prod : efCoreConfiguration.SQLServerConnectionString_Dev,
+                sqlServerOptions =>
                 {
-                    sqlServerOptions.EnableRetryOnFailure(5);
-                });
-            }
-            if (hostEnvironment.IsProduction())
-            {
-                if (!optionsBuilder.IsConfigured)
-                {
-                    optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Chinook");
+                    sqlServerOptions.CommandTimeout(15);
+                    sqlServerOptions.MigrationsHistoryTable($"MigrationHistory_TenantIdentity");
                 }
-            }
+            );
 
             base.OnConfiguring(optionsBuilder);
         }

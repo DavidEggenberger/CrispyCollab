@@ -1,5 +1,5 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using Modules.IdentityModule.Shared;
+using Modules.TenantIdentity.Shared.DTOs.User;
 using Shared.Client.Diagrams.Ports;
 
 namespace Shared.Client.Diagrams.Nodes

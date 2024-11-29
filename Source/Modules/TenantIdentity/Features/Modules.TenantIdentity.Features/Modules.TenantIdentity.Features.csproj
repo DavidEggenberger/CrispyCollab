@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -12,10 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Features\Shared.Features.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DomainFeatures\Tenants\Application\Commands\" />
+    <ProjectReference Include="..\..\..\Subscriptions\IntegrationEvents\Modules.Subscriptions.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Shared\Modules.TenantIdentity.Shared.csproj" />
   </ItemGroup>
 
 </Project>

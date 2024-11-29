@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Kernel.BuildingBlocks.Services.ModelValidation.Excceptions;
 using static FluentValidation.AssemblyScanner;
 
 namespace Shared.Kernel.BuildingBlocks.Services.ModelValidation
@@ -16,15 +15,33 @@ namespace Shared.Kernel.BuildingBlocks.Services.ModelValidation
             this.serviceProvider = serviceProvider;
         }
 
-        public ValidationResult Validate<T>(T model)
+        public ValidationServiceResult Validate<T>(T model)
         {
             var validator = GetValidatorForModel(model, typeof(T));
             if (validator == null)
             {
-                throw new NoValidatorFoundException();
+                //throw new ValidationServiceException("No Validator is registerd");
             }
-            FluentValidation.Results.ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
-            return validationResult;
+            ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
+            return new ValidationServiceResult
+            {
+                IsValid = validationResult.IsValid,
+                Errors = validationResult.Errors.Select(s => s.ErrorMessage).ToList()
+            };
+        }
+
+        public void ThrowIfInvalidModel<T>(T model)
+        {
+            var validator = GetValidatorForModel(model, typeof(T));
+            if (validator == null)
+            {
+                //throw new ValidationServiceException("No Validator is registerd");
+            }
+            ValidationResult validationResult = validator.Validate(new ValidationContext<T>(model));
+            if (validationResult.IsValid is false)
+            {
+                throw new Exception();
+            }
         }
 
         private IValidator GetValidatorForModel(object model, Type modelType)

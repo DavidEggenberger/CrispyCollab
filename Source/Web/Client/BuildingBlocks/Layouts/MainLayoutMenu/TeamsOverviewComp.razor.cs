@@ -1,4 +1,4 @@
-﻿using Modules.IdentityModule.Shared;
+﻿using Modules.TenantIdentity.Shared.DTOs.Team;
 using Shared.Client;
 
 namespace Web.Client.Layouts.MainLayoutMenu

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Features.Messaging.Command;
+using Shared.Features.Messaging.IntegrationEvent;
 using Shared.Features.Messaging.Query;
 using Shared.Kernel.BuildingBlocks;
 using Shared.Kernel.BuildingBlocks.Services.ModelValidation;
-using SharedKernel.Interfaces;
 
 namespace Shared.Features.Server
 {
@@ -20,24 +20,19 @@ namespace Shared.Features.Server
 
     public class BaseController : ControllerBase
     {
+        protected readonly IExecutionContext executionContext;
         protected readonly ICommandDispatcher commandDispatcher;
         protected readonly IQueryDispatcher queryDispatcher;
-        protected readonly IExecutionContextAccessor executionContextAccessor;
-        protected readonly IExecutionContext webContextAccessor;
+        protected readonly IIntegrationEventDispatcher integrationEventDispatcher;
         protected readonly IValidationService validationService;
 
         public BaseController(IServiceProvider serviceProvider)
         {
+            executionContext = serviceProvider.GetRequiredService<IExecutionContext>();
             commandDispatcher = serviceProvider.GetRequiredService<ICommandDispatcher>();
             queryDispatcher = serviceProvider.GetRequiredService<IQueryDispatcher>();
-            executionContextAccessor = serviceProvider.GetRequiredService<IExecutionContextAccessor>();
-            webContextAccessor = serviceProvider.GetService<IExecutionContext>();
+            integrationEventDispatcher = serviceProvider.GetRequiredService<IIntegrationEventDispatcher>();
             validationService = serviceProvider.GetRequiredService<IValidationService>();
-        }
-
-        public async Task ActionResult()
-        {
-            
         }
     }
 }

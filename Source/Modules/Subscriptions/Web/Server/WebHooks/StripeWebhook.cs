@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using Shared.Features.Server;
 using Modules.Subscriptions.Features;
+using Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptions.Application.Commands;
 
 namespace Web.Server.Controllers.Stripe
 {
@@ -46,13 +47,13 @@ namespace Web.Server.Controllers.Stripe
                 else if (stripeEvent.Type == Events.CustomerSubscriptionTrialWillEnd)
                 {
                     var subscription = stripeEvent.Data.Object as Subscription;
-                    await commandDispatcher.DispatchAsync(new SubscriptionTrialEnded { Subscription = subscription });
+                    //await commandDispatcher.DispatchAsync(new SubscriptionTrialEnded { Subscription = subscription });
                 }
                 return Ok();
             }
             catch (StripeException e)
             {
-                throw new StripeIntegrationException(e.Message);
+                return BadRequest(e);
             }
         }
     }

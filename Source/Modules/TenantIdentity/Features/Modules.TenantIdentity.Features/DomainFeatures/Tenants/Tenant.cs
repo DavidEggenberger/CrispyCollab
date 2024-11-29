@@ -1,35 +1,40 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain.Exceptions;
+using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Features.Domain;
+using Shared.Features.Domain.Exceptions;
+using Shared.Kernel.BuildingBlocks.Auth;
 using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
-using System;
+using Shared.Kernel.Errors;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 
-namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
+namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain
 {
     public class Tenant : Entity
     {
-        private Tenant() { }
-        public Tenant(string name)
-        {
-            Name = name;
-        }
-        public Tenant(IServiceProvider serviceProvider)
-        {
-
-        }
+        public Tenant() { }
 
         public string Name { get; set; }
-        public TenantStyling Styling { get; set; }
-        public TenantSettings Settings { get; set; }
-        public SubscriptionPlanType CurrentSubscriptionPlanType { get; set; }
+        public SubscriptionPlanType SubscriptionPlanType { get; set; }
         public IReadOnlyCollection<TenantMembership> Memberships => memberships.AsReadOnly();
         private List<TenantMembership> memberships = new List<TenantMembership>();
         public IReadOnlyCollection<TenantInvitation> Invitations => invitations.AsReadOnly();
         private List<TenantInvitation> invitations = new List<TenantInvitation>();
-        public IReadOnlyCollection<TenantSubscription> TenantSubscriptions => tenantSubscriptions.AsReadOnly();
-        private List<TenantSubscription> tenantSubscriptions = new List<TenantSubscription>();
+
+        public static Tenant CreateTenantWithAdmin(string tenantName, Guid adminUserId)
+        {
+            return new Tenant
+            {
+                Name = tenantName,
+                memberships = new List<TenantMembership>
+                {
+                    new TenantMembership(adminUserId, TenantRole.Admin)
+                }
+            };
+        }
 
         public void AddUser(Guid userId, TenantRole role)
         {
@@ -38,62 +43,84 @@ namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
             TenantMembership tenantMembership;
             if ((tenantMembership = memberships.SingleOrDefault(m => m.UserId == userId)) is not null)
             {
-                tenantMembership.Role = role;
+                throw new DomainException("");
             }
             else
             {
                 memberships.Add(new TenantMembership(userId, role));
             }
         }
-        public void ChangeRoleOfMember(Guid userId, TenantRole newRole)
+
+        public void ChangeRoleOfTenantMember(Guid userId, TenantRole newRole)
         {
             ThrowIfCallerIsNotInRole(TenantRole.Admin);
 
             if (CheckIfMember(userId) is false)
             {
-                //throw new MemberNotFoundException();
+                throw new MemberNotFoundException();
             }
 
+            TenantMembership tenantMembership = memberships.Single(m => m.UserId == userId);
+            tenantMembership.Role = newRole;
         }
+
         public void RemoveUser(Guid userId)
         {
             ThrowIfCallerIsNotInRole(TenantRole.Admin);
 
             if (CheckIfMember(userId) is false)
             {
-                //throw new MemberNotFoundException();
+                throw new MemberNotFoundException();
             }
 
             memberships.Remove(memberships.Single(m => m.UserId == userId));
         }
-        public void InviteUserToRole(Guid userId, TenantRole role)
+
+        public void InviteUserToRole(string email, TenantRole role)
         {
             ThrowIfCallerIsNotInRole(TenantRole.Admin);
 
-            if (CheckIfMember(userId))
+            if (invitations.Any(invitation => invitation.Email == email))
             {
-                //throw new UserIsAlreadyMemberException();
+                throw new DomainException("");
             }
 
-            invitations.Add(new TenantInvitation { UserId = userId, Role = role });
+            invitations.Add(new TenantInvitation { Email = email, Role = role });
         }
-        public void AddSubscription(string stripeSubscriptionId, SubscriptionPlanType type, DateTime startDate, DateTime endDate, bool isTrial)
+
+        public void DeleteTenantMembership(Guid membershipId)
         {
-            
+            ThrowIfCallerIsNotInRole(TenantRole.Admin);
+
+            var tenantMembership = Memberships.SingleOrDefault(t => t.Id == membershipId);
+            if (tenantMembership == null)
+            {
+                throw Errors.NotFound(nameof(TenantMembership), membershipId);
+            }
+
+            memberships.Remove(tenantMembership);
         }
+
         public bool CheckIfMember(Guid userId)
         {
             return memberships.Any(membership => membership.UserId == userId);
         }
+
+        public void ThrowIfUserCantDeleteTenant()
+        {
+            ThrowIfCallerIsNotInRole(TenantRole.Admin);
+        }
+
+        public TenantDTO ToDTO() => new TenantDTO();
+        public TenantDetailDTO ToDetailDTO() => new TenantDetailDTO();
+
     }
 
-    public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
+    public class TenantEFConfiguration : IEntityTypeConfiguration<Tenant>
     {
         public void Configure(EntityTypeBuilder<Tenant> builder)
         {
-            builder.Navigation(b => b.Memberships)
-                .HasField("memberships")
-                .UsePropertyAccessMode(PropertyAccessMode.Field);
+            builder.ToTable("Tenant");
         }
     }
 }

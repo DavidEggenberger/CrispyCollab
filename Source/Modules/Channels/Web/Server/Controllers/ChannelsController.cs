@@ -80,6 +80,8 @@ namespace Modules.Channels.Web.Server.Controllers
         {
             Channel channel = await queryDispatcher.DispatchAsync<GetChannelById, Channel>(new GetChannelById { Id = id }, cancellationToken);
 
+
+            return Ok(channel);
         }
     }
 }

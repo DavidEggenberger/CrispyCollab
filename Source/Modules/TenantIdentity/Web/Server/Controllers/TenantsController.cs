@@ -1,100 +1,108 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Kernel.BuildingBlocks.Auth.Constants;
+using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using Shared.Features.Server;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Queries;
+using Modules.TenantIdentity.Features.DomainFeatures.Users.Application.Queries;
+using Modules.TenantIdentity.Shared.DTOs.Tenant;
+using Modules.TenantIdentity.Shared.DTOs.Tenant.Operations;
+using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Commands;
 
 namespace Modules.TenantIdentity.Web.Server.Controllers
 {
-    public class TenantsController : ControllerBase
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = AuthConstant.ApplicationAuthenticationScheme)]
+    [ApiController]
+    public class TenantsController : BaseController
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        [Authorize]
-        public class TeamController : BaseController
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        public TenantsController(SignInManager<ApplicationUser> signInManager, IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            public TeamController(IdentificationDbContext identificationDbContext, SignInManager<ApplicationUser> signInManager, IHubContext<NotificationHub> notificationHubContext, IMapper mapper)
-            {
-                this.teamManager = teamManager;
-                this.applicationUserManager = applicationUserManager;
-                this.identificationDbContext = identificationDbContext;
-                this.signInManager = signInManager;
-                this.notificationHubContext = notificationHubContext;
-            }
+            this.signInManager = signInManager;
+        }
 
-            [AllowAnonymous]
-            [HttpPost]
-            public async Task<ActionResult<TeamDTO>> CreateTeam(TeamDTO team)
-            {
-                ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                await teamManager.CreateNewAsync(applicationUser, team.Name);
-                await signInManager.RefreshSignInAsync(applicationUser);
-                return CreatedAtAction("CreateTeam", team);
-            }
+        [HttpGet("{tenantId}")]
+        [AuthorizeTenantAdmin]
+        public async Task<ActionResult<TenantDTO>> GetTenant()
+        {
+            var tenantId = executionContext.TenantId;
+            var tenant = await queryDispatcher.DispatchAsync<GetTenantByID, TenantDTO>(new GetTenantByID { TenantId = tenantId });
 
-            [HttpGet]
-            public async Task<TeamAdminInfoDTO> GetAdminInfo()
+            return Ok(tenant);
+        }
+
+        [HttpGet("{tenantId}/details")]
+        public async Task<ActionResult<TenantDetailDTO>> GetTenantDetail()
+        {
+            var tenantId = executionContext.TenantId;
+            TenantDetailDTO tenantDetail = await queryDispatcher.DispatchAsync<GetTenantDetailsByID, TenantDetailDTO>(new GetTenantDetailsByID { TenantId = tenantId });
+
+            return Ok(tenantDetail);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TenantDTO>>> GetAllTenantsWhereUserIsMember()
+        {
+            var userId = executionContext.UserId;
+            List<TenantMembershipDTO> teamMemberships = await queryDispatcher.DispatchAsync<GetAllTenantMembershipsOfUser, List<TenantMembershipDTO>>(null);
+
+            return Ok(teamMemberships);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TenantDTO>> CreateTenant(CreateTenantDTO createTenantDTO)
+        {
+            validationService.ThrowIfInvalidModel(createTenantDTO);
+
+            var createTenant = new CreateTenantWithAdmin
             {
-                Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                TeamMetrics teamMetrics = teamManager.GetMetricsForTeam(team);
-                TeamAdminInfoDTO teamAdminInfoDTO = mapper.Map<TeamAdminInfoDTO>(team);
-                teamAdminInfoDTO.Metrics = mapper.Map<TeamMetricsDTO>(teamMetrics);
-                return teamAdminInfoDTO;
-            }
+                AdminId = executionContext.UserId,
+                Name = createTenantDTO.Name
+            };
+            var createdTenant = await commandDispatcher.DispatchAsync<CreateTenantWithAdmin, TenantDTO>(null);
+
+            var user = await queryDispatcher.DispatchAsync<GetUserById, ApplicationUser>(new GetUserById { });
+            await signInManager.RefreshSignInAsync(user);
+
+            return CreatedAtAction(nameof(CreateTenant), createdTenant);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteTenant([FromRoute] Guid id)
+        {
+            await commandDispatcher.DispatchAsync<DeleteTenant>(new DeleteTenant { ExecutingUserId = executionContext.UserId, TenantId = id });
+
+            return Ok();
+        }
+
+        [HttpPost("memberships")]
+        public async Task<ActionResult> CreateTenantMembership(InviteUserToTenantDTO inviteUserToGroupDTO)
+        {
 
 
-            [HttpGet("allTeams")]
-            public async Task<IEnumerable<TeamDTO>> GetAllTeamsForUser()
-            {
-                ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                List<Team> teamMemberships = applicationUserManager.GetAllTeamsWhereUserIsMember(applicationUser);
-                return teamMemberships.Select(x => mapper.Map<TeamDTO>(x));
-            }
+            await commandDispatcher.DispatchAsync<AddUserToTenant>(null);
 
-            [HttpPost("invite")]
-            public async Task<ActionResult> InviteUsers(InviteMembersDTO inviteUserToGroupDTO)
-            {
-                Tenant tenant = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                await teamManager.InviteMembersAsync(team, inviteUserToGroupDTO.Emails);
-                return Ok();
-            }
+            return Ok();
+        }
 
-            [HttpPost("invite/revoke")]
-            public async Task<ActionResult> RevokeInvitation(RevokeInvitationDTO revokeInvitationDTO)
-            {
-                Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(revokeInvitationDTO.UserId);
-                await teamManager.RemoveInvitationAsync(team, applicationUser);
-                return Ok();
-            }
+        [HttpPut("memberships")]
+        public async Task<ActionResult> UpdateTenantMembership(ChangeRoleOfTenantMemberDTO changeRoleOfTeamMemberDTO)
+        {
+            await commandDispatcher.DispatchAsync<UpdateTenantMembership>(new UpdateTenantMembership { });
 
-            [HttpPost("changerole")]
-            public async Task<ActionResult> ChangeRoleOfTeamMember(ChangeRoleOfMemberDTO changeRoleOfTeamMemberDTO)
-            {
-                Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(changeRoleOfTeamMemberDTO.UserId);
-                await teamManager.ChangeRoleOfMemberAsync(applicationUser, team, (TeamRole)changeRoleOfTeamMemberDTO.TargetRole);
-                return Ok();
-            }
+            return Ok();
+        }
 
-            [HttpDelete("{id}")]
-            public async Task DeleteTeam(Guid id)
-            {
-                Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                ApplicationUser applicationUser = await applicationUserManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                if (team.CreatorId == applicationUser.Id)
-                {
-                    await teamManager.DeleteAsync(team);
-                }
-                await signInManager.RefreshSignInAsync(applicationUser);
-            }
+        [HttpDelete("memberships/{userId}")]
+        public async Task<ActionResult> DeleteTenantMembership(Guid id)
+        {
+            await commandDispatcher.DispatchAsync<RemoveUserFromTenant>(new RemoveUserFromTenant { });
 
-            [HttpDelete("removeMember/{id}")]
-            public async Task RemoveMember(Guid id)
-            {
-                ApplicationUser applicationUser = await applicationUserManager.FindByIdAsync(id);
-                Team team = await teamManager.FindByClaimsPrincipalAsync(HttpContext.User);
-                await teamManager.RemoveMemberAsync(team, applicationUser);
-            }
+            return Ok();
         }
     }
 }
-

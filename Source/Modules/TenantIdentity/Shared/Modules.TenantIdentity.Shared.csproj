@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Subscription\Web\DTOs\Modules.Subscriptions.Shared.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\Subscriptions\Shared\Modules.Subscriptions.Shared.csproj" />
   </ItemGroup>
 
 </Project>

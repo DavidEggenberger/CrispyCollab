@@ -4,7 +4,7 @@ using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptions
 {
-    public class StripeSubscription : AggregateRoot
+    public class StripeSubscription : Entity
     {
         public StripeCustomer StripeCustomer { get; set; }
         public DateTime ExpirationDate { get; set; }

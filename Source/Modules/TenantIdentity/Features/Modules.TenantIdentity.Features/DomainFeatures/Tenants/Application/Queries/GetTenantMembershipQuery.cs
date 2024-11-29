@@ -1,27 +1,26 @@
-﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
-using Shared.Features.Messaging.Query;
-using Shared.Features.Server;
-using System;
-using System.Linq;
+﻿using Shared.Features.Messaging.Query;
 using System.Threading;
+using Shared.Features.Server;
+using Modules.TenantIdentity.Shared.DTOs.Tenant;
+using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Queries
 {
-    public class GetTenantMembershipQuery : Query<TenantMembership>
+    public class GetTenantMembershipQuery : Query<TenantMembershipDTO>
     {
         public Guid UserId { get; set; }
         public Guid TenantId { get; set; }
     }
-    public class GetTenantMembershipQueryHandler : ServerExecutionBase<TenantIdentityModule>, IQueryHandler<GetTenantMembershipQuery, TenantMembership>
+    public class GetTenantMembershipQueryHandler : ServerExecutionBase<TenantIdentityModule>, IQueryHandler<GetTenantMembershipQuery, TenantMembershipDTO>
     {
-        public GetTenantMembershipQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
+        public GetTenantMembershipQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
-        public Task<TenantMembership> HandleAsync(GetTenantMembershipQuery query, CancellationToken cancellation)
+        public async Task<TenantMembershipDTO> HandleAsync(GetTenantMembershipQuery query, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var tenantMembership = module.TenantIdentityDbContext.TenantMeberships.Single(m => m.UserId == query.UserId);
+            return tenantMembership.ToDTO();
         }
     }
 }

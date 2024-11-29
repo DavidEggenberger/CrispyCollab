@@ -22,13 +22,11 @@ namespace Modules.Channels.Features.DomainFeatures.Channels
             if (votes.Any(v => v.CreatedByUserId == vote.CreatedByUserId) is false)
             {
                 votes.Add(vote);
-                AddDomainEvent(new MessageVotesUpdatedEvent());
             }
         }
         internal void RemoveVote(Reaction vote)
         {
             votes.Remove(votes.FirstOrDefault(v => v.CreatedByUserId == vote.CreatedByUserId));
-            AddDomainEvent(new MessageVotesUpdatedEvent());
         }
     }
 

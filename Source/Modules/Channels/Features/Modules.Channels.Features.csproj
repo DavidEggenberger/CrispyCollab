@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\Shared\Features\Shared.Features.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DomainFeatures\Channels\Application\EventHandlers\" />
+  </ItemGroup>
+
 </Project>

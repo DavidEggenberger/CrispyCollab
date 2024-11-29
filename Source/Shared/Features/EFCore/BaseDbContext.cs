@@ -37,7 +37,7 @@ namespace Shared.Features.EFCore
         {
             optionsBuilder.AddInterceptors(new ExecutionContextInterceptor());
             optionsBuilder.UseSqlServer(
-                executionContext.HostingEnvironment.IsProduction() ? efCoreConfiguration.SQLServerConnectionStringProd : efCoreConfiguration.SQLServerConnectionStringDev,
+                executionContext.HostingEnvironment.IsProduction() ? efCoreConfiguration.SQLServerConnectionString_Prod : efCoreConfiguration.SQLServerConnectionString_Dev,
                 sqlServerOptions =>
                 {
                     sqlServerOptions.CommandTimeout(15);

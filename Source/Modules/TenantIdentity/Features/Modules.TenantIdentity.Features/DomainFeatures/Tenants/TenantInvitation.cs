@@ -9,6 +9,7 @@ namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
     {
         public Guid UserId { get; set; }
         public TenantRole Role { get; set; }
+        public string Email { get; set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

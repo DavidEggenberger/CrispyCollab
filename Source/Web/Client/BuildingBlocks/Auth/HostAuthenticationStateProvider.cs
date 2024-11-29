@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using Modules.IdentityModule.Shared;
 using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
+using Modules.TenantIdentity.Shared.DTOs;
 
 namespace Web.Web.Client.BuildingBlocks.Authentication
 {

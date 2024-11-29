@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Modules.Channels.Features.DomainFeatures.Channels.Events;
 using Shared.Features.Domain;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels

@@ -12,9 +12,9 @@ using Shared.Features.Modules;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using System.Reflection;
 using System.Security.Claims;
-using Shared.Features.Modules.Configuration;
 using Modules.TenantIdentity.Features.DomainFeatures.Users;
 using Modules.TenantIdentity.Features.Infrastructure.EFCore;
+using Shared.Features.Configuration;
 
 namespace Modules.TenantIdentity.Web.Server
 {
@@ -26,7 +26,7 @@ namespace Modules.TenantIdentity.Web.Server
             services.AddSingleton<OpenIdConnectPostConfigureOptions>();
             services.AddScoped<UserClaimsPrincipalFactory<ApplicationUser>>();
 
-            services.RegisterModuleConfiguration<TenantIdentityConfiguration, TenantIdentityConfigurationValidator>(configuration);
+            services.RegisterConfiguration<TenantIdentityConfiguration, TenantIdentityConfigurationValidator>(configuration);
 
             services.Configure<SecurityStampValidatorOptions>(options =>
             {
