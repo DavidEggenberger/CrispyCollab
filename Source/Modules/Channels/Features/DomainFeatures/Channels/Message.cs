@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Modules.Channels.Features.DomainFeatures.Channels.Events;
 using Shared.Features.Domain;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels
@@ -19,14 +18,14 @@ namespace Modules.Channels.Features.DomainFeatures.Channels
         public List<Reaction> MakeMessageTopicVotes => votes;
         internal void AddVote(Reaction vote)
         {
-            if (votes.Any(v => v.CreatedByUserId == vote.CreatedByUserId) is false)
+            if (votes.Any(v => v.UserId == vote.UserId) is false)
             {
                 votes.Add(vote);
             }
         }
         internal void RemoveVote(Reaction vote)
         {
-            votes.Remove(votes.FirstOrDefault(v => v.CreatedByUserId == vote.CreatedByUserId));
+            votes.Remove(votes.FirstOrDefault(v => v.UserId == vote.UserId));
         }
     }
 

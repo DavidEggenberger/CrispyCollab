@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
 using Modules.TenantIdentity.Shared.DTOs;
+using Modules.TenantIdentity.Shared.DTOs.IdentityOperations;
 
 namespace Web.Web.Client.BuildingBlocks.Authentication
 {

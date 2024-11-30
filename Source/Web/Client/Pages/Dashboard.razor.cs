@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Modules.TenantIdentity.Shared.DTOs.Team;
+using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Client;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 
@@ -9,11 +9,11 @@ namespace Web.Client.Components.Dashboard.Pages
     {
         [Inject]
         public HttpClientService httpClientService { get; set; }
-        public List<TeamDTO> Teams { get; set; }
+        public List<TenantDTO> Teams { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Teams = await httpClientService.GetFromAPIAsync<List<TeamDTO>>("api/Team/all");
+            Teams = await httpClientService.GetFromAPIAsync<List<TenantDTO>>("api/Team/all");
         }    
     }
 }

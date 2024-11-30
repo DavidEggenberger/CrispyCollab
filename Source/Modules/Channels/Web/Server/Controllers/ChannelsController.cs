@@ -39,16 +39,16 @@ namespace Modules.Channels.Web.Server.Controllers
         [HttpPost]
         public async Task CreateChannel([FromBody] ChannelDTO createChannelDTO, CancellationToken cancellationToken)
         {
-            var createChannelCommand = mapper.Map<CreateChannel>(createChannelDTO);
-            await commandDispatcher.DispatchAsync(createChannelCommand, cancellationToken);
+            //var createChannelCommand = mapper.Map<CreateChannel>(createChannelDTO);
+            //await commandDispatcher.DispatchAsync(createChannelCommand, cancellationToken);
         }
 
         [HttpPut("{id}")]
         [AuthorizeTenantAdmin]
         public async Task UpdateChannel([FromBody] ChannelDTO updateChannelDTO, CancellationToken cancellationToken)
         {
-            ChangeChannelName updateChannelCommand = mapper.Map<ChangeChannelName>(updateChannelDTO);
-            await commandDispatcher.DispatchAsync(updateChannelCommand, cancellationToken);
+            //ChangeChannelName updateChannelCommand = mapper.Map<ChangeChannelName>(updateChannelDTO);
+            //await commandDispatcher.DispatchAsync(updateChannelCommand, cancellationToken);
         }
 
         //[HttpPost("createMessage")]

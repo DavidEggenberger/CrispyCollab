@@ -97,7 +97,6 @@ namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
             var tenant = await Tenants
                 .Include(t => t.Memberships)
                 .Include(t => t.Invitations)
-                .Include(t => t.TenantSubscriptions)
                 .FirstOrDefaultAsync(t => t.TenantId == tenantId);
             if (tenant == null)
             {

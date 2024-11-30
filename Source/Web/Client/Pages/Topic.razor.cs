@@ -1,4 +1,6 @@
 ﻿using Blazor.Diagrams.Core;
+using Blazor.Diagrams.Core.Options;
+using Blazor.Diagrams.Options;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -12,26 +14,26 @@ namespace Web.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var options = new DiagramOptions
-            {
-                DeleteKey = "Delete",
-                DefaultNodeComponent = null,
-                AllowMultiSelection = true,
-                AllowPanning = false,
-                Zoom = new DiagramZoomOptions
-                {
-                    Enabled = false
-                },
-                Links = new DiagramLinkOptions
-                {
-                    DefaultColor = "white"
-                }
-            };
-            diagram = new Diagram(options);
+            //var options = new BlazorDiagramOptions
+            //{
+            //    DeleteKey = "Delete",
+            //    DefaultNodeComponent = null,
+            //    AllowMultiSelection = true,
+            //    AllowPanning = false,
+            //    Zoom = new DiagramZoomOptions
+            //    {
+            //        Enabled = false
+            //    },
+            //    Links = new DiagramLinkOptions
+            //    {
+            //        DefaultColor = "white"
+            //    }
+            //};
+            //diagram = new Diagram(options);
 
 
-            StateHasChanged();
-            await Task.Delay(100);
+            //StateHasChanged();
+            //await Task.Delay(100);
         }
 
         public void OnDrop(DragEventArgs e)
