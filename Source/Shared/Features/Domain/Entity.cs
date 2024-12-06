@@ -1,6 +1,6 @@
 ﻿using Shared.Features.DomainKernel.Exceptions;
 using Shared.Kernel.BuildingBlocks;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.DomainKernel;
 using Shared.Kernel.Errors.Exceptions;
 using Shared.SharedKernel.Interfaces;
 using System.ComponentModel.DataAnnotations;

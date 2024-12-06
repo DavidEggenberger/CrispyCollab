@@ -1,4 +1,4 @@
-﻿namespace Shared.Kernel.BuildingBlocks.Auth.DomainKernel
+﻿namespace Shared.Kernel.DomainKernel
 {
     public enum TenantRole
     {

@@ -1,4 +1,4 @@
-﻿using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+﻿using Shared.Kernel.DomainKernel;
 
 namespace Shared.Kernel.BuildingBlocks.Authorization.Services
 {

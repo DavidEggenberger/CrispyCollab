@@ -1,10 +1,9 @@
 ﻿namespace Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptions
 {
-    public enum SubscriptionStatus
+    public enum StripeSubscriptionStatus
     {
         Active,
-        Canceled,
         Trialing,
-        Unpaid
+        Paused
     }
 }

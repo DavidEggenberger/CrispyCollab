@@ -1,5 +1,5 @@
-﻿using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+using Shared.Kernel.DomainKernel;
 
 namespace Shared.Kernel.BuildingBlocks
 {

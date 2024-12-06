@@ -20,5 +20,14 @@ namespace Shared.Features.Messaging.IntegrationEvent
                 eventHandler.HandleAsync(integrationEvent, cancellation);
             }
         }
+
+        public async Task RaiseAndWaitForCompletionAsync<TIntegrationEvent>(TIntegrationEvent integrationEvent, CancellationToken cancellation = default) where TIntegrationEvent : IIntegrationEvent
+        {
+            var eventHandlers = serviceProvider.GetServices<IIntegrationEventHandler<TIntegrationEvent>>();
+            foreach (var eventHandler in eventHandlers)
+            {
+                await eventHandler.HandleAsync(integrationEvent, cancellation);
+            }
+        }
     }
 }

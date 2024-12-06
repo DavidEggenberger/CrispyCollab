@@ -5,11 +5,11 @@ using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Features.Domain;
 using Shared.Features.Domain.Exceptions;
 using Shared.Kernel.BuildingBlocks.Auth;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 using Shared.Kernel.Errors;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Shared.Kernel.DomainKernel;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain
 {

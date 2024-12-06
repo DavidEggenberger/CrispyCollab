@@ -1,7 +1,7 @@
 ﻿using Modules.Subscriptions.Features.Infrastructure.StripePayments;
 using Shared.Features.Configuration;
 using Shared.Kernel.BuildingBlocks.Auth;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.DomainKernel;
 
 namespace Modules.Subscriptions.Features.Infrastructure.Configuration
 {

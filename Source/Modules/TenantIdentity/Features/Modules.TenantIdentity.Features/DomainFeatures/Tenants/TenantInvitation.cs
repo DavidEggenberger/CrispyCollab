@@ -1,5 +1,5 @@
 ﻿using Shared.Features.Domain;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.DomainKernel;
 using System;
 using System.Collections.Generic;
 

@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
 using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Features.Domain;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
 using System;
+using Shared.Kernel.DomainKernel;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
 {

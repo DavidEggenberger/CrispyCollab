@@ -1,53 +1,47 @@
-﻿namespace Modules.Subscriptions.Web.Server.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using Modules.Subscriptions.Features.Infrastructure.StripePayments;
+using Shared.Features.Server;
+using Shared.Kernel.DomainKernel;
+using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
+
+namespace Modules.Subscriptions.Server.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
-    //[AuthorizeTeamAdmin]
-    //public class StripeSessionController : ControllerBase
-    //{
-    //    private readonly IStripeSessionService stripeSessionService;
-    //    private readonly IStripeSubscriptionService stripeSubscriptionService;
-    //    private readonly string returnUrl;
-    //    public StripeSessionController(IStripeSessionService stripeSessionService, IServerInformationProvider serverInformationProvider, IStripeSubscriptionService stripeSubscriptionService)
-    //    {
-    //        this.stripeSessionService = stripeSessionService;
-    //        this.stripeSubscriptionService = stripeSubscriptionService;
-    //        returnUrl = serverInformationProvider.BaseURI.AbsoluteUri;
-    //    }
+    [Route("api/[controller]")]
+    [ApiController]
+    [AuthorizeTenantAdmin]
+    public class StripeSessionController : BaseController
+    {
+        public StripeSessionController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
-    //    public async Task<IActionResult> CancelSubscription()
-    //    {
-    //        return Ok();
-    //    }
+        [HttpPost("checkout/{subscriptionPlanType}")]
+        public async Task<ActionResult> RedirectToStripePremiumSubscription([FromRoute] SubscriptionPlanType subscriptionPlanType)
+        {
+            var createStripeCheckoutSession = new CreateStripeCheckoutSession
+            {
+                SubscriptionPlanType = subscriptionPlanType,
+                UserId = executionContext.UserId,
+                TenantId = executionContext.TenantId,
+                RedirectBaseUrl = executionContext.BaseURI.AbsoluteUri
+            };
+            var checkoutSession = await commandDispatcher.DispatchAsync<CreateStripeCheckoutSession, Stripe.Checkout.Session>(createStripeCheckoutSession);
 
-    //    [HttpPost("Subscribe/Premium")]
-    //    public async Task<ActionResult> RedirectToStripePremiumSubscription()
-    //    {
-    //        var premiumSubscription = stripeSubscriptionService.GetSubscriptionType(SubscriptionPlanType.Professional);
-    //        var checkoutSession = await stripeSessionService.CreateCheckoutSessionAsync(returnUrl, ApplicationUser, Tenant.Id, premiumSubscription);
+            Response.Headers.Add("Location", checkoutSession.Url);
+            return new StatusCodeResult(303);
+        }
 
-    //        Response.Headers.Add("Location", checkoutSession.Url);
-    //        return new StatusCodeResult(303);
-    //    }
+        [Route("/portal-session")]
+        [HttpPost]
+        public async Task<ActionResult> Create()
+        {
+            var createBillingPortalSession = new CreateStripeBillingPortalSession
+            {
+                UserId = executionContext.UserId,
+                RedirectBaseUrl = executionContext.BaseURI.AbsoluteUri,
+            };
+            var billingPortalSession = await commandDispatcher.DispatchAsync<CreateStripeBillingPortalSession, Stripe.BillingPortal.Session>(createBillingPortalSession);
 
-    //    [HttpPost("Subscribe/Enterprise")]
-    //    public async Task<ActionResult> RedirectToStripeEnterpriseSubscription()
-    //    {
-    //        var enterpriseSubscription = stripeSubscriptionService.GetSubscriptionType(SubscriptionPlanType.Enterprise);
-    //        var checkoutSession = await stripeSessionService.CreateCheckoutSessionAsync(returnUrl, ApplicationUser, Tenant.Id, enterpriseSubscription);
-
-    //        Response.Headers.Add("Location", checkoutSession.Url);
-    //        return new StatusCodeResult(303);
-    //    }
-
-    //    [Route("create-portal-session")]
-    //    [HttpPost]
-    //    public async Task<ActionResult> Create()
-    //    {
-    //        var billingPortalSession = await stripeSessionService.CreateBillingPortalSessionAsync(returnUrl, ApplicationUser.StripeCustomerId);
-
-    //        Response.Headers.Add("Location", billingPortalSession.Url);
-    //        return new StatusCodeResult(303);
-    //    }
-    //}
+            Response.Headers.Add("Location", billingPortalSession.Url);
+            return new StatusCodeResult(303);
+        }
+    }
 }

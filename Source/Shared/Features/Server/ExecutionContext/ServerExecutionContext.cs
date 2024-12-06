@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared.Kernel.BuildingBlocks;
-using Shared.Kernel.BuildingBlocks.Auth.DomainKernel;
+using Shared.Kernel.DomainKernel;
 using Shared.Kernel.Extensions.ClaimsPrincipal;
 
 namespace Shared.Features.Server.ExecutionContext

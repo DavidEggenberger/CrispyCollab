@@ -1,31 +1,39 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
+using Modules.Subscriptions.Features.DomainFeatures.StripeCustomers;
+using Shared.Features.Server;
+using Shared.Kernel.BuildingBlocks.Auth;
+using Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Application.Queries;
 
+namespace Modules.Subscriptions.Server.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StripeSuccessController : BaseController
+    {
+        private readonly SignInManager<IApplicationUser> signInManager;
+        private readonly UserManager<IApplicationUser> userManager;
 
-//namespace Web.Server.Controllers.Stripe
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class StripeSuccessController : ControllerBase
-//    {
-//        //private readonly IStripeSessionService stripeSessionService;
-//        //private readonly IQueryDispatcher queryDispatcher;
-//        //private readonly SignInManager<ApplicationUser> signInManager;
-//        //public StripeSuccessController()
-//        //{
+        public StripeSuccessController(SignInManager<IApplicationUser> signInManager, UserManager<IApplicationUser> userManager, IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+            this.signInManager = signInManager;
+            this.userManager = userManager;
+        }
 
-//        //}
+        [HttpGet("/order/success")]
+        public async Task<ActionResult> OrderSuccess([FromQuery] string session_id)
+        {
+            var stripeCheckoutSession = await new SessionService().GetAsync(session_id);
 
-//        //[HttpGet("/order/success")]
-//        //public async Task<ActionResult> OrderSuccess([FromQuery] string session_id)
-//        //{
-//        //    var stripeCheckoutSession = await stripeSessionService.GetStripeCheckoutSessionAsync(session_id);
+            var getStripeCustomer = new GetStripeCustomerByStripePortalId() { StripeCustomerStripePortalId = stripeCheckoutSession.CustomerId };
+            var stripeCustomer = await queryDispatcher.DispatchAsync<GetStripeCustomerByStripePortalId, StripeCustomer>(getStripeCustomer);
 
-//        //    var user = await queryDispatcher.DispatchAsync<UserByStripeCustomerIdQuery, ApplicationUser>(new UserByStripeCustomerIdQuery { StripeCustomerId = stripeCheckoutSession.CustomerId });
+            var user = await userManager.FindByIdAsync(stripeCustomer.UserId.ToString());
 
-//        //    await signInManager.SignInAsync(user, true);
+            await signInManager.SignInAsync(user, true);
 
-//        //    return LocalRedirect("/");
-//        //}
-//    }
-//}
+            return LocalRedirect("/");
+        }
+    }
+}
