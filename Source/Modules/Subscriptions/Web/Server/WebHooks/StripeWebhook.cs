@@ -28,7 +28,7 @@ namespace Modules.Subscriptions.Server.WebHooks
 
                 // Minimum Events copied from https://stripe.com/docs/billing/subscriptions/build-subscriptions
                 // Sent when a customer clicks the Pay or Subscribe button in Checkout, informing you of a new purchase. (Stripe)
-                if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+                if (stripeEvent.Type == EventTypes.CheckoutSessionCompleted)
                 {
                     var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
 
@@ -45,7 +45,7 @@ namespace Modules.Subscriptions.Server.WebHooks
                     await commandDispatcher.DispatchAsync(createTrialingSubscription);
                 }
                 // Sent each billing interval when a payment succeeds. (Stripe)
-                else if (stripeEvent.Type == Events.InvoicePaid)
+                else if (stripeEvent.Type == EventTypes.InvoicePaid)
                 {
                     var invoice = stripeEvent.Data.Object as Invoice;
 
@@ -59,7 +59,7 @@ namespace Modules.Subscriptions.Server.WebHooks
                     await commandDispatcher.DispatchAsync(updateSubscriptionPeriod);
                 }
                 // Sent each billing interval if there is an issue with your customer’s payment method. (Stripe)
-                else if (stripeEvent.Type == Events.InvoicePaymentFailed)
+                else if (stripeEvent.Type == EventTypes.InvoicePaymentFailed)
                 {
                     var invoice = stripeEvent.Data.Object as Invoice;
 
