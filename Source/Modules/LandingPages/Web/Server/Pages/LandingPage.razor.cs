@@ -2,7 +2,7 @@
 using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace Modules.LandingPages.Web.Server.Pages
+namespace Modules.LandingPages.Server.Pages
 {
     public partial class LandingPage : ComponentBase
     {
@@ -57,7 +57,7 @@ namespace Modules.LandingPages.Web.Server.Pages
                     return;
                 }
                 var currentIndex = (int)SelectedFeature;
-                SelectedFeature = (FeatureSection)((currentIndex % 4) + 1);
+                SelectedFeature = (FeatureSection)(currentIndex % 4 + 1);
                 StateHasChanged();
             }
         }

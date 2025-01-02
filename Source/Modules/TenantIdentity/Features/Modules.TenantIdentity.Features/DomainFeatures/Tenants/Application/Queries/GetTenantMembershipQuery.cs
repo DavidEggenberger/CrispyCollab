@@ -1,10 +1,10 @@
 ﻿using Shared.Features.Messaging.Query;
 using System.Threading;
 using Shared.Features.Server;
-using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using Modules.TenantIdentity.Public.DTOs.Tenant;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Application.Queries
 {

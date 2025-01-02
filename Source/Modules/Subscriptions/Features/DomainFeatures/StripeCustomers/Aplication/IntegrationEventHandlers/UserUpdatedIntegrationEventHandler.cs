@@ -1,4 +1,4 @@
-﻿using Modules.TenantIdentity.IntegrationEvents;
+﻿using Modules.TenantIdentity.Public;
 using Shared.Features.Messaging.IntegrationEvent;
 
 namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Aplication.IntegrationEventHandlers

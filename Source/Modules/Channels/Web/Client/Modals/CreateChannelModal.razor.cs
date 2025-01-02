@@ -1,4 +1,4 @@
-﻿namespace Modules.Channels.Web.Web.Client.Modals
+﻿namespace Modules.Channels.Web.Client.Modals
 {
     //public partial class CreateChannelModal : BaseComponent
     //{

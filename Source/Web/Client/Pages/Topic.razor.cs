@@ -1,6 +1,4 @@
 ﻿using Blazor.Diagrams.Core;
-using Blazor.Diagrams.Core.Options;
-using Blazor.Diagrams.Options;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 

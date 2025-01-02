@@ -1,7 +1,7 @@
-﻿using Modules.TenantIdentity.Shared.DTOs.Tenant;
+﻿using Modules.TenantIdentity.Public.DTOs.Tenant;
 using Shared.Client;
 
-namespace Web.Client.Layouts.MainLayoutMenu
+namespace Web.Client.BuildingBlocks.Layouts.MainLayoutMenu
 {
     public partial class TeamsOverviewComponentBase : BaseComponent
     {

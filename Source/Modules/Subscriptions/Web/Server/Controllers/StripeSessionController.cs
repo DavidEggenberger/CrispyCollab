@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Modules.Subscriptions.Features.Infrastructure.StripePayments;
 using Shared.Features.Server;
+using Shared.Kernel.BuildingBlocks.Auth.Attributes;
 using Shared.Kernel.DomainKernel;
-using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
 
-namespace Modules.Subscriptions.Server.Controllers
+namespace Modules.Subscriptions.Web.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

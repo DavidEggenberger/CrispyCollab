@@ -1,4 +1,4 @@
-﻿namespace Shared.SharedKernel.Interfaces
+﻿namespace Shared.Kernel.Interfaces
 {
     public interface IIdentifiable
     {

@@ -13,7 +13,6 @@ using System.Linq;
 using SendGrid.Helpers.Errors.Model;
 using Shared.Features.EFCore;
 using Shared.Kernel.BuildingBlocks;
-using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
 
 namespace Modules.TenantIdentity.Features.Infrastructure.EFCore
 {

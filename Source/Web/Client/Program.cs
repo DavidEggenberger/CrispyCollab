@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net.Http;
-using Shared.Kernel.BuildingBlocks.Authorization;
-using Web.Web.Client.BuildingBlocks.Authentication;
-using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 using Blazored.Modal;
+using Web.Client.BuildingBlocks.Auth;
+using Web.Client.BuildingBlocks.Auth.Antiforgery;
+using Shared.Kernel.BuildingBlocks.Auth;
 
 namespace Web.Client
 {

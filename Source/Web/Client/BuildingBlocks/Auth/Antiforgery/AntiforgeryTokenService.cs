@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Web.Web.Client.BuildingBlocks.Authentication.Antiforgery
+namespace Web.Client.BuildingBlocks.Auth.Antiforgery
 {
     public class AntiforgeryTokenService
     {

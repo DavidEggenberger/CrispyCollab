@@ -1,17 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain.Exceptions;
-using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Features.Domain;
 using Shared.Features.Domain.Exceptions;
-using Shared.Kernel.BuildingBlocks.Auth;
 using Shared.Kernel.Errors;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 using Shared.Kernel.DomainKernel;
+using Modules.TenantIdentity.Public.DTOs.Tenant;
+using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Exceptions;
 
-namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain
+namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
 {
     public class Tenant : Entity
     {

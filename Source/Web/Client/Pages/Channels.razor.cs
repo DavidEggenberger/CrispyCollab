@@ -1,4 +1,4 @@
-﻿using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
+﻿using Modules.Channels.Public.DTOs.ChannelAggregate;
 using Shared.Client;
 
 namespace Web.Client.Pages

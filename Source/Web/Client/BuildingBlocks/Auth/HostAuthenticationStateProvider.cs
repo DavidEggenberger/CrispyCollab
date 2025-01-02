@@ -4,12 +4,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
 using Shared.Kernel.BuildingBlocks.Auth.Constants;
-using Modules.TenantIdentity.Shared.DTOs;
-using Modules.TenantIdentity.Shared.DTOs.IdentityOperations;
+using Modules.TenantIdentity.Public.DTOs.IdentityOperations;
+using Web.Client.BuildingBlocks.Auth.Antiforgery;
 
-namespace Web.Web.Client.BuildingBlocks.Authentication
+namespace Web.Client.BuildingBlocks.Auth
 {
     public class HostAuthenticationStateProvider : AuthenticationStateProvider
     {

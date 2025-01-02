@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using Shared.Features.Messaging.Query;
-using Shared.Features.Messaging.Command;
 using Modules.Channels.Features.DomainFeatures.Channels;
-using Modules.Channels.Features.DomainFeatures.Channels.Application.Commands;
 using Modules.Channels.Features.DomainFeatures.Channels.Application.Queries;
-using Shared.Kernel.BuildingBlocks.Authorization.Attributes;
-using Modules.Channels.Web.Shared.DTOs.ChannelAggregate;
 using Shared.Features.Server;
+using Modules.Channels.Public.DTOs.ChannelAggregate;
+using Shared.Kernel.BuildingBlocks.Auth.Attributes;
 
 namespace Modules.Channels.Web.Server.Controllers
 {

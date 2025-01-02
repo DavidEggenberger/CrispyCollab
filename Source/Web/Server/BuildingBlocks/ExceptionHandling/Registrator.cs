@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Web.Server.BuildingBlocks.HostingInformation
+namespace Web.Server.BuildingBlocks.ExceptionHandling
 {
     public static class Registrator
     {

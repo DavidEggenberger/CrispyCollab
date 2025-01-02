@@ -1,4 +1,4 @@
-﻿using Modules.TenantIdentity.Shared.DTOs.Tenant;
+﻿using Modules.TenantIdentity.Public.DTOs.Tenant;
 using Shared.Features.Messaging.Query;
 using Shared.Features.Server;
 using System;

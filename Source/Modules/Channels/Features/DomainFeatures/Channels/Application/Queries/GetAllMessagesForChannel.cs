@@ -1,6 +1,4 @@
-﻿using Modules.Channels.Features.Infrastructure.EFCore;
-using Modules.Subscriptions.Features;
-using Shared.Features.Messaging.Query;
+﻿using Shared.Features.Messaging.Query;
 using Shared.Features.Server;
 
 namespace Modules.Channels.Features.DomainFeatures.Channels.Application.Queries

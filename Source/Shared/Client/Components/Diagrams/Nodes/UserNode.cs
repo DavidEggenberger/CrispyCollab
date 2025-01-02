@@ -1,8 +1,8 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using Modules.TenantIdentity.Shared.DTOs.User;
-using Shared.Client.Diagrams.Ports;
+using Modules.TenantIdentity.Public.DTOs.User;
+using Shared.Client.Components.Diagrams.Ports;
 
-namespace Shared.Client.Diagrams.Nodes
+namespace Shared.Client.Components.Diagrams.Nodes
 {
     public class UserNode : NodeModel
     {

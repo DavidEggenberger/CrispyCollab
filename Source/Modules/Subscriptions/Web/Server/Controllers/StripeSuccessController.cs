@@ -4,9 +4,9 @@ using Stripe.Checkout;
 using Modules.Subscriptions.Features.DomainFeatures.StripeCustomers;
 using Shared.Features.Server;
 using Shared.Kernel.BuildingBlocks.Auth;
-using Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Application.Queries;
+using Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Aplication.Queries;
 
-namespace Modules.Subscriptions.Server.Controllers
+namespace Modules.Subscriptions.Web.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

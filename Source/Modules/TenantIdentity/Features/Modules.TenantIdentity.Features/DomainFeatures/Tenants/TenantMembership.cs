@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
-using Modules.TenantIdentity.Shared.DTOs.Tenant;
 using Shared.Features.Domain;
 using System;
 using Shared.Kernel.DomainKernel;
+using Modules.TenantIdentity.Public.DTOs.Tenant;
 
 namespace Modules.TenantIdentity.Features.DomainFeatures.Tenants
 {

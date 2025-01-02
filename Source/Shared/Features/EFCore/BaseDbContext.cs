@@ -7,7 +7,7 @@ using Shared.Features.EFCore.Configuration;
 using Shared.Features.EFCore.MultiTenancy;
 using Shared.Features.EFCore.MultiTenancy.Exceptions;
 using Shared.Kernel.BuildingBlocks;
-using Shared.SharedKernel.Interfaces;
+using Shared.Kernel.Interfaces;
 
 namespace Shared.Features.EFCore
 {

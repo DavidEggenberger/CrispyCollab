@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Modules.TenantIdentity.Shared.DTOs.Tenant;
+using Modules.TenantIdentity.Public.DTOs.Tenant;
 using Shared.Client;
 using Shared.Kernel.BuildingBlocks.Services.Http;
 
-namespace Web.Client.Components.Dashboard.Pages
+namespace Web.Client.Pages
 {
     public partial class Dashboard : BaseComponent
     {
@@ -14,6 +14,6 @@ namespace Web.Client.Components.Dashboard.Pages
         protected override async Task OnInitializedAsync()
         {
             Teams = await httpClientService.GetFromAPIAsync<List<TenantDTO>>("api/Team/all");
-        }    
+        }
     }
 }

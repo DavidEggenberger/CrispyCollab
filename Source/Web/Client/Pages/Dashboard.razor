@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inherits BaseComponent
 
 <div class="DashboardContainer">
     <div class="DashboardHeader">
@@ -12,10 +13,3 @@
         </div>
     </div>
 </div>
-
-@code{
-    protected override Task OnInitializedAsync()
-    {
-        return base.OnInitializedAsync();
-    }
-}

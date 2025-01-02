@@ -2,7 +2,7 @@
 using Shared.Features.Modules;
 using System.Reflection;
 
-namespace Modules.Subscriptions.Features
+namespace Modules.Channels.Features
 {
     public class ChannelsModule : IModule
     {

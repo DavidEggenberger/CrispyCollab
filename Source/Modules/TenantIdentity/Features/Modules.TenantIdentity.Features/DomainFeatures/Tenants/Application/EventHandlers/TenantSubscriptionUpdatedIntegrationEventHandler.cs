@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Modules.Subscriptions.IntegrationEvents;
+using Modules.Subscriptions.Public;
 using Shared.Features.Messaging.IntegrationEvent;
 using Shared.Features.Server;
 using System;

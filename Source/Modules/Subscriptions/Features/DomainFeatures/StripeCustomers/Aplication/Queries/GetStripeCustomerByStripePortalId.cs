@@ -2,7 +2,7 @@
 using Modules.Subscriptions.Features.Infrastructure.EFCore;
 using Shared.Features.Messaging.Query;
 
-namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Application.Queries
+namespace Modules.Subscriptions.Features.DomainFeatures.StripeCustomers.Aplication.Queries
 {
     public class GetStripeCustomerByStripePortalId : Query<StripeCustomer>
     {

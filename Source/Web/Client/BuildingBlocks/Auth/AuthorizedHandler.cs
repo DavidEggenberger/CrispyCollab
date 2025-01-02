@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
-using Web.Web.Client.BuildingBlocks.Authentication.Antiforgery;
+using Web.Client.BuildingBlocks.Auth.Antiforgery;
 
-namespace Web.Web.Client.BuildingBlocks.Authentication
+namespace Web.Client.BuildingBlocks.Auth
 {
     public class AuthorizedHandler : DelegatingHandler
     {

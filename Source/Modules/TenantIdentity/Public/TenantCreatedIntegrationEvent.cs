@@ -1,6 +1,6 @@
 ﻿using Shared.Kernel.BuildingBlocks;
 
-namespace IntegrationEvents
+namespace Modules.TenantIdentity.Public
 {
     public class TenantCreatedIntegrationEvent : IIntegrationEvent
     {

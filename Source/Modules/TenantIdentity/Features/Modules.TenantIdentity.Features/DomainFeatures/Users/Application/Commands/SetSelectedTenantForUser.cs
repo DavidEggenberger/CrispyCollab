@@ -1,5 +1,4 @@
-﻿using Modules.TenantIdentity.Features.Infrastructure.EFCore;
-using Shared.Features.Messaging.Command;
+﻿using Shared.Features.Messaging.Command;
 using Shared.Features.Server;
 using System;
 using System.Threading;

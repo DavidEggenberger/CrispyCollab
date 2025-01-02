@@ -1,7 +1,7 @@
 ﻿using Blazor.Diagrams.Core.Models;
 using Blazor.Diagrams.Core.Models.Base;
 
-namespace Shared.Client.Diagrams.Ports
+namespace Shared.Client.Components.Diagrams.Ports
 {
     public class NodePort : PortModel
     {

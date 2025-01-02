@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modules.TenantIdentity.Shared.DTOs.User
+﻿namespace Modules.TenantIdentity.Public.DTOs.User
 {
     public class UserDTO
     {

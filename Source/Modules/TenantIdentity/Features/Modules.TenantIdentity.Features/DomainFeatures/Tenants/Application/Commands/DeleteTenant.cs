@@ -3,7 +3,6 @@ using Shared.Features.Messaging.Command;
 using System.Threading;
 using Shared.Features.Server;
 using Shared.Kernel.Errors;
-using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
 using System;
 using System.Threading.Tasks;
 

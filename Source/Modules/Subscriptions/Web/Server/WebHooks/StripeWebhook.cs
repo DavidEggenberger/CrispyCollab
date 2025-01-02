@@ -5,7 +5,7 @@ using Shared.Features.Server;
 using Modules.Subscriptions.Features;
 using Modules.Subscriptions.Features.DomainFeatures.StripeSubscriptions.Application.Commands;
 
-namespace Modules.Subscriptions.Server.WebHooks
+namespace Modules.Subscriptions.Web.Server.WebHooks
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,13 +1,14 @@
 @using Microsoft.AspNetCore.Components.Authorization
-@using global::Web.Client
-@using global::Web.Client.Layouts
+@using Web.Client
+@using Web.Client.BuildingBlocks.Layouts
+@using Web.Client.BuildingBlocks.Wrappers
+@using Web.Client.BuildingBlocks.Auth.Components
 
-
-<Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+<ExceptionHandlingWrapper>
     <CascadingAuthenticationState>
-        <Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
-            <Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>
-                    <Web.Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>
+        <AuthCascadingWrapper>
+            <TenantCascadingWrapper>
+                    <NotificationWrapper>
                         <CascadingBlazoredModal>
                             <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
                                 <Found Context="routeData">
@@ -31,10 +32,10 @@
                                 </NotFound>
                             </Router>
                         </CascadingBlazoredModal>  
-                    </Web.Web.Client.BuildingBlocks.Wrappers.NotificationWrapper>         
-            </Web.Web.Client.BuildingBlocks.Wrappers.TenantCascadingWrapper>    
-        </Web.Web.Client.BuildingBlocks.Wrappers.AuthCascadingWrapper>
+                    </NotificationWrapper>         
+            </TenantCascadingWrapper>    
+        </AuthCascadingWrapper>
     </CascadingAuthenticationState>
-</Web.Client.BuildingBlocks.Wrappers.ExceptionHandlingWrapper>
+</ExceptionHandlingWrapper>
 
 

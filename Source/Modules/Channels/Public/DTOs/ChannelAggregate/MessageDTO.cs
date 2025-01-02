@@ -1,4 +1,4 @@
-﻿namespace Modules.Channels.Web.Shared.DTOs.ChannelAggregate
+﻿namespace Modules.Channels.Public.DTOs.ChannelAggregate
 {
     public class MessageDTO
     {

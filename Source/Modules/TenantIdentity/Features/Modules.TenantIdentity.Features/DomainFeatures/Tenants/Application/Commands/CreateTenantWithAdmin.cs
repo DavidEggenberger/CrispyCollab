@@ -1,5 +1,4 @@
-﻿using Modules.TenantIdentity.Features.DomainFeatures.Tenants.Domain;
-using Modules.TenantIdentity.Shared.DTOs.Tenant;
+﻿using Modules.TenantIdentity.Public.DTOs.Tenant;
 using Shared.Features.Messaging.Command;
 using Shared.Features.Server;
 using System;

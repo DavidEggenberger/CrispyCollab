@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Features.Server;
-using System;
 
 namespace Modules.TenantIdentity.Web.Server.Controllers
 {

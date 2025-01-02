@@ -2,7 +2,7 @@
 using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace Modules.LandingPages.Web.Server
+namespace Modules.LandingPages.Server
 {
     public partial class LandingPageLayout
     {
