@@ -25,23 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscriptions", "Subscripti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TenantIdentity", "TenantIdentity", "{2EAB9402-18B3-494D-AF82-D63E296A012F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Shared", "Source\Modules\Channels\Shared\Modules.Channels.Shared.csproj", "{88AD44BF-5583-403F-AC86-6DA7958A15C1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Shared", "Source\Modules\TenantIdentity\Shared\Modules.TenantIdentity.Shared.csproj", "{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Server", "Source\Modules\TenantIdentity\Web\Server\Modules.TenantIdentity.Web.Server.csproj", "{4C83807E-706F-459F-BE57-E4EE27A60946}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Web.Client", "Source\Modules\TenantIdentity\Web\Client\Modules.TenantIdentity.Web.Client.csproj", "{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Shared", "Source\Modules\Subscriptions\Shared\Modules.Subscriptions.Shared.csproj", "{39685BEE-EF76-4342-A745-5144E1F412F8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Web.Server", "Source\Modules\Subscriptions\Web\Server\Modules.Subscriptions.Web.Server.csproj", "{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.IntegrationEvents", "Source\Modules\Channels\IntegrationEvents\Modules.Channels.IntegrationEvents.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Channels.Public", "Source\Modules\Channels\Public\Modules.Channels.Public.csproj", "{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.IntegrationEvents", "Source\Modules\Subscriptions\IntegrationEvents\Modules.Subscriptions.IntegrationEvents.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Subscriptions.Public", "Source\Modules\Subscriptions\Public\Modules.Subscriptions.Public.csproj", "{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.IntegrationEvents", "Source\Modules\TenantIdentity\IntegrationEvents\Modules.TenantIdentity.IntegrationEvents.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.TenantIdentity.Public", "Source\Modules\TenantIdentity\Public\Modules.TenantIdentity.Public.csproj", "{3CC1B0C5-BFD9-4CE2-9C01-9FD4BC73902C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2980C86A-0185-482C-8547-B157CAE9AF2F}"
 EndProject
@@ -87,14 +81,6 @@ Global
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46232C37-B89E-45C1-9ACB-E0707FC9CF96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C83807E-706F-459F-BE57-E4EE27A60946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C83807E-706F-459F-BE57-E4EE27A60946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C83807E-706F-459F-BE57-E4EE27A60946}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -103,10 +89,6 @@ Global
 		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39685BEE-EF76-4342-A745-5144E1F412F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39685BEE-EF76-4342-A745-5144E1F412F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39685BEE-EF76-4342-A745-5144E1F412F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39685BEE-EF76-4342-A745-5144E1F412F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -173,11 +155,8 @@ Global
 		{E0B90562-C57B-47C3-9219-8F0DBF17F892} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
 		{13F35C45-6601-4F92-9CB9-9F5DAD2146F4} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
 		{2EAB9402-18B3-494D-AF82-D63E296A012F} = {FA1B1370-AD0B-457B-8F6A-E6ABF5FE65B3}
-		{88AD44BF-5583-403F-AC86-6DA7958A15C1} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
-		{4E2274AD-7009-40AD-B4A5-4A5989CE37BF} = {2EAB9402-18B3-494D-AF82-D63E296A012F}
 		{4C83807E-706F-459F-BE57-E4EE27A60946} = {8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}
 		{642F9A6D-7AA1-4B0E-9F38-B86693CDEA80} = {8602DFB4-8FE1-4434-BEB7-258CDCAE98F3}
-		{39685BEE-EF76-4342-A745-5144E1F412F8} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}
 		{F399EA8D-B9DA-45C8-BE08-30E4D89E602C} = {349B99D4-4381-4B8D-A638-D73E9FFB4BF8}
 		{8A532D91-CFA8-4BC2-9758-A05DCFAF8F91} = {1E39B7E5-98E3-4299-8213-9339D0353A03}
 		{89AB8CEE-2C18-48BC-83FD-C34EADE5D40E} = {13F35C45-6601-4F92-9CB9-9F5DAD2146F4}

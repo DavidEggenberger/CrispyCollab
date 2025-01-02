@@ -10,10 +10,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\Client\Shared.Client.csproj" />
-    <ProjectReference Include="..\..\..\Subscriptions\Shared\Modules.Subscriptions.Shared.csproj" />
-    <ProjectReference Include="..\..\Shared\Modules.TenantIdentity.Shared.csproj" />
-  </ItemGroup>
-
 </Project>
