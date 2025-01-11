@@ -5,6 +5,7 @@ using Web.Server.BuildingBlocks.APIVersioning;
 using Web.Server.BuildingBlocks.ExceptionHandling;
 using Web.Server.BuildingBlocks.Logging;
 using Web.Server.BuildingBlocks.ModelValidation;
+using Web.Server.BuildingBlocks.ResponseCompression;
 using Web.Server.BuildingBlocks.SecurityHeaders;
 using Web.Server.BuildingBlocks.Swagger;
 
@@ -19,6 +20,7 @@ namespace Web.Server.BuildingBlocks
             services.Add_Logging();
             services.AddModelValidation();
             services.AddSwagger();
+            services.RegisterResponseCompression();
 
             return services;
         }
@@ -30,6 +32,7 @@ namespace Web.Server.BuildingBlocks
             applicationBuilder.UseLoggingMiddleware();
             applicationBuilder.UseSecurityHeadersMiddleware();
             applicationBuilder.UseSwaggerMiddleware();
+            applicationBuilder.UserResponseCompression();
 
             return applicationBuilder;
         }
